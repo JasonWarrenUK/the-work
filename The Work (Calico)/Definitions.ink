@@ -102,11 +102,27 @@
     //WHAT HAS BEEN THOUGHT?
         VAR ThoughtLevel_Current = ""
         VAR ThoughtLevel_Zenith = ""
-        
-        
+
+
         VAR Idea_Current = ""
         VAR Concept_Current = ""
         VAR Thesis_Current = ""
+
+        //Per-concept progress
+        //  0=Unstarted, 1=Observation, 2=Inkling, 3=Idea, 4=Concept, 5=Argument, 6=Thesis
+        VAR lvl_Rule = 0
+        VAR lvl_Faith = 0
+        VAR lvl_Meaning = 0
+        VAR lvl_Class = 0
+        VAR lvl_Art = 0
+        VAR lvl_Nature = 0
+        VAR lvl_Morality = 0
+
+        //Currently focused concept
+        VAR FocusConcept = ""
+
+        //Highest level reached across all concepts
+        VAR ThoughtZenith = 0
 
 //THE EMOTIONAL WORLD
     VAR ConvictionScore = 5

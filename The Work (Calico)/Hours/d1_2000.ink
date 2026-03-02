@@ -1,23 +1,23 @@
 === d1_2000 ===
     {BeginScene()}
 
-    -   (Begin) The Writer {Begin == 1:has a very limited amount of Time in which to finish The Work|turns back to the page.}
+    -   (Begin)
+        {TimeNumber >= 20:
+            -> d2_0800
+        }
+        {Begin == 1:
+            The Writer has a very limited amount of Time in which to finish The Work.
+        - else:
+            {updateWorldState()}
+            {printTimeName()}
+        }
 
-        <-Action(->d1_2000.AfterSelection)
+        <- Action(-> d1_2000.AfterSelection)
 
-    - (AfterSelection) There's more to do.
+    -   (AfterSelection)
+        {TimeNumber >= 20:
+            -> d2_0800
+        }
+        There's more to do.
 
     -> Begin
-
-
-    = Resources
-        -   Some Initial Ideas
-        -   You'll use these to create a Throughline
-
-            -> Goal
-
-    = Goal
-        -   You generate a Central Thesis
-        -   This will form the basis of The Work
-
-            -> END
