@@ -124,6 +124,15 @@
         //Highest level reached across all concepts
         VAR ThoughtZenith = 0
 
+        //Per-concept written state (level at which concept was committed to the page)
+        VAR written_Rule = 0
+        VAR written_Faith = 0
+        VAR written_Meaning = 0
+        VAR written_Class = 0
+        VAR written_Art = 0
+        VAR written_Nature = 0
+        VAR written_Morality = 0
+
 //THE EMOTIONAL WORLD
     VAR ConvictionScore = 5
         VAR ConvictionDesc = "You are calm. Resolute."
