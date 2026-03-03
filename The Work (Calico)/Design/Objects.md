@@ -109,21 +109,111 @@ Each object needs: what it looks like, what condition it's in, and one detail th
 
 Appear at specific hours. The world intrudes on the Writer's solitude.
 
-| # | Event | Description | Time | Status |
-|---|-------|-------------|------|--------|
-| 55 | Church bells | | midnight (12) | DRAFT |
-| 56 | A clock striking, somewhere | | every hour | DRAFT |
-| 57 | Rain against the window | | ~10pm (10) | DRAFT |
-| 58 | The gas lamp dims | | ~2am (15) — gas pressure drops | DRAFT |
-| 59 | Footsteps in the corridor | | ~11pm (11) | DRAFT |
-| 60 | A door slamming, elsewhere in the building | | ~1am (13) | DRAFT |
-| 61 | Distant artillery | | ~3am (15) | DRAFT |
-| 62 | A patrol in the street | | ~4am (16) | DRAFT |
-| 63 | The rain stops | | ~4am (16) | DRAFT |
-| 64 | A bird singing | | ~5am (17) | DRAFT |
-| 65 | The smell of baking | | ~6am (18) | DRAFT |
-| 66 | Dawn light through the curtains | | ~7am (19) | DRAFT |
-| 67 | A child crying, somewhere nearby | | ~3am (15) | DRAFT |
+Each time slot has 3 variants. One is chosen at random per playthrough, so the night feels different each time. Variants within a slot share an approximate mood but differ in specifics.
+
+### ~9pm (9) — The night begins
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 55a | A | Rain begins against the window | | DRAFT |
+| 55b | B | Wind picks up, rattling the panes | | DRAFT |
+| 55c | C | A thick fog presses against the glass | | DRAFT |
+
+### ~10pm (10) — Settling in
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 56a | A | Footsteps in the corridor, then silence | | DRAFT |
+| 56b | B | A neighbour's muffled argument through the wall | | DRAFT |
+| 56c | C | Someone playing a gramophone, faintly | | DRAFT |
+
+### ~11pm (11) — The building sleeps
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 57a | A | A door slamming, elsewhere in the building | | DRAFT |
+| 57b | B | The last tram rattling past outside | | DRAFT |
+| 57c | C | A drunk singing in the street, getting further away | | DRAFT |
+
+### Midnight (12) — The hour
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 58a | A | Church bells | | DRAFT |
+| 58b | B | Church bells, and a volley of distant gunfire | | DRAFT |
+| 58c | C | Church bells, cut short — stopping after seven | | DRAFT |
+
+### ~1am (13) — Deep night
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 59a | A | A cat yowling in the alley | | DRAFT |
+| 59b | B | The pipes groaning in the walls | | DRAFT |
+| 59c | C | A baby crying somewhere above, then soothed | | DRAFT |
+
+### ~2am (14) — The small hours
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 60a | A | The gas lamp dims — pressure dropping | | DRAFT |
+| 60b | B | The gas lamp flickers and hisses, nearly goes out | | DRAFT |
+| 60c | C | The gas lamp steadies, but the room seems darker | | DRAFT |
+
+### ~3am (15) — The dead watch
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 61a | A | Distant artillery, a low rumble | | DRAFT |
+| 61b | B | A single detonation, close enough to feel | | DRAFT |
+| 61c | C | Sirens, far off but sustained | | DRAFT |
+
+### ~4am (16) — Before dawn
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 62a | A | A patrol in the street — boots, voices, a torch | | DRAFT |
+| 62b | B | A vehicle idling, then driving away quickly | | DRAFT |
+| 62c | C | Someone running past the window | | DRAFT |
+
+### ~4:30am (16–17) — The weather shifts
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 63a | A | The rain stops — sudden, conspicuous silence | | DRAFT |
+| 63b | B | The wind drops and the fog thickens | | DRAFT |
+| 63c | C | The rain thins to a drizzle, then mist | | DRAFT |
+
+### ~5am (17) — First stirrings
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 64a | A | A bird singing — one voice, then another | | DRAFT |
+| 64b | B | A rooster, absurdly, from some nearby yard | | DRAFT |
+| 64c | C | Pigeons on the windowsill, cooing | | DRAFT |
+
+### ~6am (18) — The city wakes
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 65a | A | The smell of baking from the bakery below | | DRAFT |
+| 65b | B | A milk cart rattling over cobblestones | | DRAFT |
+| 65c | C | The first tram of the day, its bell ringing | | DRAFT |
+
+### ~7am (19) — Morning
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 66a | A | Dawn light through the curtains — grey, cold | | DRAFT |
+| 66b | B | Dawn light through the curtains — golden, unexpected | | DRAFT |
+| 66c | C | No light — the fog is too thick, but you know it's morning | | DRAFT |
+
+### Every hour — The clock
+
+| # | Variant | Event | Description | Status |
+|---|---------|-------|-------------|--------|
+| 67a | A | A clock striking, somewhere in the building | | DRAFT |
+| 67b | B | A clock striking, but you lost count | | DRAFT |
+| 67c | C | The pocket watch is wrong — was that the hour? | | DRAFT |
 
 ## H. Sensory Events — Random
 
@@ -189,4 +279,4 @@ Found inside, behind, or underneath other objects. Require examining the parent 
 - Bodily states escalate and may impose mechanical effects (fatigue reducing idea quality, hunger distracting from combination, cold reducing conviction). Design TBD.
 - Hidden objects reward thorough examination. They should contain some of the most interesting observation-provoking material.
 - Some objects may provoke different observations depending on what ideas the player already holds (future feature, not for first pass).
-- Total: 97 objects/events across all categories.
+- Total: 54 physical items + 39 timed event variants (13 slots × 3) + 9 random events + 10 bodily states + 11 hidden objects = 123 distinct pieces of content.
