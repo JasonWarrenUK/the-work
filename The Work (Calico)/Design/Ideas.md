@@ -685,13 +685,91 @@ This means the player's philosophical position begins forming from their very fi
 
 ## Inklings (Level 2)
 
-Developed from Observations, or produced by early combinations.
+Developed from Observations (dwelling on one thought) or produced by early combinations (two thoughts colliding). Inklings are vaguer than ideas but more directed than observations — the Writer senses a connection without being able to articulate it yet.
 
-| ID | Text | Source | Scores |
-|----|------|--------|--------|
-| | | | |
+Scores typically intensify from the parent observation(s). Development deepens; combination can shift direction.
 
-(Next phase — to be populated from Observations above.)
+**Path key:** `dev` = dwelling on a single observation. `combo` = combining two observations.
+
+### Rule Inklings
+
+| ID | Text | Source(s) | Path | Scores |
+|----|------|-----------|------|--------|
+| I1 | Language shapes what can be thought. Control the words and you control the thinking. | O1c or O8c | dev | Rule -50, Art -40 |
+| I2 | Rights written in law are only as strong as the will to enforce them. | O20b or O20c | dev | Rule -50, Class -40 |
+| I3 | The people who stop writing don't disappear. They just become quieter, until quiet is all they are. | O5b or O5c | dev | Rule -50, Art -50 |
+| I4 | Self-censorship is the regime's greatest achievement. It costs them nothing and silences more than any law. | O4b or O4c | dev | Rule -60, Art -50 |
+| I5 | Order requires sacrifice. The restrictions are the price of a functioning state. Everyone pays something. | O1a or O20a | dev | Rule +40, Morality +30 |
+
+### Faith Inklings
+
+| ID | Text | Source(s) | Path | Scores |
+|----|------|-----------|------|--------|
+| I6 | Scripture bends to serve whoever holds it. The text doesn't change; the reader does. | O15c | dev | Faith -60, Rule -50 |
+| I7 | The bells ring for an empty church. Ritual outlives the faith that built it. | O49c | dev | Faith -40, Meaning -30 |
+| I8 | Faith is not certainty. It is continuing when certainty is gone. | O23b or O34a | dev | Faith +20, Meaning +10 |
+| I9 | The church has stood for centuries. The bells still ring. There is wisdom in what endures. | O49a or O14a | dev | Faith +40, Meaning +20 |
+
+### Meaning Inklings
+
+| ID | Text | Source(s) | Path | Scores |
+|----|------|-----------|------|--------|
+| I10 | You could leave. The door is open. The money is there. The fact that you stay is either commitment or cowardice. | O44b/c or O65b/c | dev | Meaning -40, Rule -20 |
+| I11 | Memory edits itself. What you remember is not what happened — it's what you can bear to keep. | O9b/c or O58b/c | dev | Meaning -30, Art -20 |
+| I12 | You keep things that no longer serve you. The key. The programme. The faith. Letting go requires knowing what you are without them. | O39c or O36b/c | dev | Meaning -40, Faith -20 |
+| I13 | The crack grows. Everything that holds together is in the process of coming apart. | O40c | dev | Nature -40, Meaning -50 |
+
+### Class Inklings
+
+| ID | Text | Source(s) | Path | Scores |
+|----|------|-----------|------|--------|
+| I14 | Poverty is not a condition. It's a system of choices someone else made. | O3c or O33c or O57c | dev | Class -50 |
+| I15 | There is dignity in smallness. The soap, the bread, the careful use of ink. To attend to small things is not poverty of spirit. | O33a + O12b | combo | Class +20, Meaning +20, Morality +10 |
+
+### Art Inklings
+
+| ID | Text | Source(s) | Path | Scores |
+|----|------|-----------|------|--------|
+| I16 | Beauty serves no purpose. That may be why it matters. | O17b | dev | Art -40, Nature -10 |
+| I17 | The blank page is not potential. It is demand. It asks: what are you willing to say? | O13c | dev | Art -40, Meaning -30 |
+| I18 | The work is all that matters tonight. Everything else — the cold, the hunger, the fear — is noise. | O29a + O55a | combo | Art +30, Meaning +20 |
+| I19 | Art that serves the community is not diminished by its service. The cathedral was built to order. It is still beautiful. | O17a or O7a | dev | Art +40, Faith +20 |
+
+### Nature Inklings
+
+| ID | Text | Source(s) | Path | Scores |
+|----|------|-----------|------|--------|
+| I20 | The body doesn't negotiate. Hunger, cold, exhaustion — these are facts, not arguments. | O54b/c or O56b/c or O57b/c | dev | Nature -20, Meaning -30 |
+| I21 | Classification is not understanding. It is the illusion of understanding, filed in alphabetical order. | O19c or O66b/c | dev | Nature -40, Meaning -40 |
+| I22 | The natural world adapts. The strong survive. This is not cruelty — it is the mechanism by which everything improves. | O16a or O22a | dev | Nature +40, Class +20 |
+
+### Morality Inklings
+
+| ID | Text | Source(s) | Path | Scores |
+|----|------|-----------|------|--------|
+| I23 | A medal is the state's receipt. It acknowledges the transaction, not the cost. | O38c | dev | Rule -50, Morality -40 |
+| I24 | Obedience and virtue are not the same thing. The state has spent centuries conflating them. | O21b/c or O35b/c | dev | Rule -60, Morality -60 |
+| I25 | Duty is the structure that holds a person together when everything else falls apart. | O29a or O54a | dev | Morality +40, Meaning +30 |
+
+### Cross-Concept Inklings (Combinations)
+
+| ID | Text | Source(s) | Path | Scores |
+|----|------|-----------|------|--------|
+| I26 | The gazette restricts assembly. The hymnbook gathers voices in song. One is legal. Both are about control. | O1b/c + O23a/b | combo | Rule -40, Faith -30 |
+| I27 | The pamphlet calls hierarchy divine. The dinner bones say otherwise. God's order has a class system, and you know which end you're on. | O18a/b/c + O24c | combo | Faith -50, Class -50, Rule -40 |
+| I28 | The field guide names things without meaning. The poem means things without naming. Which is closer to truth? | O19b + O17b/c | combo | Art -30, Nature -20, Meaning -40 |
+| I29 | Your hand cramps. The ink runs low. The body and the tools conspire against the work. Perhaps the work is the problem. | O56b/c + O12b/c | combo | Art -30, Nature -20, Meaning -30 |
+| I30 | The photograph is face-down. The medal is face-up. You display what the state honours and hide what you loved. | O34c + O38a/b | combo | Morality -40, Rule -30, Meaning -30 |
+| I31 | Someone scratched days into the windowsill. You're scratching ideas into paper. Both of you are counting down to something. | O67b/c + O13b/c | combo | Meaning -40, Rule -20 |
+| I32 | Rain falls on the restricted areas too. Nature doesn't read maps. | O50c + O43b/c | combo | Nature -30, Rule -30 |
+| I33 | The alchemist promised transformation through fire. The state promises transformation through obedience. Both are selling the same lie. | O22c + O35a/b | combo | Meaning -50, Rule -50 |
+| I34 | The landlord raises the rent. The state raises the stakes. Up and up. You're the only thing that doesn't rise. | O3b/c + O43b/c | combo | Class -50, Rule -40 |
+| I35 | The razor is sharp. The pen is dull. Both leave marks. One is faster. | O32c + O12b/c | combo | Art -20, Morality -30, Meaning -30 |
+| I36 | The storybook wolf and the forbidden pamphlet. Asking questions has always been punished. The punishment just got more sophisticated. | O21b/c + O62b/c | combo | Rule -60, Morality -50 |
+| I37 | The apple rots. The soap dwindles. The crack widens. Everything in this room is a clock, counting down differently. | O25c + O40b/c | combo | Nature -30, Meaning -50 |
+| I38 | The natural order is what the powerful call the order they built. | O18b/c + O16b/c | combo | Rule -50, Nature -40, Class -40 |
+| I39 | Preserved by crushing. The flower, the specimen, the faith. The things you keep alive by stopping them from growing. | O64c + O42c | combo | Nature -40, Faith -30, Meaning -40 |
+| I40 | You were given a mind that questions. Perhaps that is the point — not the answers, but the asking. | O14c + O8b | combo | Faith -20, Meaning -30, Art -20 |
 
 ## Ideas (Level 3)
 
