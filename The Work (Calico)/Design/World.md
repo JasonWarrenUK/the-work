@@ -4,104 +4,134 @@ The setting and context that makes the objects, ideas, and recipes cohere. Every
 
 ---
 
-## What We Know
+## The Setting
 
-Established in the existing codebase and design conversations:
+### The State
 
-- **Alternate history, gaspunk.** Same geography as our world. Doesn't map exactly to any defined era, but is close. Gas infrastructure is widespread.
-- **Magic exists.** Arcane practice is real but socially suspect. Using it adds to "the list of offences." It's not fantasy-normal — it's transgressive.
-- **War has just broken out.** Recent enough to disrupt civilian life, not yet enough to collapse it. Conscription, emergency powers, rationing implied.
-- **The Writer is a scholar.** Preparing a thesis defence before a committee. Poor. Educated beyond their economic station.
-- **The committee** sits at the intersection of church, state, and academy. It is not purely academic — it has institutional and possibly judicial power.
-- **The defence has been deferred twice.** This is the last chance. The committee will not defer again.
-- **The room** is a bedsit. Kitchenette, bathroom, bedroom, and workspace in one room. Modest. Poorly heated. Cluttered with a life's worth of intellectual and personal debris.
+A post-revolutionary republic. The old monarchy was overthrown violently, within living memory. The trauma was never processed — nobody talks about what happened during the revolution. The republic tried to build an identity: a new constitution, monuments, a new calendar. None of it took. The symbols feel hollow.
 
----
+Now an emergency leader governs "for the duration" of the war. They don't replace the hollow symbols — they just stop pretending they matter. "We'll get back to that after the war." The state is defined by what it isn't (the old regime), governed by someone who promised temporary authority, surrounded by symbols that mean nothing.
 
-## The Established Doctrine
+The civil service is the real machinery of power. It barely changed between the monarchy and the republic.
 
-What the committee, the church, and the state broadly agree on. This is the orthodoxy — the worldview that a score of **+100** represents across all concepts. It is a fusion of state authority, religious tradition, and academic convention.
+### The Church
 
-### Rule (+100)
-The state is the rightful guardian of order. Its authority derives from tradition, divine mandate, and practical necessity. The war is defensive, just, and temporary. Emergency powers are regrettable but essential. Citizens owe compliance. Dissent is instability.
+The church survived the revolution by switching sides at the right moment. It condemned the monarchy, blessed the republic, and is now blessing the emergency powers. Institutionally intact — it kept its buildings, its congregations, its rituals. Morally compromised — everyone knows it bends to power. The bells still ring. The question is whether they ring for anything.
 
-### Faith (+100)
-God established the natural and social order. The church is the spiritual authority; the state is the temporal authority; both serve God's design. Scripture supports hierarchy. Doubt is human; dissent is sin. The arcane is a perversion of God's natural law.
+### The Class System
 
-### Meaning (+100)
-A person's life finds meaning through duty — to God, state, family, and craft. Meaning is inherited, not invented. The restless search for personal meaning is vanity. Purpose comes from knowing your place and fulfilling your role.
+The revolution nationalised the old aristocracy's estates and, on paper, the institutions too — the university, the church properties, the academies. In practice nothing changed. The university still runs the same way, the church still collects tithes, the buildings still belong to the people who use them. The revolution's equality is a legal fiction.
 
-### Class (+100)
-Social hierarchy reflects natural ability and divine arrangement. The educated serve the state; the labouring classes serve the economy; each has its dignity within its station. Mobility is possible through merit but not owed. Poverty is unfortunate, not unjust.
+The committee members are comfortable, well-fed, and warm. The Writer is not. Class is about institutions, not individuals — and the institutions survived.
 
-### Art (+100)
-Art and scholarship serve truth, and truth serves order. The academy exists to advance understanding within responsible bounds. Art that undermines morale, questions authority, or disturbs public peace is irresponsible. The pen should build, not burn.
+### Art and Scholarship
 
-### Nature (+100)
-The natural world operates according to God's laws, which science reveals. Natural philosophy confirms the order of things — the strong survive, ecosystems find balance, nature favours structure. The arcane disrupts natural law and is therefore both heretical and illegal.
+The revolution established formal censorship committees — originally to suppress monarchist propaganda. Those committees never disbanded. Now they review everything published, taught, or presented. The Writer's thesis goes through one. "Responsible scholarship within approved bounds" is the operating principle. The bounds are vague enough to be applied however the committee sees fit.
 
-### Morality (+100)
-Morality is objective, revealed through scripture and tradition. The moral person obeys law, fulfils duty, serves their community, and sacrifices when called upon. Conscience that contradicts law is error. The greater good outweighs individual scruple.
+### Natural Philosophy and the Arcane
 
----
+Natural philosophy is the old regime's intellectual tradition, inherited by the republic. The universities continue their work but under political supervision — certain conclusions are unwelcome, certain lines of inquiry quietly discouraged. Science is permitted but watched.
 
-## The Counter-Doctrine
+The arcane sits at the edge of natural philosophy — real but unmeasurable, socially transgressive, and doubly suspect: it belongs to the old world AND it defies institutional control. The church considers it heretical. The state considers it subversive. The academy considers it unscientific. The Writer may have encountered it in their studies.
 
-What a score of **-100** represents. Not a coherent movement — more a constellation of dangerous conclusions the Writer might reach. The committee would recognise and punish any of these positions.
+### Morality
 
-### Rule (-100)
-The state is an apparatus of control serving the powerful. Its authority rests on violence and manufactured consent. The war is imperial, unjust, and serves the ruling class. Emergency powers are permanent by design. Compliance is complicity.
+The revolution's founders genuinely believed in equality, sacrifice, and collective good. Their children run the state now and use the same words — "duty," "sacrifice," "the collective" — with none of the conviction, but without knowing they've lost it. The cynicism is unconscious, institutional. They learned the words young and never questioned whether the meaning evaporated.
 
-### Faith (-100)
-God — if God exists — did not ordain this order. The church is complicit in oppression. Scripture is a tool of power, read selectively to justify what power needs justified. True faith, if it exists, demands justice against the state, not submission to it.
+Morality +100 is revolutionary duty, inherited and unexamined. Morality -100 is recognising that the moral language has been hollowed out and that conscience must be rebuilt from scratch.
 
-### Meaning (-100)
-Meaning is not inherited — it is created, or it is absent. The "meanings" offered by state, church, and tradition are anaesthetics. The only honest act is to confront the void and build meaning from nothing. Purpose is not given; it is seized or invented.
+### Meaning
 
-### Class (-100)
-Hierarchy is constructed violence. "Natural ability" is a story told by those on top. The economy is a weapon. Poverty is not unfortunate — it is engineered. The only just society is one where the category of "station" doesn't exist.
+The republic inherited the Enlightenment's answer: meaning comes from reason, knowledge, understanding. The university is the temple of meaning. But the war and the censorship committees have corrupted the temple. Knowledge within approved bounds is the only sanctioned path to meaning.
 
-### Art (-100)
-Art that serves power is propaganda. True art is subversive by nature — it reveals what the state conceals, says what cannot be said, and exists in defiance of approval. The pen is a weapon. Scholarship that respects "responsible bounds" has already surrendered.
-
-### Nature (-100)
-Nature is indifferent to human systems. It does not confirm hierarchy, divine order, or social structure. The "natural order" is a fiction projected onto the world to justify the world as it is. The arcane is simply another way of knowing, suppressed because it defies institutional control.
-
-### Morality (-100)
-Law serves power, not justice. The only morality is conscience — what you choose when no authority is watching. Obedience to unjust law is not virtue but complicity. Sacrifice demanded by the state is not sacrifice; it is extraction. The greater good is what the powerful call their interests.
-
----
-
-## What Needs Defining
-
-### The War
-- Who is fighting whom?
-- Why?
-- How does it affect the Writer personally? (beyond conscription and rationing)
-- Is the Writer's thesis related to the war, or is the war an interruption?
-
-### The Committee
-- What institution does it belong to?
-- What power does it hold? (academic gatekeeping? ecclesiastical authority? state censorship?)
-- Who sits on it? (names not needed, but types — clerics, professors, bureaucrats?)
-- What does it want to hear? What would it punish?
-
-### The Arcane
-- What can it do?
-- Why is it suspect? (religious objection? state prohibition? class association?)
-- Does the Writer practice it, or merely know of it?
-- How does it relate to natural philosophy?
+The Writer is trying to find meaning through the very institution that is now designed to prevent genuine inquiry. The thesis defence is the republic's ritual of meaning-making, performed inside a system that can no longer tolerate the meanings the Writer might make.
 
 ### The Writer
-- What is their discipline? (theology? philosophy? natural philosophy? law?)
-- What is their background? (class origin, education, relationships)
-- Why have they deferred twice? (cowardice? unfinished work? political caution?)
-- What do they stand to lose if they fail?
+
+The Writer's discipline is not fixed. It emerges from the player's choices — which objects they examine, which readings they select, which ideas they develop and combine. A player who focuses on the Bible, the hymnbook, and the church bells is writing a theological thesis. A player who focuses on the field guide, the specimen jar, and the natural philosophy text is writing a scientific one. Most players will produce something cross-disciplinary.
+
+The thesis's dominant concept tags determine which committee member is elevated to chair, giving them greater say in the evaluation. A theology-heavy thesis gets judged primarily by the cleric. A natural-philosophy thesis by the professor. The Writer doesn't choose their judge — their work does.
+
+The Writer is poor, educated beyond their economic station, and has deferred the defence twice. This is the last chance.
+
+### The War
+
+Still to be defined. Key questions:
+- Who is fighting whom?
+- Why? (defensive? imperial? ideological?)
+- How does it affect the Writer personally? (beyond conscription and rationing)
+- Is the war related to the revolution's unfinished business?
+
+### The Committee
+
+The committee sits at the intersection of church, state, and academy. It includes:
+- A cleric (representing the church's ongoing claim to moral authority)
+- A professor (representing the academy's claim to truth)
+- A bureaucrat (representing the state's claim to order)
+- Possibly others — to be defined
+
+The chair rotates based on the thesis's dominant concept. The committee's composition means any thesis is judged against three competing standards simultaneously.
 
 ### The City
-- Where is the Writer? (a university town? a capital? a provincial city?)
+
+Still to be defined. Key questions:
+- University town? Capital? Provincial city?
 - What's the mood? (wartime anxiety, blackouts, propaganda?)
-- What institutions are nearby? (the university, a cathedral, a factory district?)
+- What institutions are nearby?
+
+---
+
+## The Established Doctrine (+100)
+
+What the committee, the church, and the state broadly agree on. This is the orthodoxy — the worldview that a score of +100 represents. It is the hollow centre of a republic that never finished defining itself.
+
+### Rule (+100)
+The emergency government protects the republic the revolution built. Its authority is temporary, necessary, and legitimate. The restrictions are regrettable but essential. The old regime was worse. Dissent is instability. We'll get back to democracy after the war.
+
+### Faith (+100)
+The church provides moral continuity. It survived the revolution because its values are eternal. God blesses the republic as He blessed the righteous cause of the revolution. Scripture supports order. The bells still ring — that should tell you something.
+
+### Meaning (+100)
+Meaning comes from knowledge, pursued within the academy's approved bounds. The university is the temple of reason. Your thesis has meaning if it serves truth — and truth serves the republic. The Writer's life has meaning because the academy gives it meaning.
+
+### Class (+100)
+The revolution achieved equality. On paper, everything is shared. In practice, institutions require hierarchy to function — that's not inequality, it's organisation. The committee members earned their positions. The Writer will earn theirs, if the thesis is sound.
+
+### Art (+100)
+Art and scholarship serve truth, and truth serves the republic. The censorship committees protect public discourse from monarchist propaganda and irresponsible speculation. Responsible scholarship operates within approved bounds. The bounds exist for everyone's protection.
+
+### Nature (+100)
+Natural philosophy reveals the world's order, which the republic's institutions are built to reflect. Science within approved frameworks produces reliable knowledge. The arcane is unscientific, socially disruptive, and possibly a remnant of the old regime's superstitions.
+
+### Morality (+100)
+Duty to the collective. Sacrifice for the common good. Equality of purpose. These are the revolution's moral foundations, and they hold. The moral person serves, contributes, and does not place individual conscience above collective need. The founders believed this. So should you.
+
+---
+
+## The Counter-Doctrine (-100)
+
+What a score of -100 represents. Not a coherent movement — a constellation of dangerous conclusions the Writer might reach.
+
+### Rule (-100)
+The emergency government is the revolution's betrayal, not its continuation. The authority is not temporary — it will never be relinquished. The restrictions are not regrettable — they are the point. The old regime was replaced by the old regime wearing a new hat. Compliance is complicity.
+
+### Faith (-100)
+The church survived by being faithless. It blessed the monarchy, then the revolution, then the emergency — it will bless anything that lets it keep its buildings. Scripture serves whoever holds power. If God has an opinion, it isn't the church's opinion. True faith, if it exists, is silent, private, and probably illegal.
+
+### Meaning (-100)
+The academy is the temple of approved meaning, which is no meaning at all. Knowledge within bounds is knowledge with its teeth pulled. The Writer's thesis is meaningless if it only says what the committee permits. Meaning must be created against the institution, not within it. The only honest work is the work that risks everything.
+
+### Class (-100)
+The revolution's equality is a legal fiction. The university, the church, the civil service — they kept everything and called it nationalisation. The committee is comfortable. The Writer is cold. The arithmetic hasn't changed since the monarchy; only the names on the letterhead.
+
+### Art (-100)
+The censorship committees are the revolution's confession that it fears ideas more than it fears the old regime. Responsible scholarship is scholarship that knows its place. The pen is a weapon, and the state knows it — that's why they watch. True art says what cannot be said. Everything else is decoration.
+
+### Nature (-100)
+Nature doesn't confirm the republic's order or anyone else's. The natural world is indifferent to human politics. The academy's "approved frameworks" are just another kind of censorship — controlling what can be known, not just what can be said. The arcane is suppressed because it suggests there are ways of knowing that the institution cannot control.
+
+### Morality (-100)
+The revolution's moral language has been hollowed out from the inside. "Duty" means compliance. "Sacrifice" means don't complain. "The collective" means the people who run the collective. The founders meant these words. Their children don't, and don't know they don't. The only honest morality is what you choose when no institution is watching.
 
 ---
 
@@ -112,6 +142,8 @@ Law serves power, not justice. The only morality is conscience — what you choo
 - **The war is pressure, not content.** The war creates urgency and context but the thesis isn't "about" the war (unless the player makes it so).
 - **The committee is both audience and threat.** Its nature should be felt through the stakes, not explained.
 - **Gaspunk, not steampunk.** Gas, not steam. Chemical, not mechanical. The aesthetic is hissing mantles and blue flames, not brass cogs.
+- **The hollow centre.** The republic's defining feature is what it lacks — a coherent identity, a moral framework that hasn't been hollowed out, a temple of meaning that still means something. The Writer's thesis is an attempt to fill that void.
+- **Emergent discipline.** The Writer's field of study is determined by play, not by premise. The committee adapts.
 
 ---
 
@@ -120,3 +152,4 @@ Law serves power, not justice. The only morality is conscience — what you choo
 - World-building decisions should be made in service of objects and ideas, not the other way around. If a world detail doesn't produce an interesting object or idea, it doesn't need to exist.
 - The world should feel larger than the room. The objects imply a city, a war, a church, a university, relationships — but the player never leaves the desk.
 - The Established Doctrine and Counter-Doctrine define the poles of the orthodoxy scale. Most interesting writing lives in the middle — but the poles must be clear for the middle to have meaning.
+- The revolution's violence and the church's opportunism are not stated to the player. They are implied through objects (the medal, the recruitment poster, the death certificate, the hymnal's inscription, the forbidden pamphlet). The player infers the world.
