@@ -1,20 +1,50 @@
 import { Story } from 'inkjs';
 import { processTags } from './tags';
 
+// inkjs ErrorType values (not reliably exported from ESM bundle)
+const INK_ERROR = 0;
+
 interface StoryState {
 	inkStory: Story | null;
 	history: string[];
+	tick: number;
 }
 
 let state: StoryState = $state({
 	inkStory: null,
-	history: []
+	history: [],
+	tick: 0
 });
 
 export async function loadStory(jsonPath: string) {
 	const response = await fetch(jsonPath);
+	if (!response.ok) {
+		throw new Error(`Failed to load story: ${response.status} ${response.statusText}`);
+	}
 	const json = await response.text();
-	state.inkStory = new Story(json);
+	const ink = new Story(json);
+
+	ink.onError = (message: string, type: number) => {
+		if (type === INK_ERROR) {
+			console.error(`Ink error: ${message}`);
+		} else {
+			console.warn(`Ink warning: ${message}`);
+		}
+	};
+
+	// Bind external functions if they exist in the compiled story.
+	// get_storylet is declared in patches/storylets.ink — only bind if
+	// that patch was INCLUDEd when the story JSON was compiled.
+	try {
+		ink.BindExternalFunction('get_storylet', (index: number) => {
+			console.warn(`get_storylet(${index}) called but storylets are not yet implemented`);
+			return '';
+		});
+	} catch {
+		// Function not declared in this build of the story — safe to ignore
+	}
+
+	state.inkStory = ink;
 }
 
 export const story = {
@@ -61,6 +91,9 @@ export const story = {
 			text: c.text
 		}));
 
+		// Bump tick so reactive consumers (StatusBar, etc.) re-derive
+		state.tick++;
+
 		return { paragraphs, choices };
 	},
 
@@ -76,6 +109,14 @@ export const story = {
 
 	get currentTags(): string[] {
 		return state.inkStory?.currentTags ?? [];
+	},
+
+	/**
+	 * Read a reactive tick that increments after each continue().
+	 * Used by $derived consumers to re-evaluate ink variable reads.
+	 */
+	get tick(): number {
+		return state.tick;
 	},
 
 	getVariable(name: string): unknown {
@@ -99,7 +140,7 @@ export const story = {
 	loadState(json: string) {
 		const ink = state.inkStory;
 		if (!ink) throw new Error('Story not loaded');
-		ink.state.LoadJsonObj(JSON.parse(json));
+		ink.state.LoadJson(json);
 	},
 
 	/** Get the full ink Story instance for advanced use */

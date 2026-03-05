@@ -2,8 +2,9 @@
 	import { fade } from 'svelte/transition';
 	import { story } from '$lib/engine/story.svelte';
 
-	let timeName = $derived((story.getVariable('TimeName') as string) ?? '');
-	let convictionDesc = $derived((story.getVariable('ConvictionDesc') as string) ?? '');
+	// Reading story.tick inside $derived ensures these re-evaluate after each continue()
+	let timeName = $derived((() => { story.tick; return (story.getVariable('TimeName') as string) ?? ''; })());
+	let convictionDesc = $derived((() => { story.tick; return (story.getVariable('ConvictionDesc') as string) ?? ''; })());
 </script>
 
 {#if timeName || convictionDesc}

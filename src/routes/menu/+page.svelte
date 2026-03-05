@@ -1,17 +1,17 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
-	import { hasAutosave, deleteSave } from '$lib/game/save-load';
+	import { hasAutosave, deleteAutosave } from '$lib/game/save-load';
 
 	let canContinue = $state(false);
 
-	import { onMount } from 'svelte';
 	onMount(() => {
 		canContinue = hasAutosave();
 	});
 
 	function newGame() {
-		deleteSave('the-work-autosave');
+		deleteAutosave();
 		goto('/');
 	}
 

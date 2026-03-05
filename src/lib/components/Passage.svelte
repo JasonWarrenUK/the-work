@@ -1,15 +1,24 @@
 <script lang="ts">
-	import { fly, fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	let { paragraphs }: { paragraphs: string[] } = $props();
+
+	let paragraphId = 0;
+
+	interface KeyedParagraph {
+		id: number;
+		text: string;
+	}
+
+	let keyed: KeyedParagraph[] = $derived(
+		paragraphs.map((text) => ({ id: paragraphId++, text }))
+	);
 </script>
 
 <div class="passage">
-	{#each paragraphs as text, i (text + i)}
-		<p
-			in:fade={{ duration: 500, delay: i * 50 }}
-		>
-			{@html text}
+	{#each keyed as para (para.id)}
+		<p in:fade={{ duration: 500, delay: para.id * 50 }}>
+			{para.text}
 		</p>
 	{/each}
 </div>

@@ -19,15 +19,19 @@ We keep **all .ink files unchanged**. The narrative and game logic stay in Ink.
 | Layer | Choice | Why |
 |---|---|---|
 | **Framework** | **SvelteKit** + `adapter-static` | File-based routing for game/menu/settings, SSG output deploys anywhere (itch.io, Netlify), compiles away to minimal JS |
-| **Reactivity** | **Svelte 5 runes** | `$state`, `$derived`, `$effect` — no external state library needed for ~30 ink variables |
-| **Story engine** | **inkjs** | Direct integration, TypeScript typed, wrap in a Svelte service |
-| **UI components** | **shadcn-svelte** | Copy-paste components (not a dependency), full visual control, built-in dark mode via CSS variables. Built on Bits UI + Melt UI |
-| **Styling** | **Tailwind CSS v4** + custom CSS variables | Atmospheric theming — swap palettes by changing variable sets |
-| **Text animation** | **GSAP** (free) + SplitText | Word-by-word reveal, typewriter effects, timeline sequencing. Now fully free including all plugins |
-| **Built-in transitions** | Svelte `fade`, `fly`, `blur`, `slide` | Passage fades, choice slides, scene transitions — native, zero-dependency |
-| **Audio** | **Howler.js** (7KB) | Ambient loops, SFX, crossfading, handles autoplay restrictions |
-| **Typography** | **Literata** variable font | Designed for long reading, weight axis animatable for mood shifts |
-| **PWA** | **vite-plugin-pwa** | Offline play, installable, service worker auto-generated |
+| **Runtime** | **Bun** | Fast installs, drop-in Node replacement |
+| **Reactivity** | **Svelte 5 runes** | `$state`, `$derived` with tick-based invalidation for ink variable reads |
+| **Story engine** | **inkjs** | Direct integration, TypeScript typed, wrapped in reactive Svelte service |
+| **Styling** | **Custom CSS variables** | Atmospheric theming — mood-based palette swaps via `data-mood` attribute |
+| **Transitions** | **Svelte built-in** (`fade`) | Passage fades, choice animations — native, zero-dependency |
+| **Typography** | **Literata** variable font *(planned)* | Designed for long reading, weight axis animatable for mood shifts |
+| **Audio** | **Howler.js** *(planned)* | Ambient loops, SFX, crossfading, handles autoplay restrictions |
+| **PWA** | **vite-plugin-pwa** *(planned)* | Offline play, installable, service worker auto-generated |
+
+### Considered but deferred
+| **UI components** | **shadcn-svelte** | May add later if UI complexity grows beyond what custom CSS handles |
+| **Styling framework** | **Tailwind CSS v4** | Currently using plain CSS variables; Tailwind adds weight for a text game |
+| **Text animation** | **GSAP + SplitText** | Now free; add when ready for word-by-word reveal effects |
 
 ---
 

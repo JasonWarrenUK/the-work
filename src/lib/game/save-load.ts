@@ -43,3 +43,7 @@ export function loadAutosave(): SaveData | null {
 export function hasAutosave(): boolean {
 	return hasSave(AUTOSAVE_KEY);
 }
+
+export function deleteAutosave(): void {
+	deleteSave(AUTOSAVE_KEY);
+}
