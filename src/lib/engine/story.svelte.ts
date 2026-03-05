@@ -37,7 +37,12 @@ export const story = {
 
 			// Process tags for this line
 			const tags = ink.currentTags ?? [];
-			const { clear } = processTags(tags);
+			const { clear, mood } = processTags(tags);
+
+			// Apply mood to body for atmospheric CSS
+			if (mood && typeof document !== 'undefined') {
+				document.body.dataset.mood = mood;
+			}
 
 			if (clear) {
 				// #CLEAR means wipe everything before this line
