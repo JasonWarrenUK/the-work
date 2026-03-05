@@ -6,8 +6,8 @@
             ~ FocusConcept = "Rule"
         ++ {lvl_Faith >= 3 && lvl_Faith > written_Faith} [Faith — {levelName(lvl_Faith)}]
             ~ FocusConcept = "Faith"
-        ++ {lvl_Meaning >= 3 && lvl_Meaning > written_Meaning} [Meaning — {levelName(lvl_Meaning)}]
-            ~ FocusConcept = "Meaning"
+        ++ {lvl_Truth >= 3 && lvl_Truth > written_Truth} [Truth — {levelName(lvl_Truth)}]
+            ~ FocusConcept = "Truth"
         ++ {lvl_Class >= 3 && lvl_Class > written_Class} [Class — {levelName(lvl_Class)}]
             ~ FocusConcept = "Class"
         ++ {lvl_Art >= 3 && lvl_Art > written_Art} [Art — {levelName(lvl_Art)}]
@@ -52,11 +52,11 @@
 
         ** (examine_pamphlet) [A discarded pamphlet]
             Dense with argument. The author was trying to mean something, to say something that mattered.
-            {lvl_Meaning == 0:
-                {advanceConcept("Meaning")}
-                {printAdvancement("Meaning", 1)}
+            {lvl_Truth == 0:
+                {advanceConcept("Truth")}
+                {printAdvancement("Truth", 1)}
             - else:
-                The question of Meaning is already in your thoughts.
+                The question of Truth is already in your thoughts.
             }
             {advanceTime()}
 
@@ -111,8 +111,8 @@
                 ~ FocusConcept = "Rule"
             +++ {lvl_Faith >= 2 && lvl_Faith < 6} [Faith]
                 ~ FocusConcept = "Faith"
-            +++ {lvl_Meaning >= 2 && lvl_Meaning < 6} [Meaning]
-                ~ FocusConcept = "Meaning"
+            +++ {lvl_Truth >= 2 && lvl_Truth < 6} [Truth]
+                ~ FocusConcept = "Truth"
             +++ {lvl_Class >= 2 && lvl_Class < 6} [Class]
                 ~ FocusConcept = "Class"
             +++ {lvl_Art >= 2 && lvl_Art < 6} [Art]
@@ -134,8 +134,8 @@
                 ~ FocusConcept = "Rule"
             +++ {lvl_Faith >= 2} [Faith]
                 ~ FocusConcept = "Faith"
-            +++ {lvl_Meaning >= 2} [Meaning]
-                ~ FocusConcept = "Meaning"
+            +++ {lvl_Truth >= 2} [Truth]
+                ~ FocusConcept = "Truth"
             +++ {lvl_Class >= 2} [Class]
                 ~ FocusConcept = "Class"
             +++ {lvl_Art >= 2} [Art]

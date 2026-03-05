@@ -24,9 +24,17 @@ The revolution nationalised the old aristocracy's estates and, on paper, the ins
 
 The committee members are comfortable, well-fed, and warm. The Writer is not. Class is about institutions, not individuals — and the institutions survived.
 
-### Art and Scholarship
+### Art
+
+Art in the republic is tolerated but watched. The concert halls still open, the poets still publish, the galleries still hang work — but everything passes through the committees first. Beauty is permitted. Expression is permitted. What isn't permitted is expression that makes people feel something the state can't use. The distinction is never stated, only enforced.
+
+The Writer has a collection of poetry, a concert programme, a half-finished sketch. Art exists in the bedsit as memory and as longing — the world as it was, or as it could be.
+
+### Truth
 
 The revolution established formal censorship committees — originally to suppress monarchist propaganda. Those committees never disbanded. Now they review everything published, taught, or presented. The Writer's thesis goes through one. "Responsible scholarship within approved bounds" is the operating principle. The bounds are vague enough to be applied however the committee sees fit.
+
+The republic inherited the Enlightenment's promise: truth comes from reason, knowledge, understanding. The university is the temple of truth. But the war and the censorship committees have corrupted the temple. Knowledge within approved bounds is the only sanctioned path to truth. The Writer is trying to find truth through the very institution that is now designed to prevent genuine inquiry. The thesis defence is the republic's ritual of truth-making, performed inside a system that can no longer tolerate the truths the Writer might find.
 
 ### Natural Philosophy and the Arcane
 
@@ -40,11 +48,13 @@ The revolution's founders genuinely believed in equality, sacrifice, and collect
 
 Morality +100 is revolutionary duty, inherited and unexamined. Morality -100 is recognising that the moral language has been hollowed out and that conscience must be rebuilt from scratch.
 
-### Meaning
+### The Dreads
 
-The republic inherited the Enlightenment's answer: meaning comes from reason, knowledge, understanding. The university is the temple of meaning. But the war and the censorship committees have corrupted the temple. Knowledge within approved bounds is the only sanctioned path to meaning.
+Three anxieties haunt the Writer through the night. They don't advance the thesis — they erode the Writer's ability to work. Some observations, instead of feeding a domain, feed a dread.
 
-The Writer is trying to find meaning through the very institution that is now designed to prevent genuine inquiry. The thesis defence is the republic's ritual of meaning-making, performed inside a system that can no longer tolerate the meanings the Writer might make.
+- **Existential** — the void beneath the work. Questions of identity, purpose, whether any of this matters. The stopped watch, the face in the mirror, the stain on the ceiling.
+- **Academic** — the committee, the deadline, the defence. The fear that the work isn't good enough, that the institution will reject it, that two deferrals become three. The blank page, the rejection letter, the unmade bed.
+- **Economic** — rent, hunger, cold. The arithmetic of poverty. The soap sliver, the browning apple, the escape money under the floorboard.
 
 ### The Writer
 
@@ -91,14 +101,15 @@ The emergency government protects the republic the revolution built. Its authori
 ### Faith (+100)
 The church provides moral continuity. It survived the revolution because its values are eternal. God blesses the republic as He blessed the righteous cause of the revolution. Scripture supports order. The bells still ring — that should tell you something.
 
-### Meaning (+100)
-Meaning comes from knowledge, pursued within the academy's approved bounds. The university is the temple of reason. Your thesis has meaning if it serves truth — and truth serves the republic. The Writer's life has meaning because the academy gives it meaning.
 
 ### Class (+100)
 The revolution achieved equality. On paper, everything is shared. In practice, institutions require hierarchy to function — that's not inequality, it's organisation. The committee members earned their positions. The Writer will earn theirs, if the thesis is sound.
 
 ### Art (+100)
-Art and scholarship serve truth, and truth serves the republic. The censorship committees protect public discourse from monarchist propaganda and irresponsible speculation. Responsible scholarship operates within approved bounds. The bounds exist for everyone's protection.
+Art enriches the republic. Beauty, expression, culture — these are the soul of civilisation. The concert hall, the gallery, the poem: they remind us what we're building. Art doesn't need to be political to have value. It needs to be beautiful.
+
+### Truth (+100)
+Truth comes from the academy, pursued within approved bounds. The university validates knowledge. The censorship committees protect public discourse from monarchist propaganda and irresponsible speculation. Responsible scholarship operates within approved frameworks. The bounds exist for everyone's protection. Your thesis has truth if the committee approves it.
 
 ### Nature (+100)
 Natural philosophy reveals the world's order, which the republic's institutions are built to reflect. Science within approved frameworks produces reliable knowledge. The arcane is unscientific, socially disruptive, and possibly a remnant of the old regime's superstitions.
@@ -118,17 +129,18 @@ The emergency government is the revolution's betrayal, not its continuation. The
 ### Faith (-100)
 The church survived by being faithless. It blessed the monarchy, then the revolution, then the emergency — it will bless anything that lets it keep its buildings. Scripture serves whoever holds power. If God has an opinion, it isn't the church's opinion. True faith, if it exists, is silent, private, and probably illegal.
 
-### Meaning (-100)
-The academy is the temple of approved meaning, which is no meaning at all. Knowledge within bounds is knowledge with its teeth pulled. The Writer's thesis is meaningless if it only says what the committee permits. Meaning must be created against the institution, not within it. The only honest work is the work that risks everything.
 
 ### Class (-100)
 The revolution's equality is a legal fiction. The university, the church, the civil service — they kept everything and called it nationalisation. The committee is comfortable. The Writer is cold. The arithmetic hasn't changed since the monarchy; only the names on the letterhead.
 
 ### Art (-100)
-The censorship committees are the revolution's confession that it fears ideas more than it fears the old regime. Responsible scholarship is scholarship that knows its place. The pen is a weapon, and the state knows it — that's why they watch. True art says what cannot be said. Everything else is decoration.
+Beauty is not decoration — it's the only honest language left. The poem preserves what the gazette destroys. The sketch remembers what the state wants forgotten. Art that serves no purpose is the most dangerous kind, because it reminds people that not everything exists to be useful. True art says what cannot be said. Everything else is propaganda.
+
+### Truth (-100)
+The academy controls what can be known, not just what can be said. "Approved frameworks" are censorship of thought — controlling which conclusions are reachable, not just which are publishable. Knowledge within bounds is knowledge with its teeth pulled. The censorship committees are the revolution's confession that it fears ideas more than it fears the old regime. The only honest scholarship is the work that risks everything.
 
 ### Nature (-100)
-Nature doesn't confirm the republic's order or anyone else's. The natural world is indifferent to human politics. The academy's "approved frameworks" are just another kind of censorship — controlling what can be known, not just what can be said. The arcane is suppressed because it suggests there are ways of knowing that the institution cannot control.
+Nature doesn't confirm the republic's order or anyone else's. The natural world is indifferent to human politics. The body doesn't care about the thesis — it wants bread, warmth, sleep. The arcane is suppressed not because it's false but because it suggests the world is stranger than the institution can admit. Classification is not understanding. It is the illusion of understanding, filed in alphabetical order.
 
 ### Morality (-100)
 The revolution's moral language has been hollowed out from the inside. "Duty" means compliance. "Sacrifice" means don't complain. "The collective" means the people who run the collective. The founders meant these words. Their children don't, and don't know they don't. The only honest morality is what you choose when no institution is watching.
@@ -142,7 +154,8 @@ The revolution's moral language has been hollowed out from the inside. "Duty" me
 - **The war is pressure, not content.** The war creates urgency and context but the thesis isn't "about" the war (unless the player makes it so).
 - **The committee is both audience and threat.** Its nature should be felt through the stakes, not explained.
 - **Gaspunk, not steampunk.** Gas, not steam. Chemical, not mechanical. The aesthetic is hissing mantles and blue flames, not brass cogs.
-- **The hollow centre.** The republic's defining feature is what it lacks — a coherent identity, a moral framework that hasn't been hollowed out, a temple of meaning that still means something. The Writer's thesis is an attempt to fill that void.
+- **The hollow centre.** The republic's defining feature is what it lacks — a coherent identity, a moral framework that hasn't been hollowed out, a temple of truth that still pursues it. The Writer's thesis is an attempt to fill that void.
+- **Dreads as cost.** Not every observation advances the work. Some feed the Writer's anxiety instead — existential, academic, economic. The dreads are the price of looking too closely at certain things.
 - **Emergent discipline.** The Writer's field of study is determined by play, not by premise. The committee adapts.
 
 ---

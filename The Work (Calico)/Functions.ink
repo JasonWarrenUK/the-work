@@ -4,7 +4,7 @@
     {concept:
         - "Rule": ~ return lvl_Rule
         - "Faith": ~ return lvl_Faith
-        - "Meaning": ~ return lvl_Meaning
+        - "Truth": ~ return lvl_Truth
         - "Class": ~ return lvl_Class
         - "Art": ~ return lvl_Art
         - "Nature": ~ return lvl_Nature
@@ -22,9 +22,9 @@
             {lvl_Faith < 6:
                 ~ lvl_Faith += 1
             }
-        - "Meaning":
-            {lvl_Meaning < 6:
-                ~ lvl_Meaning += 1
+        - "Truth":
+            {lvl_Truth < 6:
+                ~ lvl_Truth += 1
             }
         - "Class":
             {lvl_Class < 6:
@@ -53,8 +53,8 @@
     {lvl_Faith > ThoughtZenith:
         ~ ThoughtZenith = lvl_Faith
     }
-    {lvl_Meaning > ThoughtZenith:
-        ~ ThoughtZenith = lvl_Meaning
+    {lvl_Truth > ThoughtZenith:
+        ~ ThoughtZenith = lvl_Truth
     }
     {lvl_Class > ThoughtZenith:
         ~ ThoughtZenith = lvl_Class
@@ -89,7 +89,7 @@
     {lvl_Faith >= 6:
         ~ count += 1
     }
-    {lvl_Meaning >= 6:
+    {lvl_Truth >= 6:
         ~ count += 1
     }
     {lvl_Class >= 6:
@@ -114,7 +114,7 @@
     {lvl_Faith > 0:
         ~ count += 1
     }
-    {lvl_Meaning > 0:
+    {lvl_Truth > 0:
         ~ count += 1
     }
     {lvl_Class > 0:
@@ -137,7 +137,7 @@
     {concept:
         - "Rule": ~ written_Rule = lvl_Rule
         - "Faith": ~ written_Faith = lvl_Faith
-        - "Meaning": ~ written_Meaning = lvl_Meaning
+        - "Truth": ~ written_Truth = lvl_Truth
         - "Class": ~ written_Class = lvl_Class
         - "Art": ~ written_Art = lvl_Art
         - "Nature": ~ written_Nature = lvl_Nature
@@ -151,7 +151,7 @@
     {concept:
         - "Rule": ~ return written_Rule
         - "Faith": ~ return written_Faith
-        - "Meaning": ~ return written_Meaning
+        - "Truth": ~ return written_Truth
         - "Class": ~ return written_Class
         - "Art": ~ return written_Art
         - "Nature": ~ return written_Nature
@@ -167,7 +167,7 @@
     {written_Faith >= 6:
         ~ count += 1
     }
-    {written_Meaning >= 6:
+    {written_Truth >= 6:
         ~ count += 1
     }
     {written_Class >= 6:
@@ -192,7 +192,7 @@
     {written_Faith > 0:
         ~ count += 1
     }
-    {written_Meaning > 0:
+    {written_Truth > 0:
         ~ count += 1
     }
     {written_Class > 0:
@@ -224,8 +224,8 @@
     {written_Faith > 0:
         Faith: {levelName(written_Faith)}
     }
-    {written_Meaning > 0:
-        Meaning: {levelName(written_Meaning)}
+    {written_Truth > 0:
+        Truth: {levelName(written_Truth)}
     }
     {written_Class > 0:
         Class: {levelName(written_Class)}
@@ -261,13 +261,13 @@
         - "Rule":
             ~ sparked = findSpark("Class", "Morality", "Faith")
         - "Faith":
-            ~ sparked = findSpark("Meaning", "Morality", "Nature")
-        - "Meaning":
+            ~ sparked = findSpark("Truth", "Morality", "Nature")
+        - "Truth":
             ~ sparked = findSpark("Art", "Faith", "Nature")
         - "Class":
-            ~ sparked = findSpark("Morality", "Rule", "Meaning")
+            ~ sparked = findSpark("Morality", "Rule", "Truth")
         - "Art":
-            ~ sparked = findSpark("Nature", "Meaning", "Faith")
+            ~ sparked = findSpark("Nature", "Truth", "Faith")
         - "Nature":
             ~ sparked = findSpark("Rule", "Art", "Class")
         - "Morality":
@@ -399,8 +399,8 @@ TODO === function Inspect(object)
     {lvl_Faith > 0:
         Faith: {levelName(lvl_Faith)}
     }
-    {lvl_Meaning > 0:
-        Meaning: {levelName(lvl_Meaning)}
+    {lvl_Truth > 0:
+        Truth: {levelName(lvl_Truth)}
     }
     {lvl_Class > 0:
         Class: {levelName(lvl_Class)}

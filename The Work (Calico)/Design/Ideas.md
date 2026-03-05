@@ -2,7 +2,7 @@
 
 Ideas are the units of play. Each idea:
 - Has a **level** (Observation through Thesis)
-- Is tagged with one or more **concepts** (Rule, Faith, Meaning, Class, Art, Nature, Morality)
+- Is tagged with one or more **concepts** (Rule, Faith, Truth, Class, Art, Nature, Morality)
 - Has an **orthodoxy score** per concept: +100 (full establishment alignment) to -100 (full rejection)
 - Has a **source**: provoked by an object, developed from a lower idea, or produced by combining two ideas
 - Has **text**: hand-authored for key ideas, generated as placeholder for the rest
@@ -22,7 +22,9 @@ Ideas are the units of play. Each idea:
 
 Ideas can belong to multiple concepts. Tags are for our reference — the player doesn't see them. They affect which ideas can appear in combination recipes and how the ending evaluates the Written Work.
 
-Rule | Faith | Meaning | Class | Art | Nature | Morality
+Rule | Faith | Truth | Class | Art | Nature | Morality
+
+Some readings don't advance any domain. Instead, they increment one of the Writer's **dreads** — existential, academic, or economic anxiety. These are noted as `(Dread: Existential)` etc. in the scores column. Readings with no domain scores and no dread are marked `—` (neutral).
 
 ## Orthodoxy Score
 
@@ -32,7 +34,7 @@ A numerical score from **+100** to **-100** per concept, replacing the old Apolo
 - **0** = neutral, unexamined, could go either way
 - **-100** = full rejection of established doctrine (see World.md — The Counter-Doctrine)
 
-Each idea carries a score only for concepts it touches. A reading about the gazette might carry `Rule +70` while a reading about the apple might carry `Nature -20, Meaning -40`.
+Each idea carries a score only for concepts it touches. A reading about the gazette might carry `Rule +70` while a reading about the apple might carry `Nature -20`. Some readings carry no domain scores — instead they increment a dread (existential, academic, or economic).
 
 The score emerges from:
 - Which **readings** the player chooses when examining objects
@@ -94,18 +96,18 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O4a | Caution is wisdom. Your colleague is being sensible. | Art +20, Rule +20 |
-| O4b | Between the lines, a warning: be careful what you publish. | Art -20, Rule -30 |
-| O4c | They're afraid. They've stopped saying what they think and started saying what's safe. | Art -50, Rule -60 |
+| O4a | Caution is wisdom. Your colleague is being sensible. | Truth +20, Rule +20 |
+| O4b | Between the lines, a warning: be careful what you publish. | Truth -20, Rule -30 |
+| O4c | They're afraid. They've stopped saying what they think and started saying what's safe. | Truth -50, Rule -60 |
 
 **P5 — Letter from a colleague (#3)**
 "Your colleague mentions names. People who've gone quiet."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O5a | People move on. Find other work. It's not always political. | Rule +10, Art +10 |
-| O5b | The list is getting longer. You've noticed. | Rule -30, Art -30 |
-| O5c | A roll call of silence. Each name a question nobody asks aloud. | Rule -70, Art -60 |
+| O5a | People move on. Find other work. It's not always political. | Rule +10, Truth +10 |
+| O5b | The list is getting longer. You've noticed. | Rule -30, Truth -30 |
+| O5c | A roll call of silence. Each name a question nobody asks aloud. | Rule -70, Truth -60 |
 
 **P6 — Letter from family (#4)**
 "Your mother's handwriting. She asks if you're eating enough."
@@ -121,36 +123,36 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O7a | Editors have judgment. Not everything deserves publication. | Art +20 |
-| O7b | The manuscript has a coffee ring on it. At least they read it. | Art 0 |
-| O7c | "Not suited to the present climate." Not wrong — just inconvenient. | Art -30, Rule -30 |
+| O7a | Editors have judgment. Not everything deserves publication. | Truth +20 |
+| O7b | The manuscript has a coffee ring on it. At least they read it. | Truth 0 |
+| O7c | "Not suited to the present climate." Not wrong — just inconvenient. | Truth -30, Rule -30 |
 
 **P8 — Annotated lexicon (#6)**
 "The lexicon falls open to a page covered in your annotations."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O8a | Precision matters. The right word is worth searching for. | Art +10, Meaning +10 |
-| O8b | You were trying to find the right word for something. You still haven't. | Art 0, Meaning 0 |
-| O8c | So many words. And the ones that matter most are the ones you're not allowed to use. | Art -40, Rule -40 |
+| O8a | Precision matters. The right word is worth searching for. | Art +10, Truth +10 |
+| O8b | You were trying to find the right word for something. You still haven't. | Art 0, Truth 0 |
+| O8c | So many words. And the ones that matter most are the ones you're not allowed to use. | Truth -40, Rule -40 |
 
 **P9 — Half-finished sketch (#7)**
 "A sketch of a building. You drew it from memory."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O9a | A record. Something preserved, even if imperfectly. | Art +10, Meaning +10 |
-| O9b | The building no longer exists. The memory is already wrong. | Art -20, Meaning -20 |
-| O9c | You drew what you remembered, not what was there. Memory is its own kind of authorship. | Art -20, Meaning -30 |
+| O9a | A record. Something preserved, even if imperfectly. | Art +10 |
+| O9b | The building no longer exists. The memory is already wrong. | Art -20 (Dread: Existential) |
+| O9c | You drew what you remembered, not what was there. Memory is its own kind of authorship. | Art -30 |
 
 **P10 — Pocket watch (#8)**
 "The pocket watch has stopped. 3:17."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O10a | It needs winding. A small mechanical problem, nothing more. | Meaning +10 |
-| O10b | Stopped at 3:17. You can't remember what happened then, or whether anything did. | Meaning 0 |
-| O10c | Time stopped and the world kept going. The watch doesn't know the difference. | Meaning -30 |
+| O10a | It needs winding. A small mechanical problem, nothing more. | — |
+| O10b | Stopped at 3:17. You can't remember what happened then, or whether anything did. | — |
+| O10c | Time stopped and the world kept going. The watch doesn't know the difference. | (Dread: Existential) |
 
 **P11 — Worn coin (#9)**
 "An old coin. The face on it belongs to no current authority."
@@ -158,8 +160,8 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O11a | Old money. Worth its weight in metal now, nothing more. | Rule +10 |
-| O11b | The face is worn smooth. Whoever it was, they've been rubbed away by use. | Rule 0, Meaning -10 |
-| O11c | Authorities change. The coin remains. Something to think about. | Rule -40, Meaning -30 |
+| O11b | The face is worn smooth. Whoever it was, they've been rubbed away by use. | Rule 0 |
+| O11c | Authorities change. The coin remains. Something to think about. | Rule -40 |
 
 **P12 — Ink pot and nib (#10)**
 "The ink is low. The nib is worn."
@@ -167,8 +169,8 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O12a | Tools of the trade. They'll serve for tonight. | Art +10 |
-| O12b | There's enough for tonight, if you don't waste it. Every word costs. | Art 0, Meaning -10 |
-| O12c | The ink is running out. So is the night. Both are finite, and you've been pretending they're not. | Art -20, Meaning -30 |
+| O12b | There's enough for tonight, if you don't waste it. Every word costs. | Art 0 (Dread: Academic) |
+| O12c | The ink is running out. So is the night. Both are finite, and you've been pretending they're not. | Art -20 (Dread: Existential) |
 
 **P13 — Blank paper / manuscript (#11)**
 "The blank page."
@@ -176,8 +178,8 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O13a | Space to fill. Work to be done. | Art +10 |
-| O13b | It waits. It doesn't care what you write on it. | Art 0, Meaning -10 |
-| O13c | The blankness is a dare. Or an accusation. | Art -30, Meaning -30 |
+| O13b | It waits. It doesn't care what you write on it. | Art 0 (Dread: Academic) |
+| O13c | The blankness is a dare. Or an accusation. | Art -30 (Dread: Academic) |
 
 ### From Shelves & Books
 
@@ -204,9 +206,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O16a | Nature finds a way. Adaptation is strength. | Nature +20, Meaning +10 |
-| O16b | Slowly. Over generations. Not overnight. Some comforts are no comfort at all. | Nature -10, Meaning -30 |
-| O16c | What doesn't adapt, dies. The text is neutral about this. You are not. | Nature -20, Meaning -40 |
+| O16a | Nature finds a way. Adaptation is strength. | Nature +20 |
+| O16b | Slowly. Over generations. Not overnight. Some comforts are no comfort at all. | Nature -10 (Dread: Existential) |
+| O16c | What doesn't adapt, dies. The text is neutral about this. You are not. | Nature -20 (Dread: Existential) |
 
 **P17 — Poetry collection (#15)**
 "A poem about a field in summer."
@@ -215,7 +217,7 @@ This means the player's philosophical position begins forming from their very fi
 |----|---------|--------|
 | O17a | Beautiful. A reminder that beauty exists, even now. | Art +10, Nature +10 |
 | O17b | Completely useless. Completely beautiful. You can't decide which matters more. | Art -30, Nature -10 |
-| O17c | A field in summer. A world that doesn't exist anymore. The poem preserves it like a specimen. | Art -30, Nature -20, Meaning -20 |
+| O17c | A field in summer. A world that doesn't exist anymore. The poem preserves it like a specimen. | Art -30, Nature -20 |
 
 **P18 — Political pamphlet (#16)**
 "The pamphlet argues that the current order is natural, inevitable, divinely ordained."
@@ -232,8 +234,8 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O19a | Order. Classification. Everything in its place. There's comfort in taxonomy. | Nature +20 |
-| O19b | Each thing simply is what it is. No symbolism. No meaning. Just fact. | Nature +10, Meaning -10 |
-| O19c | Classification is a human need. The plants don't care what you call them. | Nature -30, Meaning -30 |
+| O19b | Each thing simply is what it is. No symbolism. No meaning. Just fact. | Nature +10, Truth -10 |
+| O19c | Classification is a human need. The plants don't care what you call them. | Nature -30, Truth -30 |
 
 **P20 — Legal compendium (#18)**
 "The compendium defines rights. Some no longer apply."
@@ -258,9 +260,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O22a | Charlatanism. The desire to get something for nothing. | Meaning +10, Nature +20 |
-| O22b | It reads differently now. Everything reads differently now. | Meaning -10, Nature 0 |
-| O22c | Transformation through fire. The alchemists understood that change requires destruction. | Meaning -40, Nature -30 |
+| O22a | Charlatanism. The desire to get something for nothing. | Nature +20 |
+| O22b | It reads differently now. Everything reads differently now. | Nature 0 (Dread: Existential) |
+| O22c | Transformation through fire. The alchemists understood that change requires destruction. | Nature -30 (Dread: Existential) |
 
 **P23 — Hymnbook (#21)**
 "The hymnbook is inscribed to you. The handwriting is unmistakable."
@@ -268,8 +270,8 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O23a | A gift, given in faith. The faith of the giver, at least. | Faith +20 |
-| O23b | The handwriting is unmistakable. The person isn't here. The hymns remain. | Faith +10, Meaning 0 |
-| O23c | They gave you songs of certainty. You wonder if they had any. | Faith -30, Meaning -20 |
+| O23b | The handwriting is unmistakable. The person isn't here. The hymns remain. | Faith +10 |
+| O23c | They gave you songs of certainty. You wonder if they had any. | Faith -30 |
 
 ### From Kitchenette
 
@@ -288,8 +290,8 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O25a | Cut around it. Waste nothing. Common sense. | Nature +10, Class +10 |
-| O25b | Still edible, if you're careful. For now. | Nature 0, Meaning -10 |
-| O25c | The rot is patient. It doesn't rush. It doesn't need to. | Nature -20, Meaning -40 |
+| O25b | Still edible, if you're careful. For now. | Nature 0 (Dread: Existential) |
+| O25c | The rot is patient. It doesn't rush. It doesn't need to. | Nature -20 (Dread: Existential) |
 
 **P26 — Whiskey bottle (#24)**
 "The whiskey is a quarter full."
@@ -297,7 +299,7 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O26a | A quarter full. Enough to take the edge off. A small mercy. | Morality +10 |
-| O26b | Enough to warm you or enough to blur your thinking. Not both. | Morality 0, Art -10 |
+| O26b | Enough to warm you or enough to blur your thinking. Not both. | Morality 0 (Dread: Academic) |
 | O26c | You're rationing pleasure the way you ration everything else. When did that start? | Morality -20, Class -30 |
 
 **P27 — Knife (#27)**
@@ -325,9 +327,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O29a | You'll sleep later. There's work to do first. | Meaning +10 |
-| O29b | The sheets have taken the shape of your absence. | Meaning -10 |
-| O29c | Unmade. Like everything else you've started and haven't finished. | Meaning -30, Art -20 |
+| O29a | You'll sleep later. There's work to do first. | Truth +10 |
+| O29b | The sheets have taken the shape of your absence. | (Dread: Existential) |
+| O29c | Unmade. Like everything else you've started and haven't finished. | Art -20 (Dread: Academic) |
 
 **P30 — Coat as blanket (#33)**
 "The coat is too thin for this, but it's warmer than the blanket."
@@ -336,7 +338,7 @@ This means the player's philosophical position begins forming from their very fi
 |----|---------|--------|
 | O30a | You make do. Everyone makes do. | Class +10 |
 | O30b | You've been sleeping under it for weeks. The line between clothing and bedding has blurred. | Class -10 |
-| O30c | Nothing works for its intended purpose anymore. | Class -30, Meaning -30 |
+| O30c | Nothing works for its intended purpose anymore. | Class -30 (Dread: Existential) |
 
 ### From Bathroom
 
@@ -345,18 +347,18 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O31a | Tired. But still here. Still working. | Meaning +10 |
-| O31b | When did you start looking like this? | Meaning -10, Morality -10 |
-| O31c | You don't recognise the person you're becoming. You're not sure they'd recognise you either. | Meaning -40, Morality -30 |
+| O31a | Tired. But still here. Still working. | Morality +10 |
+| O31b | When did you start looking like this? | Morality -10 (Dread: Existential) |
+| O31c | You don't recognise the person you're becoming. You're not sure they'd recognise you either. | Morality -30 (Dread: Existential) |
 
 **P32 — Razor (#37)**
 "The razor. Sharp. Clean."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O32a | A good tool, well maintained. Discipline in small things. | Meaning +10 |
-| O32b | It does its one job well. There's something admirable in that. | Meaning +10 |
-| O32c | The sharpest thing in the room. You keep it clean out of respect, or habit, or something else. | Meaning -20, Morality -20 |
+| O32a | A good tool, well maintained. Discipline in small things. | Morality +10 |
+| O32b | It does its one job well. There's something admirable in that. | Art +10 |
+| O32c | The sharpest thing in the room. You keep it clean out of respect, or habit, or something else. | Morality -20 (Dread: Existential) |
 
 **P33 — Soap, nearly gone (#38)**
 "The soap is a sliver."
@@ -376,7 +378,7 @@ This means the player's philosophical position begins forming from their very fi
 |----|---------|--------|
 | O34a | Some things are better left alone. You know what's there. | Faith +10, Morality +10 |
 | O34b | You know what's on the other side without looking. That's enough. | Faith +10, Morality 0 |
-| O34c | Face-down, so they can't watch you. So they can't watch what you've become. | Morality -40, Meaning -30 |
+| O34c | Face-down, so they can't watch you. So they can't watch what you've become. | Morality -40 (Dread: Existential) |
 
 **P35 — Recruitment poster (#41)**
 "The poster promises purpose, belonging, a future."
@@ -392,18 +394,18 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O36a | A pleasant memory. Things were different then. | Art +10, Meaning +10 |
-| O36b | A different world. You kept it, though you can't say why. | Art 0, Meaning -10 |
-| O36c | You kept the programme but lost the world it came from. | Art -20, Meaning -40 |
+| O36a | A pleasant memory. Things were different then. | Art +10 |
+| O36b | A different world. You kept it, though you can't say why. | Art 0 (Dread: Existential) |
+| O36c | You kept the programme but lost the world it came from. | Art -20 (Dread: Existential) |
 
 **P37 — Death certificate (#43)**
 "The certificate. Official, stamped, filed."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O37a | A necessary document. The state records these things. It's how civilisation works. | Rule +30, Meaning +10 |
-| O37b | A life reduced to a form. The blanks filled in. The stamp applied. | Rule -20, Meaning -30, Morality -20 |
-| O37c | Stamped and filed. As if death needed the state's permission to be real. | Rule -60, Meaning -40, Morality -50 |
+| O37a | A necessary document. The state records these things. It's how civilisation works. | Rule +30 |
+| O37b | A life reduced to a form. The blanks filled in. The stamp applied. | Rule -20, Morality -20 (Dread: Existential) |
+| O37c | Stamped and filed. As if death needed the state's permission to be real. | Rule -60, Morality -50 (Dread: Existential) |
 
 **P38 — Military medal (#44)**
 "The medal. Heavy for its size."
@@ -419,9 +421,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O39a | You kept it out of habit. It probably fits something you've forgotten about. | Meaning +10 |
-| O39b | Not everything has to be useful to be worth keeping. | Meaning 0 |
-| O39c | A key to somewhere you can't go, or somewhere that no longer exists. | Meaning -30, Rule -10 |
+| O39a | You kept it out of habit. It probably fits something you've forgotten about. | — |
+| O39b | Not everything has to be useful to be worth keeping. | — |
+| O39c | A key to somewhere you can't go, or somewhere that no longer exists. | Rule -10 (Dread: Existential) |
 
 **P40 — Crack in the wall (#46)**
 "The crack in the wall. Getting wider."
@@ -429,26 +431,26 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O40a | The building is old. Buildings settle. It's nothing. | Nature +10 |
-| O40b | You've been watching it for months. It moves so slowly you can't be sure it moves at all. | Nature 0, Meaning -10 |
-| O40c | Everything breaks from the inside out. Walls. Institutions. People. | Nature -30, Meaning -40 |
+| O40b | You've been watching it for months. It moves so slowly you can't be sure it moves at all. | Nature 0 (Dread: Existential) |
+| O40c | Everything breaks from the inside out. Walls. Institutions. People. | Nature -30 (Dread: Existential) |
 
 **P41 — Window (#47)**
 "Through the window: rooftops, a church spire, smoke."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O41a | The city. Your city. Still standing. Still going. | Class +10, Meaning +10 |
-| O41b | The city going on without you. It doesn't need you at the desk. | Class 0, Meaning -10 |
-| O41c | Rooftops, a spire, smoke. A city held together by faith and industry, or just by habit. | Class -20, Meaning -30, Faith -20 |
+| O41a | The city. Your city. Still standing. Still going. | Class +10 |
+| O41b | The city going on without you. It doesn't need you at the desk. | Class 0 (Dread: Existential) |
+| O41c | Rooftops, a spire, smoke. A city held together by faith and industry, or just by habit. | Class -20, Faith -20 (Dread: Existential) |
 
 **P42 — Specimen jar (#48)**
 "The jar holds something preserved in cloudy liquid."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O42a | A relic of your studies. A time when you catalogued the world. | Nature +10, Meaning +10 |
-| O42b | It watches you from the shelf. That's absurd, of course. It's preserved tissue. | Nature 0, Meaning -10 |
-| O42c | Preserved. Suspended. Unable to decay or to grow. You know the feeling. | Nature -30, Meaning -40 |
+| O42a | A relic of your studies. A time when you catalogued the world. | Nature +10, Truth +10 |
+| O42b | It watches you from the shelf. That's absurd, of course. It's preserved tissue. | Nature 0 (Dread: Existential) |
+| O42c | Preserved. Suspended. Unable to decay or to grow. You know the feeling. | Nature -30 (Dread: Existential) |
 
 **P43 — Map of the city (#49)**
 "The map has pencil marks. Routes, places. Some crossed out."
@@ -464,9 +466,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O44a | No need to lock it. There's nothing here worth stealing. | Meaning +10 |
-| O44b | You could leave at any time. You don't. | Meaning -10, Rule -10 |
-| O44c | Latched but not locked. The prison you don't leave is the one you've built yourself. | Meaning -40, Rule -30 |
+| O44a | No need to lock it. There's nothing here worth stealing. | — |
+| O44b | You could leave at any time. You don't. | Rule -10 (Dread: Existential) |
+| O44c | Latched but not locked. The prison you don't leave is the one you've built yourself. | Rule -30 (Dread: Existential) |
 
 **P45 — Loose floorboard (#51)**
 "The floorboard is loose."
@@ -474,8 +476,8 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O45a | You noticed it the first week. You've never fixed it. It's not your building. | Class +10 |
-| O45b | The kind of thing you'd fix if this were home. | Class -10, Meaning -10 |
-| O45c | Nothing in this room belongs to you. Not even the floor you stand on. | Class -40, Meaning -30 |
+| O45b | The kind of thing you'd fix if this were home. | Class -10 (Dread: Economic) |
+| O45c | Nothing in this room belongs to you. Not even the floor you stand on. | Class -40 (Dread: Economic) |
 
 **P46 — Coat on hook (#52)**
 "The coat on the hook."
@@ -492,7 +494,7 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O47a | Honest work. Reliable income. There are worse choices. | Class +20, Morality +10 |
-| O47b | A different life, available immediately. You could put down the pen. | Class 0, Art -10, Morality -10 |
+| O47b | A different life, available immediately. You could put down the pen. | Class 0, Morality -10 (Dread: Academic) |
 | O47c | Twelve hours in a factory in exchange for the hours at the desk. They're buying the same thing: your time. | Class -30, Art -40, Morality -30 |
 
 **P48 — Stain on ceiling (#54)**
@@ -500,9 +502,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O48a | Damp. The roof leaks. Landlord's problem, not yours. | Meaning +10 |
-| O48b | It's shaped like nothing. You've spent too long looking at it. | Meaning -10 |
-| O48c | You've been staring at it again. Finding meaning in stains. Is this what you do now? | Meaning -30, Art -20 |
+| O48a | Damp. The roof leaks. Landlord's problem, not yours. | Class +10 |
+| O48b | It's shaped like nothing. You've spent too long looking at it. | (Dread: Existential) |
+| O48c | You've been staring at it again. Finding meaning in stains. Is this what you do now? | Art -20 (Dread: Existential) |
 
 ### From Sensory Events
 
@@ -511,9 +513,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O49a | Midnight. The bells mark the hour. They always have. | Faith +20, Meaning +10 |
-| O49b | Twelve tolls. Each one lands in the silence of the room like a stone in water. | Faith +10, Meaning -10 |
-| O49c | The bells don't know what they're calling people to anymore. They ring because they always have. | Faith -30, Meaning -30 |
+| O49a | Midnight. The bells mark the hour. They always have. | Faith +20 |
+| O49b | Twelve tolls. Each one lands in the silence of the room like a stone in water. | Faith +10 (Dread: Existential) |
+| O49c | The bells don't know what they're calling people to anymore. They ring because they always have. | Faith -30 (Dread: Existential) |
 
 **P50 — Rain (55a–c)**
 "Rain against the glass."
@@ -521,8 +523,8 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O50a | Rain. It'll pass. It always does. | Nature +10 |
-| O50b | A sound that makes the room smaller and the world larger. | Nature 0, Meaning -10 |
-| O50c | The rain doesn't know about the war, or the curfew, or the work. It falls on everything equally. | Nature -20, Meaning -20, Rule -10 |
+| O50b | A sound that makes the room smaller and the world larger. | Nature 0 (Dread: Existential) |
+| O50c | The rain doesn't know about the war, or the curfew, or the work. It falls on everything equally. | Nature -20, Rule -10 |
 
 **P51 — Distant artillery (61a–c)**
 "A sound. Low. Distant. Sustained."
@@ -539,7 +541,7 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O52a | The pressure drops at night. It'll come back. | Nature +10 |
-| O52b | The shadows in the room rearrange themselves. Familiar things become strange. | Nature -10, Meaning -10 |
+| O52b | The shadows in the room rearrange themselves. Familiar things become strange. | Nature -10 (Dread: Existential) |
 | O52c | Your light depends on a supply you don't control, from a source you can't see, owned by someone you'll never meet. | Nature -20, Class -30 |
 
 **P53 — Dawn light (66a–c)**
@@ -547,9 +549,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O53a | Morning. Another day. A new beginning. | Nature +10, Meaning +10 |
-| O53b | Dawn. The light doesn't care that you haven't slept. | Nature -10, Meaning -10 |
-| O53c | You survived the night. That used to be a figure of speech. | Nature -20, Meaning -30 |
+| O53a | Morning. Another day. A new beginning. | Nature +10 |
+| O53b | Dawn. The light doesn't care that you haven't slept. | Nature -10 (Dread: Existential) |
+| O53c | You survived the night. That used to be a figure of speech. | Nature -20 (Dread: Existential) |
 
 ### From Bodily States
 
@@ -578,7 +580,7 @@ This means the player's philosophical position begins forming from their very fi
 |----|---------|--------|
 | O56a | Flex it. Shake it out. The pen doesn't care about your comfort. | Nature +10, Art +10 |
 | O56b | The pen has been in it for hours. The hand doesn't care about the work. | Nature -10, Art -10 |
-| O56c | The body rebels against the mind. It always does, eventually. The mind never wins. | Nature -30, Art -20, Meaning -30 |
+| O56c | The body rebels against the mind. It always does, eventually. The mind never wins. | Nature -30, Art -20 (Dread: Existential) |
 
 **P57 — Cold (#82)**
 "You're cold."
@@ -594,9 +596,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O58a | Memories come and go. You let it pass. | Meaning +10, Faith +10 |
-| O58b | A face, a place, a moment. Then it's gone. | Meaning -10, Faith 0 |
-| O58c | You didn't invite this thought. It came anyway. Your mind is not entirely your own. | Meaning -30, Faith -20 |
+| O58a | Memories come and go. You let it pass. | Faith +10 |
+| O58b | A face, a place, a moment. Then it's gone. | (Dread: Existential) |
+| O58c | You didn't invite this thought. It came anyway. Your mind is not entirely your own. | Faith -20 (Dread: Existential) |
 
 ### From Hidden / Nested Objects
 
@@ -614,18 +616,18 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O60a | A gift, once. The watch outlasted whatever they had. | Meaning +10, Faith +10 |
-| O60b | Not your initials. You wonder whose they were, and how the watch ended up here. | Meaning -10 |
-| O60c | Someone's name, reduced to initials. Someone's life, reduced to a date. Everything gets abbreviated in the end. | Meaning -30, Rule -10 |
+| O60a | A gift, once. The watch outlasted whatever they had. | Faith +10 |
+| O60b | Not your initials. You wonder whose they were, and how the watch ended up here. | (Dread: Existential) |
+| O60c | Someone's name, reduced to initials. Someone's life, reduced to a date. Everything gets abbreviated in the end. | Rule -10 (Dread: Existential) |
 
 **P61 — Photograph back (#89)**
 "You turn the photograph over."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O61a | Faces you know. A happier time. You put it back face-down. | Meaning +10, Morality +10 |
-| O61b | Everyone is smiling. That's the hardest part. | Meaning -20, Morality -10 |
-| O61c | Faces from before. They're smiling because they don't know what's coming. None of you did. | Meaning -40, Morality -30 |
+| O61a | Faces you know. A happier time. You put it back face-down. | Morality +10 |
+| O61b | Everyone is smiling. That's the hardest part. | Morality -10 (Dread: Existential) |
+| O61c | Faces from before. They're smiling because they don't know what's coming. None of you did. | Morality -30 (Dread: Existential) |
 
 **P62 — Under the mattress (#90)**
 "Under the mattress. A pamphlet."
@@ -641,9 +643,9 @@ This means the player's philosophical position begins forming from their very fi
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O63a | Old. Forgotten. You should throw it away. | Meaning +10 |
-| O63b | From three months ago. A destination you no longer visit. | Meaning -10, Rule -10 |
-| O63c | A destination that's now off-limits. Evidence of a world that used to be larger. | Meaning -30, Rule -30 |
+| O63a | Old. Forgotten. You should throw it away. | — |
+| O63b | From three months ago. A destination you no longer visit. | Rule -10 (Dread: Existential) |
+| O63c | A destination that's now off-limits. Evidence of a world that used to be larger. | Rule -30 (Dread: Existential) |
 
 **P64 — Pressed flower (#92)**
 "A dried flower. Pressed between pages of verse."
@@ -652,7 +654,7 @@ This means the player's philosophical position begins forming from their very fi
 |----|---------|--------|
 | O64a | A keepsake. Someone wanted to preserve a moment. | Nature +10, Faith +10 |
 | O64b | Still holding its colour, barely. Pressed flat. Beautiful and dead. | Nature -10, Art -10, Faith 0 |
-| O64c | Preserved by crushing it. The only way to keep it was to kill it. | Nature -30, Art -30, Meaning -30 |
+| O64c | Preserved by crushing it. The only way to keep it was to kill it. | Nature -30, Art -30 (Dread: Existential) |
 
 **P65 — Under the floorboard (#93)**
 "Under the loose floorboard: a tin box. Inside: money."
@@ -660,26 +662,26 @@ This means the player's philosophical position begins forming from their very fi
 | ID | Reading | Scores |
 |----|---------|--------|
 | O65a | Savings. Prudence. You put it aside for an emergency. | Class +10 |
-| O65b | Not much. But enough to leave, if it came to that. | Class -20, Rule -20, Meaning -20 |
-| O65c | Escape money. You hid it, which means you've already decided something you haven't admitted yet. | Class -40, Rule -40, Meaning -50 |
+| O65b | Not much. But enough to leave, if it came to that. | Class -20, Rule -20 (Dread: Existential) |
+| O65c | Escape money. You hid it, which means you've already decided something you haven't admitted yet. | Class -40, Rule -40 (Dread: Existential) |
 
 **P66 — Specimen jar label (#95)**
 "The label on the jar. Latin. Your handwriting."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O66a | Your studies. Classification, taxonomy. The orderly world of science. | Nature +20, Art +10 |
-| O66b | From when you still believed in classification. That seems like a long time ago. | Nature -30, Meaning -30, Art -10 |
-| O66c | You gave it a Latin name, as if naming something gives you power over it. It doesn't. | Nature -50, Meaning -40 |
+| O66a | Your studies. Classification, taxonomy. The orderly world of science. | Nature +20, Truth +10 |
+| O66b | From when you still believed in classification. That seems like a long time ago. | Nature -30, Truth -30 |
+| O66c | You gave it a Latin name, as if naming something gives you power over it. It doesn't. | Nature -50, Truth -40 |
 
 **P67 — Windowsill scratches (#97)**
 "Scratches on the windowsill. A tally."
 
 | ID | Reading | Scores |
 |----|---------|--------|
-| O67a | Previous tenant's marks. People count things. Days, meals, whatever. | Meaning +10 |
-| O67b | Five marks, then a gap, then three. Someone was counting days. Then they stopped. | Meaning -30, Rule -20 |
-| O67c | Someone was counting. They stopped at eight. Did they leave, or did they stop counting? | Meaning -50, Rule -40 |
+| O67a | Previous tenant's marks. People count things. Days, meals, whatever. | — |
+| O67b | Five marks, then a gap, then three. Someone was counting days. Then they stopped. | Rule -20 (Dread: Existential) |
+| O67c | Someone was counting. They stopped at eight. Did they leave, or did they stop counting? | Rule -40 (Dread: Existential) |
 
 ---
 
@@ -695,10 +697,10 @@ Scores typically intensify from the parent observation(s). Development deepens; 
 
 | ID | Text | Source(s) | Path | Scores |
 |----|------|-----------|------|--------|
-| I1 | Language shapes what can be thought. Control the words and you control the thinking. | O1c or O8c | dev | Rule -50, Art -40 |
+| I1 | Language shapes what can be thought. Control the words and you control the thinking. | O1c or O8c | dev | Rule -50, Truth -40 |
 | I2 | Rights written in law are only as strong as the will to enforce them. | O20b or O20c | dev | Rule -50, Class -40 |
-| I3 | The people who stop writing don't disappear. They just become quieter, until quiet is all they are. | O5b or O5c | dev | Rule -50, Art -50 |
-| I4 | Self-censorship is the regime's greatest achievement. It costs them nothing and silences more than any law. | O4b or O4c | dev | Rule -60, Art -50 |
+| I3 | The people who stop writing don't disappear. They just become quieter, until quiet is all they are. | O5b or O5c | dev | Rule -50, Truth -50 |
+| I4 | Self-censorship is the regime's greatest achievement. It costs them nothing and silences more than any law. | O4b or O4c | dev | Rule -60, Truth -50 |
 | I5 | Order requires sacrifice. The restrictions are the price of a functioning state. Everyone pays something. | O1a or O20a | dev | Rule +40, Morality +30 |
 
 ### Faith Inklings
@@ -706,41 +708,43 @@ Scores typically intensify from the parent observation(s). Development deepens; 
 | ID | Text | Source(s) | Path | Scores |
 |----|------|-----------|------|--------|
 | I6 | Scripture bends to serve whoever holds it. The text doesn't change; the reader does. | O15c | dev | Faith -60, Rule -50 |
-| I7 | The bells ring for an empty church. Ritual outlives the faith that built it. | O49c | dev | Faith -40, Meaning -30 |
-| I8 | Faith is not certainty. It is continuing when certainty is gone. | O23b or O34a | dev | Faith +20, Meaning +10 |
-| I9 | The church has stood for centuries. The bells still ring. There is wisdom in what endures. | O49a or O14a | dev | Faith +40, Meaning +20 |
+| I7 | The bells ring for an empty church. Ritual outlives the faith that built it. | O49c | dev | Faith -40 (Dread: Existential) |
+| I8 | Faith is not certainty. It is continuing when certainty is gone. | O23b or O34a | dev | Faith +20 |
+| I9 | The church has stood for centuries. The bells still ring. There is wisdom in what endures. | O49a or O14a | dev | Faith +40 |
 
-### Meaning Inklings
+### Dread Inklings
+
+Inklings that don't advance a domain but deepen the Writer's anxiety. Developed from dread-triggering observations.
 
 | ID | Text | Source(s) | Path | Scores |
 |----|------|-----------|------|--------|
-| I10 | You could leave. The door is open. The money is there. The fact that you stay is either commitment or cowardice. | O44b/c or O65b/c | dev | Meaning -40, Rule -20 |
-| I11 | Memory edits itself. What you remember is not what happened — it's what you can bear to keep. | O9b/c or O58b/c | dev | Meaning -30, Art -20 |
-| I12 | You keep things that no longer serve you. The key. The programme. The faith. Letting go requires knowing what you are without them. | O39c or O36b/c | dev | Meaning -40, Faith -20 |
-| I13 | The crack grows. Everything that holds together is in the process of coming apart. | O40c | dev | Nature -40, Meaning -50 |
+| I10 | You could leave. The door is open. The money is there. The fact that you stay is either commitment or cowardice. | O44b/c or O65b/c | dev | Rule -20 (Dread: Existential) |
+| I11 | Memory edits itself. What you remember is not what happened — it's what you can bear to keep. | O9b/c or O58b/c | dev | Art -20 (Dread: Existential) |
+| I12 | You keep things that no longer serve you. The key. The programme. The faith. Letting go requires knowing what you are without them. | O39c or O36b/c | dev | Faith -20 (Dread: Existential) |
+| I13 | The crack grows. Everything that holds together is in the process of coming apart. | O40c | dev | Nature -40 (Dread: Existential) |
 
 ### Class Inklings
 
 | ID | Text | Source(s) | Path | Scores |
 |----|------|-----------|------|--------|
 | I14 | Poverty is not a condition. It's a system of choices someone else made. | O3c or O33c or O57c | dev | Class -50 |
-| I15 | There is dignity in smallness. The soap, the bread, the careful use of ink. To attend to small things is not poverty of spirit. | O33a + O12b | combo | Class +20, Meaning +20, Morality +10 |
+| I15 | There is dignity in smallness. The soap, the bread, the careful use of ink. To attend to small things is not poverty of spirit. | O33a + O12b | combo | Class +20, Morality +10 |
 
 ### Art Inklings
 
 | ID | Text | Source(s) | Path | Scores |
 |----|------|-----------|------|--------|
 | I16 | Beauty serves no purpose. That may be why it matters. | O17b | dev | Art -40, Nature -10 |
-| I17 | The blank page is not potential. It is demand. It asks: what are you willing to say? | O13c | dev | Art -40, Meaning -30 |
-| I18 | The work is all that matters tonight. Everything else — the cold, the hunger, the fear — is noise. | O29a + O55a | combo | Art +30, Meaning +20 |
+| I17 | The blank page is not potential. It is demand. It asks: what are you willing to say? | O13c | dev | Art -40 (Dread: Academic) |
+| I18 | The work is all that matters tonight. Everything else — the cold, the hunger, the fear — is noise. | O29a + O55a | combo | Art +30, Truth +20 |
 | I19 | Art that serves the community is not diminished by its service. The cathedral was built to order. It is still beautiful. | O17a or O7a | dev | Art +40, Faith +20 |
 
 ### Nature Inklings
 
 | ID | Text | Source(s) | Path | Scores |
 |----|------|-----------|------|--------|
-| I20 | The body doesn't negotiate. Hunger, cold, exhaustion — these are facts, not arguments. | O54b/c or O56b/c or O57b/c | dev | Nature -20, Meaning -30 |
-| I21 | Classification is not understanding. It is the illusion of understanding, filed in alphabetical order. | O19c or O66b/c | dev | Nature -40, Meaning -40 |
+| I20 | The body doesn't negotiate. Hunger, cold, exhaustion — these are facts, not arguments. | O54b/c or O56b/c or O57b/c | dev | Nature -20 (Dread: Existential) |
+| I21 | Classification is not understanding. It is the illusion of understanding, filed in alphabetical order. | O19c or O66b/c | dev | Nature -40, Truth -40 |
 | I22 | The natural world adapts. The strong survive. This is not cruelty — it is the mechanism by which everything improves. | O16a or O22a | dev | Nature +40, Class +20 |
 
 ### Morality Inklings
@@ -749,7 +753,7 @@ Scores typically intensify from the parent observation(s). Development deepens; 
 |----|------|-----------|------|--------|
 | I23 | A medal is the state's receipt. It acknowledges the transaction, not the cost. | O38c | dev | Rule -50, Morality -40 |
 | I24 | Obedience and virtue are not the same thing. The state has spent centuries conflating them. | O21b/c or O35b/c | dev | Rule -60, Morality -60 |
-| I25 | Duty is the structure that holds a person together when everything else falls apart. | O29a or O54a | dev | Morality +40, Meaning +30 |
+| I25 | Duty is the structure that holds a person together when everything else falls apart. | O29a or O54a | dev | Morality +40 |
 
 ### Cross-Concept Inklings (Combinations)
 
@@ -757,19 +761,19 @@ Scores typically intensify from the parent observation(s). Development deepens; 
 |----|------|-----------|------|--------|
 | I26 | The gazette restricts assembly. The hymnbook gathers voices in song. One is legal. Both are about control. | O1b/c + O23a/b | combo | Rule -40, Faith -30 |
 | I27 | The pamphlet calls hierarchy divine. The dinner bones say otherwise. God's order has a class system, and you know which end you're on. | O18a/b/c + O24c | combo | Faith -50, Class -50, Rule -40 |
-| I28 | The field guide names things without meaning. The poem means things without naming. Which is closer to truth? | O19b + O17b/c | combo | Art -30, Nature -20, Meaning -40 |
-| I29 | Your hand cramps. The ink runs low. The body and the tools conspire against the work. Perhaps the work is the problem. | O56b/c + O12b/c | combo | Art -30, Nature -20, Meaning -30 |
-| I30 | The photograph is face-down. The medal is face-up. You display what the state honours and hide what you loved. | O34c + O38a/b | combo | Morality -40, Rule -30, Meaning -30 |
-| I31 | Someone scratched days into the windowsill. You're scratching ideas into paper. Both of you are counting down to something. | O67b/c + O13b/c | combo | Meaning -40, Rule -20 |
+| I28 | The field guide names things without meaning. The poem means things without naming. Which is closer to truth? | O19b + O17b/c | combo | Art -30, Nature -20, Truth -40 |
+| I29 | Your hand cramps. The ink runs low. The body and the tools conspire against the work. Perhaps the work is the problem. | O56b/c + O12b/c | combo | Art -30, Nature -20 (Dread: Academic) |
+| I30 | The photograph is face-down. The medal is face-up. You display what the state honours and hide what you loved. | O34c + O38a/b | combo | Morality -40, Rule -30 (Dread: Existential) |
+| I31 | Someone scratched days into the windowsill. You're scratching ideas into paper. Both of you are counting down to something. | O67b/c + O13b/c | combo | Rule -20 (Dread: Existential) |
 | I32 | Rain falls on the restricted areas too. Nature doesn't read maps. | O50c + O43b/c | combo | Nature -30, Rule -30 |
-| I33 | The alchemist promised transformation through fire. The state promises transformation through obedience. Both are selling the same lie. | O22c + O35a/b | combo | Meaning -50, Rule -50 |
+| I33 | The alchemist promised transformation through fire. The state promises transformation through obedience. Both are selling the same lie. | O22c + O35a/b | combo | Rule -50 (Dread: Existential) |
 | I34 | The landlord raises the rent. The state raises the stakes. Up and up. You're the only thing that doesn't rise. | O3b/c + O43b/c | combo | Class -50, Rule -40 |
-| I35 | The razor is sharp. The pen is dull. Both leave marks. One is faster. | O32c + O12b/c | combo | Art -20, Morality -30, Meaning -30 |
+| I35 | The razor is sharp. The pen is dull. Both leave marks. One is faster. | O32c + O12b/c | combo | Art -20, Morality -30 (Dread: Existential) |
 | I36 | The storybook wolf and the forbidden pamphlet. Asking questions has always been punished. The punishment just got more sophisticated. | O21b/c + O62b/c | combo | Rule -60, Morality -50 |
-| I37 | The apple rots. The soap dwindles. The crack widens. Everything in this room is a clock, counting down differently. | O25c + O40b/c | combo | Nature -30, Meaning -50 |
+| I37 | The apple rots. The soap dwindles. The crack widens. Everything in this room is a clock, counting down differently. | O25c + O40b/c | combo | Nature -30 (Dread: Existential) |
 | I38 | The natural order is what the powerful call the order they built. | O18b/c + O16b/c | combo | Rule -50, Nature -40, Class -40 |
-| I39 | Preserved by crushing. The flower, the specimen, the faith. The things you keep alive by stopping them from growing. | O64c + O42c | combo | Nature -40, Faith -30, Meaning -40 |
-| I40 | You were given a mind that questions. Perhaps that is the point — not the answers, but the asking. | O14c + O8b | combo | Faith -20, Meaning -30, Art -20 |
+| I39 | Preserved by crushing. The flower, the specimen, the faith. The things you keep alive by stopping them from growing. | O64c + O42c | combo | Nature -40, Faith -30 (Dread: Existential) |
+| I40 | You were given a mind that questions. Perhaps that is the point — not the answers, but the asking. | O14c + O8b | combo | Faith -20, Truth -30, Art -20 |
 
 ## Ideas (Level 3)
 
@@ -810,4 +814,4 @@ The destinations. Many possible. Key ones should be hand-authored even during pl
 - Observations are the player's FIRST philosophical choice. The prompt is neutral. The reading is the interpretation.
 - When ideas combine or develop, their scores combine: averaged, weighted, or overridden by the recipe. This is defined in Recipes.md.
 - The Writer's final work is evaluated by aggregating the scores of all ideas written into it. The committee responds to the overall position.
-- Meaning is the most-tagged concept, intentionally. Nearly everything in this room provokes questions of meaning. That's the Writer's condition.
+- Truth is the epistemological domain — what can be known, what the academy permits, what scholarship means within approved bounds. Art is narrowed to beauty, expression, and creativity. Meaning as a concept has been dissolved; its existential weight is carried by the three dreads (Existential, Academic, Economic).
