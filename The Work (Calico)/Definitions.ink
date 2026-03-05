@@ -23,7 +23,7 @@
 //THE PHYSICAL WORLD
     //WHAT CAN BE NOTICED?
         //Items
-            LIST Items = basic_RuleItem, OldBible, basic_MeaningItem, EnvelopeRent, basic_ArtItem, DinnerScraps, basic_MoralityItem
+            LIST Items = basic_RuleItem, OldBible, basic_TruthItem, EnvelopeRent, basic_ArtItem, DinnerScraps, basic_MoralityItem
             TODO Add other items
 
         //Light
@@ -91,7 +91,7 @@
         LIST Thought_Orthodoxy = Apologist, Orthodox, Heterodox, Heretical
         LIST Thought_Level = Observation, Inkling, Idea, Concept, Argument, Thesis
 
-            LIST Concepts = Rule, Faith, Meaning, Class, Art, Nature, Morality
+            LIST Concepts = Rule, Faith, Truth, Class, Art, Nature, Morality
             TODO First pass at these LISTs
                 //  LIST Observations = _observation
                 //  LIST Inklings = _inkling
@@ -102,11 +102,36 @@
     //WHAT HAS BEEN THOUGHT?
         VAR ThoughtLevel_Current = ""
         VAR ThoughtLevel_Zenith = ""
-        
-        
+
+
         VAR Idea_Current = ""
         VAR Concept_Current = ""
         VAR Thesis_Current = ""
+
+        //Per-concept progress
+        //  0=Unstarted, 1=Observation, 2=Inkling, 3=Idea, 4=Concept, 5=Argument, 6=Thesis
+        VAR lvl_Rule = 0
+        VAR lvl_Faith = 0
+        VAR lvl_Truth = 0
+        VAR lvl_Class = 0
+        VAR lvl_Art = 0
+        VAR lvl_Nature = 0
+        VAR lvl_Morality = 0
+
+        //Currently focused concept
+        VAR FocusConcept = ""
+
+        //Highest level reached across all concepts
+        VAR ThoughtZenith = 0
+
+        //Per-concept written state (level at which concept was committed to the page)
+        VAR written_Rule = 0
+        VAR written_Faith = 0
+        VAR written_Truth = 0
+        VAR written_Class = 0
+        VAR written_Art = 0
+        VAR written_Nature = 0
+        VAR written_Morality = 0
 
 //THE EMOTIONAL WORLD
     VAR ConvictionScore = 5
