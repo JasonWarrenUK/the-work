@@ -83,6 +83,20 @@ export const story = {
 		}
 	},
 
+	/** Serialise ink state for saving */
+	saveState(): string {
+		const ink = state.inkStory;
+		if (!ink) throw new Error('Story not loaded');
+		return ink.state.toJson();
+	},
+
+	/** Restore ink state from saved JSON */
+	loadState(json: string) {
+		const ink = state.inkStory;
+		if (!ink) throw new Error('Story not loaded');
+		ink.state.LoadJsonObj(JSON.parse(json));
+	},
+
 	/** Get the full ink Story instance for advanced use */
 	get ink(): Story | null {
 		return state.inkStory;
