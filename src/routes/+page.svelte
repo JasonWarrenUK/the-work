@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import { story, loadStory } from '$lib/engine/story.svelte';
 	import { autosave, loadAutosave, hasAutosave } from '$lib/game/save-load';
 	import Passage from '$lib/components/Passage.svelte';
@@ -11,7 +12,7 @@
 	let ended = $state(false);
 
 	onMount(async () => {
-		await loadStory('/The Work.json');
+		await loadStory(`${base}/The Work.json`);
 
 		// Restore autosave if available
 		if (hasAutosave()) {
