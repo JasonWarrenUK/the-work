@@ -54,7 +54,7 @@
             //Level 2: What Light?        
                 +   {needLight && myLightSource == "none"}[Tallow]
                     #CLEAR
-                    --  {!considerLightCandle: A little comfort, maybe. | Yes, maybe small comforts should be embraced.}
+                    --  {not considerLightCandle: A little comfort, maybe. | Yes, maybe small comforts should be embraced.}
                     
                     **  (considerLightCandle) A candle provides no warmth[.], but the mind can be tricked & soothed.
                     ++  {CHOICE_COUNT() == 0} ->
@@ -68,7 +68,7 @@
                     **  Or perhaps something else...
                 +   {needLight && myLightSource == "none"}[Butane]
                     #CLEAR
-                    --  {!considerLightGas: A convenient light.| An uncompromising clarity may be a boon.}
+                    --  {not considerLightGas: A convenient light.| An uncompromising clarity may be a boon.}
 
                     **  (considerLightGas) A harsh light[.], but perhaps an unforgiving illumination can bolster your will.
                     ++  {CHOICE_COUNT() == 0} 

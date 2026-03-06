@@ -2,23 +2,24 @@
     #CLEAR
     It is 8:00 in the morning. Your time is up.
 
-    ~ temp thesesWritten = countThesesWritten()
-    ~ temp conceptsWritten = countConceptsWritten()
-
-    {thesesWritten >= 3:
+    {countThesesWritten() >= 3:
         -> ending_triumph
-    - thesesWritten >= 1:
-        -> ending_defence
-    - conceptsWritten >= 1:
-        -> ending_fragments
     - else:
-        -> ending_blank
+        {countThesesWritten() >= 1:
+            -> ending_defence
+        - else:
+            {countConceptsWritten() >= 1:
+                -> ending_fragments
+            - else:
+                -> ending_blank
+            }
+        }
     }
 
 = ending_triumph
     The pages are dense with argument. You gather them with hands that barely shake.
 
-    {thesesWritten} threads — each one a thesis, complete and rigorous. More than enough.
+    {countThesesWritten()} threads — each one a thesis, complete and rigorous. More than enough.
 
     You have delivered. The committee will find no weakness here.
 
@@ -30,7 +31,7 @@
 = ending_defence
     You have something. Not everything you'd hoped for, but something real.
 
-    {thesesWritten == 1:A single thesis|{thesesWritten} theses}, hard-won, surrounded by the scaffolding of incomplete ideas.
+    {countThesesWritten() == 1:A single thesis|{countThesesWritten()} theses}, hard-won, surrounded by the scaffolding of incomplete ideas.
 
     It may be enough. It will have to be enough.
 
@@ -40,7 +41,7 @@
     -> END
 
 = ending_fragments
-    The desk is littered with half-formed text. {conceptsWritten} threads committed to the page, none brought to completion.
+    The desk is littered with half-formed text. {countConceptsWritten()} threads committed to the page, none brought to completion.
 
     You have drafts. Sketches of arguments. The ghosts of ideas.
 
