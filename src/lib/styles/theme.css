@@ -1,0 +1,57 @@
+:root {
+	/* Base palette — dark, atmospheric */
+	--bg: #0a0a0f;
+	--bg-surface: #12121a;
+	--text: #d4d0c8;
+	--text-dim: #8a8680;
+	--accent: #c9a96e;
+	--accent-dim: #7a6a42;
+	--choice: #b8a070;
+	--choice-hover: #e8d8b0;
+	--choice-active: #c04040;
+	--danger: #c04040;
+
+	/* Typography */
+	--font-body: 'Literata', 'Georgia', serif;
+	--font-ui: 'Inter', system-ui, sans-serif;
+	--line-height: 1.6;
+	--measure: 38em;
+
+	/* Spacing */
+	--space-xs: 0.25rem;
+	--space-sm: 0.5rem;
+	--space-md: 1rem;
+	--space-lg: 2rem;
+	--space-xl: 4rem;
+
+	/* Animation */
+	--fade-duration: 500ms;
+	--line-delay: 50ms;
+	--transition-slow: 2s ease;
+}
+
+/* Mood overrides — set via data-mood attribute on body */
+body[data-mood='tense'] {
+	--bg: #1a0a0a;
+	--accent: #c05050;
+}
+
+body[data-mood='calm'] {
+	--bg: #0a0a1a;
+	--accent: #6a8ac0;
+}
+
+body[data-mood='inspired'] {
+	--bg: #0a1a0f;
+	--accent: #6ac070;
+}
+
+/* High contrast override */
+@media (prefers-contrast: more) {
+	:root {
+		--bg: #000000;
+		--text: #ffffff;
+		--choice: #ffff00;
+		--choice-hover: #ffffff;
+	}
+}
