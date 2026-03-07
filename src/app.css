@@ -18,10 +18,8 @@ html {
 }
 
 body {
-	background-color: var(--bg);
 	color: var(--text);
 	min-height: 100dvh;
-	transition: background-color 2s ease;
 }
 
 ::selection {
