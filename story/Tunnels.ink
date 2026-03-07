@@ -1,6 +1,6 @@
 === Action(-> go) ===
 
-    + (Action_Textual) Attend to the Work
+    + (Action_Textual) Attend to The Work
 
         ++ {lvl_Rule >= 3 && lvl_Rule > written_Rule} [Rule — {levelName(lvl_Rule)}]
             ~ FocusConcept = "Rule"
@@ -28,7 +28,7 @@
             {printWriteResult(FocusConcept, wLevel)}
             {advanceTime()}
 
-    + (Action_Physical) Connect with the real world
+    + (Action_Physical) Consider your circumstances
 
         ** (examine_legal) [A legal document, dense with clauses]
             A contract of some kind, or perhaps a statute. The language of obligation and authority.

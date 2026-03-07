@@ -46,6 +46,22 @@ body[data-mood='inspired'] {
 	--accent: #6ac070;
 }
 
+/* Action category moods — subtle shifts per gameplay mode */
+body[data-mood='textual'] {
+	--bg: #0f0a08;
+	--accent: #c9a96e;
+}
+
+body[data-mood='physical'] {
+	--bg: #0a0f0e;
+	--accent: #7aaa8a;
+}
+
+body[data-mood='mental'] {
+	--bg: #0c0a12;
+	--accent: #9a8ac0;
+}
+
 /* High contrast override */
 @media (prefers-contrast: more) {
 	:root {

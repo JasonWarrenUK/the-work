@@ -19,6 +19,11 @@
 	function continueGame() {
 		goto(`${base}/`);
 	}
+
+	function skipPrologue() {
+		deleteAutosave();
+		goto(`${base}/?skip=1`);
+	}
 </script>
 
 <div class="menu" in:fade={{ duration: 800 }}>
@@ -29,6 +34,7 @@
 			<button class="menu-btn" onclick={continueGame}>Continue</button>
 		{/if}
 		<button class="menu-btn" onclick={newGame}>New Game</button>
+		<button class="menu-btn" onclick={skipPrologue}>Skip Prologue</button>
 	</nav>
 </div>
 
