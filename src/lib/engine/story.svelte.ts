@@ -69,9 +69,9 @@ export const story = {
 			const tags = ink.currentTags ?? [];
 			const { clear, mood } = processTags(tags);
 
-			// Apply mood to body for atmospheric CSS
+			// Apply mood to html element for atmospheric CSS
 			if (mood && typeof document !== 'undefined') {
-				document.body.dataset.mood = mood;
+				document.documentElement.dataset.mood = mood;
 			}
 
 			if (clear) {
