@@ -60,7 +60,7 @@
 		const choiceTexts = choices.map((c) => c.text);
 		const atCoreMenu = CATEGORY_NAMES.every((name) => choiceTexts.includes(name));
 		if (atCoreMenu && typeof document !== 'undefined') {
-			delete document.body.dataset.mood;
+			delete document.documentElement.dataset.mood;
 		}
 
 		// Autosave after each passage
@@ -75,7 +75,7 @@
 		// Check if this choice is an action category and set mood
 		const selected = choices.find((c) => c.index === index);
 		if (selected && selected.text in CATEGORY_MOODS && typeof document !== 'undefined') {
-			document.body.dataset.mood = CATEGORY_MOODS[selected.text];
+			document.documentElement.dataset.mood = CATEGORY_MOODS[selected.text];
 		}
 
 		story.choose(index);
