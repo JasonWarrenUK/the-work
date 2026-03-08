@@ -4,7 +4,29 @@
 
 A narrative game built with **SvelteKit** and **Ink**, where a Writer must compose a thesis in a single night. Examine objects in a cramped bedsit, form observations, develop ideas, and defend your work before a committee that adapts to what you've written.
 
-> Further reading: [World & Setting](design/World.md) | [Engine API](src/lib/engine/README.md) | [Development Guide](CLAUDE.md) | [Migration Plan](plan.md)
+> Further reading: [World & Setting](design/World.md) | [Nib Engine](src/lib/engine/README.md) | [Development Guide](CLAUDE.md) | [Migration Plan](plan.md)
+
+---
+
+## Current State
+
+The game is in **early development**. Core systems are in place but most content is unwritten.
+
+**What works now:**
+- The first two hours of narrative are playable (6:30pm–8:00pm) — the Writer arrives, settles in, and begins examining objects
+- The idea system is functional end-to-end: examining objects produces observations, which can be developed into higher-level ideas
+- 67 observations (with 201 domain readings) and 40 inklings are cataloged and wired into Ink
+- Orthodoxy scoring tracks how conventional or radical each idea is
+- Development and combination recipes can transform ideas through authored paths
+- The **Nib** engine (generic Ink/Svelte runtime) is stable and reusable independently
+
+**What's missing or incomplete:**
+- Hours d1_2100 through d2_0700 are empty stubs — the bulk of the night is unwritten
+- The thesis defence (d2_0800) has structure but needs the committee dynamics that emerge from what the player writes
+- Writing action still operates at the domain level, not true per-idea selective writing
+- Sensory events, bodily states, and hidden/nested objects are designed but have no trigger mechanisms in Ink yet
+- Level 3+ ideas need authored content for the writing interface
+- No save/load UI yet (the engine supports it, the game doesn't surface it)
 
 ---
 
@@ -45,11 +67,11 @@ The Writer's discipline is not chosen — it emerges. Every pairing of two domai
 
 ## Architecture
 
-The codebase separates a **generic, reusable Ink runtime** from **game-specific logic**. The engine knows nothing about ideas, domains, or orthodoxy. Game systems are injected through a single `onInit` callback.
+The codebase separates **Nib** (a generic, reusable Ink/Svelte runtime) from **game-specific logic**. Nib knows nothing about ideas, domains, or orthodoxy. Game systems are injected through a single `onInit` callback.
 
 ```
 ┌─────────────────────────────────────────┐
-│  src/lib/engine/     (generic, reusable)│
+│  Nib — src/lib/engine/  (generic, copy) │
 │  ├── story.svelte.ts  — Ink runtime     │
 │  └── tags.ts          — tag processing  │
 └────────────────┬────────────────────────┘
@@ -64,7 +86,11 @@ The codebase separates a **generic, reusable Ink runtime** from **game-specific 
 └─────────────────────────────────────────┘
 ```
 
-> Further reading: [Engine API & Integration Pattern](src/lib/engine/README.md) | [Development Guide — Architecture](CLAUDE.md#architecture)
+### What is Nib?
+
+**Nib** is the generic Ink+Svelte engine that lives in `src/lib/engine/`. It handles story loading, reactive state management (Svelte 5 runes), tag processing, and save/load — with zero knowledge of any particular game's mechanics. To use Nib in another project, copy `src/lib/engine/` and write your own `onInit` function to bind game logic.
+
+> Further reading: [Nib API & Integration Pattern](src/lib/engine/README.md) | [Development Guide — Architecture](CLAUDE.md#architecture)
 
 ### Key Directories
 
@@ -72,7 +98,7 @@ The codebase separates a **generic, reusable Ink runtime** from **game-specific 
 |------|---------|------|
 | `story/` | Ink source files (`The Work.ink` is the root) | [Ink Patterns](CLAUDE.md#ink-patterns--gotchas) |
 | `story/Hours/` | Per-hour chapter files (d1_1830 through d2_0800) | — |
-| `src/lib/engine/` | Generic Ink+Svelte runtime (zero game imports) | [Engine README](src/lib/engine/README.md) |
+| `src/lib/engine/` | **Nib** — generic Ink+Svelte runtime (zero game imports) | [Nib README](src/lib/engine/README.md) |
 | `src/lib/game/` | Idea system, inventory, orthodoxy, recipes | [Development Guide](CLAUDE.md#architecture) |
 | `src/lib/components/` | Svelte UI components (Passage, ChoiceList, StatusBar) | — |
 | `design/` | Game design documents | See below |
@@ -138,7 +164,7 @@ npx svelte-check --tsconfig ./tsconfig.json
 | Layer | Choice |
 |-------|--------|
 | Framework | SvelteKit + `adapter-static` |
-| Narrative engine | Ink (via inkjs) |
+| Narrative engine | Ink (via inkjs), wrapped by **Nib** (`src/lib/engine/`) |
 | Reactivity | Svelte 5 runes (`$state`, `$derived`) |
 | Language | TypeScript |
 | Build tool | Vite |
