@@ -55,7 +55,9 @@ export async function loadStory(jsonPath: string, onInit?: (ink: Story) => void)
 	if (!response.ok) {
 		throw new Error(`Failed to load story: ${response.status} ${response.statusText}`);
 	}
-	const json = await response.text();
+	let json = await response.text();
+	// Strip UTF-8 BOM if present (inkjs compiler may emit one)
+	if (json.charCodeAt(0) === 0xfeff) json = json.slice(1);
 	const ink = new Story(json);
 
 	ink.onError = (message: string, type: number) => {
