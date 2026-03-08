@@ -217,6 +217,15 @@
         - 6: You write with the certainty of the possessed. {concept} — a complete thesis, unassailable.
     }
 
+=== function printWriteResultForIdea(id)
+    ~ temp level = get_idea_level(id)
+    {level:
+        - 3: The words come haltingly, but they come. You set the thought down in rough strokes. It's a start.
+        - 4: The pen moves with growing confidence. The thought takes shape on the page — a formed concept, articulated.
+        - 5: The argument flows, each point building on the last. You write with precision.
+        - 6: You write with the certainty of the possessed. A complete thesis, unassailable.
+    }
+
 === function printWrittenProgress()
     {written_Rule > 0:
         Rule: {levelName(written_Rule)}
@@ -313,51 +322,51 @@ TODO === function Inspect(object)
         - 8:
             ~ TimeName = "8:00pm"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "The city settles. Through the window, chimney smoke thins against a darkening sky."
         - 9:
             ~ TimeName = "9:00pm"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "The candle gutters. You trim the wick and the shadows resettle, reluctantly."
         - 10:
             ~ TimeName = "10:00pm"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "A door closes somewhere in the building. Footsteps on the stairs, then silence. You are alone with the work."
         - 11:
             ~ TimeName = "11:00pm"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "The gas lamp hisses. Outside, the last tram rattles past. The city is letting go of the day."
         - 12:
             ~ TimeName = "midnight"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "The bells. Twelve strokes from the church spire, each one falling into the silence that follows."
         - 13:
             ~ TimeName = "1:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "The room feels smaller now. The walls lean in. The cold is settling into the floorboards."
         - 14:
             ~ TimeName = "2:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "Your eyes ache. The words on the page swim, rearrange themselves, refuse to hold still."
         - 15:
             ~ TimeName = "3:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "The body pushes back. Your hand cramps around the pen. The bed is right there."
         - 16:
             ~ TimeName = "4:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "The quietest hour. Nothing moves. Even the building has stopped settling. The silence is total."
         - 17:
             ~ TimeName = "5:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "A bird. Then another. The world is beginning to remember that it exists."
         - 18:
             ~ TimeName = "6:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "Grey light through the curtains. The candle is a stub. Dawn finds you still at the desk."
         - 19:
             ~ TimeName = "7:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = ""
+            ~ TimeDesc = "The city wakes. Cart wheels on cobblestones. Voices. The committee convenes in one hour."
         - 20:
             ~ TimeName = "8:00am"
             ~ TimeFolk = ""
@@ -388,6 +397,21 @@ TODO === function Inspect(object)
 
 === function printTimeDesc()
     {TimeDesc}
+    {TimeNumber == 12 && get_dread("Existential") >= 2:
+        The bells count out the nothing. Each stroke a question you can't answer.
+    }
+    {TimeNumber == 14 && get_dread("Academic") >= 2:
+        You imagine the committee reading this. Their faces. The silence after.
+    }
+    {TimeNumber == 15 && get_dread("Existential") >= 3:
+        You catch yourself staring at the door. It's not locked. It was never locked.
+    }
+    {TimeNumber == 17 && get_dread("Economic") >= 1:
+        The rent demand sits where you left it. In the new light, the figure looks larger.
+    }
+    {TimeNumber == 19 && get_total_dread() >= 5:
+        Your hands are shaking. Not from the cold.
+    }
 
 === function printConviction()
     {ConvictionDesc}

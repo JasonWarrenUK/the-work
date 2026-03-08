@@ -67,7 +67,15 @@
 
     {endingThesesWritten} threads — each one a thesis, complete and rigorous. More than enough.
 
-    You have delivered. The committee will find no weakness here.
+    {get_total_dread() >= 6:
+        The work is done. But something was spent in the doing — something you're not sure you'll get back.
+    - else:
+        {get_total_dread() >= 3:
+            The work is done. You're not sure, yet, what it cost you.
+        - else:
+            You have delivered. The committee will find no weakness here.
+        }
+    }
 
     On the page:
     -> print_written_summary ->
@@ -82,7 +90,11 @@
 
     {endingThesesWritten == 1:A single thesis|{endingThesesWritten} theses}, hard-won, surrounded by the scaffolding of incomplete ideas.
 
-    It may be enough. It will have to be enough.
+    {get_total_dread() >= 5:
+        Whether the work survives the committee matters less, now, than whether you survive the work.
+    - else:
+        It may be enough. It will have to be enough.
+    }
 
     On the page:
     -> print_written_summary ->
@@ -112,6 +124,10 @@
     }
 
     Thirteen hours. Gone.
+
+    {get_total_dread() >= 4:
+        And the night took something from you that has nothing to do with the thesis.
+    }
 
     The committee will not defer a third time.
 

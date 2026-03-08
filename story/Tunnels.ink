@@ -5,36 +5,49 @@
 
     // --- ATTEND TO THE WORK (Writing) ---
     + (Action_Textual) Attend to The Work
+        {get_total_dread() >= 6:
+            Your hand trembles as you reach for the pen.
+        - else:
+            {get_total_dread() >= 3:
+                The words don't come easily tonight.
+            }
+        }
 
-        // Show writable ideas (level 3+ in any domain, not yet written)
-        // Since Ink can't enumerate dynamic lists, we gate by domain level
-        ++ {get_domain_level("Rule") >= 3 && get_domain_level("Rule") > get_written_level("Rule")} [Write about Rule]
-            ~ FocusConcept = "Rule"
-        ++ {get_domain_level("Faith") >= 3 && get_domain_level("Faith") > get_written_level("Faith")} [Write about Faith]
-            ~ FocusConcept = "Faith"
-        ++ {get_domain_level("Truth") >= 3 && get_domain_level("Truth") > get_written_level("Truth")} [Write about Truth]
-            ~ FocusConcept = "Truth"
-        ++ {get_domain_level("Class") >= 3 && get_domain_level("Class") > get_written_level("Class")} [Write about Class]
-            ~ FocusConcept = "Class"
-        ++ {get_domain_level("Art") >= 3 && get_domain_level("Art") > get_written_level("Art")} [Write about Art]
-            ~ FocusConcept = "Art"
-        ++ {get_domain_level("Nature") >= 3 && get_domain_level("Nature") > get_written_level("Nature")} [Write about Nature]
-            ~ FocusConcept = "Nature"
-        ++ {get_domain_level("Morality") >= 3 && get_domain_level("Morality") > get_written_level("Morality")} [Write about Morality]
-            ~ FocusConcept = "Morality"
+        // Per-idea selective writing: list individual writable ideas (level 3+, held, not written)
+        ~ temp w0 = writable_idea_at(0)
+        ~ temp w1 = writable_idea_at(1)
+        ~ temp w2 = writable_idea_at(2)
+        ~ temp w3 = writable_idea_at(3)
+        ~ temp w4 = writable_idea_at(4)
+
+        ++ {w0 != ""} [{get_idea_text(w0)}]
+            ~ write_idea(w0)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w0)}
+            {advanceTime()}
+        ++ {w1 != ""} [{get_idea_text(w1)}]
+            ~ write_idea(w1)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w1)}
+            {advanceTime()}
+        ++ {w2 != ""} [{get_idea_text(w2)}]
+            ~ write_idea(w2)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w2)}
+            {advanceTime()}
+        ++ {w3 != ""} [{get_idea_text(w3)}]
+            ~ write_idea(w3)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w3)}
+            {advanceTime()}
+        ++ {w4 != ""} [{get_idea_text(w4)}]
+            ~ write_idea(w4)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w4)}
+            {advanceTime()}
 
         ++ {CHOICE_COUNT() == 0} [Set pen to paper]
             -- Your thoughts are too unformed to commit to the page. You need to develop them further.
-            {advanceTime()}
-            -> go
-
-        -- You set pen to paper.
-            // Find the best writable idea in this domain and write it
-            ~ temp writeId = find_developable(FocusConcept)
-            // For now, use domain-level write — the selective per-idea writing
-            // will be enhanced when we have level 3+ ideas in the catalog
-            ~ temp wLevel = get_domain_level(FocusConcept)
-            {printWriteResult(FocusConcept, wLevel)}
             {advanceTime()}
 
     // --- CONSIDER YOUR CIRCUMSTANCES (Observation) ---
@@ -175,6 +188,11 @@
                 }
             - else:
                 The page stares back at you. Blank.
+            }
+            {get_total_dread() > 0:
+                {get_dread("Existential") > 0: A weight behind everything. }
+                {get_dread("Academic") > 0: The committee, always the committee. }
+                {get_dread("Economic") > 0: The arithmetic of survival. }
             }
             {advanceTime()}
 

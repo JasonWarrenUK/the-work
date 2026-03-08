@@ -429,6 +429,44 @@ const inklings: IdeaDef[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Ideas (Level 3) — writable, developed from inklings
+// ---------------------------------------------------------------------------
+
+const ideas: IdeaDef[] = [
+	// Rule + Truth
+	{ id: 'C1', text: 'Censorship is not the act of silencing. It is the architecture — the walls built so carefully that people forget there was ever a view.', level: 3, concepts: { Rule: -60, Truth: -50 }, source: ['I1', 'I4'] },
+	{ id: 'C2', text: 'Order is not peace. It is the agreement to stop asking whether peace was what we wanted.', level: 3, concepts: { Rule: 40, Morality: 30 }, source: ['I5'] },
+	{ id: 'C3', text: 'The silent collaborate. Every throat that closes around a true word tightens the noose for the next person who tries to speak.', level: 3, concepts: { Rule: -55, Truth: -55 }, source: ['I3', 'I4'] },
+
+	// Faith
+	{ id: 'C4', text: 'Scripture is a mirror held up by the powerful. They see their own authority reflected back and call it God.', level: 3, concepts: { Faith: -60, Rule: -50 }, source: ['I6'] },
+	{ id: 'C5', text: 'Faith endures not because the church is right, but because the need it answers is older than any institution.', level: 3, concepts: { Faith: 30 }, source: ['I8', 'I9'] },
+
+	// Class
+	{ id: 'C6', text: 'Poverty is engineered. Every rent increase, every closed door, every "fair wage" is a brick in a wall someone else designed.', level: 3, concepts: { Class: -60, Rule: -40 }, source: ['I14', 'I34'] },
+	{ id: 'C7', text: 'Dignity does not require abundance. The careful hand, the mended cloth, the last match struck with precision — these are not signs of defeat.', level: 3, concepts: { Class: 20, Morality: 15 }, source: ['I15'] },
+
+	// Art
+	{ id: 'C8', text: 'Art exists in the space between what is permitted and what is true. The blank page is not empty — it is occupied by everything you are afraid to say.', level: 3, concepts: { Art: -45, Truth: -30 }, source: ['I16', 'I17'] },
+	{ id: 'C9', text: 'A cathedral built to order is still a cathedral. Art in service is not diminished — only the artist who believes otherwise.', level: 3, concepts: { Art: 40, Faith: 20 }, source: ['I19'] },
+
+	// Nature + Truth
+	{ id: 'C10', text: 'To name a thing is not to know it. The field guide pins the butterfly and calls the pin knowledge.', level: 3, concepts: { Nature: -45, Truth: -45 }, source: ['I21'] },
+	{ id: 'C11', text: 'There is no natural order — only order, imposed, and then called natural by those who benefit from it.', level: 3, concepts: { Nature: -45, Rule: -50, Class: -40 }, source: ['I22', 'I38'] },
+
+	// Morality + Rule
+	{ id: 'C12', text: 'Obedience is the counterfeit of virtue. The state stamps it with the same seal, but the metal is base.', level: 3, concepts: { Morality: -55, Rule: -50 }, source: ['I23', 'I24'] },
+	{ id: 'C13', text: 'Duty is the last scaffolding. When conviction fails and courage fails and even hope fails, duty remains — not because it is noble, but because it is all that is left.', level: 3, concepts: { Morality: 40 }, source: ['I25'] },
+
+	// Cross-domain
+	{ id: 'C14', text: 'The gazette and the hymnbook serve the same master. One compels with law, the other with love. Both demand submission.', level: 3, concepts: { Rule: -45, Faith: -35, Class: -30 }, source: ['I26', 'I27'] },
+
+	// Dread ideas
+	{ id: 'C15', text: 'You stay because leaving would mean admitting that staying was a choice — and choices can be wrong.', level: 3, concepts: { Rule: -25 }, dread: 'Existential', source: ['I10', 'I12'] },
+	{ id: 'C16', text: 'Everything is in the process of becoming something else. Memory, matter, meaning — all of it dissolving, all of it pretending to hold.', level: 3, concepts: { Nature: -40, Art: -25 }, dread: 'Existential', source: ['I11', 'I13'] },
+];
+
+// ---------------------------------------------------------------------------
 // Observation Prompts
 // ---------------------------------------------------------------------------
 
@@ -528,6 +566,9 @@ export function registerAllIdeas(): void {
 		registerIdea(idea);
 	}
 	for (const idea of inklings) {
+		registerIdea(idea);
+	}
+	for (const idea of ideas) {
 		registerIdea(idea);
 	}
 	for (const prompt of prompts) {

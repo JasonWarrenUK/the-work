@@ -11,6 +11,7 @@
     - else:
         {updateWorldState()}
         {printTimeName()}
+        {printTimeDesc()}
     }
 
     -> Action(-> d1_2000.AfterSelection)
