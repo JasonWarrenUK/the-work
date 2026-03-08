@@ -1,8 +1,30 @@
+/**
+ * Ink Story Engine — generic runtime for Ink narratives in Svelte 5.
+ *
+ * This module is game-agnostic: it loads compiled Ink JSON, manages reactive
+ * story state with Svelte 5 runes, and provides a clean API for continuing
+ * the narrative, making choices, and reading/writing Ink variables.
+ *
+ * Game-specific logic (external function bindings, data registration, etc.)
+ * is injected via the `onInit` callback passed to {@link loadStory}.
+ *
+ * @example
+ * ```ts
+ * import { story, loadStory } from '$lib/engine/story.svelte';
+ * import { initGameSystems } from '$lib/game/init';
+ *
+ * await loadStory('/story.json', initGameSystems);
+ * const { paragraphs, choices } = story.continue();
+ * ```
+ *
+ * @module
+ */
+
 import { Story } from 'inkjs';
 import { processTags } from './tags';
-import { bindIdeaFunctions } from './idea-bridge';
-import { registerAllIdeas } from '$lib/game/idea-catalog';
-import { registerAuthoredRecipes } from '$lib/game/recipes';
+
+/** Re-export Story type so consumers can type their onInit callbacks. */
+export type { Story };
 
 // inkjs ErrorType values (not reliably exported from ESM bundle)
 const INK_ERROR = 0;
@@ -19,7 +41,16 @@ let state: StoryState = $state({
 	tick: 0
 });
 
-export async function loadStory(jsonPath: string) {
+/**
+ * Load a compiled Ink JSON story and prepare the engine for playback.
+ *
+ * @param jsonPath - URL or path to the compiled Ink JSON file.
+ * @param onInit - Optional callback invoked with the raw inkjs Story instance
+ *   after it is created but before playback begins. Use this to register
+ *   external functions, populate game data catalogs, or perform any other
+ *   game-specific setup.
+ */
+export async function loadStory(jsonPath: string, onInit?: (ink: Story) => void) {
 	const response = await fetch(jsonPath);
 	if (!response.ok) {
 		throw new Error(`Failed to load story: ${response.status} ${response.statusText}`);
@@ -47,17 +78,22 @@ export async function loadStory(jsonPath: string) {
 		// Function not declared in this build of the story — safe to ignore
 	}
 
-	// Initialize the idea system and bind its external functions
-	registerAllIdeas();
-	registerAuthoredRecipes();
-	bindIdeaFunctions(ink);
+	// Let the game wire up its own external functions and data
+	onInit?.(ink);
 
 	state.inkStory = ink;
 }
 
+/**
+ * Reactive story object — the primary API for interacting with the Ink narrative.
+ *
+ * All state is managed internally with Svelte 5 runes. UI components can read
+ * `story.tick` inside `$derived()` to re-evaluate whenever the story advances.
+ */
 export const story = {
 	/**
 	 * Continue the story until we hit choices or the end.
+	 * Processes Ink tags (CLEAR, mood, class) on each line.
 	 * Returns accumulated paragraphs and available choices.
 	 */
 	continue(): { paragraphs: string[]; choices: Array<{ index: number; text: string }> } {
@@ -105,6 +141,7 @@ export const story = {
 		return { paragraphs, choices };
 	},
 
+	/** Select a choice by its index to advance the narrative. */
 	choose(index: number) {
 		const ink = state.inkStory;
 		if (!ink) throw new Error('Story not loaded');
