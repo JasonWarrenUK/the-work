@@ -1,6 +1,6 @@
-# Ink Story Engine
+# Nib
 
-A generic, reusable runtime for playing [Ink](https://www.inklestudios.com/ink/) narratives in [SvelteKit](https://svelte.dev/) applications, using Svelte 5 runes for reactivity.
+A small, generic runtime for playing [Ink](https://www.inklestudios.com/ink/) narratives in [SvelteKit](https://svelte.dev/) applications, using Svelte 5 runes for reactivity. Copy this directory into any SvelteKit project and write an `onInit` function to wire in your game logic.
 
 ## Files
 
@@ -85,4 +85,4 @@ The engine has **zero imports from game-specific code**. All game logic is injec
 └─────────────────────────────────────────┘
 ```
 
-To reuse this engine in another project, copy `src/lib/engine/` and write your own `onInit` function.
+To reuse Nib in another project, copy `src/lib/engine/` and write your own `onInit` function.

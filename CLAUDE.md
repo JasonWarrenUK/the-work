@@ -21,7 +21,7 @@ npm run build
 **SvelteKit + Ink (inkjs)** — narrative game where a Writer must compose a thesis overnight.
 
 - **Ink** (story/*.ink) — narrative flow, choices, time management
-- **Engine** (src/lib/engine/) — generic, reusable Ink runtime with Svelte 5 runes (see engine README)
+- **Nib** (src/lib/engine/) — generic, reusable Ink runtime with Svelte 5 runes (see [Nib README](src/lib/engine/README.md))
 - **Game** (src/lib/game/) — idea system, inventory, orthodoxy, recipes, Ink external function bindings
 - **Integration** (src/lib/game/init.ts) — single entry point connecting game systems to the engine via `onInit` callback
 
@@ -31,7 +31,7 @@ npm run build
 |------|---------|
 | `story/` | Ink source files (The Work.ink is the root) |
 | `story/Hours/` | Per-hour chapter files (d1_1830.ink through d2_0800.ink) |
-| `src/lib/engine/` | Generic Ink runtime — story state, tag processing (zero game imports) |
+| `src/lib/engine/` | **Nib** — generic Ink runtime, story state, tag processing (zero game imports) |
 | `src/lib/game/init.ts` | Game initialization — wires idea system into the engine |
 | `src/lib/game/idea-bridge.ts` | Binds TypeScript functions as Ink EXTERNAL functions |
 | `src/lib/game/ideas.ts` | Idea data model, inventory state, orthodoxy calculation |
@@ -40,15 +40,15 @@ npm run build
 | `design/` | Design documents (Ideas.md, Objects.md, Recipes.md, Disciplines.md, World.md) |
 | `static/The Work.json` | Compiled Ink story (regenerate after .ink changes) |
 
-### Engine vs Game Separation
+### Nib vs Game Separation
 
-The `src/lib/engine/` directory is a **generic, reusable Ink+Svelte runtime** with no knowledge of this game's mechanics. The `src/lib/game/` directory contains all game-specific logic. These rules maintain the boundary:
+**Nib** (`src/lib/engine/`) is the **generic, reusable Ink+Svelte runtime** with no knowledge of this game's mechanics. The `src/lib/game/` directory contains all game-specific logic. These rules maintain the boundary:
 
-- **`src/lib/engine/` must have zero imports from `$lib/game/`** — if you find yourself importing game code into the engine, the logic belongs in `game/` instead.
+- **Nib (`src/lib/engine/`) must have zero imports from `$lib/game/`** — if you find yourself importing game code into the engine, the logic belongs in `game/` instead.
 - **Game-specific Ink external function bindings go in `src/lib/game/idea-bridge.ts`**, not in the engine.
 - **The `onInit` callback is the only integration point** — `loadStory(path, onInit)` passes the raw inkjs Story to game code for binding external functions and registering data.
-- **Engine files must be documented with JSDoc** — every exported function and type needs a doc comment.
-- To reuse the engine in another project, copy `src/lib/engine/` and write a new `onInit` function.
+- **Nib files must be documented with JSDoc** — every exported function and type needs a doc comment.
+- To reuse Nib in another project, copy `src/lib/engine/` and write a new `onInit` function.
 
 ## Game Design Concepts
 
@@ -80,3 +80,8 @@ The `src/lib/engine/` directory is a **generic, reusable Ink+Svelte runtime** wi
 - Sensory events (P49-P53), bodily states (P54-P58), and hidden/nested objects (P59-P67) are cataloged but NOT in Observations.ink — they need different trigger mechanisms
 - Level 3+ ideas need authoring for writable content in playtesting
 - Hours d1_2100 through d2_0700 are empty stubs (chain forward)
+
+## Documentation Maintenance
+
+- **When gameplay or mechanics change** — update the "Current State" section in `README.md` and the "Current State & Known Gaps" section above. If idea levels, domains, dreads, recipes, or disciplines are added/changed, update the relevant sections in both `README.md` and the design docs.
+- **When Nib (the engine) changes** — update `src/lib/engine/README.md` with any new API surface, changed behaviour, or new tag conventions. If the integration pattern changes, update the architecture diagrams in both `README.md` and this file.
