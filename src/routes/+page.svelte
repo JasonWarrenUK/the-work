@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 	import { base } from '$app/paths';
 	import { story, loadStory } from '$lib/engine/story.svelte';
+	import { initGameSystems } from '$lib/game/init';
 	import { autosave, loadAutosave, hasAutosave } from '$lib/game/save-load';
 	import Passage from '$lib/components/Passage.svelte';
 	import ChoiceList from '$lib/components/ChoiceList.svelte';
@@ -20,7 +21,7 @@
 	let ended = $state(false);
 
 	onMount(async () => {
-		await loadStory(`${base}/The Work.json`);
+		await loadStory(`${base}/The Work.json`, initGameSystems);
 
 		const skip = page.url.searchParams.get('skip') === '1';
 

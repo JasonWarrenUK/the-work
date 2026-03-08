@@ -1,3 +1,17 @@
+/**
+ * Ink tag processing for the narrative engine.
+ *
+ * Parses tags attached to Ink lines into structured data the renderer can act on.
+ * Supports three tag conventions:
+ *
+ * - `#CLEAR` — signals the renderer to wipe all previous passage text.
+ * - `#mood:<name>` — sets an atmospheric mood (applied to `document.documentElement.dataset.mood`).
+ * - `#class:<name>` — adds a CSS class to the current paragraph.
+ * - Bare tags (e.g. `#italic`) — treated as CSS classes (Calico convention).
+ *
+ * @module
+ */
+
 export interface TagResult {
 	clear: boolean;
 	classes: string[];
