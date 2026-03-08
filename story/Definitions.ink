@@ -1,6 +1,10 @@
-//STORY STATE 
+//STORY STATE
     //PROGRESS OF THE WRITER
         LIST TheWork = (blankPage), inProgress, complete
+
+    //ENDING EVALUATION (set in d2_0800)
+        VAR endingWrittenDomains = 0
+        VAR endingThesesWritten = 0
 
     //PROGRESS OF THE THREAT
         //Pressure Data

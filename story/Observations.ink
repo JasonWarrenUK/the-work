@@ -22,12 +22,10 @@
         -> observe_walls
     + {CHOICE_COUNT() == 0} [Look around]
         You've already examined everything in the room. The objects have yielded what they can.
-        -> observe_done
+        ->->
 
-    - -> observe_done
+    - ->->
 
-=== observe_done ===
-    -> DONE
 
 // ---------------------------------------------------------------------------
 // WORK AREA
@@ -60,215 +58,176 @@
     + {CHOICE_COUNT() == 0} [Nothing else here]
         You've examined everything on the desk.
 
-    - -> observe_done
+    - ->->
 
 // P1 — Government gazette: restrictions
 = observe_P1
     The gazette announces new restrictions on public assembly.
 
     + [Measured. Precise. Final.]
-        ~ temp t = acquire_idea("O1a")
-        {t}
+        {acquire_idea("O1a")}
     + [You skim the details.]
-        ~ temp t = acquire_idea("O1b")
-        {t}
+        {acquire_idea("O1b")}
     + [Clinical. Cold.]
-        ~ temp t = acquire_idea("O1c")
-        {t}
+        {acquire_idea("O1c")}
 
-    - -> observe_done
+    - ->->
 
 // P2 — Government gazette: promotions
 = observe_P2
     The gazette lists promotions in the civil service.
 
     + [The best rise.]
-        ~ temp t = acquire_idea("O2a")
-        {t}
+        {acquire_idea("O2a")}
     + [The same families.]
-        ~ temp t = acquire_idea("O2b")
-        {t}
+        {acquire_idea("O2b")}
     + [A closed circle.]
-        ~ temp t = acquire_idea("O2c")
-        {t}
+        {acquire_idea("O2c")}
 
-    - -> observe_done
+    - ->->
 
 // P3 — Rent demand
 = observe_P3
     The rent is due Thursday. The figure has gone up again.
 
     + [Costs rise. You'll manage.]
-        ~ temp t = acquire_idea("O3a")
-        {t}
+        {acquire_idea("O3a")}
     + [The landlord's hand is steady.]
-        ~ temp t = acquire_idea("O3b")
-        {t}
+        {acquire_idea("O3b")}
     + [The arithmetic of ownership.]
-        ~ temp t = acquire_idea("O3c")
-        {t}
+        {acquire_idea("O3c")}
 
-    - -> observe_done
+    - ->->
 
 // P4 — Letter: paper
 = observe_P4
     Your colleague writes about a paper they're preparing. Between the lines, something else.
 
     + [Caution is wisdom.]
-        ~ temp t = acquire_idea("O4a")
-        {t}
+        {acquire_idea("O4a")}
     + [A warning: be careful.]
-        ~ temp t = acquire_idea("O4b")
-        {t}
+        {acquire_idea("O4b")}
     + [They're afraid.]
-        ~ temp t = acquire_idea("O4c")
-        {t}
+        {acquire_idea("O4c")}
 
-    - -> observe_done
+    - ->->
 
 // P5 — Letter: names
 = observe_P5
     Your colleague mentions names. People who've gone quiet.
 
     + [People move on.]
-        ~ temp t = acquire_idea("O5a")
-        {t}
+        {acquire_idea("O5a")}
     + [The list is getting longer.]
-        ~ temp t = acquire_idea("O5b")
-        {t}
+        {acquire_idea("O5b")}
     + [A roll call of silence.]
-        ~ temp t = acquire_idea("O5c")
-        {t}
+        {acquire_idea("O5c")}
 
-    - -> observe_done
+    - ->->
 
 // P6 — Letter from family
 = observe_P6
     Your mother's handwriting. She asks if you're eating enough.
 
     + [She worries. Love, simply.]
-        ~ temp t = acquire_idea("O6a")
-        {t}
+        {acquire_idea("O6a")}
     + [Her handwriting is smaller.]
-        ~ temp t = acquire_idea("O6b")
-        {t}
+        {acquire_idea("O6b")}
     + [She's learned not to mention things.]
-        ~ temp t = acquire_idea("O6c")
-        {t}
+        {acquire_idea("O6c")}
 
-    - -> observe_done
+    - ->->
 
 // P7 — Rejection letter
 = observe_P7
     The rejection is polite. "Not suited to the present climate."
 
     + [Editors have judgment.]
-        ~ temp t = acquire_idea("O7a")
-        {t}
+        {acquire_idea("O7a")}
     + [At least they read it.]
-        ~ temp t = acquire_idea("O7b")
-        {t}
+        {acquire_idea("O7b")}
     + [Not wrong — just inconvenient.]
-        ~ temp t = acquire_idea("O7c")
-        {t}
+        {acquire_idea("O7c")}
 
-    - -> observe_done
+    - ->->
 
 // P8 — Annotated lexicon
 = observe_P8
     The lexicon falls open to a page covered in your annotations.
 
     + [Precision matters.]
-        ~ temp t = acquire_idea("O8a")
-        {t}
+        {acquire_idea("O8a")}
     + [The right word, still missing.]
-        ~ temp t = acquire_idea("O8b")
-        {t}
+        {acquire_idea("O8b")}
     + [Words you're not allowed to use.]
-        ~ temp t = acquire_idea("O8c")
-        {t}
+        {acquire_idea("O8c")}
 
-    - -> observe_done
+    - ->->
 
 // P9 — Half-finished sketch
 = observe_P9
     A sketch of a building. You drew it from memory.
 
     + [Something preserved.]
-        ~ temp t = acquire_idea("O9a")
-        {t}
+        {acquire_idea("O9a")}
     + [The memory is already wrong.]
-        ~ temp t = acquire_idea("O9b")
-        {t}
+        {acquire_idea("O9b")}
     + [Memory is authorship.]
-        ~ temp t = acquire_idea("O9c")
-        {t}
+        {acquire_idea("O9c")}
 
-    - -> observe_done
+    - ->->
 
 // P10 — Pocket watch
 = observe_P10
     The pocket watch has stopped. 3:17.
 
     + [It needs winding.]
-        ~ temp t = acquire_idea("O10a")
-        {t}
+        {acquire_idea("O10a")}
     + [You can't remember what happened.]
-        ~ temp t = acquire_idea("O10b")
-        {t}
+        {acquire_idea("O10b")}
     + [Time stopped and the world kept going.]
-        ~ temp t = acquire_idea("O10c")
-        {t}
+        {acquire_idea("O10c")}
 
-    - -> observe_done
+    - ->->
 
 // P11 — Worn coin
 = observe_P11
     An old coin. The face on it belongs to no current authority.
 
     + [Worth its weight in metal.]
-        ~ temp t = acquire_idea("O11a")
-        {t}
+        {acquire_idea("O11a")}
     + [The face is worn smooth.]
-        ~ temp t = acquire_idea("O11b")
-        {t}
+        {acquire_idea("O11b")}
     + [Authorities change. The coin remains.]
-        ~ temp t = acquire_idea("O11c")
-        {t}
+        {acquire_idea("O11c")}
 
-    - -> observe_done
+    - ->->
 
 // P12 — Ink pot and nib
 = observe_P12
     The ink is low. The nib is worn.
 
     + [Tools of the trade.]
-        ~ temp t = acquire_idea("O12a")
-        {t}
+        {acquire_idea("O12a")}
     + [Enough, if you don't waste it.]
-        ~ temp t = acquire_idea("O12b")
-        {t}
+        {acquire_idea("O12b")}
     + [Both are finite.]
-        ~ temp t = acquire_idea("O12c")
-        {t}
+        {acquire_idea("O12c")}
 
-    - -> observe_done
+    - ->->
 
 // P13 — Blank paper
 = observe_P13
     The blank page.
 
     + [Space to fill.]
-        ~ temp t = acquire_idea("O13a")
-        {t}
+        {acquire_idea("O13a")}
     + [It waits.]
-        ~ temp t = acquire_idea("O13b")
-        {t}
+        {acquire_idea("O13b")}
     + [A dare. Or an accusation.]
-        ~ temp t = acquire_idea("O13c")
-        {t}
+        {acquire_idea("O13c")}
 
-    - -> observe_done
+    - ->->
 
 // ---------------------------------------------------------------------------
 // SHELVES & BOOKS
@@ -297,167 +256,137 @@
     + {CHOICE_COUNT() == 0} [Nothing else on the shelves]
         You've examined every volume.
 
-    - -> observe_done
+    - ->->
 
 // P14 — Bible, Ecclesiastes
 = observe_P14
     The Bible falls open to Ecclesiastes. "Of making many books there is no end."
 
     + [A comfort.]
-        ~ temp t = acquire_idea("O14a")
-        {t}
+        {acquire_idea("O14a")}
     + [A warning against vanity.]
-        ~ temp t = acquire_idea("O14b")
-        {t}
+        {acquire_idea("O14b")}
     + [Foolish or defiant.]
-        ~ temp t = acquire_idea("O14c")
-        {t}
+        {acquire_idea("O14c")}
 
-    - -> observe_done
+    - ->->
 
 // P15 — Bible, Romans 13
 = observe_P15
     The spine is cracked at Romans 13. "Let every soul be subject unto the higher powers."
 
     + [The divine order.]
-        ~ temp t = acquire_idea("O15a")
-        {t}
+        {acquire_idea("O15a")}
     + [For comfort or conviction.]
-        ~ temp t = acquire_idea("O15b")
-        {t}
+        {acquire_idea("O15b")}
     + [Convenient, that God agrees.]
-        ~ temp t = acquire_idea("O15c")
-        {t}
+        {acquire_idea("O15c")}
 
-    - -> observe_done
+    - ->->
 
 // P16 — Natural philosophy
 = observe_P16
     The text describes how organisms adapt to hostile environments. Slowly, over generations.
 
     + [Adaptation is strength.]
-        ~ temp t = acquire_idea("O16a")
-        {t}
+        {acquire_idea("O16a")}
     + [Not overnight.]
-        ~ temp t = acquire_idea("O16b")
-        {t}
+        {acquire_idea("O16b")}
     + [What doesn't adapt, dies.]
-        ~ temp t = acquire_idea("O16c")
-        {t}
+        {acquire_idea("O16c")}
 
-    - -> observe_done
+    - ->->
 
 // P17 — Poetry
 = observe_P17
     A poem about a field in summer.
 
     + [Beautiful. A reminder.]
-        ~ temp t = acquire_idea("O17a")
-        {t}
+        {acquire_idea("O17a")}
     + [Useless. Beautiful.]
-        ~ temp t = acquire_idea("O17b")
-        {t}
+        {acquire_idea("O17b")}
     + [A world that doesn't exist.]
-        ~ temp t = acquire_idea("O17c")
-        {t}
+        {acquire_idea("O17c")}
 
-    - -> observe_done
+    - ->->
 
 // P18 — Political pamphlet
 = observe_P18
     The pamphlet argues that the current order is natural, inevitable, divinely ordained.
 
     + [Persuasive. Well-argued.]
-        ~ temp t = acquire_idea("O18a")
-        {t}
+        {acquire_idea("O18a")}
     + [Printed on good paper.]
-        ~ temp t = acquire_idea("O18b")
-        {t}
+        {acquire_idea("O18b")}
     + [Three claims, each doing the work of the others.]
-        ~ temp t = acquire_idea("O18c")
-        {t}
+        {acquire_idea("O18c")}
 
-    - -> observe_done
+    - ->->
 
 // P19 — Botanical field guide
 = observe_P19
     The field guide catalogues species. Precise, clinical descriptions.
 
     + [Comfort in taxonomy.]
-        ~ temp t = acquire_idea("O19a")
-        {t}
+        {acquire_idea("O19a")}
     + [No symbolism. Just fact.]
-        ~ temp t = acquire_idea("O19b")
-        {t}
+        {acquire_idea("O19b")}
     + [The plants don't care.]
-        ~ temp t = acquire_idea("O19c")
-        {t}
+        {acquire_idea("O19c")}
 
-    - -> observe_done
+    - ->->
 
 // P20 — Legal compendium
 = observe_P20
     The compendium defines rights. Some no longer apply.
 
     + [Flexibility is functioning.]
-        ~ temp t = acquire_idea("O20a")
-        {t}
+        {acquire_idea("O20a")}
     + [Rights on paper, nowhere else.]
-        ~ temp t = acquire_idea("O20b")
-        {t}
+        {acquire_idea("O20b")}
     + [Permissions, not rights.]
-        ~ temp t = acquire_idea("O20c")
-        {t}
+        {acquire_idea("O20c")}
 
-    - -> observe_done
+    - ->->
 
 // P21 — Children's storybook
 = observe_P21
     A storybook. The wolf is punished for asking too many questions.
 
     + [That's how stories work.]
-        ~ temp t = acquire_idea("O21a")
-        {t}
+        {acquire_idea("O21a")}
     + [Don't ask, don't tell.]
-        ~ temp t = acquire_idea("O21b")
-        {t}
+        {acquire_idea("O21b")}
     + [The wolf was right to ask.]
-        ~ temp t = acquire_idea("O21c")
-        {t}
+        {acquire_idea("O21c")}
 
-    - -> observe_done
+    - ->->
 
 // P22 — Alchemical text
 = observe_P22
     The alchemical text promises transformation. Base metal into gold.
 
     + [Charlatanism.]
-        ~ temp t = acquire_idea("O22a")
-        {t}
+        {acquire_idea("O22a")}
     + [Everything reads differently now.]
-        ~ temp t = acquire_idea("O22b")
-        {t}
+        {acquire_idea("O22b")}
     + [Change requires destruction.]
-        ~ temp t = acquire_idea("O22c")
-        {t}
+        {acquire_idea("O22c")}
 
-    - -> observe_done
+    - ->->
 
 // P23 — Hymnbook
 = observe_P23
     The hymnbook is inscribed to you. The handwriting is unmistakable.
 
     + [A gift, given in faith.]
-        ~ temp t = acquire_idea("O23a")
-        {t}
+        {acquire_idea("O23a")}
     + [The person isn't here.]
-        ~ temp t = acquire_idea("O23b")
-        {t}
+        {acquire_idea("O23b")}
     + [Songs of certainty.]
-        ~ temp t = acquire_idea("O23c")
-        {t}
+        {acquire_idea("O23c")}
 
-    - -> observe_done
+    - ->->
 
 // ---------------------------------------------------------------------------
 // KITCHENETTE
@@ -478,87 +407,72 @@
     + {CHOICE_COUNT() == 0} [Nothing else here]
         The kitchenette has nothing more to show you.
 
-    - -> observe_done
+    - ->->
 
 // P24 — Dinner remains
 = observe_P24
     Bones picked clean. A heel of bread gone hard.
 
     + [Simple but sufficient.]
-        ~ temp t = acquire_idea("O24a")
-        {t}
+        {acquire_idea("O24a")}
     + [You're used to this now.]
-        ~ temp t = acquire_idea("O24b")
-        {t}
+        {acquire_idea("O24b")}
     + [Somewhere, someone is throwing food away.]
-        ~ temp t = acquire_idea("O24c")
-        {t}
+        {acquire_idea("O24c")}
 
-    - -> observe_done
+    - ->->
 
 // P25 — Apple
 = observe_P25
     The apple has a brown spot. It's spreading.
 
     + [Cut around it.]
-        ~ temp t = acquire_idea("O25a")
-        {t}
+        {acquire_idea("O25a")}
     + [Still edible, for now.]
-        ~ temp t = acquire_idea("O25b")
-        {t}
+        {acquire_idea("O25b")}
     + [The rot is patient.]
-        ~ temp t = acquire_idea("O25c")
-        {t}
+        {acquire_idea("O25c")}
 
-    - -> observe_done
+    - ->->
 
 // P26 — Whiskey
 = observe_P26
     The whiskey is a quarter full.
 
     + [A small mercy.]
-        ~ temp t = acquire_idea("O26a")
-        {t}
+        {acquire_idea("O26a")}
     + [Warm or blur. Not both.]
-        ~ temp t = acquire_idea("O26b")
-        {t}
+        {acquire_idea("O26b")}
     + [Rationing pleasure.]
-        ~ temp t = acquire_idea("O26c")
-        {t}
+        {acquire_idea("O26c")}
 
-    - -> observe_done
+    - ->->
 
 // P27 — Knife
 = observe_P27
     The knife. Dull but clean.
 
     + [Dignity in a tool.]
-        ~ temp t = acquire_idea("O27a")
-        {t}
+        {acquire_idea("O27a")}
     + [One tool, many purposes.]
-        ~ temp t = acquire_idea("O27b")
-        {t}
+        {acquire_idea("O27b")}
     + [It could be other things.]
-        ~ temp t = acquire_idea("O27c")
-        {t}
+        {acquire_idea("O27c")}
 
-    - -> observe_done
+    - ->->
 
 // P28 — Gas stove
 = observe_P28
     The pilot light flickers.
 
     + [Count your blessings.]
-        ~ temp t = acquire_idea("O28a")
-        {t}
+        {acquire_idea("O28a")}
     + [Not in your control.]
-        ~ temp t = acquire_idea("O28b")
-        {t}
+        {acquire_idea("O28b")}
     + [All your lives, tied to a flame.]
-        ~ temp t = acquire_idea("O28c")
-        {t}
+        {acquire_idea("O28c")}
 
-    - -> observe_done
+    - ->->
 
 // ---------------------------------------------------------------------------
 // BED AREA
@@ -573,39 +487,33 @@
     + {CHOICE_COUNT() == 0} [Nothing else here]
         There's nothing more to see.
 
-    - -> observe_done
+    - ->->
 
 // P29 — Bed
 = observe_P29
     The bed. Unmade.
 
     + [Work to do first.]
-        ~ temp t = acquire_idea("O29a")
-        {t}
+        {acquire_idea("O29a")}
     + [The shape of your absence.]
-        ~ temp t = acquire_idea("O29b")
-        {t}
+        {acquire_idea("O29b")}
     + [Like everything you haven't finished.]
-        ~ temp t = acquire_idea("O29c")
-        {t}
+        {acquire_idea("O29c")}
 
-    - -> observe_done
+    - ->->
 
 // P30 — Coat as blanket
 = observe_P30
     The coat is too thin for this, but it's warmer than the blanket.
 
     + [Everyone makes do.]
-        ~ temp t = acquire_idea("O30a")
-        {t}
+        {acquire_idea("O30a")}
     + [The line has blurred.]
-        ~ temp t = acquire_idea("O30b")
-        {t}
+        {acquire_idea("O30b")}
     + [Nothing works for its purpose.]
-        ~ temp t = acquire_idea("O30c")
-        {t}
+        {acquire_idea("O30c")}
 
-    - -> observe_done
+    - ->->
 
 // ---------------------------------------------------------------------------
 // BATHROOM
@@ -622,55 +530,46 @@
     + {CHOICE_COUNT() == 0} [Nothing else here]
         The bathroom has nothing more to show you.
 
-    - -> observe_done
+    - ->->
 
 // P31 — Mirror
 = observe_P31
     Your face in the mirror.
 
     + [Tired. But still here.]
-        ~ temp t = acquire_idea("O31a")
-        {t}
+        {acquire_idea("O31a")}
     + [When did you start looking like this?]
-        ~ temp t = acquire_idea("O31b")
-        {t}
+        {acquire_idea("O31b")}
     + [You don't recognise the person.]
-        ~ temp t = acquire_idea("O31c")
-        {t}
+        {acquire_idea("O31c")}
 
-    - -> observe_done
+    - ->->
 
 // P32 — Razor
 = observe_P32
     The razor. Sharp. Clean.
 
     + [Discipline in small things.]
-        ~ temp t = acquire_idea("O32a")
-        {t}
+        {acquire_idea("O32a")}
     + [It does its one job well.]
-        ~ temp t = acquire_idea("O32b")
-        {t}
+        {acquire_idea("O32b")}
     + [The sharpest thing in the room.]
-        ~ temp t = acquire_idea("O32c")
-        {t}
+        {acquire_idea("O32c")}
 
-    - -> observe_done
+    - ->->
 
 // P33 — Soap
 = observe_P33
     The soap is a sliver.
 
     + [It'll last if you're careful.]
-        ~ temp t = acquire_idea("O33a")
-        {t}
+        {acquire_idea("O33a")}
     + [Deciding what to spend on.]
-        ~ temp t = acquire_idea("O33b")
-        {t}
+        {acquire_idea("O33b")}
     + [The cost of cleanliness.]
-        ~ temp t = acquire_idea("O33c")
-        {t}
+        {acquire_idea("O33c")}
 
-    - -> observe_done
+    - ->->
 
 // ---------------------------------------------------------------------------
 // WALLS, FIXTURES, ROOM
@@ -711,244 +610,199 @@
     + {CHOICE_COUNT() == 0} [Nothing else]
         You've examined every corner.
 
-    - -> observe_done
+    - ->->
 
 // P34 — Photograph
 = observe_P34
     The photograph is face-down. You put it that way.
 
     + [Better left alone.]
-        ~ temp t = acquire_idea("O34a")
-        {t}
+        {acquire_idea("O34a")}
     + [You know what's there.]
-        ~ temp t = acquire_idea("O34b")
-        {t}
+        {acquire_idea("O34b")}
     + [So they can't watch.]
-        ~ temp t = acquire_idea("O34c")
-        {t}
+        {acquire_idea("O34c")}
 
-    - -> observe_done
+    - ->->
 
 // P35 — Recruitment poster
 = observe_P35
     The poster promises purpose, belonging, a future.
 
     + [Service has its rewards.]
-        ~ temp t = acquire_idea("O35a")
-        {t}
+        {acquire_idea("O35a")}
     + [It does not mention what you'd have to do.]
-        ~ temp t = acquire_idea("O35b")
-        {t}
+        {acquire_idea("O35b")}
     + [Three things the state broke.]
-        ~ temp t = acquire_idea("O35c")
-        {t}
+        {acquire_idea("O35c")}
 
-    - -> observe_done
+    - ->->
 
 // P36 — Concert programme
 = observe_P36
     A programme from a concert. From before.
 
     + [A pleasant memory.]
-        ~ temp t = acquire_idea("O36a")
-        {t}
+        {acquire_idea("O36a")}
     + [You kept it, though you can't say why.]
-        ~ temp t = acquire_idea("O36b")
-        {t}
+        {acquire_idea("O36b")}
     + [You lost the world it came from.]
-        ~ temp t = acquire_idea("O36c")
-        {t}
+        {acquire_idea("O36c")}
 
-    - -> observe_done
+    - ->->
 
 // P37 — Death certificate
 = observe_P37
     The certificate. Official, stamped, filed.
 
     + [How civilisation works.]
-        ~ temp t = acquire_idea("O37a")
-        {t}
+        {acquire_idea("O37a")}
     + [A life reduced to a form.]
-        ~ temp t = acquire_idea("O37b")
-        {t}
+        {acquire_idea("O37b")}
     + [As if death needed permission.]
-        ~ temp t = acquire_idea("O37c")
-        {t}
+        {acquire_idea("O37c")}
 
-    - -> observe_done
+    - ->->
 
 // P38 — Military medal
 = observe_P38
     The medal. Heavy for its size.
 
     + [Honour. Service recognised.]
-        ~ temp t = acquire_idea("O38a")
-        {t}
+        {acquire_idea("O38a")}
     + [Whether it was worth commemorating.]
-        ~ temp t = acquire_idea("O38b")
-        {t}
+        {acquire_idea("O38b")}
     + [In exchange for something that can't be given back.]
-        ~ temp t = acquire_idea("O38c")
-        {t}
+        {acquire_idea("O38c")}
 
-    - -> observe_done
+    - ->->
 
 // P39 — Key
 = observe_P39
     The key doesn't fit anything in this room.
 
     + [Out of habit.]
-        ~ temp t = acquire_idea("O39a")
-        {t}
+        {acquire_idea("O39a")}
     + [Worth keeping.]
-        ~ temp t = acquire_idea("O39b")
-        {t}
+        {acquire_idea("O39b")}
     + [Somewhere you can't go.]
-        ~ temp t = acquire_idea("O39c")
-        {t}
+        {acquire_idea("O39c")}
 
-    - -> observe_done
+    - ->->
 
 // P40 — Crack
 = observe_P40
     The crack in the wall. Getting wider.
 
     + [Buildings settle.]
-        ~ temp t = acquire_idea("O40a")
-        {t}
+        {acquire_idea("O40a")}
     + [So slowly you can't be sure.]
-        ~ temp t = acquire_idea("O40b")
-        {t}
+        {acquire_idea("O40b")}
     + [Everything breaks from the inside.]
-        ~ temp t = acquire_idea("O40c")
-        {t}
+        {acquire_idea("O40c")}
 
-    - -> observe_done
+    - ->->
 
 // P41 — Window
 = observe_P41
     Through the window: rooftops, a church spire, smoke.
 
     + [Your city. Still going.]
-        ~ temp t = acquire_idea("O41a")
-        {t}
+        {acquire_idea("O41a")}
     + [Going on without you.]
-        ~ temp t = acquire_idea("O41b")
-        {t}
+        {acquire_idea("O41b")}
     + [Held together by habit.]
-        ~ temp t = acquire_idea("O41c")
-        {t}
+        {acquire_idea("O41c")}
 
-    - -> observe_done
+    - ->->
 
 // P42 — Specimen jar
 = observe_P42
     The jar holds something preserved in cloudy liquid.
 
     + [A relic of your studies.]
-        ~ temp t = acquire_idea("O42a")
-        {t}
+        {acquire_idea("O42a")}
     + [It watches you. Absurd.]
-        ~ temp t = acquire_idea("O42b")
-        {t}
+        {acquire_idea("O42b")}
     + [Unable to decay or grow.]
-        ~ temp t = acquire_idea("O42c")
-        {t}
+        {acquire_idea("O42c")}
 
-    - -> observe_done
+    - ->->
 
 // P43 — Map
 = observe_P43
     The map has pencil marks. Routes, places. Some crossed out.
 
     + [Routes change. You update it.]
-        ~ temp t = acquire_idea("O43a")
-        {t}
+        {acquire_idea("O43a")}
     + [The city is getting smaller.]
-        ~ temp t = acquire_idea("O43b")
-        {t}
+        {acquire_idea("O43b")}
     + [Your world, shrinking.]
-        ~ temp t = acquire_idea("O43c")
-        {t}
+        {acquire_idea("O43c")}
 
-    - -> observe_done
+    - ->->
 
 // P44 — Door
 = observe_P44
     The door is latched but not locked.
 
     + [Nothing worth stealing.]
-        ~ temp t = acquire_idea("O44a")
-        {t}
+        {acquire_idea("O44a")}
     + [You could leave at any time.]
-        ~ temp t = acquire_idea("O44b")
-        {t}
+        {acquire_idea("O44b")}
     + [The prison you built yourself.]
-        ~ temp t = acquire_idea("O44c")
-        {t}
+        {acquire_idea("O44c")}
 
-    - -> observe_done
+    - ->->
 
 // P45 — Floorboard
 = observe_P45
     The floorboard is loose.
 
     + [Not your building.]
-        ~ temp t = acquire_idea("O45a")
-        {t}
+        {acquire_idea("O45a")}
     + [If this were home.]
-        ~ temp t = acquire_idea("O45b")
-        {t}
+        {acquire_idea("O45b")}
     + [Not even the floor.]
-        ~ temp t = acquire_idea("O45c")
-        {t}
+        {acquire_idea("O45c")}
 
-    - -> observe_done
+    - ->->
 
 // P46 — Coat on hook
 = observe_P46
     The coat on the hook.
 
     + [Well-worn. Reliable.]
-        ~ temp t = acquire_idea("O46a")
-        {t}
+        {acquire_idea("O46a")}
     + [It's seen better days.]
-        ~ temp t = acquire_idea("O46b")
-        {t}
+        {acquire_idea("O46b")}
     + [Class wears thin.]
-        ~ temp t = acquire_idea("O46c")
-        {t}
+        {acquire_idea("O46c")}
 
-    - -> observe_done
+    - ->->
 
 // P47 — Handbill
 = observe_P47
     The handbill offers factory work. Twelve-hour shifts. Fair wages. Housing.
 
     + [Honest work.]
-        ~ temp t = acquire_idea("O47a")
-        {t}
+        {acquire_idea("O47a")}
     + [You could put down the pen.]
-        ~ temp t = acquire_idea("O47b")
-        {t}
+        {acquire_idea("O47b")}
     + [They're buying your time.]
-        ~ temp t = acquire_idea("O47c")
-        {t}
+        {acquire_idea("O47c")}
 
-    - -> observe_done
+    - ->->
 
 // P48 — Stain on ceiling
 = observe_P48
     The stain on the ceiling.
 
     + [Landlord's problem.]
-        ~ temp t = acquire_idea("O48a")
-        {t}
+        {acquire_idea("O48a")}
     + [Shaped like nothing.]
-        ~ temp t = acquire_idea("O48b")
-        {t}
+        {acquire_idea("O48b")}
     + [Finding meaning in stains.]
-        ~ temp t = acquire_idea("O48c")
-        {t}
+        {acquire_idea("O48c")}
 
-    - -> observe_done
+    - ->->

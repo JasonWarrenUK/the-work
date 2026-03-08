@@ -3,58 +3,58 @@
     It is 8:00 in the morning. Your time is up.
 
     // Count written domains and theses using the idea system
-    ~ temp writtenDomains = 0
-    ~ temp thesesWritten = 0
+    ~ endingWrittenDomains = 0
+    ~ endingThesesWritten = 0
     {get_written_level("Rule") > 0:
-        ~ writtenDomains += 1
+        ~ endingWrittenDomains += 1
         {get_written_level("Rule") >= 6:
-            ~ thesesWritten += 1
+            ~ endingThesesWritten += 1
         }
     }
     {get_written_level("Faith") > 0:
-        ~ writtenDomains += 1
+        ~ endingWrittenDomains += 1
         {get_written_level("Faith") >= 6:
-            ~ thesesWritten += 1
+            ~ endingThesesWritten += 1
         }
     }
     {get_written_level("Truth") > 0:
-        ~ writtenDomains += 1
+        ~ endingWrittenDomains += 1
         {get_written_level("Truth") >= 6:
-            ~ thesesWritten += 1
+            ~ endingThesesWritten += 1
         }
     }
     {get_written_level("Class") > 0:
-        ~ writtenDomains += 1
+        ~ endingWrittenDomains += 1
         {get_written_level("Class") >= 6:
-            ~ thesesWritten += 1
+            ~ endingThesesWritten += 1
         }
     }
     {get_written_level("Art") > 0:
-        ~ writtenDomains += 1
+        ~ endingWrittenDomains += 1
         {get_written_level("Art") >= 6:
-            ~ thesesWritten += 1
+            ~ endingThesesWritten += 1
         }
     }
     {get_written_level("Nature") > 0:
-        ~ writtenDomains += 1
+        ~ endingWrittenDomains += 1
         {get_written_level("Nature") >= 6:
-            ~ thesesWritten += 1
+            ~ endingThesesWritten += 1
         }
     }
     {get_written_level("Morality") > 0:
-        ~ writtenDomains += 1
+        ~ endingWrittenDomains += 1
         {get_written_level("Morality") >= 6:
-            ~ thesesWritten += 1
+            ~ endingThesesWritten += 1
         }
     }
 
-    {thesesWritten >= 3:
+    {endingThesesWritten >= 3:
         -> ending_triumph
     - else:
-        {thesesWritten >= 1:
+        {endingThesesWritten >= 1:
             -> ending_defence
         - else:
-            {writtenDomains >= 1:
+            {endingWrittenDomains >= 1:
                 -> ending_fragments
             - else:
                 -> ending_blank
@@ -65,7 +65,7 @@
 = ending_triumph
     The pages are dense with argument. You gather them with hands that barely shake.
 
-    {thesesWritten} threads — each one a thesis, complete and rigorous. More than enough.
+    {endingThesesWritten} threads — each one a thesis, complete and rigorous. More than enough.
 
     You have delivered. The committee will find no weakness here.
 
@@ -80,7 +80,7 @@
 = ending_defence
     You have something. Not everything you'd hoped for, but something real.
 
-    {thesesWritten == 1:A single thesis|{thesesWritten} theses}, hard-won, surrounded by the scaffolding of incomplete ideas.
+    {endingThesesWritten == 1:A single thesis|{endingThesesWritten} theses}, hard-won, surrounded by the scaffolding of incomplete ideas.
 
     It may be enough. It will have to be enough.
 
@@ -93,7 +93,7 @@
     -> END
 
 = ending_fragments
-    The desk is littered with half-formed text. {writtenDomains} threads committed to the page, none brought to completion.
+    The desk is littered with half-formed text. {endingWrittenDomains} threads committed to the page, none brought to completion.
 
     You have drafts. Sketches of arguments. The ghosts of ideas.
 
