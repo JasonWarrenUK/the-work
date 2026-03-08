@@ -134,6 +134,18 @@ export function bindIdeaFunctions(ink: Story): void {
 			}
 		},
 		{
+			name: 'writable_idea_at',
+			fn: (...args: unknown[]): string => {
+				const index = Number(args[0]);
+				const writable = inventory.writableIdeas();
+				return index >= 0 && index < writable.length ? writable[index].id : '';
+			}
+		},
+		{
+			name: 'writable_idea_count',
+			fn: (): number => inventory.writableIdeas().length
+		},
+		{
 			name: 'combine_domains',
 			fn: (...args: unknown[]): string => {
 				const [idA, idB] = findCombinablePair(s(args[0]), s(args[1]));

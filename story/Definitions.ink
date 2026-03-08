@@ -141,39 +141,5 @@
     VAR ConvictionScore = 5
         VAR ConvictionDesc = "You are calm. Resolute."
 
-    VAR Dread_Score = 0
-    VAR Dread_Type = ""
-        VAR d_Existential = 0
-        VAR d_Academic = 0
-        VAR d_Economic = 0
-    VAR Anxiety_Score = 0
-        ~ Anxiety_Score = d_Existential + d_Academic + d_Economic
-
-//Dread Function Worksheet
-    === function updateAnxiety_Score()
-        ~ Anxiety_Score = d_Existential + d_Academic + d_Economic
-        
-    === function compare_dEx_dAc()
-        {d_Existential: 
-            -   < d_Academic:
-                
-            -   >= d_Academic:
-        }
-        
-    === function compare_dEx_dEc()
-        {d_Existential: 
-            -   < d_Economic:
-            -   >= d_Economic:
-        }
-        
-    === function compare_dAc_dEc()
-        {d_Academic: 
-            -   < d_Economic:
-            -   >= d_Economic:
-        }
-        
-    //write conditional block here that will:
-        //compare the three types of dread
-        //set Dread_Type to match the highest
-            //e.g. if the most pressing concern is paying rent, Dread_Type is d_Economic
-        //set Dread_Score to match value of highest d_xxx variable
+    // Dread state is managed in TypeScript (src/lib/game/ideas.ts).
+    // Query via get_dread(type) and get_total_dread() EXTERNAL functions.

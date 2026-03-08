@@ -781,7 +781,22 @@ The threshold for writing. Developed from Inklings, or produced by combination.
 
 | ID | Text | Source | Scores |
 |----|------|--------|--------|
-| | | | |
+| C1 | Censorship is not the act of silencing. It is the architecture — the walls built so carefully that people forget there was ever a view. | I1, I4 | Rule -60, Truth -50 |
+| C2 | Order is not peace. It is the agreement to stop asking whether peace was what we wanted. | I5 | Rule +40, Morality +30 |
+| C3 | The silent collaborate. Every throat that closes around a true word tightens the noose for the next person who tries to speak. | I3, I4 | Rule -55, Truth -55 |
+| C4 | Scripture is a mirror held up by the powerful. They see their own authority reflected back and call it God. | I6 | Faith -60, Rule -50 |
+| C5 | Faith endures not because the church is right, but because the need it answers is older than any institution. | I8, I9 | Faith +30 |
+| C6 | Poverty is engineered. Every rent increase, every closed door, every "fair wage" is a brick in a wall someone else designed. | I14, I34 | Class -60, Rule -40 |
+| C7 | Dignity does not require abundance. The careful hand, the mended cloth, the last match struck with precision — these are not signs of defeat. | I15 | Class +20, Morality +15 |
+| C8 | Art exists in the space between what is permitted and what is true. The blank page is not empty — it is occupied by everything you are afraid to say. | I16, I17 | Art -45, Truth -30 |
+| C9 | A cathedral built to order is still a cathedral. Art in service is not diminished — only the artist who believes otherwise. | I19 | Art +40, Faith +20 |
+| C10 | To name a thing is not to know it. The field guide pins the butterfly and calls the pin knowledge. | I21 | Nature -45, Truth -45 |
+| C11 | There is no natural order — only order, imposed, and then called natural by those who benefit from it. | I22, I38 | Nature -45, Rule -50, Class -40 |
+| C12 | Obedience is the counterfeit of virtue. The state stamps it with the same seal, but the metal is base. | I23, I24 | Morality -55, Rule -50 |
+| C13 | Duty is the last scaffolding. When conviction fails and courage fails and even hope fails, duty remains — not because it is noble, but because it is all that is left. | I25 | Morality +40 |
+| C14 | The gazette and the hymnbook serve the same master. One compels with law, the other with love. Both demand submission. | I26, I27 | Rule -45, Faith -35, Class -30 |
+| C15 | You stay because leaving would mean admitting that staying was a choice — and choices can be wrong. | I10, I12 | Rule -25 (Dread: Existential) |
+| C16 | Everything is in the process of becoming something else. Memory, matter, meaning — all of it dissolving, all of it pretending to hold. | I11, I13 | Nature -40, Art -25 (Dread: Existential) |
 
 ## Concepts (Level 4)
 

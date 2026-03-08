@@ -278,6 +278,35 @@ export function registerAuthoredRecipes(): void {
 	registerDevelopmentRecipe({ sourceId: 'O29a', resultId: 'I25' });
 	registerDevelopmentRecipe({ sourceId: 'O54a', resultId: 'I25' });
 
+	// Development recipes: inkling → idea
+	registerDevelopmentRecipe({ sourceId: 'I1', resultId: 'C1' });
+	registerDevelopmentRecipe({ sourceId: 'I4', resultId: 'C1' });
+	registerDevelopmentRecipe({ sourceId: 'I3', resultId: 'C3' });
+	registerDevelopmentRecipe({ sourceId: 'I5', resultId: 'C2' });
+	registerDevelopmentRecipe({ sourceId: 'I6', resultId: 'C4' });
+	registerDevelopmentRecipe({ sourceId: 'I8', resultId: 'C5' });
+	registerDevelopmentRecipe({ sourceId: 'I9', resultId: 'C5' });
+	registerDevelopmentRecipe({ sourceId: 'I14', resultId: 'C6' });
+	registerDevelopmentRecipe({ sourceId: 'I34', resultId: 'C6' });
+	registerDevelopmentRecipe({ sourceId: 'I15', resultId: 'C7' });
+	registerDevelopmentRecipe({ sourceId: 'I16', resultId: 'C8' });
+	registerDevelopmentRecipe({ sourceId: 'I17', resultId: 'C8' });
+	registerDevelopmentRecipe({ sourceId: 'I19', resultId: 'C9' });
+	registerDevelopmentRecipe({ sourceId: 'I21', resultId: 'C10' });
+	registerDevelopmentRecipe({ sourceId: 'I22', resultId: 'C11' });
+	registerDevelopmentRecipe({ sourceId: 'I38', resultId: 'C11' });
+	registerDevelopmentRecipe({ sourceId: 'I23', resultId: 'C12' });
+	registerDevelopmentRecipe({ sourceId: 'I24', resultId: 'C12' });
+	registerDevelopmentRecipe({ sourceId: 'I25', resultId: 'C13' });
+	registerDevelopmentRecipe({ sourceId: 'I10', resultId: 'C15' });
+	registerDevelopmentRecipe({ sourceId: 'I12', resultId: 'C15' });
+	registerDevelopmentRecipe({ sourceId: 'I11', resultId: 'C16' });
+	registerDevelopmentRecipe({ sourceId: 'I13', resultId: 'C16' });
+
+	// Combination recipes: inkling + inkling → idea (cross-domain)
+	registerCombinationRecipe({ inputIds: ['I26', 'I27'], resultId: 'C14' });
+	registerCombinationRecipe({ inputIds: ['I1', 'I6'], resultId: 'C14' });
+
 	// Combination recipes: observation + observation → inkling
 	// These map the "combo" paths from Ideas.md
 
