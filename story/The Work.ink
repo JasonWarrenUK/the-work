@@ -6,9 +6,11 @@
     //Data Files
         INCLUDE Functions.ink
         INCLUDE Database.ink
+        INCLUDE IdeaSystem.ink
         
     //Game Flow
         INCLUDE Tunnels.ink
+        INCLUDE Observations.ink
         
     //Chapters
         INCLUDE Hours/d1_1830.ink

@@ -1,5 +1,8 @@
 import { Story } from 'inkjs';
 import { processTags } from './tags';
+import { bindIdeaFunctions } from './idea-bridge';
+import { registerAllIdeas } from '$lib/game/idea-catalog';
+import { registerAuthoredRecipes } from '$lib/game/recipes';
 
 // inkjs ErrorType values (not reliably exported from ESM bundle)
 const INK_ERROR = 0;
@@ -43,6 +46,11 @@ export async function loadStory(jsonPath: string) {
 	} catch {
 		// Function not declared in this build of the story — safe to ignore
 	}
+
+	// Initialize the idea system and bind its external functions
+	registerAllIdeas();
+	registerAuthoredRecipes();
+	bindIdeaFunctions(ink);
 
 	state.inkStory = ink;
 }
@@ -125,7 +133,7 @@ export const story = {
 
 	setVariable(name: string, value: unknown) {
 		if (state.inkStory?.variablesState) {
-			state.inkStory.variablesState.$(name, value);
+			state.inkStory.variablesState.$(name, value as string | number);
 		}
 	},
 
