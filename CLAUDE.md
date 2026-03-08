@@ -81,6 +81,11 @@ npm run build
 - Level 3+ ideas need authoring for writable content in playtesting
 - Hours d1_2100 through d2_0700 are empty stubs (chain forward)
 
+## Writing Style
+
+- **PR descriptions** should use natural paragraphs, not hard-wrapped lines. They render as markdown, so let the renderer handle line breaks.
+- **Commit messages** can follow the traditional 72-character wrap convention.
+
 ## Documentation Maintenance
 
 - **When gameplay or mechanics change** — update the "Current State" section in `README.md` and the "Current State & Known Gaps" section above. If idea levels, domains, dreads, recipes, or disciplines are added/changed, update the relevant sections in both `README.md` and the design docs.
