@@ -1,0 +1,22 @@
+// External functions bridged to TypeScript idea system
+// These are bound in src/lib/engine/idea-bridge.ts
+
+EXTERNAL acquire_idea(id)
+EXTERNAL has_idea(id)
+EXTERNAL get_idea_text(id)
+EXTERNAL get_idea_level(id)
+EXTERNAL get_domain_level(domain)
+EXTERNAL get_written_level(domain)
+EXTERNAL develop_idea(sourceId)
+EXTERNAL can_develop(sourceId)
+EXTERNAL combine_ideas(idA, idB)
+EXTERNAL get_combine_failure(idA, idB)
+EXTERNAL write_idea(id)
+EXTERNAL is_idea_written(id)
+EXTERNAL get_written_orthodoxy(domain)
+EXTERNAL get_dread(type)
+EXTERNAL get_total_dread()
+EXTERNAL find_developable(domain)
+EXTERNAL can_develop_domain(domain)
+EXTERNAL develop_in_domain(domain)
+EXTERNAL combine_domains(domainA, domainB)
