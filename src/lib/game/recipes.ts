@@ -8,7 +8,7 @@
  * Recipes are authored, not algorithmic. Discovery is part of the game.
  */
 
-import { getIdeaDef, inventory, DOMAINS, type Domain } from './ideas';
+import { getIdeaDef, inventory, DOMAINS, type Domain } from './ideas.svelte';
 
 // ---------------------------------------------------------------------------
 // Types
