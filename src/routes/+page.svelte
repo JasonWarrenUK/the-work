@@ -91,7 +91,7 @@
 		<Passage {paragraphs} />
 
 		{#if choices.length > 0}
-			<ChoiceList {choices} onSelect={selectChoice} />
+			<ChoiceList {choices} onSelect={selectChoice} baseDelay={Math.max(0, paragraphs.length - 1) * 50 + 500} />
 		{:else if ended}
 			<p class="ended">The end.</p>
 		{/if}
