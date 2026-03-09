@@ -4,10 +4,12 @@
 
 	let {
 		choices,
-		onSelect
+		onSelect,
+		baseDelay = 200
 	}: {
 		choices: Array<{ index: number; text: string }>;
 		onSelect: (index: number) => void;
+		baseDelay?: number;
 	} = $props();
 
 	const shortcutKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -51,7 +53,7 @@
 		{#each choices as choice, i (choice.index)}
 			<button
 				class="choice"
-				in:fade={{ duration: 400, delay: 200 + i * 80 }}
+				in:fade={{ duration: 400, delay: baseDelay + i * 80 }}
 				onclick={() => onSelect(choice.index)}
 				aria-keyshortcuts={i < 9 ? String(i + 1) : undefined}
 			>
