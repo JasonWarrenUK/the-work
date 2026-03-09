@@ -9,7 +9,7 @@
  */
 
 import type { Story } from 'inkjs';
-import { inventory, getIdeaDef, DOMAINS, type Domain } from '$lib/game/ideas';
+import { inventory, getIdeaDef, DOMAINS, type Domain } from '$lib/game/ideas.svelte';
 import {
 	developIdea,
 	combineIdeas,

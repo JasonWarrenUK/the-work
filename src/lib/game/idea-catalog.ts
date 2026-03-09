@@ -5,7 +5,7 @@
  * Registers into the idea system on import.
  */
 
-import { registerIdea, registerPrompt, type IdeaDef, type PromptDef } from './ideas';
+import { registerIdea, registerPrompt, type IdeaDef, type PromptDef } from './ideas.svelte';
 
 // ---------------------------------------------------------------------------
 // Observations (Level 1)
