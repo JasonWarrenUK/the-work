@@ -1,178 +1,156 @@
-# Migration Plan: Calico → SvelteKit + inkjs + TypeScript
+# Plan: Extract Nib to a Separate Repository
 
-## What We're Replacing
+## Context
 
-Calico currently provides:
-1. **Story loop** — calls `story.Continue()`, renders text/choices to DOM
-2. **Text animation** — fade-in with configurable delays (50ms between lines, 500ms fade)
-3. **Keyboard shortcuts** — 1-9/z/x/c for choices, spacebar for single choice
-4. **Tag processing** — `#CLEAR` fades out passage, custom tags for styling
-5. **Patches** — markdown→HTML, choice styling, drag-to-scroll, autosave, etc.
-6. **External function binding** — bridges Ink `EXTERNAL` calls to JS
+Nib is the generic, reusable Ink+Svelte 5 runtime living at `src/lib/engine/`. It's 3 files (254 lines of TypeScript + README), has zero imports from game code, and a clean integration boundary via its `onInit` callback. This makes it an excellent candidate for extraction into a standalone package.
 
-We keep **all .ink files unchanged**. The narrative and game logic stay in Ink.
+## Current State
 
----
+**Engine files** (src/lib/engine/):
+- `story.svelte.ts` (197 lines) — core runtime: loads Ink JSON, manages reactive story state with Svelte 5 runes
+- `tags.ts` (57 lines) — parses Ink tags into structured data
+- `README.md` (88 lines) — documents API and integration pattern
 
-## Tech Stack
+**Dependencies**: `inkjs` (runtime), `svelte` 5 (runes for reactivity)
 
-| Layer | Choice | Why |
-|---|---|---|
-| **Framework** | **SvelteKit** + `adapter-static` | File-based routing for game/menu/settings, SSG output deploys anywhere (itch.io, Netlify), compiles away to minimal JS |
-| **Runtime** | **Bun** | Fast installs, drop-in Node replacement |
-| **Reactivity** | **Svelte 5 runes** | `$state`, `$derived` with tick-based invalidation for ink variable reads |
-| **Story engine** | **inkjs** | Direct integration, TypeScript typed, wrapped in reactive Svelte service |
-| **Styling** | **Custom CSS variables** | Atmospheric theming — mood-based palette swaps via `data-mood` attribute |
-| **Transitions** | **Svelte built-in** (`fade`) | Passage fades, choice animations — native, zero-dependency |
-| **Typography** | **Literata** variable font *(planned)* | Designed for long reading, weight axis animatable for mood shifts |
-| **Audio** | **Howler.js** *(planned)* | Ambient loops, SFX, crossfading, handles autoplay restrictions |
-| **PWA** | **vite-plugin-pwa** *(planned)* | Offline play, installable, service worker auto-generated |
+**Consumers in this project**: `+page.svelte` and `StatusBar.svelte` import from `$lib/engine/story.svelte`
 
-### Considered but deferred
-| **UI components** | **shadcn-svelte** | May add later if UI complexity grows beyond what custom CSS handles |
-| **Styling framework** | **Tailwind CSS v4** | Currently using plain CSS variables; Tailwind adds weight for a text game |
-| **Text animation** | **GSAP + SplitText** | Now free; add when ready for word-by-word reveal effects |
+**Integration point**: `loadStory(path, onInit)` where `onInit` receives the raw inkjs `Story` for binding external functions
 
----
+## Extraction Plan
 
-## New Architecture
+### Phase 1: Prepare Nib for Standalone Use
+
+#### 1.1 Create the new repository structure
 
 ```
-the-work/
+nib/
 ├── src/
-│   ├── routes/
-│   │   ├── +layout.svelte        # App shell: vignette, grain overlay, audio context
-│   │   ├── +page.svelte           # Game screen
-│   │   ├── menu/
-│   │   │   └── +page.svelte       # Main menu / title screen
-│   │   └── settings/
-│   │       └── +page.svelte       # Settings (audio, text speed, accessibility)
-│   │
-│   ├── lib/
-│   │   ├── engine/
-│   │   │   ├── story.svelte.ts    # inkjs wrapper: load, continue, choices, variables
-│   │   │   ├── tags.ts            # Tag processor (#CLEAR, #class, #mood, etc.)
-│   │   │   └── external-fns.ts    # All 8 EXTERNAL function implementations
-│   │   │
-│   │   ├── components/
-│   │   │   ├── Passage.svelte     # Renders text lines with GSAP reveal animation
-│   │   │   ├── ChoiceList.svelte  # Renders choices with keyboard shortcuts
-│   │   │   ├── StatusBar.svelte   # Time, conviction, progress display
-│   │   │   └── Grain.svelte       # CSS film grain + vignette overlay
-│   │   │
-│   │   ├── game/
-│   │   │   ├── state.svelte.ts    # Reactive game state synced with ink variables
-│   │   │   ├── save-load.ts       # localStorage persistence
-│   │   │   └── audio.ts           # Howler.js wrapper for ambient/SFX
-│   │   │
-│   │   └── styles/
-│   │       └── theme.css          # CSS variables for atmospheric theming
-│   │
-│   ├── app.html                   # SvelteKit HTML template
-│   └── app.css                    # Tailwind imports + base styles
-│
-├── static/
-│   └── The Work.json              # Pre-compiled story
-│
-├── story/                         # All .ink source files (unchanged)
-│   ├── The Work.ink
-│   ├── Definitions.ink
-│   ├── Functions.ink
-│   ├── Database.ink
-│   ├── Tunnels.ink
-│   ├── Hours/
-│   │   ├── d1_1830.ink
-│   │   ├── d1_1900.ink
-│   │   ├── d1_2000.ink
-│   │   └── d2_0800.ink
-│   └── patches/
-│       └── storylets.ink
-│
-├── design/                        # Design docs (moved, unchanged)
-│
-├── package.json
-├── svelte.config.js
-├── tailwind.config.ts
+│   └── lib/
+│       ├── index.ts              # Package entry — re-exports public API
+│       ├── story.svelte.ts       # Copied from engine, with import paths adjusted
+│       └── tags.ts               # Copied as-is
+├── package.json              # New package config (see below)
 ├── tsconfig.json
-└── vite.config.ts
+├── svelte.config.js          # Minimal config for Svelte package tooling
+├── vite.config.ts            # Build config using @sveltejs/package
+├── README.md                 # Expanded from current engine README
+├── LICENSE
+└── .gitignore
 ```
 
----
+#### 1.2 Package configuration
 
-## Implementation Phases
+The `package.json` should declare:
+- **name**: `nib-ink` (or scoped, e.g. `@nib/ink`)
+- **type**: `module`
+- **peerDependencies**: `svelte` ^5.0.0, `inkjs` ^2.0.0
+- **devDependencies**: `svelte`, `inkjs`, `@sveltejs/package`, `typescript`, `vite`, `@sveltejs/vite-plugin-svelte`, `vitest`
+- **svelte** and **exports** fields pointing at the built package output
+- Build using `@sveltejs/package` which produces a `dist/` with proper Svelte component/runes packaging
 
-### Phase 1: Scaffold (get it building)
-1. `npx sv create` with Svelte 5 + TypeScript + Tailwind
-2. Install: `inkjs`, `gsap`, `howler`, `vite-plugin-pwa`
-3. Add `adapter-static` to `svelte.config.js`
-4. Set up shadcn-svelte (`npx shadcn-svelte@latest init`)
-5. Move `.ink` files to `story/`, design docs to `design/`
-6. Copy compiled `The Work.json` to `static/`
-7. Create dark atmospheric theme in `theme.css` (CSS variables)
-8. Verify `npm run dev` starts
+#### 1.3 Create `src/lib/index.ts` entry point
 
-### Phase 2: Story Engine (get it playing)
-1. `story.svelte.ts` — load JSON, create inkjs Story, expose reactive continue/choice API
-2. `external-fns.ts` — bind all 8 external functions
-3. `tags.ts` — process `#CLEAR`, `#class`, and custom tags (extensible for `#mood`, `#sound` later)
-4. `state.svelte.ts` — sync ink variables to Svelte reactive state via `$state`
-5. Basic `+page.svelte` game route that runs the story loop
+```ts
+export { loadStory, story } from './story.svelte.js';
+export type { Story } from 'inkjs';
+export { processTags } from './tags.js';
+export type { TagResult } from './tags.js';
+```
 
-### Phase 3: Presentation (get it looking right)
-1. `Passage.svelte` — text lines with GSAP SplitText word-by-word reveal
-2. `ChoiceList.svelte` — choices with fade-in, hover effects, keyboard shortcuts (1-9, z/x/c, spacebar)
-3. `Grain.svelte` — CSS film grain overlay + vignette (pure CSS, zero perf cost)
-4. Atmospheric CSS: mood-based background colour shifts via ink tags (`body[data-mood]`)
-5. Typography: Literata variable font, `text-wrap: pretty`, careful spacing
-6. Accessibility: `aria-live="polite"` on story container, semantic HTML, `prefers-reduced-motion`, `:focus-visible`
+#### 1.4 Adjust internal imports
 
-### Phase 4: Polish (get it feeling complete)
-1. `save-load.ts` — localStorage autosave + manual save/load
-2. `audio.ts` — Howler.js wrapper, ambient crossfading triggered by scene tags
-3. Menu route (`/menu`) — title screen, new game, continue, settings
-4. Settings route (`/settings`) — text speed, audio volume, high contrast toggle
-5. `StatusBar.svelte` — time display, conviction meter
-6. PWA setup via `vite-plugin-pwa` — offline play, installable
+`story.svelte.ts` currently imports `./tags` — this stays the same. No other internal imports to adjust. The only change is removing the `$lib/engine/` path alias since the package will use relative imports.
 
-### Phase 5: Verify
-1. Full playthrough from `debugMenu` and `gameMenu`
-2. All external functions produce correct output
-3. Animations feel atmospheric (not distracting)
-4. Keyboard shortcuts work throughout
-5. Save/load persists across browser refresh
-6. Accessibility audit: screen reader, keyboard-only, reduced motion
-7. Build and test static output (`npm run build && npm run preview`)
+#### 1.5 Add tests
 
----
+The engine currently has zero tests. Before publishing as a standalone package, add at minimum:
+- Unit tests for `processTags()` (pure function, easy to test)
+- Integration tests for `loadStory()` and `story` object using a minimal test Ink story
+- Framework: Vitest (already compatible with Vite/Svelte ecosystem)
 
-## Atmospheric Effects (CSS-only, added in Phase 3)
+### Phase 2: Publish the Package
 
-**Film grain** — CSS pseudo-element with noise SVG, `steps()` animation
-**Vignette** — `box-shadow: inset 0 0 150px rgba(0,0,0,0.7)`
-**Mood colours** — `body[data-mood="tense"] { background-color: #1a0a0a }` with 2s transition
-**Typography** — Literata variable font, `font-variant-numeric: oldstyle-nums`, `::selection` themed
+#### 2.1 Choose distribution method
 
-All respect `prefers-reduced-motion` and `prefers-contrast: more`.
+Options (in order of simplicity):
+1. **Git dependency** — `"nib-ink": "github:user/nib"` in package.json. Zero publishing overhead, good for fast iteration.
+2. **npm package** — `npm publish` (public or scoped). Standard, works everywhere. Move to this when the API stabilises.
+3. **GitHub Package Registry** — good for private/org-scoped packages.
 
----
+Recommendation: Start with **git dependency** for fast iteration, move to npm when the API stabilises.
 
-## What We're Deferring
-- **tsParticles** — ambient dust/fireflies, add for specific moments if wanted
-- **Storylets patch** — check if actively used, port if needed
-- **Markdown rendering** — check if ink output uses markdown
-- **Step-back/undo** — nice-to-have, not critical for initial build
-- **Analytics** — Plausible or custom beacon, add when playtesting with others
-- **Cloud save sync** — localStorage is enough for now
+#### 2.2 Build and verify
 
----
+- Run `@sveltejs/package` to produce the `dist/` directory
+- Verify the package works by installing it locally in The Work before publishing
+- Run `npx svelte-check` on the built output
 
-## Key Technical Decisions
+### Phase 3: Migrate The Work to Use the Package
 
-- **SvelteKit over plain Vite** — routing, SSG, preloading earn their keep for a polished game with menus/settings
-- **shadcn-svelte** — components are copied into project (not a dependency), full control over every pixel, dark mode built-in
-- **GSAP for text** — now fully free, SplitText + ScrambleText give word-by-word and cipher reveal effects that elevate the atmosphere
-- **Svelte 5 runes for state** — `$state` with deep reactivity handles ~30 game variables without XState or external stores
-- **Ink as source of truth** — game state lives in ink variables, `state.svelte.ts` syncs them reactively to the UI
-- **Pre-compiled JSON** — compile `.ink` → `.json` externally (Inky or inklecate), store in `static/`. Build-time compilation can be added later
-- **No Three.js/WebGL** — CSS-only atmospheric effects are sufficient for a text game and cost zero performance
-- **Howler.js over Tone.js** — pre-recorded ambient audio, not procedural synthesis
+#### 3.1 Install Nib as a dependency
+
+```bash
+npm install nib-ink   # or github:user/nib
+```
+
+#### 3.2 Update imports across the project
+
+Three files need changes:
+
+**src/routes/+page.svelte:**
+```diff
+- import { story, loadStory } from '$lib/engine/story.svelte';
++ import { story, loadStory } from 'nib-ink';
+```
+
+**src/lib/components/StatusBar.svelte:**
+```diff
+- import { story } from '$lib/engine/story.svelte';
++ import { story } from 'nib-ink';
+```
+
+**src/lib/game/init.ts** — uses `Story` type:
+```diff
+- import type { Story } from '$lib/engine/story.svelte';
++ import type { Story } from 'nib-ink';
+```
+
+#### 3.3 Remove the engine directory
+
+Delete `src/lib/engine/` entirely from The Work.
+
+#### 3.4 Update documentation
+
+- Update `CLAUDE.md` — change architecture section, key directories table, Nib vs Game separation rules to reference the external package
+- Update `README.md` — reference Nib as an external dependency
+- Add a note in the Nib repo's README pointing back to The Work as a reference implementation
+
+### Phase 4: Ongoing Maintenance
+
+#### 4.1 Versioning strategy
+
+Use semver. The API surface is small enough that breaking changes should be rare:
+- `loadStory(path, onInit?)` — main entry point
+- `story` object — reactive state container
+- `processTags(tags)` — tag parser
+- `TagResult` / `Story` types
+
+#### 4.2 CI for the Nib repo
+
+- Type checking (`svelte-check`)
+- Tests (Vitest)
+- Package build (`@sveltejs/package`)
+- Optionally publish on tag/release
+
+## Risks and Considerations
+
+1. **Svelte 5 runes in a package**: `@sveltejs/package` handles this, but consumers must be on Svelte 5. This is fine since runes are the current API.
+
+2. **The `$state()` singleton pattern**: The `story` object is a module-level singleton using `$state()`. This works in a package because Svelte's compiler transforms `$state()` at build time in the consumer's bundle. However, it means only one story can be active at a time. A future enhancement could make this instantiable, but that's out of scope for extraction.
+
+3. **Fetch dependency**: `loadStory` uses the global `fetch` API. This works in browsers and in SvelteKit's SSR, but wouldn't work in plain Node without a polyfill. This is fine for the target use case.
+
+4. **Tag conventions are opinionated**: The `#CLEAR`, `#mood:x`, `#class:x` tag format is a convention, not a standard. Document it clearly and consider making it extensible later.
+
+5. **No breaking changes needed**: The current API is clean enough to extract as-is. No refactoring required before extraction.
