@@ -1,0 +1,29 @@
+name: Sync Nib Engine
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/lib/engine/**'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push engine to Nib repo
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.NIB_SYNC_TOKEN }}
+        with:
+          source-directory: 'src/lib/engine'
+          destination-github-username: 'JasonWarrenUK'
+          destination-repository-name: 'nib'
+          target-directory: 'src/lib'
+          user-email: 'sync-bot@users.noreply.github.com'
+          user-name: 'Nib Sync Bot'
+          commit-message: 'sync: update from the-work ($GITHUB_SHA)'
+          target-branch: 'main'
