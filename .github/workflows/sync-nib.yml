@@ -10,20 +10,17 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout The Work
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Push engine to Nib repo
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.NIB_SYNC_TOKEN }}
+      - name: Push engine directory to Nib repo
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          source-directory: 'src/lib/engine'
-          destination-github-username: 'JasonWarrenUK'
-          destination-repository-name: 'nib'
-          target-directory: 'src/lib'
-          user-email: 'sync-bot@users.noreply.github.com'
-          user-name: 'Nib Sync Bot'
-          commit-message: 'sync: update from the-work ($GITHUB_SHA)'
-          target-branch: 'main'
+          personal_token: ${{ secrets.NIB_SYNC_TOKEN }}
+          external_repository: JasonWarrenUK/nib
+          publish_dir: ./src/lib/engine
+          publish_branch: main
+          commit_message: "sync: update from The Work@${{ github.sha }}"
+          enable_jekyll: true
