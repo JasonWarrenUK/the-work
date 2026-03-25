@@ -1,164 +1,198 @@
+// Core action tunnel — the three branches of gameplay.
+// Called each turn from the main loop (d1_2000).
+
 === Action(-> go) ===
 
-    + (Action_Textual) Attend to the Work
+    // --- ATTEND TO THE WORK (Writing) ---
+    + (Action_Textual) Attend to The Work
+        {get_total_dread() >= 6:
+            Your hand trembles as you reach for the pen.
+        - else:
+            {get_total_dread() >= 3:
+                The words don't come easily tonight.
+            }
+        }
 
-        ++ {lvl_Rule >= 3 && lvl_Rule > written_Rule} [Rule — {levelName(lvl_Rule)}]
-            ~ FocusConcept = "Rule"
-        ++ {lvl_Faith >= 3 && lvl_Faith > written_Faith} [Faith — {levelName(lvl_Faith)}]
-            ~ FocusConcept = "Faith"
-        ++ {lvl_Truth >= 3 && lvl_Truth > written_Truth} [Truth — {levelName(lvl_Truth)}]
-            ~ FocusConcept = "Truth"
-        ++ {lvl_Class >= 3 && lvl_Class > written_Class} [Class — {levelName(lvl_Class)}]
-            ~ FocusConcept = "Class"
-        ++ {lvl_Art >= 3 && lvl_Art > written_Art} [Art — {levelName(lvl_Art)}]
-            ~ FocusConcept = "Art"
-        ++ {lvl_Nature >= 3 && lvl_Nature > written_Nature} [Nature — {levelName(lvl_Nature)}]
-            ~ FocusConcept = "Nature"
-        ++ {lvl_Morality >= 3 && lvl_Morality > written_Morality} [Morality — {levelName(lvl_Morality)}]
-            ~ FocusConcept = "Morality"
+        // Per-idea selective writing: list individual writable ideas (level 3+, held, not written)
+        ~ temp w0 = writable_idea_at(0)
+        ~ temp w1 = writable_idea_at(1)
+        ~ temp w2 = writable_idea_at(2)
+        ~ temp w3 = writable_idea_at(3)
+        ~ temp w4 = writable_idea_at(4)
+
+        ++ {w0 != ""} [{get_idea_text(w0)}]
+            ~ write_idea(w0)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w0)}
+            {advanceTime()}
+        ++ {w1 != ""} [{get_idea_text(w1)}]
+            ~ write_idea(w1)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w1)}
+            {advanceTime()}
+        ++ {w2 != ""} [{get_idea_text(w2)}]
+            ~ write_idea(w2)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w2)}
+            {advanceTime()}
+        ++ {w3 != ""} [{get_idea_text(w3)}]
+            ~ write_idea(w3)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w3)}
+            {advanceTime()}
+        ++ {w4 != ""} [{get_idea_text(w4)}]
+            ~ write_idea(w4)
+            -- You set pen to paper.
+            {printWriteResultForIdea(w4)}
+            {advanceTime()}
 
         ++ {CHOICE_COUNT() == 0} [Set pen to paper]
             -- Your thoughts are too unformed to commit to the page. You need to develop them further.
             {advanceTime()}
-            -> go
 
-        -- You set pen to paper on the subject of {FocusConcept}.
-            {writeConcept(FocusConcept)}
-            ~ temp wLevel = getConceptLevel(FocusConcept)
-            {printWriteResult(FocusConcept, wLevel)}
-            {advanceTime()}
+    // --- CONSIDER YOUR CIRCUMSTANCES (Observation) ---
+    + (Action_Physical) Consider your circumstances
 
-    + (Action_Physical) Connect with the real world
+        -> observe ->
 
-        ** (examine_legal) [A legal document, dense with clauses]
-            A contract of some kind, or perhaps a statute. The language of obligation and authority.
-            {lvl_Rule == 0:
-                {advanceConcept("Rule")}
-                {printAdvancement("Rule", 1)}
-            - else:
-                It reinforces what you already sense about Rule.
-            }
-            {advanceTime()}
+        {advanceTime()}
 
-        ** (examine_bible) [An old Bible]
-            The leather is cracked, the gilt faded. Someone has underlined passages in trembling ink.
-            {lvl_Faith == 0:
-                {advanceConcept("Faith")}
-                {printAdvancement("Faith", 1)}
-            - else:
-                Your thoughts on Faith are already in motion.
-            }
-            {advanceTime()}
-
-        ** (examine_pamphlet) [A discarded pamphlet]
-            Dense with argument. The author was trying to mean something, to say something that mattered.
-            {lvl_Truth == 0:
-                {advanceConcept("Truth")}
-                {printAdvancement("Truth", 1)}
-            - else:
-                The question of Truth is already in your thoughts.
-            }
-            {advanceTime()}
-
-        ** (examine_letter) [An envelope, marked URGENT]
-            A rent demand. The landlord's handwriting is impatient, almost contemptuous.
-            {lvl_Class == 0:
-                {advanceConcept("Class")}
-                {printAdvancement("Class", 1)}
-            - else:
-                The demand only confirms what you already know about Class.
-            }
-            {advanceTime()}
-
-        ** (examine_sketch) [A rough sketch, half-finished]
-            Someone's attempt at beauty, abandoned before completion.
-            {lvl_Art == 0:
-                {advanceConcept("Art")}
-                {printAdvancement("Art", 1)}
-            - else:
-                Art has already caught your eye.
-            }
-            {advanceTime()}
-
-        ** (examine_scraps) [The remains of dinner]
-            A few scraps. Bones stripped clean. The body's needs are insistent.
-            {lvl_Nature == 0:
-                {advanceConcept("Nature")}
-                {printAdvancement("Nature", 1)}
-            - else:
-                Nature's demands are already familiar to you.
-            }
-            {advanceTime()}
-
-        ** (examine_photograph) [A photograph, face-down]
-            Someone you recognise. The weight of responsibility, of choosing rightly.
-            {lvl_Morality == 0:
-                {advanceConcept("Morality")}
-                {printAdvancement("Morality", 1)}
-            - else:
-                The question of Morality already weighs on you.
-            }
-            {advanceTime()}
-
-        ++ {CHOICE_COUNT() == 0} [Look around]
-            -- You've already examined everything on the desk. The objects have yielded what they can.
-            {advanceTime()}
-
+    // --- EXERCISE THE MIND (Development & Combination) ---
     + (Action_Mental) Exercise the mind
 
-        ++ (Action_Mental_Deepen) {countConceptsStarted() > 0} [Dwell on a thread]
-            +++ {lvl_Rule >= 2 && lvl_Rule < 6} [Rule]
+        ++ (Action_Mental_Deepen) {can_develop_domain("Rule") || can_develop_domain("Faith") || can_develop_domain("Truth") || can_develop_domain("Class") || can_develop_domain("Art") || can_develop_domain("Nature") || can_develop_domain("Morality")} [Dwell on a thread]
+
+            +++ {can_develop_domain("Rule")} [Rule]
                 ~ FocusConcept = "Rule"
-            +++ {lvl_Faith >= 2 && lvl_Faith < 6} [Faith]
+            +++ {can_develop_domain("Faith")} [Faith]
                 ~ FocusConcept = "Faith"
-            +++ {lvl_Truth >= 2 && lvl_Truth < 6} [Truth]
+            +++ {can_develop_domain("Truth")} [Truth]
                 ~ FocusConcept = "Truth"
-            +++ {lvl_Class >= 2 && lvl_Class < 6} [Class]
+            +++ {can_develop_domain("Class")} [Class]
                 ~ FocusConcept = "Class"
-            +++ {lvl_Art >= 2 && lvl_Art < 6} [Art]
+            +++ {can_develop_domain("Art")} [Art]
                 ~ FocusConcept = "Art"
-            +++ {lvl_Nature >= 2 && lvl_Nature < 6} [Nature]
+            +++ {can_develop_domain("Nature")} [Nature]
                 ~ FocusConcept = "Nature"
-            +++ {lvl_Morality >= 2 && lvl_Morality < 6} [Morality]
+            +++ {can_develop_domain("Morality")} [Morality]
                 ~ FocusConcept = "Morality"
 
             --- You turn the thought over in your mind, examining it from new angles.
-                {advanceConcept(FocusConcept)}
-                ~ temp deepLevel = getConceptLevel(FocusConcept)
-                {printAdvancement(FocusConcept, deepLevel)}
+                ~ temp resultId = develop_in_domain(FocusConcept)
+                {resultId != "":
+                    ~ temp resultText = get_idea_text(resultId)
+                    {resultText}
+                - else:
+                    The thought resists. It isn't ready to become something more. Not yet.
+                }
                 {advanceTime()}
 
-        ++ (Action_Mental_Combine) {countConceptsStarted() >= 1 && countConceptsStarted() < 7} [Draw connections]
+        ++ (Action_Mental_Combine) {get_domain_level("Rule") >= 1 || get_domain_level("Faith") >= 1 || get_domain_level("Truth") >= 1 || get_domain_level("Class") >= 1 || get_domain_level("Art") >= 1 || get_domain_level("Nature") >= 1 || get_domain_level("Morality") >= 1} [Draw connections]
             Two threads, and the space between them...
-            +++ {lvl_Rule >= 2} [Rule]
+
+            +++ {get_domain_level("Rule") >= 1} [Rule]
                 ~ FocusConcept = "Rule"
-            +++ {lvl_Faith >= 2} [Faith]
+            +++ {get_domain_level("Faith") >= 1} [Faith]
                 ~ FocusConcept = "Faith"
-            +++ {lvl_Truth >= 2} [Truth]
+            +++ {get_domain_level("Truth") >= 1} [Truth]
                 ~ FocusConcept = "Truth"
-            +++ {lvl_Class >= 2} [Class]
+            +++ {get_domain_level("Class") >= 1} [Class]
                 ~ FocusConcept = "Class"
-            +++ {lvl_Art >= 2} [Art]
+            +++ {get_domain_level("Art") >= 1} [Art]
                 ~ FocusConcept = "Art"
-            +++ {lvl_Nature >= 2} [Nature]
+            +++ {get_domain_level("Nature") >= 1} [Nature]
                 ~ FocusConcept = "Nature"
-            +++ {lvl_Morality >= 2} [Morality]
+            +++ {get_domain_level("Morality") >= 1} [Morality]
                 ~ FocusConcept = "Morality"
 
             --- You push {FocusConcept} against something else, looking for friction, for resonance...
-                {sparkFromCombination(FocusConcept)}
+                // Try combining with each other domain
+                ~ temp combo = ""
+                {combo == "" && FocusConcept != "Rule" && get_domain_level("Rule") >= 1:
+                    ~ combo = combine_domains(FocusConcept, "Rule")
+                }
+                {combo == "" && FocusConcept != "Faith" && get_domain_level("Faith") >= 1:
+                    ~ combo = combine_domains(FocusConcept, "Faith")
+                }
+                {combo == "" && FocusConcept != "Truth" && get_domain_level("Truth") >= 1:
+                    ~ combo = combine_domains(FocusConcept, "Truth")
+                }
+                {combo == "" && FocusConcept != "Class" && get_domain_level("Class") >= 1:
+                    ~ combo = combine_domains(FocusConcept, "Class")
+                }
+                {combo == "" && FocusConcept != "Art" && get_domain_level("Art") >= 1:
+                    ~ combo = combine_domains(FocusConcept, "Art")
+                }
+                {combo == "" && FocusConcept != "Nature" && get_domain_level("Nature") >= 1:
+                    ~ combo = combine_domains(FocusConcept, "Nature")
+                }
+                {combo == "" && FocusConcept != "Morality" && get_domain_level("Morality") >= 1:
+                    ~ combo = combine_domains(FocusConcept, "Morality")
+                }
+
+                {combo != "":
+                    ~ temp comboText = get_idea_text(combo)
+                    {comboText}
+                - else:
+                    You hold them together, but nothing catches. Not yet.
+                }
                 {advanceTime()}
 
         ++ (Action_Mental_Reflect) [Reflect on your progress]
             You pause, and take stock.
-            {countConceptsStarted() > 0:
-                {printThoughtProgress()}
-                {countConceptsWritten() > 0:
+            {get_domain_level("Rule") > 0 || get_domain_level("Faith") > 0 || get_domain_level("Truth") > 0 || get_domain_level("Class") > 0 || get_domain_level("Art") > 0 || get_domain_level("Nature") > 0 || get_domain_level("Morality") > 0:
+                {get_domain_level("Rule") > 0:
+                    Rule: {levelName(get_domain_level("Rule"))}
+                }
+                {get_domain_level("Faith") > 0:
+                    Faith: {levelName(get_domain_level("Faith"))}
+                }
+                {get_domain_level("Truth") > 0:
+                    Truth: {levelName(get_domain_level("Truth"))}
+                }
+                {get_domain_level("Class") > 0:
+                    Class: {levelName(get_domain_level("Class"))}
+                }
+                {get_domain_level("Art") > 0:
+                    Art: {levelName(get_domain_level("Art"))}
+                }
+                {get_domain_level("Nature") > 0:
+                    Nature: {levelName(get_domain_level("Nature"))}
+                }
+                {get_domain_level("Morality") > 0:
+                    Morality: {levelName(get_domain_level("Morality"))}
+                }
+                {get_written_level("Rule") > 0 || get_written_level("Faith") > 0 || get_written_level("Truth") > 0 || get_written_level("Class") > 0 || get_written_level("Art") > 0 || get_written_level("Nature") > 0 || get_written_level("Morality") > 0:
                     On the page:
-                    {printWrittenProgress()}
+                    {get_written_level("Rule") > 0:
+                        Rule: {levelName(get_written_level("Rule"))}
+                    }
+                    {get_written_level("Faith") > 0:
+                        Faith: {levelName(get_written_level("Faith"))}
+                    }
+                    {get_written_level("Truth") > 0:
+                        Truth: {levelName(get_written_level("Truth"))}
+                    }
+                    {get_written_level("Class") > 0:
+                        Class: {levelName(get_written_level("Class"))}
+                    }
+                    {get_written_level("Art") > 0:
+                        Art: {levelName(get_written_level("Art"))}
+                    }
+                    {get_written_level("Nature") > 0:
+                        Nature: {levelName(get_written_level("Nature"))}
+                    }
+                    {get_written_level("Morality") > 0:
+                        Morality: {levelName(get_written_level("Morality"))}
+                    }
                 }
             - else:
                 The page stares back at you. Blank.
+            }
+            {get_total_dread() > 0:
+                {get_dread("Existential") > 0: A weight behind everything. }
+                {get_dread("Academic") > 0: The committee, always the committee. }
+                {get_dread("Economic") > 0: The arithmetic of survival. }
             }
             {advanceTime()}
 

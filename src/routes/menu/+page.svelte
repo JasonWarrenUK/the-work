@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { fade } from 'svelte/transition';
 	import { hasAutosave, deleteAutosave } from '$lib/game/save-load';
 
@@ -12,11 +13,16 @@
 
 	function newGame() {
 		deleteAutosave();
-		goto('/');
+		goto(`${base}/`);
 	}
 
 	function continueGame() {
-		goto('/');
+		goto(`${base}/`);
+	}
+
+	function skipPrologue() {
+		deleteAutosave();
+		goto(`${base}/?skip=1`);
 	}
 </script>
 
@@ -28,6 +34,7 @@
 			<button class="menu-btn" onclick={continueGame}>Continue</button>
 		{/if}
 		<button class="menu-btn" onclick={newGame}>New Game</button>
+		<button class="menu-btn" onclick={skipPrologue}>Skip Prologue</button>
 	</nav>
 </div>
 

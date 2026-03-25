@@ -16,8 +16,8 @@
 </script>
 
 <div class="passage">
-	{#each keyed as para (para.id)}
-		<p in:fade={{ duration: 500, delay: para.id * 50 }}>
+	{#each keyed as para, i (para.id)}
+		<p in:fade={{ duration: 500, delay: i * 50 }}>
 			{para.text}
 		</p>
 	{/each}

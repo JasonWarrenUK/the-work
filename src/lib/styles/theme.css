@@ -30,20 +30,36 @@
 	--transition-slow: 2s ease;
 }
 
-/* Mood overrides — set via data-mood attribute on body */
-body[data-mood='tense'] {
+/* Mood overrides — set via data-mood attribute on html */
+html[data-mood='tense'] {
 	--bg: #1a0a0a;
 	--accent: #c05050;
 }
 
-body[data-mood='calm'] {
+html[data-mood='calm'] {
 	--bg: #0a0a1a;
 	--accent: #6a8ac0;
 }
 
-body[data-mood='inspired'] {
+html[data-mood='inspired'] {
 	--bg: #0a1a0f;
 	--accent: #6ac070;
+}
+
+/* Action category moods — shifts per gameplay mode */
+html[data-mood='textual'] {
+	--bg: #18100a;
+	--accent: #d4a84e;
+}
+
+html[data-mood='physical'] {
+	--bg: #0a1812;
+	--accent: #5ab87a;
+}
+
+html[data-mood='mental'] {
+	--bg: #120a1e;
+	--accent: #a07ad4;
 }
 
 /* High contrast override */
