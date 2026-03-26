@@ -3,12 +3,14 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { fade } from 'svelte/transition';
-	import { hasAutosave, deleteAutosave } from '$lib/game/save-load';
+	import { hasAutosave, deleteAutosave, hasSave } from '$lib/game/save-load';
 
 	let canContinue = $state(false);
+	let canLoadSave = $state(false);
 
 	onMount(() => {
 		canContinue = hasAutosave();
+		canLoadSave = hasSave();
 	});
 
 	function newGame() {
@@ -18,6 +20,10 @@
 
 	function continueGame() {
 		goto(`${base}/`);
+	}
+
+	function loadSave() {
+		goto(`${base}/?loadSave=1`);
 	}
 
 	function skipPrologue() {
@@ -32,6 +38,9 @@
 	<nav class="menu-choices" aria-label="Main menu">
 		{#if canContinue}
 			<button class="menu-btn" onclick={continueGame}>Continue</button>
+		{/if}
+		{#if canLoadSave}
+			<button class="menu-btn" onclick={loadSave}>Load Save</button>
 		{/if}
 		<button class="menu-btn" onclick={newGame}>New Game</button>
 		<button class="menu-btn" onclick={skipPrologue}>Skip Prologue</button>

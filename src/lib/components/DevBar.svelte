@@ -1,6 +1,27 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { deleteAutosave, deleteSave } from '$lib/game/save-load';
+	import { save, deleteAutosave, deleteSave } from '$lib/game/save-load';
+	import { story } from '$lib/engine/story.svelte';
+	import { inventory } from '$lib/game/ideas.svelte';
+
+	let saved = $state(false);
+	let saveTimer: ReturnType<typeof setTimeout> | null = null;
+
+	/** Only show the save button when the story is loaded and playing */
+	let storyActive = $derived(story.ink !== null);
+
+	function manualSave() {
+		try {
+			save({ storyState: story.saveState(), inventoryState: inventory.toJSON() });
+			saved = true;
+			if (saveTimer) clearTimeout(saveTimer);
+			saveTimer = setTimeout(() => {
+				saved = false;
+			}, 1500);
+		} catch {
+			// Silently fail
+		}
+	}
 
 	function resetState() {
 		deleteAutosave();
@@ -10,6 +31,9 @@
 </script>
 
 <footer class="dev-bar">
+	{#if storyActive}
+		<button class="dev-btn" onclick={manualSave}>{saved ? 'Saved' : 'Save'}</button>
+	{/if}
 	<button class="dev-btn" onclick={resetState}>Reset State</button>
 </footer>
 
