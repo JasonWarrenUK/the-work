@@ -3,15 +3,22 @@ const AUTOSAVE_KEY = 'the-work-autosave';
 
 export interface SaveData {
 	storyState: string;
+	/** Serialised inventory state from `inventory.toJSON()`. Absent in saves created before inventory persistence was added. */
+	inventoryState?: string;
 	timestamp: number;
 }
 
-export function save(storyStateJson: string, key = SAVE_KEY): void {
+export function save(opts: {
+	storyState: string;
+	inventoryState?: string;
+	key?: string;
+}): void {
 	const data: SaveData = {
-		storyState: storyStateJson,
+		storyState: opts.storyState,
+		inventoryState: opts.inventoryState,
 		timestamp: Date.now()
 	};
-	localStorage.setItem(key, JSON.stringify(data));
+	localStorage.setItem(opts.key ?? SAVE_KEY, JSON.stringify(data));
 }
 
 export function load(key = SAVE_KEY): SaveData | null {
@@ -32,8 +39,8 @@ export function deleteSave(key = SAVE_KEY): void {
 	localStorage.removeItem(key);
 }
 
-export function autosave(storyStateJson: string): void {
-	save(storyStateJson, AUTOSAVE_KEY);
+export function autosave(storyStateJson: string, inventoryStateJson?: string): void {
+	save({ storyState: storyStateJson, inventoryState: inventoryStateJson, key: AUTOSAVE_KEY });
 }
 
 export function loadAutosave(): SaveData | null {
