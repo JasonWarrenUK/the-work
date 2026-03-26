@@ -10,6 +10,7 @@
 
 import type { Story } from 'inkjs';
 import { inventory, getIdeaDef, DOMAINS, type Domain } from '$lib/game/ideas.svelte';
+import { getDisciplineOfficial, getDisciplinePrivate } from '$lib/game/disciplines';
 import {
 	developIdea,
 	combineIdeas,
@@ -144,6 +145,14 @@ export function bindIdeaFunctions(ink: Story): void {
 		{
 			name: 'writable_idea_count',
 			fn: (): number => inventory.writableIdeas().length
+		},
+		{
+			name: 'get_discipline',
+			fn: (): string => getDisciplineOfficial()
+		},
+		{
+			name: 'get_discipline_private',
+			fn: (): string => getDisciplinePrivate()
 		},
 		{
 			name: 'combine_domains',
