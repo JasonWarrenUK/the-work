@@ -24,26 +24,31 @@
             ~ write_idea(w0)
             -- You set pen to paper.
             {printWriteResultForIdea(w0)}
+            {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
         ++ {w1 != ""} [{get_idea_text(w1)}]
             ~ write_idea(w1)
             -- You set pen to paper.
             {printWriteResultForIdea(w1)}
+            {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
         ++ {w2 != ""} [{get_idea_text(w2)}]
             ~ write_idea(w2)
             -- You set pen to paper.
             {printWriteResultForIdea(w2)}
+            {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
         ++ {w3 != ""} [{get_idea_text(w3)}]
             ~ write_idea(w3)
             -- You set pen to paper.
             {printWriteResultForIdea(w3)}
+            {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
         ++ {w4 != ""} [{get_idea_text(w4)}]
             ~ write_idea(w4)
             -- You set pen to paper.
             {printWriteResultForIdea(w4)}
+            {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
 
         ++ {CHOICE_COUNT() == 0} [Set pen to paper]
