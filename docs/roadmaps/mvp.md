@@ -77,10 +77,10 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m2-todo"><h4>To Do (Milestone 2)</h4></a>
 
-- [ ] 2GS.1. Author L3–L6 idea content for one domain (minimum one complete chain) — **depends on 1GS.4**
+- [ ] 2GS.1. Author L3–L6 idea content for one domain (minimum one complete chain) — **unblocked** (1GS.4 complete)
 - [ ] 2GS.2. Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy) — **unblocked** (1GS.2 complete)
 - [ ] 2GS.4. Author per-idea writing scenes for each L3+ idea in the authored chain — **depends on 2GS.1**
-- [ ] 2GS.5. Display thesis summary (written ideas, dominant domains, discipline name) in UI — **depends on 1GS.4**
+- [ ] 2GS.5. Display thesis summary (written ideas, dominant domains, discipline name) in UI — **unblocked** (1GS.4 complete)
 - [ ] 2NA.2. Author development paths for all 40 existing inklings to at least L3 — **depends on 2GS.1**
 - [ ] 2UI.1. Idea inventory panel — see held ideas, their level, and whether writable — **depends on 2GS.2**
 - [ ] 2UI.2. Thesis panel — see written ideas and current orthodoxy per domain — **depends on 2GS.5**
@@ -141,11 +141,11 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m4-todo"><h4>To Do (Milestone 4)</h4></a>
 
-- [ ] 4NA.1. Author committee introduction scene (committee composition announced, chair identified) — **depends on 1GS.4**
+- [ ] 4NA.1. Author committee introduction scene (committee composition announced, chair identified) — **depends on M3**
 - [ ] 4NA.2. Author defence questioning logic (committee challenges based on thesis orthodoxy) — **depends on 4NA.1, 2GS.5**
 - [ ] 4NA.3. Author at least 3 distinct ending scenes (pass orthodox, pass radical, fail) — **depends on 4NA.2**
 - [ ] 4NA.4. Author all 21 discipline-specific committee chair dialogue variants — **depends on 4NA.1**
-- [ ] 4GS.1. Implement discipline lookup (domain pair → discipline name → committee chair) — **depends on 1GS.4**
+- [ ] 4GS.1. Implement discipline lookup (domain pair → discipline name → committee chair) — **depends on M3**; discipline detection (1GS.4) complete
 - [ ] 4GS.2. Implement committee hostility scoring from written orthodoxy profile — **depends on 2GS.5, 4GS.1**
 - [ ] 4GS.3. Implement ending selection logic based on thesis profile + dread levels — **depends on 4GS.2**
 - [ ] 4UI.1. Add final thesis summary screen before defence begins — **depends on 2UI.2**
@@ -195,30 +195,26 @@ title: Progress Map
 ---
 graph TD
 
-1GS4["`*1GS.4*<br/>**GS**<br/>Discipline detection`"]:::done
 1EN1["`*1EN.1*<br/>**EN**<br/>Save round-trip w/ inventory`"]:::open
 1UI2["`*1UI.2*<br/>**UI**<br/>Save/load UI`"]:::open
 
 m1["`**Milestone 1**<br/>Skeleton Slice`"]:::mile
-1GS4 --> m1
 1EN1 --> m1
 1UI2 --> m1
 
-2GS1["`*2GS.1*<br/>**GS**<br/>Author L3–L6 idea chain`"]:::blocked
+2GS1["`*2GS.1*<br/>**GS**<br/>Author L3–L6 idea chain`"]:::open
 2GS2["`*2GS.2*<br/>**GS**<br/>Writable-ideas UI panel`"]:::open
 2GS4["`*2GS.4*<br/>**NA**<br/>Per-idea writing scenes`"]:::blocked
-2GS5["`*2GS.5*<br/>**GS**<br/>Thesis summary display`"]:::blocked
+2GS5["`*2GS.5*<br/>**GS**<br/>Thesis summary display`"]:::open
 2GS6["`*2GS.6*<br/>**GS**<br/>Per-idea replaces domain-level write`"]:::blocked
 2NA2["`*2NA.2*<br/>**NA**<br/>Develop all 40 inklings to L3`"]:::blocked
 2UI1["`*2UI.1*<br/>**UI**<br/>Idea inventory panel`"]:::blocked
 2UI2["`*2UI.2*<br/>**UI**<br/>Thesis panel`"]:::blocked
 
-1GS4 --> 2GS1
 2GS2 --> 2UI1
 2GS1 --> 2GS4
 2GS5 --> 2UI2
 2NA2 --> 2GS6
-1GS4 --> 2GS5
 
 m2["`**Milestone 2**<br/>Writing Engine`"]:::mile
 2GS4 --> m2
@@ -287,13 +283,12 @@ m3["`**Milestone 3**<br/>Full Night`"]:::mile
 4UI1["`*4UI.1*<br/>**UI**<br/>Final thesis summary screen`"]:::blocked
 
 m3 --> 4NA1
-1GS4 --> 4NA1
 4NA1 --> 4NA2
 2GS5 --> 4NA2
 4NA2 --> 4NA3
 4NA1 --> 4NA4
 4NA4 --> 4NA5
-1GS4 --> 4GS1
+m3 --> 4GS1
 4GS1 --> 4GS2
 2GS5 --> 4GS2
 4GS2 --> 4GS3
@@ -343,7 +338,6 @@ m5["`**Milestone 5**<br/>Polish`"]:::mile
 
 classDef default,blocked fill:#fff7fb;
 classDef open fill:#fff9e5;
-classDef done fill:#e6f9e6;
 classDef mile fill:#c4fffe;
 ```
 
