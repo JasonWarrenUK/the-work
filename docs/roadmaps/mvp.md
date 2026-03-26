@@ -6,10 +6,10 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 |          | Status                          | Next Up                       | Blocked                        |
 | -------- | ------------------------------- | ----------------------------- | ------------------------------ |
-| **NA**   | Hours 1–2 playable              | Author L3+ idea content       | Per-idea write action (GS)     |
-| **GS**   | Idea system + bridge complete   | Per-idea writing interface    | —                              |
-| **UI**   | StatusBar, ChoiceList built     | Save/load UI                  | Autosave wiring (EN)           |
-| **EN**   | Nib stable; basic save/load     | History replay, autosave      | —                              |
+| **NA**   | All objects + writing authored  | Author L3–L6 idea content     | —                              |
+| **GS**   | Idea pipeline wired E2E         | Author L3–L6 idea content (2GS.1) | —                         |
+| **UI**   | StatusBar, ChoiceList, autosave | Writable-ideas panel (2GS.2)  | —                              |
+| **EN**   | Nib stable; autosave wired      | Save round-trip w/ inventory  | —                              |
 | **PL**   | Not started                     | Keyboard shortcuts            | Stable content (M3)            |
 
 ---
@@ -36,26 +36,12 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m1-doing"><h4>In Progress (Milestone 1)</h4></a>
 
-- [ ] 1GS.3. Wire `write_idea` / `writable_idea_at` / `writable_idea_count` external functions into Ink writing scene — **depends on 1GS.1, 1GS.2**
-- [ ] 1UI.2. Surface save/load UI (trigger save, restore from save) — **depends on 1EN.2**
+- [ ] 1EN.1. Confirm Nib `saveState` / `loadState` round-trips correctly with idea inventory — Ink state round-trips; **idea inventory is NOT included in save data** (`inventory.toJSON()`/`fromJSON()` exist but are never called from save-load.ts)
+- [ ] 1UI.2. Surface save/load UI (trigger save, restore from save) — autosave + "Continue" button works; **no manual save/load UI yet**
 
 <a name="m1-todo"><h4>To Do (Milestone 1)</h4></a>
 
-- [ ] 1NA.1. Author one complete object examination in Ink (observation → choice of reading)
-- [ ] 1NA.2. Author development path from one observation to one inkling (L2)
-- [ ] 1NA.3. Author development path from inkling to one L3 idea
-- [ ] 1NA.4. Author minimal per-idea writing scene in Ink (select L3 idea, commit to thesis)
-- [ ] 1NA.5. Stub all unwritten hours (d1_2100–d2_0700) with `-> DONE` placeholders — **depends on 1NA.1**
-- [ ] 1NA.6. Wire hour stubs into main story so full narrative compiles and reaches d2_0800
-- [ ] 1GS.1. Confirm `acquire_idea`, `develop_idea`, `combine_ideas` work end-to-end with authored Ink — **depends on 1NA.1, 1NA.2**
-- [ ] 1GS.2. Confirm `write_idea` correctly gates on level >= 3 and marks idea as written
-- [ ] 1EN.1. Confirm Nib `saveState` / `loadState` round-trips correctly with idea inventory
-- [ ] 1EN.2. Wire `save-load.ts` autosave to fire on each `story.continue()` call
-- [ ] 1UI.1. Add `ConvictionDesc` Ink variable output to StatusBar — **depends on 1NA.1**
-
 <a name="m1-blocked"><h4>Blocked (Milestone 1)</h4></a>
-
-- [ ] 1GS.4. Implement discipline detection (dominant domain pair from written ideas) — **depends on 1GS.2, 1NA.4**
 
 <a name="m1-done"><h4>Completed (Milestone 1)</h4></a>
 
@@ -67,6 +53,18 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 - [x] 1GS.9. Orthodoxy scoring implemented
 - [x] 1UI.3. StatusBar, ChoiceList, Passage, DevBar, Grain components built
 - [x] 1NA.7. Hours d1_1830, d1_1900, d1_2000 authored and playable
+- [x] 1NA.1. Author one complete object examination in Ink (observation → choice of reading) — 48 objects authored across 6 locations (144 readings)
+- [x] 1NA.2. Author development path from one observation to one inkling (L2) — dozens of O→I recipes across all 7 domains
+- [x] 1NA.3. Author development path from inkling to one L3 idea — 23 I→C recipes registered
+- [x] 1NA.4. Author minimal per-idea writing scene in Ink (select L3 idea, commit to thesis) — per-idea selective writing implemented in Tunnels.ink
+- [x] 1NA.5. ~~Stub all unwritten hours~~ — superseded: d1_2000 loop design handles all hours via TimeNumber, no stubs needed
+- [x] 1NA.6. Wire hour stubs into main story so full narrative compiles and reaches d2_0800 — d1_2000 loop reaches d2_0800 via `TimeNumber >= 20` check
+- [x] 1GS.1. Confirm `acquire_idea`, `develop_idea`, `combine_ideas` work end-to-end with authored Ink
+- [x] 1GS.2. Confirm `write_idea` correctly gates on level >= 3 and marks idea as written
+- [x] 1GS.3. Wire `write_idea` / `writable_idea_at` / `writable_idea_count` external functions into Ink writing scene — all declared in IdeaSystem.ink, bound in idea-bridge.ts, called from Tunnels.ink
+- [x] 1EN.2. Wire `save-load.ts` autosave to fire on each `story.continue()` call — fires in continueStory() in +page.svelte
+- [x] 1UI.1. Add `ConvictionDesc` Ink variable output to StatusBar — reads from Ink variable, displays in StatusBar.svelte
+- [x] 1GS.4. Implement discipline detection (dominant domain pair from written ideas) — `getDominantPair()` + `disciplines.ts` lookup table + `get_discipline()` Ink external + StatusBar display
 
 ---
 
@@ -80,20 +78,21 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 <a name="m2-todo"><h4>To Do (Milestone 2)</h4></a>
 
 - [ ] 2GS.1. Author L3–L6 idea content for one domain (minimum one complete chain) — **depends on 1GS.4**
-- [ ] 2GS.2. Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy) — **depends on 1GS.2**
-- [ ] 2GS.3. Wire writing action into Ink: player selects idea by index from writable list, commits, receives confirmation text
+- [ ] 2GS.2. Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy) — **unblocked** (1GS.2 complete)
 - [ ] 2GS.4. Author per-idea writing scenes for each L3+ idea in the authored chain — **depends on 2GS.1**
 - [ ] 2GS.5. Display thesis summary (written ideas, dominant domains, discipline name) in UI — **depends on 1GS.4**
-- [ ] 2NA.1. Author one combination recipe (two inklings → one idea) in Ink and recipes.ts
 - [ ] 2NA.2. Author development paths for all 40 existing inklings to at least L3 — **depends on 2GS.1**
 - [ ] 2UI.1. Idea inventory panel — see held ideas, their level, and whether writable — **depends on 2GS.2**
 - [ ] 2UI.2. Thesis panel — see written ideas and current orthodoxy per domain — **depends on 2GS.5**
 
 <a name="m2-blocked"><h4>Blocked (Milestone 2)</h4></a>
 
-- [ ] 2GS.6. Per-domain writing action replaces domain-level `get_written_level` calls in Ink — **depends on 2GS.3, 2NA.2**
+- [ ] 2GS.6. Per-domain writing action replaces domain-level `get_written_level` calls in Ink — **depends on 2NA.2**
 
 <a name="m2-done"><h4>Completed (Milestone 2)</h4></a>
+
+- [x] 2GS.3. Wire writing action into Ink: player selects idea by index from writable list, commits, receives confirmation text — already implemented in Tunnels.ink via `writable_idea_at()` + `write_idea()` + `printWriteResultForIdea()`
+- [x] 2NA.1. Author one combination recipe (two inklings → one idea) in Ink and recipes.ts — multiple exist: I26+I27→C14, I1+I6→C14, plus ~20 observation-level combination recipes
 
 ---
 
@@ -106,7 +105,7 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m3-todo"><h4>To Do (Milestone 3)</h4></a>
 
-- [ ] 3NA.1. Author d1_2100 (hour 3) — **depends on 1NA.5**
+- [ ] 3NA.1. Author d1_2100 (hour 3) — d1_2000 loop already handles time; this is about adding hour-specific narrative flavour
 - [ ] 3NA.2. Author d1_2200 (hour 4) — **depends on 3NA.1**
 - [ ] 3NA.3. Author d1_2300 (hour 5) — **depends on 3NA.2**
 - [ ] 3NA.4. Author d2_0000 (midnight, hour 6) — **depends on 3NA.3**
@@ -196,72 +195,36 @@ title: Progress Map
 ---
 graph TD
 
-1NA1["`*1NA.1*<br/>**NA**<br/>Author one object examination`"]:::open
-1NA2["`*1NA.2*<br/>**NA**<br/>Obs → inkling dev path`"]:::blocked
-1NA3["`*1NA.3*<br/>**NA**<br/>Inkling → L3 idea path`"]:::blocked
-1NA4["`*1NA.4*<br/>**NA**<br/>Per-idea writing scene`"]:::blocked
-1NA5["`*1NA.5*<br/>**NA**<br/>Stub unwritten hours`"]:::blocked
-1NA6["`*1NA.6*<br/>**NA**<br/>Wire stubs, story compiles`"]:::blocked
-1GS1["`*1GS.1*<br/>**GS**<br/>Confirm acquire/develop/combine E2E`"]:::blocked
-1GS2["`*1GS.2*<br/>**GS**<br/>Confirm write_idea gating`"]:::open
-1GS3["`*1GS.3*<br/>**GS**<br/>Wire write externals into Ink`"]:::open
-1GS4["`*1GS.4*<br/>**GS**<br/>Discipline detection`"]:::blocked
-1EN1["`*1EN.1*<br/>**EN**<br/>saveState/loadState round-trip`"]:::open
-1EN2["`*1EN.2*<br/>**EN**<br/>Wire autosave to continue`"]:::open
-1UI1["`*1UI.1*<br/>**UI**<br/>ConvictionDesc to StatusBar`"]:::blocked
-1UI2["`*1UI.2*<br/>**UI**<br/>Save/load UI`"]:::blocked
-
-1NA1 --> 1NA2
-1NA2 --> 1NA3
-1NA3 --> 1NA4
-1NA1 --> 1NA5
-1NA5 --> 1NA6
-1NA1 --> 1GS1
-1NA2 --> 1GS1
-1GS1 --> 1GS3
-1GS2 --> 1GS3
-1GS2 --> 1GS4
-1NA4 --> 1GS4
-1EN2 --> 1UI2
-1NA1 --> 1UI1
+1GS4["`*1GS.4*<br/>**GS**<br/>Discipline detection`"]:::done
+1EN1["`*1EN.1*<br/>**EN**<br/>Save round-trip w/ inventory`"]:::open
+1UI2["`*1UI.2*<br/>**UI**<br/>Save/load UI`"]:::open
 
 m1["`**Milestone 1**<br/>Skeleton Slice`"]:::mile
-1GS3 --> m1
-1NA6 --> m1
 1GS4 --> m1
 1EN1 --> m1
 1UI2 --> m1
-1UI1 --> m1
 
 2GS1["`*2GS.1*<br/>**GS**<br/>Author L3–L6 idea chain`"]:::blocked
-2GS2["`*2GS.2*<br/>**GS**<br/>Writable-ideas UI panel`"]:::blocked
-2GS3["`*2GS.3*<br/>**GS**<br/>Writing action in Ink`"]:::blocked
+2GS2["`*2GS.2*<br/>**GS**<br/>Writable-ideas UI panel`"]:::open
 2GS4["`*2GS.4*<br/>**NA**<br/>Per-idea writing scenes`"]:::blocked
 2GS5["`*2GS.5*<br/>**GS**<br/>Thesis summary display`"]:::blocked
 2GS6["`*2GS.6*<br/>**GS**<br/>Per-idea replaces domain-level write`"]:::blocked
-2NA1["`*2NA.1*<br/>**NA**<br/>One combination recipe`"]:::blocked
 2NA2["`*2NA.2*<br/>**NA**<br/>Develop all 40 inklings to L3`"]:::blocked
 2UI1["`*2UI.1*<br/>**UI**<br/>Idea inventory panel`"]:::blocked
 2UI2["`*2UI.2*<br/>**UI**<br/>Thesis panel`"]:::blocked
 
-m1 --> 2GS1
-m1 --> 2GS2
+1GS4 --> 2GS1
 2GS2 --> 2UI1
-m1 --> 2GS3
 2GS1 --> 2GS4
 2GS5 --> 2UI2
-2GS3 --> 2GS6
 2NA2 --> 2GS6
-1GS4 --> 2GS1
 1GS4 --> 2GS5
-1GS2 --> 2GS2
 
 m2["`**Milestone 2**<br/>Writing Engine`"]:::mile
 2GS4 --> m2
 2GS6 --> m2
 2UI1 --> m2
 2UI2 --> m2
-2NA1 --> m2
 2NA2 --> m2
 
 3NA1["`*3NA.1*<br/>**NA**<br/>Author d1_2100`"]:::blocked
@@ -285,7 +248,6 @@ m2["`**Milestone 2**<br/>Writing Engine`"]:::mile
 3EN2["`*3EN.2*<br/>**NA**<br/>storylets.ink proof of concept`"]:::blocked
 
 m2 --> 3NA1
-1NA5 --> 3NA1
 3NA1 --> 3NA2
 3NA2 --> 3NA3
 3NA3 --> 3NA4
@@ -381,6 +343,7 @@ m5["`**Milestone 5**<br/>Polish`"]:::mile
 
 classDef default,blocked fill:#fff7fb;
 classDef open fill:#fff9e5;
+classDef done fill:#e6f9e6;
 classDef mile fill:#c4fffe;
 ```
 
@@ -396,4 +359,4 @@ Features explicitly deferred from MVP scope:
 - **Rewind / step-back** — full choice replay system; desirable but not required for first release
 - **Choice tags** (peek-ahead into choice target paths for `#class:` application) — partial coverage already in tags.ts
 - **Asset preloading progress bar** — only relevant once audio is dense enough to need it
-- **Full 67-observation Ink coverage** — MVP uses a representative slice; full content is post-MVP work
+- **Full 67-observation Ink coverage** — 48 of 67 objects authored; remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67) need different trigger mechanisms
