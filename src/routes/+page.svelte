@@ -4,7 +4,8 @@
 	import { base } from '$app/paths';
 	import { story, loadStory } from '$lib/engine/story.svelte';
 	import { initGameSystems } from '$lib/game/init';
-	import { autosave, loadAutosave, hasAutosave } from '$lib/game/save-load';
+	import { inventory } from '$lib/game/ideas.svelte';
+	import { type SaveData, load, autosave, loadAutosave, hasAutosave } from '$lib/game/save-load';
 	import Passage from '$lib/components/Passage.svelte';
 	import ChoiceList from '$lib/components/ChoiceList.svelte';
 
@@ -20,10 +21,23 @@
 	let loading = $state(true);
 	let ended = $state(false);
 
+	/** Restore both Ink state and inventory from a save. Call inside a try/catch. */
+	function restoreFromSave(saveData: SaveData): void {
+		story.loadState(saveData.storyState);
+		if (saveData.inventoryState) {
+			inventory.fromJSON(saveData.inventoryState);
+		}
+	}
+
 	onMount(async () => {
 		await loadStory(`${base}/The Work.json`, initGameSystems);
 
+		// Ensure a clean inventory before any restore (guards against stale state
+		// from client-side navigation without a full page reload)
+		inventory.reset();
+
 		const skip = page.url.searchParams.get('skip') === '1';
+		const loadManualSave = page.url.searchParams.get('loadSave') === '1';
 
 		if (skip) {
 			// Jump past the prologue directly to the main gameplay loop
@@ -35,14 +49,26 @@
 				story.setVariable('myDrink', 'water');
 				ink.ChoosePathString('d1_2000');
 			}
-		} else if (hasAutosave()) {
-			// Restore autosave if available
-			const save = loadAutosave();
-			if (save) {
+		} else if (loadManualSave) {
+			// Load manual save checkpoint
+			const saveData = load();
+			if (saveData) {
 				try {
-					story.loadState(save.storyState);
+					restoreFromSave(saveData);
 				} catch {
 					// Corrupted save — start fresh
+					inventory.reset();
+				}
+			}
+		} else if (hasAutosave()) {
+			// Restore autosave if available
+			const saveData = loadAutosave();
+			if (saveData) {
+				try {
+					restoreFromSave(saveData);
+				} catch {
+					// Corrupted save — start fresh
+					inventory.reset();
 				}
 			}
 		}
@@ -64,9 +90,9 @@
 			delete document.documentElement.dataset.mood;
 		}
 
-		// Autosave after each passage
+		// Autosave after each passage (includes inventory state)
 		try {
-			autosave(story.saveState());
+			autosave(story.saveState(), inventory.toJSON());
 		} catch {
 			// Silently fail — don't break gameplay
 		}

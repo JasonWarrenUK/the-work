@@ -269,11 +269,15 @@ export const inventory = {
 		});
 	},
 
-	/** Restore inventory from saved JSON. */
+	/** Restore inventory from saved JSON. Degrades gracefully if fields are missing or malformed. */
 	fromJSON(json: string): void {
 		const data = JSON.parse(json);
-		state.held = new Set(data.held);
-		state.written = new Set(data.written);
-		state.dread = data.dread;
+		state.held = new Set(Array.isArray(data.held) ? data.held : []);
+		state.written = new Set(Array.isArray(data.written) ? data.written : []);
+		state.dread = {
+			Existential: data.dread?.Existential ?? 0,
+			Academic: data.dread?.Academic ?? 0,
+			Economic: data.dread?.Economic ?? 0
+		};
 	}
 };
