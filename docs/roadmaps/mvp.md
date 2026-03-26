@@ -87,7 +87,11 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m2-blocked"><h4>Blocked (Milestone 2)</h4></a>
 
-- [ ] 2GS.6. Per-domain writing action replaces domain-level `get_written_level` calls in Ink — **depends on 2NA.2**
+- [ ] 2GS.6. Implement per-idea writing action for every authored L3+ idea — the current Tunnels.ink writing scene calls `get_written_level` to query domain-level progress rather than selecting a specific idea; once all inklings are developed to L3+ (2NA.2), each idea needs its own writing path wired through `write_idea()` — **depends on 2NA.2**
+- [ ] 2GS.10. Refactor Ink to remove legacy `get_written_level` / `get_domain_level` calls — once 2GS.6 is complete, the old domain-level write queries become dead code; remove them from Tunnels.ink and d2_0800.ink and confirm nothing breaks — **depends on 2GS.6**
+- [ ] 2GS.7. Author L3–L6 idea chain for a second domain — **depends on 2GS.1**
+- [ ] 2GS.8. Author L3–L6 idea chain for a third domain — **depends on 2GS.7**
+- [ ] 2GS.9. Author combination recipe matrix (I+I→C across domains) — **depends on 2GS.8**
 
 <a name="m2-done"><h4>Completed (Milestone 2)</h4></a>
 
@@ -116,17 +120,18 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 - [ ] 3NA.9. Author d2_0500 (hour 11) — **depends on 3NA.8**
 - [ ] 3NA.10. Author d2_0600 (hour 12) — **depends on 3NA.9**
 - [ ] 3NA.11. Author d2_0700 (hour 13, final night hour) — **depends on 3NA.10**
-- [ ] 3GS.1. Implement sensory event trigger mechanism in Ink (tag-based or external function)
-- [ ] 3GS.2. Implement bodily state triggers (fatigue, hunger, dread thresholds)
-- [ ] 3GS.3. Implement hidden/nested object reveal mechanism
+- [ ] 3GS.1. Implement sensory event trigger mechanism in Ink (tag-based or external function) — **unblocked** (1EN.3 complete)
+- [ ] 3GS.2. Implement bodily state triggers (fatigue, hunger, dread thresholds) — **unblocked** (1EN.3 complete)
+- [ ] 3GS.3. Implement hidden/nested object reveal mechanism — **unblocked** (1EN.3 complete)
 - [ ] 3GS.4. Wire dread accumulation to bodily state triggers — **depends on 3GS.2, 1GS.9**
-- [ ] 3EN.1. Implement storylet system (port `get_storylet` external function from calico-patches.md)
+- [ ] 3EN.1. Implement storylet system (port `get_storylet` external function from calico-patches.md) — **unblocked** (1EN.3 complete)
 - [ ] 3EN.2. Author storylets.ink with at least one proof-of-concept dynamic passage — **depends on 3EN.1**
 - [ ] 3NA.12. Integrate at least one storylet into a mid-night hour — **depends on 3EN.2, 3NA.4**
 
 <a name="m3-blocked"><h4>Blocked (Milestone 3)</h4></a>
 
 - [ ] 3NA.13. Extend observations to sensory/bodily/hidden prompt locations — **depends on 3GS.1, 3GS.2, 3GS.3**
+- [ ] 3UI.1. Add bodily/dread state indicators to UI (StatusBar or equivalent) — **depends on 3GS.2**
 
 <a name="m3-done"><h4>Completed (Milestone 3)</h4></a>
 
@@ -143,16 +148,16 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 - [ ] 4NA.1. Author committee introduction scene (committee composition announced, chair identified) — **depends on M3**
 - [ ] 4NA.2. Author defence questioning logic (committee challenges based on thesis orthodoxy) — **depends on 4NA.1, 2GS.5**
-- [ ] 4NA.3. Author at least 3 distinct ending scenes (pass orthodox, pass radical, fail) — **depends on 4NA.2**
-- [ ] 4NA.4. Author all 21 discipline-specific committee chair dialogue variants — **depends on 4NA.1**
-- [ ] 4GS.1. Implement discipline lookup (domain pair → discipline name → committee chair) — **depends on M3**; discipline detection (1GS.4) complete
+- [ ] 4NA.3. Author at least 3 distinct ending scenes (pass orthodox, pass radical, fail) — **depends on 4NA.2, 4GS.3**
+- [ ] 4NA.4. Author committee chair intro dialogue for all 21 disciplines (3 member types × discipline spin) — **depends on 4NA.1**
+- [ ] 4GS.1. Implement discipline lookup (domain pair → discipline name → committee chair) — **unblocked** (1GS.4 complete)
 - [ ] 4GS.2. Implement committee hostility scoring from written orthodoxy profile — **depends on 2GS.5, 4GS.1**
 - [ ] 4GS.3. Implement ending selection logic based on thesis profile + dread levels — **depends on 4GS.2**
 - [ ] 4UI.1. Add final thesis summary screen before defence begins — **depends on 2UI.2**
 
 <a name="m4-blocked"><h4>Blocked (Milestone 4)</h4></a>
 
-- [ ] 4NA.5. Author remaining discipline chair variants (after first 3 proven out) — **depends on 4NA.4**
+- [ ] 4NA.5. Author special committee dynamic scenes (co-chairs, resentful rival, peripheral voice, absent authority, gatekeeper) — **depends on 4NA.4**
 
 <a name="m4-done"><h4>Completed (Milestone 4)</h4></a>
 
@@ -167,12 +172,12 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m5-todo"><h4>To Do (Milestone 5)</h4></a>
 
-- [ ] 5PL.1. Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte
-- [ ] 5PL.2. Implement smooth scroll-after-choice (scrollIntoView or Svelte action)
-- [ ] 5PL.3. Apply `text-wrap: pretty` for orphan prevention
+- [ ] 5PL.1. Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte — **unblocked**
+- [ ] 5PL.2. Implement smooth scroll-after-choice (scrollIntoView or Svelte action) — **unblocked**
+- [ ] 5PL.3. Apply `text-wrap: pretty` for orphan prevention — **unblocked**
 - [ ] 5EN.1. Implement history replay for save/load (record choice indices, restore seed, replay silently) — **depends on 1EN.1**
 - [ ] 5EN.2. Wire autosave to fire on `story.continue()` with history-aware state — **depends on 5EN.1**
-- [ ] 5UI.1. Save/load UI (save slot, load from slot, delete save) — **depends on 5EN.1**
+- [ ] 5UI.1. Save/load UI (save slot, load from slot, delete save) — **depends on 5EN.1**; note: 1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task
 - [ ] 5UI.2. Autosave resume prompt on page load ("Continue where you left off?") — **depends on 5EN.2**
 - [ ] 5PL.4. Implement audio system (Howler.js-based, port from calico-patches.md) — **depends on 5PL.2**
 - [ ] 5PL.5. Wire `#play`, `#pause`, `#stop`, `#volume` Ink tags to audio system — **depends on 5PL.4**
@@ -206,19 +211,28 @@ m1["`**Milestone 1**<br/>Skeleton Slice`"]:::mile
 2GS2["`*2GS.2*<br/>**GS**<br/>Writable-ideas UI panel`"]:::open
 2GS4["`*2GS.4*<br/>**NA**<br/>Per-idea writing scenes`"]:::blocked
 2GS5["`*2GS.5*<br/>**GS**<br/>Thesis summary display`"]:::open
-2GS6["`*2GS.6*<br/>**GS**<br/>Per-idea replaces domain-level write`"]:::blocked
+2GS6["`*2GS.6*<br/>**GS**<br/>Per-idea writing action (L3+)`"]:::blocked
+2GS10["`*2GS.10*<br/>**GS**<br/>Remove legacy domain-level write calls`"]:::blocked
+2GS7["`*2GS.7*<br/>**GS**<br/>L3–L6 chain: domain 2`"]:::blocked
+2GS8["`*2GS.8*<br/>**GS**<br/>L3–L6 chain: domain 3`"]:::blocked
+2GS9["`*2GS.9*<br/>**GS**<br/>Combination recipe matrix`"]:::blocked
 2NA2["`*2NA.2*<br/>**NA**<br/>Develop all 40 inklings to L3`"]:::blocked
 2UI1["`*2UI.1*<br/>**UI**<br/>Idea inventory panel`"]:::blocked
 2UI2["`*2UI.2*<br/>**UI**<br/>Thesis panel`"]:::blocked
 
 2GS2 --> 2UI1
 2GS1 --> 2GS4
+2GS1 --> 2GS7
+2GS7 --> 2GS8
+2GS8 --> 2GS9
 2GS5 --> 2UI2
 2NA2 --> 2GS6
 
 m2["`**Milestone 2**<br/>Writing Engine`"]:::mile
 2GS4 --> m2
-2GS6 --> m2
+2GS6 --> 2GS10
+2GS10 --> m2
+2GS9 --> m2
 2UI1 --> m2
 2UI2 --> m2
 2NA2 --> m2
@@ -236,11 +250,12 @@ m2["`**Milestone 2**<br/>Writing Engine`"]:::mile
 3NA11["`*3NA.11*<br/>**NA**<br/>Author d2_0700`"]:::blocked
 3NA12["`*3NA.12*<br/>**NA**<br/>Integrate storylet into mid-night`"]:::blocked
 3NA13["`*3NA.13*<br/>**NA**<br/>Sensory/bodily/hidden observations`"]:::blocked
-3GS1["`*3GS.1*<br/>**GS**<br/>Sensory event triggers`"]:::blocked
-3GS2["`*3GS.2*<br/>**GS**<br/>Bodily state triggers`"]:::blocked
-3GS3["`*3GS.3*<br/>**GS**<br/>Hidden/nested object reveal`"]:::blocked
+3GS1["`*3GS.1*<br/>**GS**<br/>Sensory event triggers`"]:::open
+3GS2["`*3GS.2*<br/>**GS**<br/>Bodily state triggers`"]:::open
+3GS3["`*3GS.3*<br/>**GS**<br/>Hidden/nested object reveal`"]:::open
 3GS4["`*3GS.4*<br/>**GS**<br/>Dread → bodily state wiring`"]:::blocked
-3EN1["`*3EN.1*<br/>**EN**<br/>Storylet system (get_storylet)`"]:::blocked
+3UI1["`*3UI.1*<br/>**UI**<br/>Bodily/dread state UI`"]:::blocked
+3EN1["`*3EN.1*<br/>**EN**<br/>Storylet system (get_storylet)`"]:::open
 3EN2["`*3EN.2*<br/>**NA**<br/>storylets.ink proof of concept`"]:::blocked
 
 m2 --> 3NA1
@@ -254,14 +269,11 @@ m2 --> 3NA1
 3NA8 --> 3NA9
 3NA9 --> 3NA10
 3NA10 --> 3NA11
-m2 --> 3GS1
-m2 --> 3GS2
-m2 --> 3GS3
 3GS2 --> 3GS4
+3GS2 --> 3UI1
 3GS1 --> 3NA13
 3GS2 --> 3NA13
 3GS3 --> 3NA13
-m2 --> 3EN1
 3EN1 --> 3EN2
 3EN2 --> 3NA12
 3NA4 --> 3NA12
@@ -271,13 +283,14 @@ m3["`**Milestone 3**<br/>Full Night`"]:::mile
 3NA12 --> m3
 3NA13 --> m3
 3GS4 --> m3
+3UI1 --> m3
 
 4NA1["`*4NA.1*<br/>**NA**<br/>Committee intro scene`"]:::blocked
 4NA2["`*4NA.2*<br/>**NA**<br/>Defence questioning logic`"]:::blocked
 4NA3["`*4NA.3*<br/>**NA**<br/>3 ending scenes`"]:::blocked
-4NA4["`*4NA.4*<br/>**NA**<br/>21 discipline chair dialogues`"]:::blocked
-4NA5["`*4NA.5*<br/>**NA**<br/>Remaining chair variants`"]:::blocked
-4GS1["`*4GS.1*<br/>**GS**<br/>Discipline lookup`"]:::blocked
+4NA4["`*4NA.4*<br/>**NA**<br/>Chair dialogue: all 21 disciplines`"]:::blocked
+4NA5["`*4NA.5*<br/>**NA**<br/>Special committee dynamic scenes`"]:::blocked
+4GS1["`*4GS.1*<br/>**GS**<br/>Discipline lookup`"]:::open
 4GS2["`*4GS.2*<br/>**GS**<br/>Committee hostility scoring`"]:::blocked
 4GS3["`*4GS.3*<br/>**GS**<br/>Ending selection logic`"]:::blocked
 4UI1["`*4UI.1*<br/>**UI**<br/>Final thesis summary screen`"]:::blocked
@@ -288,7 +301,6 @@ m3 --> 4NA1
 4NA2 --> 4NA3
 4NA1 --> 4NA4
 4NA4 --> 4NA5
-m3 --> 4GS1
 4GS1 --> 4GS2
 2GS5 --> 4GS2
 4GS2 --> 4GS3
@@ -301,9 +313,9 @@ m4["`**Milestone 4**<br/>Defence & Endings`"]:::mile
 4GS3 --> m4
 4UI1 --> m4
 
-5PL1["`*5PL.1*<br/>**PL**<br/>Keyboard shortcuts`"]:::blocked
-5PL2["`*5PL.2*<br/>**PL**<br/>Smooth scroll after choice`"]:::blocked
-5PL3["`*5PL.3*<br/>**PL**<br/>text-wrap: pretty`"]:::blocked
+5PL1["`*5PL.1*<br/>**PL**<br/>Keyboard shortcuts`"]:::open
+5PL2["`*5PL.2*<br/>**PL**<br/>Smooth scroll after choice`"]:::open
+5PL3["`*5PL.3*<br/>**PL**<br/>text-wrap: pretty`"]:::open
 5PL4["`*5PL.4*<br/>**PL**<br/>Audio system (Howler.js)`"]:::blocked
 5PL5["`*5PL.5*<br/>**PL**<br/>Audio Ink tag wiring`"]:::blocked
 5PL6["`*5PL.6*<br/>**PL**<br/>Asset preloading`"]:::blocked
@@ -314,9 +326,6 @@ m4["`**Milestone 4**<br/>Defence & Endings`"]:::mile
 5UI2["`*5UI.2*<br/>**UI**<br/>Autosave resume prompt`"]:::blocked
 5NA1["`*5NA.1*<br/>**NA**<br/>Audio cues in narrative`"]:::blocked
 
-m4 --> 5PL1
-m4 --> 5PL2
-m4 --> 5PL3
 m4 --> 5PL4
 5PL4 --> 5PL5
 5PL5 --> 5NA1
@@ -354,3 +363,7 @@ Features explicitly deferred from MVP scope:
 - **Choice tags** (peek-ahead into choice target paths for `#class:` application) — partial coverage already in tags.ts
 - **Asset preloading progress bar** — only relevant once audio is dense enough to need it
 - **Full 67-observation Ink coverage** — 48 of 67 objects authored; remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67) need different trigger mechanisms
+- **Author L3–L6 idea chain for a fourth domain** — depends on 2GS.8
+- **Author L3–L6 idea chain for a fifth domain** — depends on previous
+- **Author L3–L6 idea chain for a sixth domain** — depends on previous
+- **Author L3–L6 idea chain for a seventh domain** — depends on previous; completes full domain coverage
