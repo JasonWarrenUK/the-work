@@ -43,11 +43,9 @@
 		goto(`${base}/menu`);
 	}
 
-	/** Suppress all keydown events while overlay is open to prevent ChoiceList firing underneath. */
+	/** Suppress non-Escape keydown events while overlay is open to prevent ChoiceList firing underneath. */
 	function handleOverlayKeydown(e: KeyboardEvent) {
-		if (e.key === 'Escape') {
-			onClose();
-		}
+		if (e.key === 'Escape') return; // handled by +page.svelte which owns paused state
 		// Stop other keys (numbers, z/x/c, space) from reaching ChoiceList
 		e.stopImmediatePropagation();
 	}
