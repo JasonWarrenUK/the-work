@@ -8,8 +8,8 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 | -------- | ------------------------------- | ----------------------------- | ------------------------------ |
 | **NA**   | All objects + writing authored  | Author L3–L6 idea content     | —                              |
 | **GS**   | Idea pipeline wired E2E         | Author L3–L6 idea content (2GS.1) | —                         |
-| **UI**   | StatusBar, ChoiceList, autosave | Writable-ideas panel (2GS.2)  | —                              |
-| **EN**   | Nib stable; autosave wired      | Save round-trip w/ inventory  | —                              |
+| **UI**   | StatusBar, ChoiceList, save/load UI | Writable-ideas panel (2GS.2) | —                            |
+| **EN**   | Nib stable; save round-trip done | —                            | —                              |
 | **PL**   | Not started                     | Keyboard shortcuts            | Stable content (M3)            |
 
 ---
@@ -36,14 +36,14 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m1-doing"><h4>In Progress (Milestone 1)</h4></a>
 
-- [ ] 1EN.1. Confirm Nib `saveState` / `loadState` round-trips correctly with idea inventory — Ink state round-trips; **idea inventory is NOT included in save data** (`inventory.toJSON()`/`fromJSON()` exist but are never called from save-load.ts)
-- [ ] 1UI.2. Surface save/load UI (trigger save, restore from save) — autosave + "Continue" button works; **no manual save/load UI yet**
-
 <a name="m1-todo"><h4>To Do (Milestone 1)</h4></a>
 
 <a name="m1-blocked"><h4>Blocked (Milestone 1)</h4></a>
 
 <a name="m1-done"><h4>Completed (Milestone 1)</h4></a>
+
+- [x] 1EN.1. Confirm Nib `saveState` / `loadState` round-trips correctly with idea inventory — inventory persisted via `toJSON()`/`fromJSON()` in autosave and manual save; `SaveData.inventoryState` optional field with graceful degradation
+- [x] 1UI.2. Surface save/load UI (trigger save, restore from save) — Escape key opens pause overlay (Save, Load Save, Quit to Menu, Resume); Ctrl+S / Cmd+S shortcut; "Saved" toast confirmation; Load Save on menu page
 
 - [x] 1EN.3. Nib engine stable (story.svelte.ts, tags.ts)
 - [x] 1GS.5. Idea data model (IdeaDef, PromptDef, inventory) implemented
@@ -200,8 +200,8 @@ title: Progress Map
 ---
 graph TD
 
-1EN1["`*1EN.1*<br/>**EN**<br/>Save round-trip w/ inventory`"]:::open
-1UI2["`*1UI.2*<br/>**UI**<br/>Save/load UI`"]:::open
+1EN1["`*1EN.1*<br/>**EN**<br/>Save round-trip w/ inventory`"]:::done
+1UI2["`*1UI.2*<br/>**UI**<br/>Save/load UI`"]:::done
 
 m1["`**Milestone 1**<br/>Skeleton Slice`"]:::mile
 1EN1 --> m1
@@ -347,6 +347,7 @@ m5["`**Milestone 5**<br/>Polish`"]:::mile
 
 classDef default,blocked fill:#fff7fb;
 classDef open fill:#fff9e5;
+classDef done fill:#e8f5e9;
 classDef mile fill:#c4fffe;
 ```
 
