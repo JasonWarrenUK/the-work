@@ -5,9 +5,11 @@
 	import { story, loadStory } from '$lib/engine/story.svelte';
 	import { initGameSystems } from '$lib/game/init';
 	import { inventory } from '$lib/game/ideas.svelte';
-	import { type SaveData, load, autosave, loadAutosave, hasAutosave } from '$lib/game/save-load';
+	import { type SaveData, load, save, autosave, loadAutosave, hasAutosave } from '$lib/game/save-load';
 	import Passage from '$lib/components/Passage.svelte';
 	import ChoiceList from '$lib/components/ChoiceList.svelte';
+	import PauseOverlay from '$lib/components/PauseOverlay.svelte';
+	import SaveToast from '$lib/components/SaveToast.svelte';
 
 	const CATEGORY_MOODS: Record<string, string> = {
 		'Attend to The Work': 'textual',
@@ -20,6 +22,32 @@
 	let choices: Array<{ index: number; text: string }> = $state([]);
 	let loading = $state(true);
 	let ended = $state(false);
+	let paused = $state(false);
+	let toast: SaveToast;
+
+	function manualSave() {
+		if (!story.ink) return;
+		try {
+			save({ storyState: story.saveState(), inventoryState: inventory.toJSON() });
+			toast.flash();
+		} catch {
+			// Silently fail
+		}
+	}
+
+	function handleGlobalKeydown(e: KeyboardEvent) {
+		if (loading) return;
+
+		if (e.key === 'Escape') {
+			paused = !paused;
+			return;
+		}
+
+		if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+			e.preventDefault();
+			manualSave();
+		}
+	}
 
 	/** Restore both Ink state and inventory from a save. Call inside a try/catch. */
 	function restoreFromSave(saveData: SaveData): void {
@@ -109,6 +137,16 @@
 		continueStory();
 	}
 </script>
+
+<svelte:window onkeydown={handleGlobalKeydown} />
+
+<SaveToast bind:this={toast} />
+
+<PauseOverlay
+	open={paused}
+	onClose={() => { paused = false; }}
+	onSave={manualSave}
+/>
 
 <div id="story" role="log" aria-live="polite" aria-label="Story text">
 	{#if loading}
