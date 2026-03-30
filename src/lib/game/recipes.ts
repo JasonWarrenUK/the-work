@@ -222,6 +222,12 @@ export function registerAuthoredRecipes(): void {
 	registerDevelopmentRecipe({ sourceId: 'O4c', resultId: 'I4' });
 	registerDevelopmentRecipe({ sourceId: 'O1a', resultId: 'I5' });
 	registerDevelopmentRecipe({ sourceId: 'O20a', resultId: 'I5' });
+	registerDevelopmentRecipe({ sourceId: 'O15a', resultId: 'I41' });
+	registerDevelopmentRecipe({ sourceId: 'O2a', resultId: 'I42' });
+	registerDevelopmentRecipe({ sourceId: 'O18a', resultId: 'I43' });
+	registerDevelopmentRecipe({ sourceId: 'O35a', resultId: 'I44' });
+	registerDevelopmentRecipe({ sourceId: 'O38a', resultId: 'I44' });
+	registerDevelopmentRecipe({ sourceId: 'O37a', resultId: 'I45' });
 
 	// Faith inklings from development
 	registerDevelopmentRecipe({ sourceId: 'O15c', resultId: 'I6' });
@@ -302,10 +308,17 @@ export function registerAuthoredRecipes(): void {
 	registerDevelopmentRecipe({ sourceId: 'I12', resultId: 'C15' });
 	registerDevelopmentRecipe({ sourceId: 'I11', resultId: 'C16' });
 	registerDevelopmentRecipe({ sourceId: 'I13', resultId: 'C16' });
+	registerDevelopmentRecipe({ sourceId: 'I41', resultId: 'C18' });
+	registerDevelopmentRecipe({ sourceId: 'I42', resultId: 'C19' });
+	registerDevelopmentRecipe({ sourceId: 'I43', resultId: 'C20' });
+	registerDevelopmentRecipe({ sourceId: 'I44', resultId: 'C21' });
+	registerDevelopmentRecipe({ sourceId: 'I45', resultId: 'C22' });
 
 	// Combination recipes: inkling + inkling → idea (cross-domain)
 	registerCombinationRecipe({ inputIds: ['I26', 'I27'], resultId: 'C14' });
 	registerCombinationRecipe({ inputIds: ['I1', 'I6'], resultId: 'C14' });
+	registerCombinationRecipe({ inputIds: ['I5', 'I44'], resultId: 'C17' });
+	registerCombinationRecipe({ inputIds: ['I25', 'I41'], resultId: 'C23' });
 
 	// Combination recipes: observation + observation → inkling
 	// These map the "combo" paths from Ideas.md
@@ -369,4 +382,16 @@ export function registerAuthoredRecipes(): void {
 	registerCombinationRecipe({ inputIds: ['O64c', 'O42c'], resultId: 'I39' });
 
 	registerCombinationRecipe({ inputIds: ['O14c', 'O8b'], resultId: 'I40' });
+
+	// Development recipes: idea (L3) → concept (L4)
+	registerDevelopmentRecipe({ sourceId: 'C20', resultId: 'CO1' });
+
+	// Development recipes: concept (L4) → argument (L5)
+	registerDevelopmentRecipe({ sourceId: 'CO1', resultId: 'AR1' });
+
+	// Development recipes: argument (L5) → thesis (L6, orthodox branch)
+	registerDevelopmentRecipe({ sourceId: 'AR1', resultId: 'TH1' });
+
+	// Combination recipes: argument + idea → thesis (L6, critical-orthodox branch)
+	registerCombinationRecipe({ inputIds: ['AR1', 'C22'], resultId: 'TH2' });
 }

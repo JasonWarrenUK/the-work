@@ -426,6 +426,13 @@ const inklings: IdeaDef[] = [
 	{ id: 'I38', text: 'The natural order is what the powerful call the order they built.', level: 2, concepts: { Rule: -50, Nature: -40, Class: -40 }, source: ['O18b', 'O18c', 'O16b', 'O16c'] },
 	{ id: 'I39', text: 'Preserved by crushing. The flower, the specimen, the faith. The things you keep alive by stopping them from growing.', level: 2, concepts: { Nature: -40, Faith: -30 }, dread: 'Existential', source: ['O64c', 'O42c'] },
 	{ id: 'I40', text: 'You were given a mind that questions. Perhaps that is the point — not the answers, but the asking.', level: 2, concepts: { Faith: -20, Truth: -30, Art: -20 }, source: ['O14c', 'O8b'] },
+
+	// Orthodox Rule inklings
+	{ id: 'I41', text: 'The state did not invent authority. It inherited it — from the pulpit, from the patriarch, from something older than any charter. Legitimacy is not claimed. It is received.', level: 2, concepts: { Rule: 50, Faith: 40 }, source: ['O15a'] },
+	{ id: 'I42', text: 'The best rise. Not always, not perfectly — but the alternative is worse. When rank is earned, hierarchy is not oppression. It is recognition.', level: 2, concepts: { Rule: 40, Class: 40 }, source: ['O2a'] },
+	{ id: 'I43', text: 'The logic holds. Faith at the foundation, law in the architecture, hierarchy in the arrangement of rooms. It is not perfect. But it is coherent, and coherence is not nothing.', level: 2, concepts: { Rule: 45, Class: 35, Faith: 30 }, source: ['O18a'] },
+	{ id: 'I44', text: 'The medal is heavy. The belonging is real. The purpose is not invented. The state answers a need that existed before any republic — and will exist after.', level: 2, concepts: { Rule: 50, Morality: 45 }, source: ['O35a', 'O38a'] },
+	{ id: 'I45', text: 'Someone stamps the form. Someone files the record. Civilisation is not grand. It is clerical. And the clerks keep showing up.', level: 2, concepts: { Rule: 30 }, source: ['O37a'] },
 ];
 
 // ---------------------------------------------------------------------------
@@ -464,6 +471,44 @@ const ideas: IdeaDef[] = [
 	// Dread ideas
 	{ id: 'C15', text: 'You stay because leaving would mean admitting that staying was a choice — and choices can be wrong.', level: 3, concepts: { Rule: -25 }, dread: 'Existential', source: ['I10', 'I12'] },
 	{ id: 'C16', text: 'Everything is in the process of becoming something else. Memory, matter, meaning — all of it dissolving, all of it pretending to hold.', level: 3, concepts: { Nature: -40, Art: -25 }, dread: 'Existential', source: ['I11', 'I13'] },
+
+	// Orthodox Rule ideas (rebalancing)
+	{ id: 'C17', text: 'Order is not cruelty. The curfew, the restriction, the stamp on the form — someone decided these were worth the cost. That decision is an act of moral weight, not its absence.', level: 3, concepts: { Rule: 45, Morality: 40 }, source: ['I5', 'I44'] },
+	{ id: 'C18', text: 'Authority needs a foundation deeper than force. The bells ring because something older than the republic said they should. Without that depth, power is just power.', level: 3, concepts: { Rule: 50, Faith: 40 }, source: ['I41'] },
+	{ id: 'C19', text: 'Hierarchy is not injustice. The committee earned its place. The professor studied. The cleric served. To deny their authority is to deny that effort matters.', level: 3, concepts: { Rule: 40, Class: 35 }, source: ['I42'] },
+	{ id: 'C20', text: 'The order holds because it has internal coherence — not perfection, but logic. Faith grounds it, hierarchy organises it, law expresses it. Remove one pillar and the rest wobble.', level: 3, concepts: { Rule: 50, Class: 40, Faith: 35 }, source: ['I43'] },
+	{ id: 'C21', text: 'The medal is not a lie. The belonging is not a trick. The state offers purpose because people need it. That the need is real does not make the offering cynical.', level: 3, concepts: { Rule: 45, Morality: 40 }, source: ['I44'] },
+	{ id: 'C22', text: 'Someone stamps the death certificate. Someone files the forms. Civilisation is not an idea. It is a clerk, working late, making sure the records exist for tomorrow.', level: 3, concepts: { Rule: 35 }, source: ['I45'] },
+	{ id: 'C23', text: 'Duty is not hollow when it serves something real. The republic\'s demands — sacrifice, service, patience — are heavy, but the weight proves they matter. Light obligations belong to light ages.', level: 3, concepts: { Rule: 40, Faith: 25, Morality: 35 }, source: ['I41', 'I25'] },
+];
+
+// ---------------------------------------------------------------------------
+// Concepts (Level 4) — structured understanding, writable
+// ---------------------------------------------------------------------------
+
+const concepts: IdeaDef[] = [
+	// Rule + Class + Faith chain
+	{ id: 'CO1', text: 'The republic\'s order is not accidental. It is a structure — faith at the foundation, hierarchy in the walls, law in the architecture. To live within it is not submission. It is the recognition that structures have reasons, even when those reasons are invisible to those inside.', level: 4, concepts: { Rule: 55, Class: 45, Faith: 40 }, source: ['C20'] },
+];
+
+// ---------------------------------------------------------------------------
+// Arguments (Level 5) — defensible positions with a through-line, writable
+// ---------------------------------------------------------------------------
+
+const arguments_: IdeaDef[] = [
+	// Rule + Class + Faith chain
+	{ id: 'AR1', text: 'Institutions do not survive by accident. The church endures because it answers something. The committee endures because it preserves something. The law endures because it holds something together. To dismiss all three as instruments of oppression is to miss the question: what would you replace them with? The radical tears down the wall without asking what it was holding back.', level: 5, concepts: { Rule: 60, Class: 50, Faith: 45 }, source: ['CO1'] },
+];
+
+// ---------------------------------------------------------------------------
+// Theses (Level 6) — complete, rigorous, writable
+// ---------------------------------------------------------------------------
+
+const theses: IdeaDef[] = [
+	// Rule + Class + Faith: orthodox branch
+	{ id: 'TH1', text: 'The republic is not the betrayal of the revolution. It is its maturation. What the founders built in violence, the institutions have refined in patience. The restrictions are not permanent — they are the necessary architecture of a state still learning to govern itself. To tear down the scaffolding before the building is complete is not courage. It is impatience disguised as principle.', level: 6, concepts: { Rule: 70, Class: 55, Faith: 50 }, source: ['AR1'] },
+	// Rule + Class + Faith: critical-orthodox branch (ambivalent defence)
+	{ id: 'TH2', text: 'The order holds, but not because it is divine or natural or just. It holds because every morning, someone opens the office, stamps the forms, and pretends that continuity is the same as legitimacy. The republic survives on the faith of its clerks — and that faith is thinner than anyone will admit. The question is not whether the structure is worth preserving. It is whether the people preserving it still believe it is.', level: 6, concepts: { Rule: 40, Class: 30, Faith: 15 }, source: ['AR1', 'C22'] },
 ];
 
 // ---------------------------------------------------------------------------
@@ -569,6 +614,15 @@ export function registerAllIdeas(): void {
 		registerIdea(idea);
 	}
 	for (const idea of ideas) {
+		registerIdea(idea);
+	}
+	for (const idea of concepts) {
+		registerIdea(idea);
+	}
+	for (const idea of arguments_) {
+		registerIdea(idea);
+	}
+	for (const idea of theses) {
 		registerIdea(idea);
 	}
 	for (const prompt of prompts) {
