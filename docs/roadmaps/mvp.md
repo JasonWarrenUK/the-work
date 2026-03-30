@@ -6,8 +6,8 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 |          | Status                          | Next Up                       | Blocked                        |
 | -------- | ------------------------------- | ----------------------------- | ------------------------------ |
-| **NA**   | All objects + writing authored  | Author L3–L6 idea content     | —                              |
-| **GS**   | Idea pipeline wired E2E         | Author L3–L6 idea content (2GS.1) | —                         |
+| **NA**   | All objects + writing authored  | Per-idea writing scenes (2GS.4) | —                            |
+| **GS**   | Rule L3–L6 chain complete       | Writable-ideas UI (2GS.2), 2nd domain chain (2GS.7) | —          |
 | **UI**   | StatusBar, ChoiceList, save/load UI | Writable-ideas panel (2GS.2) | —                            |
 | **EN**   | Nib stable; save round-trip done | —                            | —                              |
 | **PL**   | Not started                     | Keyboard shortcuts            | Stable content (M3)            |
@@ -77,11 +77,11 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m2-todo"><h4>To Do (Milestone 2)</h4></a>
 
-- [ ] 2GS.1. Author L3–L6 idea content for one domain (minimum one complete chain) — **unblocked** (1GS.4 complete)
 - [ ] 2GS.2. Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy) — **unblocked** (1GS.2 complete)
-- [ ] 2GS.4. Author per-idea writing scenes for each L3+ idea in the authored chain — **depends on 2GS.1**
+- [ ] 2GS.4. Author per-idea writing scenes for each L3+ idea in the authored chain — **unblocked** (2GS.1 complete)
 - [ ] 2GS.5. Display thesis summary (written ideas, dominant domains, discipline name) in UI — **unblocked** (1GS.4 complete)
-- [ ] 2NA.2. Author development paths for all 40 existing inklings to at least L3 — **depends on 2GS.1**
+- [ ] 2GS.7. Author L3–L6 idea chain for a second domain — **unblocked** (2GS.1 complete)
+- [ ] 2NA.2. Author development paths for all 40 existing inklings to at least L3 — **unblocked** (2GS.1 complete)
 - [ ] 2UI.1. Idea inventory panel — see held ideas, their level, and whether writable — **depends on 2GS.2**
 - [ ] 2UI.2. Thesis panel — see written ideas and current orthodoxy per domain — **depends on 2GS.5**
 
@@ -89,12 +89,12 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 - [ ] 2GS.6. Implement per-idea writing action for every authored L3+ idea — the current Tunnels.ink writing scene calls `get_written_level` to query domain-level progress rather than selecting a specific idea; once all inklings are developed to L3+ (2NA.2), each idea needs its own writing path wired through `write_idea()` — **depends on 2NA.2**
 - [ ] 2GS.10. Refactor Ink to remove legacy `get_written_level` / `get_domain_level` calls — once 2GS.6 is complete, the old domain-level write queries become dead code; remove them from Tunnels.ink and d2_0800.ink and confirm nothing breaks — **depends on 2GS.6**
-- [ ] 2GS.7. Author L3–L6 idea chain for a second domain — **depends on 2GS.1**
 - [ ] 2GS.8. Author L3–L6 idea chain for a third domain — **depends on 2GS.7**
 - [ ] 2GS.9. Author combination recipe matrix (I+I→C across domains) — **depends on 2GS.8**
 
 <a name="m2-done"><h4>Completed (Milestone 2)</h4></a>
 
+- [x] 2GS.1. Author L3–L6 idea content for one domain (minimum one complete chain) — Rule domain: rebalanced L3 to 8 orthodox / 8 radical; authored first L4–L6 chain C20→CO1→AR1→TH1 with branching fork AR1+C22→TH2
 - [x] 2GS.3. Wire writing action into Ink: player selects idea by index from writable list, commits, receives confirmation text — already implemented in Tunnels.ink via `writable_idea_at()` + `write_idea()` + `printWriteResultForIdea()`
 - [x] 2NA.1. Author one combination recipe (two inklings → one idea) in Ink and recipes.ts — multiple exist: I26+I27→C14, I1+I6→C14, plus ~20 observation-level combination recipes
 
@@ -207,22 +207,19 @@ m1["`**Milestone 1**<br/>Skeleton Slice`"]:::mile
 1EN1 --> m1
 1UI2 --> m1
 
-2GS1["`*2GS.1*<br/>**GS**<br/>Author L3–L6 idea chain`"]:::open
 2GS2["`*2GS.2*<br/>**GS**<br/>Writable-ideas UI panel`"]:::open
-2GS4["`*2GS.4*<br/>**NA**<br/>Per-idea writing scenes`"]:::blocked
+2GS4["`*2GS.4*<br/>**NA**<br/>Per-idea writing scenes`"]:::open
 2GS5["`*2GS.5*<br/>**GS**<br/>Thesis summary display`"]:::open
 2GS6["`*2GS.6*<br/>**GS**<br/>Per-idea writing action (L3+)`"]:::blocked
 2GS10["`*2GS.10*<br/>**GS**<br/>Remove legacy domain-level write calls`"]:::blocked
-2GS7["`*2GS.7*<br/>**GS**<br/>L3–L6 chain: domain 2`"]:::blocked
+2GS7["`*2GS.7*<br/>**GS**<br/>L3–L6 chain: domain 2`"]:::open
 2GS8["`*2GS.8*<br/>**GS**<br/>L3–L6 chain: domain 3`"]:::blocked
 2GS9["`*2GS.9*<br/>**GS**<br/>Combination recipe matrix`"]:::blocked
-2NA2["`*2NA.2*<br/>**NA**<br/>Develop all 40 inklings to L3`"]:::blocked
+2NA2["`*2NA.2*<br/>**NA**<br/>Develop all 40 inklings to L3`"]:::open
 2UI1["`*2UI.1*<br/>**UI**<br/>Idea inventory panel`"]:::blocked
 2UI2["`*2UI.2*<br/>**UI**<br/>Thesis panel`"]:::blocked
 
 2GS2 --> 2UI1
-2GS1 --> 2GS4
-2GS1 --> 2GS7
 2GS7 --> 2GS8
 2GS8 --> 2GS9
 2GS5 --> 2UI2
