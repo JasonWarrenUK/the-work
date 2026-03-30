@@ -16,12 +16,17 @@
         INCLUDE Hours/d1_1830.ink
         INCLUDE Hours/d1_1900.ink
         INCLUDE Hours/d1_2000.ink
-    /*  INCLUDE Hours/d1_2100.ink
+        INCLUDE Hours/d1_2100.ink
         INCLUDE Hours/d1_2200.ink
         INCLUDE Hours/d1_2300.ink
         INCLUDE Hours/d2_0000.ink
-        ...
-        INCLUDE Hours/d2_0700.ink   */
+        INCLUDE Hours/d2_0100.ink
+        INCLUDE Hours/d2_0200.ink
+        INCLUDE Hours/d2_0300.ink
+        INCLUDE Hours/d2_0400.ink
+        INCLUDE Hours/d2_0500.ink
+        INCLUDE Hours/d2_0600.ink
+        INCLUDE Hours/d2_0700.ink
         INCLUDE Hours/d2_0800.ink
 
 -> debugMenu

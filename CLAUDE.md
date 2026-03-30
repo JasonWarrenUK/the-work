@@ -30,7 +30,7 @@ npm run build
 | Path | Purpose |
 |------|---------|
 | `story/` | Ink source files (The Work.ink is the root) |
-| `story/Hours/` | Per-hour chapter files (d1_1830.ink through d2_0800.ink) |
+| `story/Hours/` | Per-hour chapter files — d1_1830 (setup), d1_1900 (prologue), d1_2000 through d2_0700 (gameplay loop, one file per hour), d2_0800 (ending) |
 | `src/lib/engine/` | **Nib** — generic Ink runtime, story state, tag processing (zero game imports) |
 | `src/lib/game/init.ts` | Game initialization — wires idea system into the engine |
 | `src/lib/game/idea-bridge.ts` | Binds TypeScript functions as Ink EXTERNAL functions |
@@ -79,7 +79,7 @@ npm run build
 - Writing action in Tunnels.ink still uses domain-level write rather than true per-idea selective writing (see TODO comment in code)
 - Sensory events (P49-P53), bodily states (P54-P58), and hidden/nested objects (P59-P67) are cataloged but NOT in Observations.ink — they need different trigger mechanisms
 - Level 3+ ideas need authoring for writable content in playtesting
-- Hours d1_2100 through d2_0700 are empty stubs (chain forward)
+- Hours d1_2100 through d2_0700 are minimal loop stubs — each owns one hour of the night, guards on its own TimeNumber threshold, and chains to the next file when time advances. Per-hour narrative content goes here.
 
 ## Writing Style
 
