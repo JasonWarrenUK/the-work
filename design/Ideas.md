@@ -702,6 +702,11 @@ Scores typically intensify from the parent observation(s). Development deepens; 
 | I3 | The people who stop writing don't disappear. They just become quieter, until quiet is all they are. | O5b or O5c | dev | Rule -50, Truth -50 |
 | I4 | Self-censorship is the regime's greatest achievement. It costs them nothing and silences more than any law. | O4b or O4c | dev | Rule -60, Truth -50 |
 | I5 | Order requires sacrifice. The restrictions are the price of a functioning state. Everyone pays something. | O1a or O20a | dev | Rule +40, Morality +30 |
+| I41 | The state did not invent authority. It inherited it — from the pulpit, from the patriarch, from something older than any charter. Legitimacy is not claimed. It is received. | O15a | dev | Rule +50, Faith +40 |
+| I42 | The best rise. Not always, not perfectly — but the alternative is worse. When rank is earned, hierarchy is not oppression. It is recognition. | O2a | dev | Rule +40, Class +40 |
+| I43 | The logic holds. Faith at the foundation, law in the architecture, hierarchy in the arrangement of rooms. It is not perfect. But it is coherent, and coherence is not nothing. | O18a | dev | Rule +45, Class +35, Faith +30 |
+| I44 | The medal is heavy. The belonging is real. The purpose is not invented. The state answers a need that existed before any republic — and will exist after. | O35a or O38a | dev | Rule +50, Morality +45 |
+| I45 | Someone stamps the form. Someone files the record. Civilisation is not grand. It is clerical. And the clerks keep showing up. | O37a | dev | Rule +30 |
 
 ### Faith Inklings
 
@@ -797,18 +802,25 @@ The threshold for writing. Developed from Inklings, or produced by combination.
 | C14 | The gazette and the hymnbook serve the same master. One compels with law, the other with love. Both demand submission. | I26, I27 | Rule -45, Faith -35, Class -30 |
 | C15 | You stay because leaving would mean admitting that staying was a choice — and choices can be wrong. | I10, I12 | Rule -25 (Dread: Existential) |
 | C16 | Everything is in the process of becoming something else. Memory, matter, meaning — all of it dissolving, all of it pretending to hold. | I11, I13 | Nature -40, Art -25 (Dread: Existential) |
+| C17 | Order is not cruelty. The curfew, the restriction, the stamp on the form — someone decided these were worth the cost. That decision is an act of moral weight, not its absence. | I5 + I44 (combo) | Rule +45, Morality +40 |
+| C18 | Authority needs a foundation deeper than force. The bells ring because something older than the republic said they should. Without that depth, power is just power. | I41 | Rule +50, Faith +40 |
+| C19 | Hierarchy is not injustice. The committee earned its place. The professor studied. The cleric served. To deny their authority is to deny that effort matters. | I42 | Rule +40, Class +35 |
+| C20 | The order holds because it has internal coherence — not perfection, but logic. Faith grounds it, hierarchy organises it, law expresses it. Remove one pillar and the rest wobble. | I43 | Rule +50, Class +40, Faith +35 |
+| C21 | The medal is not a lie. The belonging is not a trick. The state offers purpose because people need it. That the need is real does not make the offering cynical. | I44 | Rule +45, Morality +40 |
+| C22 | Someone stamps the death certificate. Someone files the forms. Civilisation is not an idea. It is a clerk, working late, making sure the records exist for tomorrow. | I45 | Rule +35 |
+| C23 | Duty is not hollow when it serves something real. The republic's demands — sacrifice, service, patience — are heavy, but the weight proves they matter. Light obligations belong to light ages. | I41 + I25 (combo) | Rule +40, Faith +25, Morality +35 |
 
 ## Concepts (Level 4)
 
 | ID | Text | Source | Scores |
 |----|------|--------|--------|
-| | | | |
+| CO1 | The republic's order is not accidental. It is a structure — faith at the foundation, hierarchy in the walls, law in the architecture. To live within it is not submission. It is the recognition that structures have reasons, even when those reasons are invisible to those inside. | C20 | Rule +55, Class +45, Faith +40 |
 
 ## Arguments (Level 5)
 
 | ID | Text | Source | Scores |
 |----|------|--------|--------|
-| | | | |
+| AR1 | Institutions do not survive by accident. The church endures because it answers something. The committee endures because it preserves something. The law endures because it holds something together. To dismiss all three as instruments of oppression is to miss the question: what would you replace them with? The radical tears down the wall without asking what it was holding back. | CO1 | Rule +60, Class +50, Faith +45 |
 
 ## Theses (Level 6)
 
@@ -816,7 +828,8 @@ The destinations. Many possible. Key ones should be hand-authored even during pl
 
 | ID | Text | Source | Scores |
 |----|------|--------|--------|
-| | | | |
+| TH1 | The republic is not the betrayal of the revolution. It is its maturation. What the founders built in violence, the institutions have refined in patience. The restrictions are not permanent — they are the necessary architecture of a state still learning to govern itself. To tear down the scaffolding before the building is complete is not courage. It is impatience disguised as principle. | AR1 (dev) | Rule +70, Class +55, Faith +50 |
+| TH2 | The order holds, but not because it is divine or natural or just. It holds because every morning, someone opens the office, stamps the forms, and pretends that continuity is the same as legitimacy. The republic survives on the faith of its clerks — and that faith is thinner than anyone will admit. The question is not whether the structure is worth preserving. It is whether the people preserving it still believe it is. | AR1 + C22 (combo) | Rule +40, Class +30, Faith +15 |
 
 ---
 
