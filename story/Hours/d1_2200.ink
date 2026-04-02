@@ -3,7 +3,7 @@
 	-> Begin
 
 = Begin
-	{TimeNumber >= 10:
+	{TimeNumber >= 11:
 		-> d1_2300
 	}
 	{updateWorldState()}
@@ -13,7 +13,7 @@
 	-> Action(-> d1_2200.AfterSelection)
 
 = AfterSelection
-	{TimeNumber >= 10:
+	{TimeNumber >= 11:
 		-> d1_2300
 	}
 	There's more to do.
