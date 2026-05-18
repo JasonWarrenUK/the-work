@@ -4,13 +4,14 @@
 	import { getDisciplineOfficial } from '$lib/game/disciplines';
 	import { inventory } from '$lib/game/ideas.svelte';
 
-	let { onOpenThesis }: { onOpenThesis: () => void } = $props();
+	let { onOpenThesis, onOpenIdeas }: { onOpenThesis: () => void; onOpenIdeas: () => void } = $props();
 
 	// Reading story.tick inside $derived ensures these re-evaluate after each continue()
 	let timeName = $derived((() => { story.tick; return (story.getVariable('TimeName') as string) ?? ''; })());
 	let convictionDesc = $derived((() => { story.tick; return (story.getVariable('ConvictionDesc') as string) ?? ''; })());
 	let discipline = $derived((() => { story.tick; return getDisciplineOfficial(); })());
 	let writtenCount = $derived((() => { story.tick; return inventory.writtenIds().length; })());
+	let writableCount = $derived((() => { story.tick; return inventory.writableIdeas().length; })());
 </script>
 
 {#if timeName || discipline || convictionDesc}
@@ -24,12 +25,20 @@
 		{#if convictionDesc}
 			<span class="conviction">{convictionDesc}</span>
 		{/if}
-		<button class="thesis-btn" onclick={onOpenThesis} aria-label="View thesis summary">
-			{#if writtenCount > 0}
-				<span class="thesis-count">{writtenCount}</span>
-			{/if}
-			<span class="thesis-glyph">⁋</span>
-		</button>
+		<div class="btn-group">
+			<button class="summary-btn" onclick={onOpenIdeas} aria-label="View writable ideas">
+				{#if writableCount > 0}
+					<span class="summary-count">{writableCount}</span>
+				{/if}
+				<span class="summary-glyph">☉</span>
+			</button>
+			<button class="summary-btn" onclick={onOpenThesis} aria-label="View thesis summary">
+				{#if writtenCount > 0}
+					<span class="summary-count">{writtenCount}</span>
+				{/if}
+				<span class="summary-glyph">⁋</span>
+			</button>
+		</div>
 	</aside>
 {/if}
 
@@ -65,7 +74,13 @@
 		font-style: italic;
 	}
 
-	.thesis-btn {
+	.btn-group {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+	}
+
+	.summary-btn {
 		pointer-events: auto;
 		background: none;
 		border: none;
@@ -81,22 +96,22 @@
 		font-size: 0.8125rem;
 	}
 
-	.thesis-btn:hover,
-	.thesis-btn:focus-visible {
+	.summary-btn:hover,
+	.summary-btn:focus-visible {
 		opacity: 1;
 	}
 
-	.thesis-btn:focus-visible {
+	.summary-btn:focus-visible {
 		outline: 2px solid var(--accent);
 		outline-offset: 3px;
 		border-radius: 2px;
 	}
 
-	.thesis-count {
+	.summary-count {
 		font-variant-numeric: tabular-nums;
 	}
 
-	.thesis-glyph {
+	.summary-glyph {
 		font-size: 1rem;
 		line-height: 1;
 	}
