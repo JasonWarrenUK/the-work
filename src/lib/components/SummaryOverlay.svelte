@@ -6,22 +6,26 @@
 
 	let {
 		open,
+		initialTab,
 		onClose
 	}: {
 		open: boolean;
+		initialTab: 'ideas' | 'thesis';
 		onClose: () => void;
 	} = $props();
 
+	let tab = $state<'ideas' | 'thesis'>('thesis');
 	let closeButton: HTMLButtonElement | null = $state(null);
 
 	$effect(() => {
-		if (open && closeButton) {
-			closeButton.focus();
+		if (open) {
+			tab = initialTab;
+			if (closeButton) closeButton.focus();
 		}
 	});
 
-	// story.tick dependency ensures re-evaluation after each continue()
 	let written = $derived((() => { story.tick; return inventory.writtenIdeas(); })());
+	let writable = $derived((() => { story.tick; return inventory.writableIdeas(); })());
 	let profile = $derived((() => { story.tick; return inventory.getThesisProfile(); })());
 	let discipline = $derived((() => { story.tick; return getDiscipline(); })());
 
@@ -36,6 +40,10 @@
 		return [...written].sort((a, b) => b.level - a.level || a.id.localeCompare(b.id));
 	}
 
+	function sortedWritable() {
+		return [...writable].sort((a, b) => b.level - a.level || a.id.localeCompare(b.id));
+	}
+
 	function barFillStyle(score: number): string {
 		const clamped = Math.max(-100, Math.min(100, score));
 		if (clamped >= 0) {
@@ -47,6 +55,16 @@
 
 	function barPositive(score: number): boolean {
 		return score >= 0;
+	}
+
+	function handleTabKeydown(e: KeyboardEvent) {
+		if (e.key === 'ArrowLeft') {
+			tab = 'ideas';
+			e.preventDefault();
+		} else if (e.key === 'ArrowRight') {
+			tab = 'thesis';
+			e.preventDefault();
+		}
 	}
 
 	function handleOverlayKeydown(e: KeyboardEvent) {
@@ -64,68 +82,119 @@
 			class="overlay"
 			role="dialog"
 			aria-modal="true"
-			aria-label="Thesis summary"
+			aria-label="Summary"
 			tabindex="-1"
 			onclick={(e) => e.stopPropagation()}
 			onkeydown={(e) => e.stopPropagation()}
 		>
-			<header class="thesis-header">
-				<p class="title">Thesis</p>
+			<header class="summary-header">
+				<p class="title">{tab === 'ideas' ? 'Ideas' : 'Thesis'}</p>
 				{#if discipline}
 					<p class="discipline-name">{discipline.official}</p>
 				{/if}
 			</header>
 
-			{#if written.length === 0}
-				<p class="empty">No ideas written yet.</p>
-			{:else}
-				<section class="profile-section" aria-label="Domain profile">
-					<h2 class="section-heading">Profile</h2>
-					{#each Object.entries(profile) as [domain, score]}
-						<div class="domain-row">
-							<span class="domain-label">{domain}</span>
-							<div class="bar-track" aria-hidden="true">
-								<span class="bar-centre-tick"></span>
-								<span
-									class="bar-fill"
-									class:positive={barPositive(score)}
-									class:negative={!barPositive(score)}
-									style={barFillStyle(score)}
-								></span>
-							</div>
-							<span class="score-value">{score > 0 ? '+' : ''}{score}</span>
-						</div>
-					{/each}
-				</section>
+			<div class="tab-strip" onkeydown={handleTabKeydown} role="tablist" tabindex="-1">
+				<button
+					class="tab-btn"
+					class:active={tab === 'ideas'}
+					role="tab"
+					aria-selected={tab === 'ideas'}
+					onclick={() => { tab = 'ideas'; }}
+				>Ideas</button>
+				<button
+					class="tab-btn"
+					class:active={tab === 'thesis'}
+					role="tab"
+					aria-selected={tab === 'thesis'}
+					onclick={() => { tab = 'thesis'; }}
+				>Thesis</button>
+			</div>
 
-				<section class="ideas-section" aria-label="Written ideas">
-					<h2 class="section-heading">Written ideas</h2>
-					{#each sortedWritten() as idea (idea.id)}
-						<article class="idea-card">
-							<p class="idea-text">{idea.text}</p>
-							<p class="idea-level">L{idea.level} — {LEVEL_NAMES[idea.level] ?? 'Idea'}</p>
-							{#if Object.keys(idea.concepts).length > 0}
-								<div class="idea-domains">
-									{#each Object.entries(idea.concepts) as [domain, score]}
-										<div class="domain-row">
-											<span class="domain-label">{domain}</span>
-											<div class="bar-track" aria-hidden="true">
-												<span class="bar-centre-tick"></span>
-												<span
-													class="bar-fill"
-													class:positive={barPositive(score as number)}
-													class:negative={!barPositive(score as number)}
-													style={barFillStyle(score as number)}
-												></span>
+			{#if tab === 'ideas'}
+				{#if writable.length === 0}
+					<p class="empty">No writable ideas yet. Develop your inklings to L3 or higher.</p>
+				{:else}
+					<section class="ideas-section" aria-label="Writable ideas">
+						{#each sortedWritable() as idea (idea.id)}
+							<article class="idea-card">
+								<p class="idea-text">{idea.text}</p>
+								<p class="idea-level">L{idea.level} — {LEVEL_NAMES[idea.level] ?? 'Idea'}</p>
+								{#if Object.keys(idea.concepts).length > 0}
+									<div class="idea-domains">
+										{#each Object.entries(idea.concepts) as [domain, score]}
+											<div class="domain-row">
+												<span class="domain-label">{domain}</span>
+												<div class="bar-track" aria-hidden="true">
+													<span class="bar-centre-tick"></span>
+													<span
+														class="bar-fill"
+														class:positive={barPositive(score as number)}
+														class:negative={!barPositive(score as number)}
+														style={barFillStyle(score as number)}
+													></span>
+												</div>
+												<span class="score-value">{(score as number) > 0 ? '+' : ''}{score}</span>
 											</div>
-											<span class="score-value">{(score as number) > 0 ? '+' : ''}{score}</span>
-										</div>
-									{/each}
+										{/each}
+									</div>
+								{/if}
+							</article>
+						{/each}
+					</section>
+				{/if}
+			{:else}
+				{#if written.length === 0}
+					<p class="empty">No ideas written yet.</p>
+				{:else}
+					<section class="profile-section" aria-label="Domain profile">
+						<h2 class="section-heading">Profile</h2>
+						{#each Object.entries(profile) as [domain, score]}
+							<div class="domain-row">
+								<span class="domain-label">{domain}</span>
+								<div class="bar-track" aria-hidden="true">
+									<span class="bar-centre-tick"></span>
+									<span
+										class="bar-fill"
+										class:positive={barPositive(score)}
+										class:negative={!barPositive(score)}
+										style={barFillStyle(score)}
+									></span>
 								</div>
-							{/if}
-						</article>
-					{/each}
-				</section>
+								<span class="score-value">{score > 0 ? '+' : ''}{score}</span>
+							</div>
+						{/each}
+					</section>
+
+					<section class="ideas-section" aria-label="Written ideas">
+						<h2 class="section-heading">Written ideas</h2>
+						{#each sortedWritten() as idea (idea.id)}
+							<article class="idea-card">
+								<p class="idea-text">{idea.text}</p>
+								<p class="idea-level">L{idea.level} — {LEVEL_NAMES[idea.level] ?? 'Idea'}</p>
+								{#if Object.keys(idea.concepts).length > 0}
+									<div class="idea-domains">
+										{#each Object.entries(idea.concepts) as [domain, score]}
+											<div class="domain-row">
+												<span class="domain-label">{domain}</span>
+												<div class="bar-track" aria-hidden="true">
+													<span class="bar-centre-tick"></span>
+													<span
+														class="bar-fill"
+														class:positive={barPositive(score as number)}
+														class:negative={!barPositive(score as number)}
+														style={barFillStyle(score as number)}
+													></span>
+												</div>
+												<span class="score-value">{(score as number) > 0 ? '+' : ''}{score}</span>
+											</div>
+										{/each}
+									</div>
+								{/if}
+							</article>
+						{/each}
+					</section>
+				{/if}
 			{/if}
 
 			<button class="menu-btn" bind:this={closeButton} onclick={onClose}>Close</button>
@@ -155,7 +224,7 @@
 		padding: var(--space-lg) 0;
 	}
 
-	.thesis-header {
+	.summary-header {
 		text-align: center;
 		display: flex;
 		flex-direction: column;
@@ -180,6 +249,47 @@
 		color: var(--accent);
 		letter-spacing: 0.08em;
 		margin: 0;
+	}
+
+	.tab-strip {
+		display: flex;
+		justify-content: center;
+		gap: var(--space-md);
+	}
+
+	.tab-btn {
+		background: none;
+		border: none;
+		border-bottom: 1px solid transparent;
+		cursor: pointer;
+		font-family: var(--font-ui);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: var(--text-dim);
+		opacity: 0.4;
+		padding: 0 0 var(--space-xs) 0;
+		transition:
+			opacity 0.2s ease,
+			color 0.2s ease,
+			border-color 0.2s ease;
+	}
+
+	.tab-btn.active {
+		color: var(--accent);
+		opacity: 1;
+		border-bottom-color: var(--accent);
+	}
+
+	.tab-btn:hover:not(.active) {
+		opacity: 0.7;
+	}
+
+	.tab-btn:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+		border-radius: 2px;
 	}
 
 	.empty {
