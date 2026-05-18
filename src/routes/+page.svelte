@@ -10,8 +10,7 @@
 	import ChoiceList from '$lib/components/ChoiceList.svelte';
 	import StatusBar from '$lib/components/StatusBar.svelte';
 	import PauseOverlay from '$lib/components/PauseOverlay.svelte';
-	import IdeaPanel from '$lib/components/IdeaPanel.svelte';
-	import ThesisOverlay from '$lib/components/ThesisOverlay.svelte';
+	import SummaryOverlay from '$lib/components/SummaryOverlay.svelte';
 	import SaveToast from '$lib/components/SaveToast.svelte';
 
 	const CATEGORY_MOODS: Record<string, string> = {
@@ -26,8 +25,8 @@
 	let loading = $state(true);
 	let ended = $state(false);
 	let paused = $state(false);
-	let showIdeas = $state(false);
-	let thesisOpen = $state(false);
+	let summaryOpen = $state(false);
+	let summaryTab = $state<'ideas' | 'thesis'>('thesis');
 	let toast: SaveToast;
 
 	function manualSave() {
@@ -44,19 +43,11 @@
 		if (loading) return;
 
 		if (e.key === 'Escape') {
-			// Close the idea panel first if open, then the thesis overlay, otherwise toggle pause
-			if (showIdeas) {
-				showIdeas = false;
-			} else if (thesisOpen) {
-				thesisOpen = false;
+			if (summaryOpen) {
+				summaryOpen = false;
 			} else {
 				paused = !paused;
 			}
-			return;
-		}
-
-		if (e.key === 'i' && !paused) {
-			showIdeas = !showIdeas;
 			return;
 		}
 
@@ -66,10 +57,24 @@
 			return;
 		}
 
-		if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey && !e.altKey && !paused) {
+		if (!e.ctrlKey && !e.metaKey && !e.altKey && !paused) {
 			const tag = (e.target as HTMLElement)?.tagName;
 			if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
-				thesisOpen = !thesisOpen;
+				if (e.key === 't' || e.key === 'T') {
+					if (summaryOpen && summaryTab !== 'thesis') {
+						summaryTab = 'thesis';
+					} else {
+						summaryTab = 'thesis';
+						summaryOpen = !summaryOpen;
+					}
+				} else if (e.key === 'i' || e.key === 'I') {
+					if (summaryOpen && summaryTab !== 'ideas') {
+						summaryTab = 'ideas';
+					} else {
+						summaryTab = 'ideas';
+						summaryOpen = !summaryOpen;
+					}
+				}
 			}
 		}
 	}
@@ -167,7 +172,10 @@
 
 <SaveToast bind:this={toast} />
 
-<StatusBar onOpenThesis={() => { thesisOpen = true; }} />
+<StatusBar
+	onOpenIdeas={() => { summaryTab = 'ideas'; summaryOpen = true; }}
+	onOpenThesis={() => { summaryTab = 'thesis'; summaryOpen = true; }}
+/>
 
 <PauseOverlay
 	open={paused}
@@ -175,18 +183,11 @@
 	onSave={manualSave}
 />
 
-<IdeaPanel open={showIdeas} onClose={() => { showIdeas = false; }} />
-
-<ThesisOverlay
-	open={thesisOpen}
-	onClose={() => { thesisOpen = false; }}
+<SummaryOverlay
+	open={summaryOpen}
+	initialTab={summaryTab}
+	onClose={() => { summaryOpen = false; }}
 />
-
-{#if !loading && story.ink && !ended}
-	<button class="ideas-trigger" onclick={() => { showIdeas = true; }} title="View held ideas (i)">
-		Ideas
-	</button>
-{/if}
 
 <div id="story" role="log" aria-live="polite" aria-label="Story text">
 	{#if loading}
@@ -225,37 +226,5 @@
 		color: var(--text-dim);
 		font-style: italic;
 		margin-top: 10vh;
-	}
-
-	.ideas-trigger {
-		position: fixed;
-		top: 0;
-		left: 0;
-		margin: var(--space-md);
-		background: none;
-		border: 1px solid var(--text-dim);
-		color: var(--text-dim);
-		font-family: var(--font-ui);
-		font-size: 0.6875rem;
-		padding: 0.15rem 0.5rem;
-		cursor: pointer;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		opacity: 0.6;
-		z-index: 100;
-		transition: opacity 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-	}
-
-	.ideas-trigger:hover,
-	.ideas-trigger:focus-visible {
-		opacity: 1;
-		color: var(--choice);
-		border-color: var(--choice);
-	}
-
-	.ideas-trigger:focus-visible {
-		outline: 2px solid var(--accent);
-		outline-offset: 2px;
-		border-radius: 2px;
 	}
 </style>
