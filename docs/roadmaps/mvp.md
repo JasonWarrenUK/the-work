@@ -7,8 +7,8 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 |          | Status                          | Next Up                       | Blocked                        |
 | -------- | ------------------------------- | ----------------------------- | ------------------------------ |
 | **NA**   | All objects + writing authored  | Per-idea writing scenes (2GS.4) | —                            |
-| **GS**   | Rule L3–L6 chain complete       | Writable-ideas UI (2GS.2), 2nd domain chain (2GS.7) | —          |
-| **UI**   | StatusBar, ChoiceList, save/load UI | Writable-ideas panel (2GS.2) | —                            |
+| **GS**   | Rule L3–L6 chain complete; thesis summary display done | Writable-ideas UI (2GS.2), 2nd domain chain (2GS.7) | —          |
+| **UI**   | StatusBar, ChoiceList, save/load UI, thesis summary overlay | Writable-ideas panel (2GS.2), Thesis panel (2UI.2) | —                            |
 | **EN**   | Nib stable; save round-trip done | —                            | —                              |
 | **PL**   | Not started                     | Keyboard shortcuts            | Stable content (M3)            |
 
@@ -79,11 +79,10 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 - [ ] 2GS.2. Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy) — **unblocked** (1GS.2 complete)
 - [ ] 2GS.4. Author per-idea writing scenes for each L3+ idea in the authored chain — **unblocked** (2GS.1 complete)
-- [ ] 2GS.5. Display thesis summary (written ideas, dominant domains, discipline name) in UI — **unblocked** (1GS.4 complete)
 - [ ] 2GS.7. Author L3–L6 idea chain for a second domain — **unblocked** (2GS.1 complete)
 - [ ] 2NA.2. Author development paths for all 40 existing inklings to at least L3 — **unblocked** (2GS.1 complete)
 - [ ] 2UI.1. Idea inventory panel — see held ideas, their level, and whether writable — **depends on 2GS.2**
-- [ ] 2UI.2. Thesis panel — see written ideas and current orthodoxy per domain — **depends on 2GS.5**
+- [ ] 2UI.2. Thesis panel — see written ideas and current orthodoxy per domain — **unblocked** (2GS.5 complete)
 
 <a name="m2-blocked"><h4>Blocked (Milestone 2)</h4></a>
 
@@ -97,6 +96,7 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 - [x] 2GS.1. Author L3–L6 idea content for one domain (minimum one complete chain) — Rule domain: rebalanced L3 to 8 orthodox / 8 radical; authored first L4–L6 chain C20→CO1→AR1→TH1 with branching fork AR1+C22→TH2
 - [x] 2GS.3. Wire writing action into Ink: player selects idea by index from writable list, commits, receives confirmation text — already implemented in Tunnels.ink via `writable_idea_at()` + `write_idea()` + `printWriteResultForIdea()`
 - [x] 2NA.1. Author one combination recipe (two inklings → one idea) in Ink and recipes.ts — multiple exist: I26+I27→C14, I1+I6→C14, plus ~20 observation-level combination recipes
+- [x] 2GS.5. Display thesis summary (written ideas, dominant domains, discipline name) in UI — ThesisOverlay component with discipline subtitle, per-domain orthodoxy bars, full written-idea list; opens via `T` shortcut or StatusBar `⁋` button
 
 ---
 
@@ -147,11 +147,11 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 <a name="m4-todo"><h4>To Do (Milestone 4)</h4></a>
 
 - [ ] 4NA.1. Author committee introduction scene (committee composition announced, chair identified) — **depends on M3**
-- [ ] 4NA.2. Author defence questioning logic (committee challenges based on thesis orthodoxy) — **depends on 4NA.1, 2GS.5**
+- [ ] 4NA.2. Author defence questioning logic (committee challenges based on thesis orthodoxy) — **depends on 4NA.1**
 - [ ] 4NA.3. Author at least 3 distinct ending scenes (pass orthodox, pass radical, fail) — **depends on 4NA.2, 4GS.3**
 - [ ] 4NA.4. Author committee chair intro dialogue for all 21 disciplines (3 member types × discipline spin) — **depends on 4NA.1**
 - [ ] 4GS.1. Implement discipline lookup (domain pair → discipline name → committee chair) — **unblocked** (1GS.4 complete)
-- [ ] 4GS.2. Implement committee hostility scoring from written orthodoxy profile — **depends on 2GS.5, 4GS.1**
+- [ ] 4GS.2. Implement committee hostility scoring from written orthodoxy profile — **depends on 4GS.1**
 - [ ] 4GS.3. Implement ending selection logic based on thesis profile + dread levels — **depends on 4GS.2**
 - [ ] 4UI.1. Add final thesis summary screen before defence begins — **depends on 2UI.2**
 
@@ -209,7 +209,6 @@ m1["`**Milestone 1**<br/>Skeleton Slice`"]:::mile
 
 2GS2["`*2GS.2*<br/>**GS**<br/>Writable-ideas UI panel`"]:::open
 2GS4["`*2GS.4*<br/>**NA**<br/>Per-idea writing scenes`"]:::open
-2GS5["`*2GS.5*<br/>**GS**<br/>Thesis summary display`"]:::open
 2GS6["`*2GS.6*<br/>**GS**<br/>Per-idea writing action (L3+)`"]:::blocked
 2GS10["`*2GS.10*<br/>**GS**<br/>Remove legacy domain-level write calls`"]:::blocked
 2GS7["`*2GS.7*<br/>**GS**<br/>L3–L6 chain: domain 2`"]:::open
@@ -217,12 +216,11 @@ m1["`**Milestone 1**<br/>Skeleton Slice`"]:::mile
 2GS9["`*2GS.9*<br/>**GS**<br/>Combination recipe matrix`"]:::blocked
 2NA2["`*2NA.2*<br/>**NA**<br/>Develop all 40 inklings to L3`"]:::open
 2UI1["`*2UI.1*<br/>**UI**<br/>Idea inventory panel`"]:::blocked
-2UI2["`*2UI.2*<br/>**UI**<br/>Thesis panel`"]:::blocked
+2UI2["`*2UI.2*<br/>**UI**<br/>Thesis panel`"]:::open
 
 2GS2 --> 2UI1
 2GS7 --> 2GS8
 2GS8 --> 2GS9
-2GS5 --> 2UI2
 2NA2 --> 2GS6
 
 m2["`**Milestone 2**<br/>Writing Engine`"]:::mile
@@ -294,12 +292,10 @@ m3["`**Milestone 3**<br/>Full Night`"]:::mile
 
 m3 --> 4NA1
 4NA1 --> 4NA2
-2GS5 --> 4NA2
 4NA2 --> 4NA3
 4NA1 --> 4NA4
 4NA4 --> 4NA5
 4GS1 --> 4GS2
-2GS5 --> 4GS2
 4GS2 --> 4GS3
 4GS3 --> 4NA3
 2UI2 --> 4UI1
