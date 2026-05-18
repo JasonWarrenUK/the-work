@@ -10,7 +10,7 @@
 	import ChoiceList from '$lib/components/ChoiceList.svelte';
 	import StatusBar from '$lib/components/StatusBar.svelte';
 	import PauseOverlay from '$lib/components/PauseOverlay.svelte';
-	import ThesisOverlay from '$lib/components/ThesisOverlay.svelte';
+	import SummaryOverlay from '$lib/components/SummaryOverlay.svelte';
 	import SaveToast from '$lib/components/SaveToast.svelte';
 
 	const CATEGORY_MOODS: Record<string, string> = {
@@ -25,7 +25,8 @@
 	let loading = $state(true);
 	let ended = $state(false);
 	let paused = $state(false);
-	let thesisOpen = $state(false);
+	let summaryOpen = $state(false);
+	let summaryTab = $state<'ideas' | 'thesis'>('thesis');
 	let toast: SaveToast;
 
 	function manualSave() {
@@ -42,8 +43,8 @@
 		if (loading) return;
 
 		if (e.key === 'Escape') {
-			if (thesisOpen) {
-				thesisOpen = false;
+			if (summaryOpen) {
+				summaryOpen = false;
 			} else {
 				paused = !paused;
 			}
@@ -56,10 +57,24 @@
 			return;
 		}
 
-		if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey && !e.altKey && !paused) {
+		if (!e.ctrlKey && !e.metaKey && !e.altKey && !paused) {
 			const tag = (e.target as HTMLElement)?.tagName;
 			if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
-				thesisOpen = !thesisOpen;
+				if (e.key === 't' || e.key === 'T') {
+					if (summaryOpen && summaryTab !== 'thesis') {
+						summaryTab = 'thesis';
+					} else {
+						summaryTab = 'thesis';
+						summaryOpen = !summaryOpen;
+					}
+				} else if (e.key === 'i' || e.key === 'I') {
+					if (summaryOpen && summaryTab !== 'ideas') {
+						summaryTab = 'ideas';
+					} else {
+						summaryTab = 'ideas';
+						summaryOpen = !summaryOpen;
+					}
+				}
 			}
 		}
 	}
@@ -157,7 +172,10 @@
 
 <SaveToast bind:this={toast} />
 
-<StatusBar onOpenThesis={() => { thesisOpen = true; }} />
+<StatusBar
+	onOpenIdeas={() => { summaryTab = 'ideas'; summaryOpen = true; }}
+	onOpenThesis={() => { summaryTab = 'thesis'; summaryOpen = true; }}
+/>
 
 <PauseOverlay
 	open={paused}
@@ -165,9 +183,10 @@
 	onSave={manualSave}
 />
 
-<ThesisOverlay
-	open={thesisOpen}
-	onClose={() => { thesisOpen = false; }}
+<SummaryOverlay
+	open={summaryOpen}
+	initialTab={summaryTab}
+	onClose={() => { summaryOpen = false; }}
 />
 
 <div id="story" role="log" aria-live="polite" aria-label="Story text">
