@@ -1,14 +1,12 @@
 <script lang="ts">
 	import '../app.css';
 	import Grain from '$lib/components/Grain.svelte';
-	import StatusBar from '$lib/components/StatusBar.svelte';
 	import DevBar from '$lib/components/DevBar.svelte';
 
 	let { children } = $props();
 </script>
 
 <Grain />
-<StatusBar />
 <DevBar />
 
 <main>

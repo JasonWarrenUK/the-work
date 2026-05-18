@@ -8,7 +8,9 @@
 	import { type SaveData, load, save, autosave, loadAutosave, hasAutosave } from '$lib/game/save-load';
 	import Passage from '$lib/components/Passage.svelte';
 	import ChoiceList from '$lib/components/ChoiceList.svelte';
+	import StatusBar from '$lib/components/StatusBar.svelte';
 	import PauseOverlay from '$lib/components/PauseOverlay.svelte';
+	import ThesisOverlay from '$lib/components/ThesisOverlay.svelte';
 	import SaveToast from '$lib/components/SaveToast.svelte';
 
 	const CATEGORY_MOODS: Record<string, string> = {
@@ -23,6 +25,7 @@
 	let loading = $state(true);
 	let ended = $state(false);
 	let paused = $state(false);
+	let thesisOpen = $state(false);
 	let toast: SaveToast;
 
 	function manualSave() {
@@ -39,13 +42,25 @@
 		if (loading) return;
 
 		if (e.key === 'Escape') {
-			paused = !paused;
+			if (thesisOpen) {
+				thesisOpen = false;
+			} else {
+				paused = !paused;
+			}
 			return;
 		}
 
 		if ((e.ctrlKey || e.metaKey) && e.key === 's') {
 			e.preventDefault();
 			manualSave();
+			return;
+		}
+
+		if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey && !e.altKey && !paused) {
+			const tag = (e.target as HTMLElement)?.tagName;
+			if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+				thesisOpen = !thesisOpen;
+			}
 		}
 	}
 
@@ -142,10 +157,17 @@
 
 <SaveToast bind:this={toast} />
 
+<StatusBar onOpenThesis={() => { thesisOpen = true; }} />
+
 <PauseOverlay
 	open={paused}
 	onClose={() => { paused = false; }}
 	onSave={manualSave}
+/>
+
+<ThesisOverlay
+	open={thesisOpen}
+	onClose={() => { thesisOpen = false; }}
 />
 
 <div id="story" role="log" aria-live="polite" aria-label="Story text">
