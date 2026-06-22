@@ -18,6 +18,7 @@ The game is in **early development**. Core systems are in place but most content
 - 67 observations (with 201 domain readings) and 40 inklings are cataloged and wired into Ink
 - Orthodoxy scoring tracks how conventional or radical each idea is
 - Development and combination recipes can transform ideas through authored paths
+- An idea inventory panel (press `i`) shows the ideas you hold, their level and per-domain orthodoxy, and highlights which are ready to write into the thesis
 - The **Nib** engine (generic Ink/Svelte runtime) is stable and reusable independently
 
 **What's missing or incomplete:**
