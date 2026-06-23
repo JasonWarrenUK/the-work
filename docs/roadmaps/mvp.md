@@ -7,8 +7,8 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 |          | Status                          | Next Up                       | Blocked                        |
 | -------- | ------------------------------- | ----------------------------- | ------------------------------ |
 | **NA**   | All objects + writing authored  | Per-idea writing scenes (2GS.4) | —                            |
-| **GS**   | Rule L3–L6 chain complete       | Writable-ideas UI (2GS.2), 2nd domain chain (2GS.7) | —          |
-| **UI**   | StatusBar, ChoiceList, save/load UI | Writable-ideas panel (2GS.2) | —                            |
+| **GS**   | Rule L3–L6 chain complete       | Thesis summary display (2GS.5), 2nd domain chain (2GS.7) | —      |
+| **UI**   | StatusBar, ChoiceList, save/load, idea panel | Thesis panel (2UI.2) | —                       |
 | **EN**   | Nib stable; save round-trip done | —                            | —                              |
 | **PL**   | Not started                     | Keyboard shortcuts            | Stable content (M3)            |
 
@@ -77,12 +77,11 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m2-todo"><h4>To Do (Milestone 2)</h4></a>
 
-- [ ] 2GS.2. Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy) — **unblocked** (1GS.2 complete)
 - [ ] 2GS.4. Author per-idea writing scenes for each L3+ idea in the authored chain — **unblocked** (2GS.1 complete)
 - [ ] 2GS.5. Display thesis summary (written ideas, dominant domains, discipline name) in UI — **unblocked** (1GS.4 complete)
 - [ ] 2GS.7. Author L3–L6 idea chain for a second domain — **unblocked** (2GS.1 complete)
 - [ ] 2NA.2. Author development paths for all 40 existing inklings to at least L3 — **unblocked** (2GS.1 complete)
-- [ ] 2UI.1. Idea inventory panel — see held ideas, their level, and whether writable — **depends on 2GS.2**
+- [ ] 2UI.1. Idea inventory panel — see held ideas, their level, and whether writable — **unblocked** (2GS.2 complete); note: 2GS.2's `IdeaPanel.svelte` covers the core of this surface — evaluate whether to extend it or fold this entry into it
 - [ ] 2UI.2. Thesis panel — see written ideas and current orthodoxy per domain — **depends on 2GS.5**
 
 <a name="m2-blocked"><h4>Blocked (Milestone 2)</h4></a>
@@ -94,6 +93,7 @@ description: MVP roadmap for The Work — end-to-end skeleton through full night
 
 <a name="m2-done"><h4>Completed (Milestone 2)</h4></a>
 
+- [x] 2GS.2. Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy) — `IdeaPanel.svelte` overlay: lists all held ideas with level label, text, and signed per-domain orthodoxy; highlights writable ideas (L3+ unwritten) and marks written ones; toggled with `i` / Escape / "Ideas" trigger button, reads reactively via `inventory.heldIdeas()` + `story.tick`
 - [x] 2GS.1. Author L3–L6 idea content for one domain (minimum one complete chain) — Rule domain: rebalanced L3 to 8 orthodox / 8 radical; authored first L4–L6 chain C20→CO1→AR1→TH1 with branching fork AR1+C22→TH2
 - [x] 2GS.3. Wire writing action into Ink: player selects idea by index from writable list, commits, receives confirmation text — already implemented in Tunnels.ink via `writable_idea_at()` + `write_idea()` + `printWriteResultForIdea()`
 - [x] 2NA.1. Author one combination recipe (two inklings → one idea) in Ink and recipes.ts — multiple exist: I26+I27→C14, I1+I6→C14, plus ~20 observation-level combination recipes
@@ -207,7 +207,7 @@ m1["`**Milestone 1**<br/>Skeleton Slice`"]:::mile
 1EN1 --> m1
 1UI2 --> m1
 
-2GS2["`*2GS.2*<br/>**GS**<br/>Writable-ideas UI panel`"]:::open
+2GS2["`*2GS.2*<br/>**GS**<br/>Writable-ideas UI panel`"]:::done
 2GS4["`*2GS.4*<br/>**NA**<br/>Per-idea writing scenes`"]:::open
 2GS5["`*2GS.5*<br/>**GS**<br/>Thesis summary display`"]:::open
 2GS6["`*2GS.6*<br/>**GS**<br/>Per-idea writing action (L3+)`"]:::blocked
@@ -216,7 +216,7 @@ m1["`**Milestone 1**<br/>Skeleton Slice`"]:::mile
 2GS8["`*2GS.8*<br/>**GS**<br/>L3–L6 chain: domain 3`"]:::blocked
 2GS9["`*2GS.9*<br/>**GS**<br/>Combination recipe matrix`"]:::blocked
 2NA2["`*2NA.2*<br/>**NA**<br/>Develop all 40 inklings to L3`"]:::open
-2UI1["`*2UI.1*<br/>**UI**<br/>Idea inventory panel`"]:::blocked
+2UI1["`*2UI.1*<br/>**UI**<br/>Idea inventory panel`"]:::open
 2UI2["`*2UI.2*<br/>**UI**<br/>Thesis panel`"]:::blocked
 
 2GS2 --> 2UI1
