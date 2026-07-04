@@ -2,11 +2,17 @@
 	import { fade } from 'svelte/transition';
 	import { story } from '$lib/engine/story.svelte';
 	import { getDisciplineOfficial } from '$lib/game/disciplines';
+	import { inventory } from '$lib/game/ideas.svelte';
+
+	let { onOpenThesis, onOpenIdeas, onOpenHeld }: { onOpenThesis: () => void; onOpenIdeas: () => void; onOpenHeld: () => void } = $props();
 
 	// Reading story.tick inside $derived ensures these re-evaluate after each continue()
 	let timeName = $derived((() => { story.tick; return (story.getVariable('TimeName') as string) ?? ''; })());
 	let convictionDesc = $derived((() => { story.tick; return (story.getVariable('ConvictionDesc') as string) ?? ''; })());
 	let discipline = $derived((() => { story.tick; return getDisciplineOfficial(); })());
+	let writtenCount = $derived((() => { story.tick; return inventory.writtenIds().length; })());
+	let writableCount = $derived((() => { story.tick; return inventory.writableIdeas().length; })());
+	let heldCount = $derived((() => { story.tick; return inventory.heldIdeas().filter((d) => d.level <= 2).length; })());
 </script>
 
 {#if timeName || discipline || convictionDesc}
@@ -20,6 +26,26 @@
 		{#if convictionDesc}
 			<span class="conviction">{convictionDesc}</span>
 		{/if}
+		<div class="btn-group">
+			<button class="summary-btn" onclick={onOpenHeld} aria-label="View held ideas">
+				{#if heldCount > 0}
+					<span class="summary-count">{heldCount}</span>
+				{/if}
+				<span class="summary-glyph">◧</span>
+			</button>
+			<button class="summary-btn" onclick={onOpenIdeas} aria-label="View writable ideas">
+				{#if writableCount > 0}
+					<span class="summary-count">{writableCount}</span>
+				{/if}
+				<span class="summary-glyph">☉</span>
+			</button>
+			<button class="summary-btn" onclick={onOpenThesis} aria-label="View thesis summary">
+				{#if writtenCount > 0}
+					<span class="summary-count">{writtenCount}</span>
+				{/if}
+				<span class="summary-glyph">⁋</span>
+			</button>
+		</div>
 	</aside>
 {/if}
 
@@ -53,5 +79,47 @@
 
 	.conviction {
 		font-style: italic;
+	}
+
+	.btn-group {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+	}
+
+	.summary-btn {
+		pointer-events: auto;
+		background: none;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 0.25em;
+		padding: 0;
+		color: var(--text);
+		opacity: 0.5;
+		transition: opacity 0.2s ease;
+		font-family: var(--font-ui);
+		font-size: 0.8125rem;
+	}
+
+	.summary-btn:hover,
+	.summary-btn:focus-visible {
+		opacity: 1;
+	}
+
+	.summary-btn:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+		border-radius: 2px;
+	}
+
+	.summary-count {
+		font-variant-numeric: tabular-nums;
+	}
+
+	.summary-glyph {
+		font-size: 1rem;
+		line-height: 1;
 	}
 </style>
