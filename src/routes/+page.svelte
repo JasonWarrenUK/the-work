@@ -26,7 +26,7 @@
 	let ended = $state(false);
 	let paused = $state(false);
 	let summaryOpen = $state(false);
-	let summaryTab = $state<'ideas' | 'thesis'>('thesis');
+	let summaryTab = $state<'held' | 'ideas' | 'thesis'>('thesis');
 	let toast: SaveToast;
 
 	function manualSave() {
@@ -72,6 +72,13 @@
 						summaryTab = 'ideas';
 					} else {
 						summaryTab = 'ideas';
+						summaryOpen = !summaryOpen;
+					}
+				} else if (e.key === 'h' || e.key === 'H') {
+					if (summaryOpen && summaryTab !== 'held') {
+						summaryTab = 'held';
+					} else {
+						summaryTab = 'held';
 						summaryOpen = !summaryOpen;
 					}
 				}
@@ -173,6 +180,7 @@
 <SaveToast bind:this={toast} />
 
 <StatusBar
+	onOpenHeld={() => { summaryTab = 'held'; summaryOpen = true; }}
 	onOpenIdeas={() => { summaryTab = 'ideas'; summaryOpen = true; }}
 	onOpenThesis={() => { summaryTab = 'thesis'; summaryOpen = true; }}
 />

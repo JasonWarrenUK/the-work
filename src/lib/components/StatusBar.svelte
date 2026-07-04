@@ -4,7 +4,7 @@
 	import { getDisciplineOfficial } from '$lib/game/disciplines';
 	import { inventory } from '$lib/game/ideas.svelte';
 
-	let { onOpenThesis, onOpenIdeas }: { onOpenThesis: () => void; onOpenIdeas: () => void } = $props();
+	let { onOpenThesis, onOpenIdeas, onOpenHeld }: { onOpenThesis: () => void; onOpenIdeas: () => void; onOpenHeld: () => void } = $props();
 
 	// Reading story.tick inside $derived ensures these re-evaluate after each continue()
 	let timeName = $derived((() => { story.tick; return (story.getVariable('TimeName') as string) ?? ''; })());
@@ -12,6 +12,7 @@
 	let discipline = $derived((() => { story.tick; return getDisciplineOfficial(); })());
 	let writtenCount = $derived((() => { story.tick; return inventory.writtenIds().length; })());
 	let writableCount = $derived((() => { story.tick; return inventory.writableIdeas().length; })());
+	let heldCount = $derived((() => { story.tick; return inventory.heldIdeas().filter((d) => d.level <= 2).length; })());
 </script>
 
 {#if timeName || discipline || convictionDesc}
@@ -26,6 +27,12 @@
 			<span class="conviction">{convictionDesc}</span>
 		{/if}
 		<div class="btn-group">
+			<button class="summary-btn" onclick={onOpenHeld} aria-label="View held ideas">
+				{#if heldCount > 0}
+					<span class="summary-count">{heldCount}</span>
+				{/if}
+				<span class="summary-glyph">◧</span>
+			</button>
 			<button class="summary-btn" onclick={onOpenIdeas} aria-label="View writable ideas">
 				{#if writableCount > 0}
 					<span class="summary-count">{writableCount}</span>

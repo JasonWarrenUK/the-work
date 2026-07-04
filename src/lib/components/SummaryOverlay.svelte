@@ -10,11 +10,11 @@
 		onClose
 	}: {
 		open: boolean;
-		initialTab: 'ideas' | 'thesis';
+		initialTab: 'held' | 'ideas' | 'thesis';
 		onClose: () => void;
 	} = $props();
 
-	let tab = $state<'ideas' | 'thesis'>('thesis');
+	let tab = $state<'held' | 'ideas' | 'thesis'>('thesis');
 	let closeButton: HTMLButtonElement | null = $state(null);
 
 	$effect(() => {
@@ -26,10 +26,13 @@
 
 	let written = $derived((() => { story.tick; return inventory.writtenIdeas(); })());
 	let writable = $derived((() => { story.tick; return inventory.writableIdeas(); })());
+	let held = $derived((() => { story.tick; return inventory.heldIdeas().filter((d) => d.level <= 2); })());
 	let profile = $derived((() => { story.tick; return inventory.getThesisProfile(); })());
 	let discipline = $derived((() => { story.tick; return getDiscipline(); })());
 
 	const LEVEL_NAMES: Record<number, string> = {
+		1: 'Observation',
+		2: 'Inkling',
 		3: 'Idea',
 		4: 'Concept',
 		5: 'Argument',
@@ -57,12 +60,13 @@
 		return score >= 0;
 	}
 
+	const TAB_ORDER: Array<'held' | 'ideas' | 'thesis'> = ['held', 'ideas', 'thesis'];
+
 	function handleTabKeydown(e: KeyboardEvent) {
-		if (e.key === 'ArrowLeft') {
-			tab = 'ideas';
-			e.preventDefault();
-		} else if (e.key === 'ArrowRight') {
-			tab = 'thesis';
+		if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+			const i = TAB_ORDER.indexOf(tab);
+			const next = e.key === 'ArrowLeft' ? (i + 2) % 3 : (i + 1) % 3;
+			tab = TAB_ORDER[next];
 			e.preventDefault();
 		}
 	}
@@ -88,13 +92,20 @@
 			onkeydown={(e) => e.stopPropagation()}
 		>
 			<header class="summary-header">
-				<p class="title">{tab === 'ideas' ? 'Ideas' : 'Thesis'}</p>
+				<p class="title">{tab === 'held' ? 'Held' : tab === 'ideas' ? 'Ideas' : 'Thesis'}</p>
 				{#if discipline}
 					<p class="discipline-name">{discipline.official}</p>
 				{/if}
 			</header>
 
 			<div class="tab-strip" onkeydown={handleTabKeydown} role="tablist" tabindex="-1">
+				<button
+					class="tab-btn"
+					class:active={tab === 'held'}
+					role="tab"
+					aria-selected={tab === 'held'}
+					onclick={() => { tab = 'held'; }}
+				>Held</button>
 				<button
 					class="tab-btn"
 					class:active={tab === 'ideas'}
@@ -111,7 +122,74 @@
 				>Thesis</button>
 			</div>
 
-			{#if tab === 'ideas'}
+			{#if tab === 'held'}
+				{#if held.length === 0}
+					<p class="empty">You haven't gathered any observations or inklings yet.</p>
+				{:else}
+					{@const inklings = held.filter((d) => d.level === 2).sort((a, b) => a.id.localeCompare(b.id))}
+					{@const observations = held.filter((d) => d.level === 1).sort((a, b) => a.id.localeCompare(b.id))}
+					{#if inklings.length > 0}
+						<section class="ideas-section" aria-label="Inklings">
+							<h2 class="section-heading">Inklings ({inklings.length})</h2>
+							{#each inklings as idea (idea.id)}
+								<article class="idea-card">
+									<p class="idea-text">{idea.text}</p>
+									<p class="idea-level">L{idea.level} — {LEVEL_NAMES[idea.level]}</p>
+									{#if Object.keys(idea.concepts).length > 0}
+										<div class="idea-domains">
+											{#each Object.entries(idea.concepts) as [domain, score]}
+												<div class="domain-row">
+													<span class="domain-label">{domain}</span>
+													<div class="bar-track" aria-hidden="true">
+														<span class="bar-centre-tick"></span>
+														<span
+															class="bar-fill"
+															class:positive={barPositive(score as number)}
+															class:negative={!barPositive(score as number)}
+															style={barFillStyle(score as number)}
+														></span>
+													</div>
+													<span class="score-value">{(score as number) > 0 ? '+' : ''}{score}</span>
+												</div>
+											{/each}
+										</div>
+									{/if}
+								</article>
+							{/each}
+						</section>
+					{/if}
+					{#if observations.length > 0}
+						<section class="ideas-section" aria-label="Observations">
+							<h2 class="section-heading">Observations ({observations.length})</h2>
+							{#each observations as idea (idea.id)}
+								<article class="idea-card">
+									<p class="idea-text">{idea.text}</p>
+									<p class="idea-level">L{idea.level} — {LEVEL_NAMES[idea.level]}</p>
+									{#if Object.keys(idea.concepts).length > 0}
+										<div class="idea-domains">
+											{#each Object.entries(idea.concepts) as [domain, score]}
+												<div class="domain-row">
+													<span class="domain-label">{domain}</span>
+													<div class="bar-track" aria-hidden="true">
+														<span class="bar-centre-tick"></span>
+														<span
+															class="bar-fill"
+															class:positive={barPositive(score as number)}
+															class:negative={!barPositive(score as number)}
+															style={barFillStyle(score as number)}
+														></span>
+													</div>
+													<span class="score-value">{(score as number) > 0 ? '+' : ''}{score}</span>
+												</div>
+											{/each}
+										</div>
+									{/if}
+								</article>
+							{/each}
+						</section>
+					{/if}
+				{/if}
+			{:else if tab === 'ideas'}
 				{#if writable.length === 0}
 					<p class="empty">No writable ideas yet. Develop your inklings to L3 or higher.</p>
 				{:else}
