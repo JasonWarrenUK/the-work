@@ -1,8 +1,626 @@
-{
-	"roadmaps": [
-		{
-			"name": "MVP",
-			"path": "docs/roadmaps/mvp.md"
-		}
-	]
-}
+[
+	{
+		"name": "MVP",
+		"path": "docs/roadmaps/mvp.md",
+		"archived": false,
+		"externalGates": [],
+		"milestones": [
+			{
+				"id": "M1",
+				"name": "Skeleton Slice",
+				"goal": "A narrow end-to-end playable slice — one object examined, one observation acquired, developed to inkling then idea (L3), written to thesis, and the defence stub reachable. All mechanics present in minimal form; no content breadth yet.",
+				"tasks": [
+					{
+						"id": "1EN.1",
+						"description": "Confirm Nib saveState / loadState round-trips correctly with idea inventory",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Inventory persisted via toJSON()/fromJSON() in autosave and manual save; SaveData.inventoryState optional field with graceful degradation"
+					},
+					{
+						"id": "1UI.2",
+						"description": "Surface save/load UI (trigger save, restore from save)",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Escape key opens pause overlay (Save, Load Save, Quit to Menu, Resume); Ctrl+S / Cmd+S shortcut; \"Saved\" toast confirmation; Load Save on menu page"
+					},
+					{
+						"id": "1EN.3",
+						"description": "Nib engine stable (story.svelte.ts, tags.ts)",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1GS.5",
+						"description": "Idea data model (IdeaDef, PromptDef, inventory) implemented",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1GS.6",
+						"description": "All external functions bound in idea-bridge.ts",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1GS.7",
+						"description": "67 observations and 40 inklings registered in idea-catalog.ts",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1GS.8",
+						"description": "Recipes engine (develop + combine) implemented",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1GS.9",
+						"description": "Orthodoxy scoring implemented",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1UI.3",
+						"description": "StatusBar, ChoiceList, Passage, DevBar, Grain components built",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1NA.7",
+						"description": "Hours d1_1830, d1_1900, d1_2000 authored and playable",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1NA.1",
+						"description": "Author one complete object examination in Ink (observation → choice of reading)",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "48 objects authored across 6 locations (144 readings)"
+					},
+					{
+						"id": "1NA.2",
+						"description": "Author development path from one observation to one inkling (L2)",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Dozens of O→I recipes across all 7 domains"
+					},
+					{
+						"id": "1NA.3",
+						"description": "Author development path from inkling to one L3 idea",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "23 I→C recipes registered"
+					},
+					{
+						"id": "1NA.4",
+						"description": "Author minimal per-idea writing scene in Ink (select L3 idea, commit to thesis)",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Per-idea selective writing implemented in Tunnels.ink"
+					},
+					{
+						"id": "1NA.5",
+						"description": "Stub all unwritten hours",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Superseded: d1_2000 loop design handles all hours via TimeNumber, no stubs needed"
+					},
+					{
+						"id": "1NA.6",
+						"description": "Wire hour stubs into main story so full narrative compiles and reaches d2_0800",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "d1_2000 loop reaches d2_0800 via TimeNumber >= 20 check"
+					},
+					{
+						"id": "1GS.1",
+						"description": "Confirm acquire_idea, develop_idea, combine_ideas work end-to-end with authored Ink",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1GS.2",
+						"description": "Confirm write_idea correctly gates on level >= 3 and marks idea as written",
+						"status": "done",
+						"dependsOn": []
+					},
+					{
+						"id": "1GS.3",
+						"description": "Wire write_idea / writable_idea_at / writable_idea_count external functions into Ink writing scene",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "All declared in IdeaSystem.ink, bound in idea-bridge.ts, called from Tunnels.ink"
+					},
+					{
+						"id": "1EN.2",
+						"description": "Wire save-load.ts autosave to fire on each story.continue() call",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Fires in continueStory() in +page.svelte"
+					},
+					{
+						"id": "1UI.1",
+						"description": "Add ConvictionDesc Ink variable output to StatusBar",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Reads from Ink variable, displays in StatusBar.svelte"
+					},
+					{
+						"id": "1GS.4",
+						"description": "Implement discipline detection (dominant domain pair from written ideas)",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "getDominantPair() + disciplines.ts lookup table + get_discipline() Ink external + StatusBar display"
+					}
+				]
+			},
+			{
+				"id": "M2",
+				"name": "Writing Engine",
+				"goal": "Per-idea selective writing is fully playable — the player can see which ideas they hold, choose which to include in the thesis, and the thesis tracks orthodoxy and discipline correctly. Ink content exists for at least one domain's full idea chain (L1–L6).",
+				"tasks": [
+					{
+						"id": "2GS.4",
+						"description": "Author per-idea writing scenes for each L3+ idea in the authored chain",
+						"status": "todo",
+						"dependsOn": [
+							"2GS.1"
+						]
+					},
+					{
+						"id": "2GS.7",
+						"description": "Author L3–L6 idea chain for a second domain",
+						"status": "todo",
+						"dependsOn": [
+							"2GS.1"
+						]
+					},
+					{
+						"id": "2NA.2",
+						"description": "Author development paths for all 40 existing inklings to at least L3",
+						"status": "todo",
+						"dependsOn": [
+							"2GS.1"
+						]
+					},
+					{
+						"id": "2UI.2",
+						"description": "Thesis panel — see written ideas and current orthodoxy per domain",
+						"status": "todo",
+						"dependsOn": [
+							"2GS.5"
+						]
+					},
+					{
+						"id": "2GS.6",
+						"description": "Implement per-idea writing action for every authored L3+ idea",
+						"status": "blocked",
+						"dependsOn": [
+							"2NA.2"
+						],
+						"notes": "The current Tunnels.ink writing scene calls get_written_level to query domain-level progress rather than selecting a specific idea; once all inklings are developed to L3+ (2NA.2), each idea needs its own writing path wired through write_idea()"
+					},
+					{
+						"id": "2GS.10",
+						"description": "Refactor Ink to remove legacy get_written_level / get_domain_level calls",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.6"
+						],
+						"notes": "Once 2GS.6 is complete, the old domain-level write queries become dead code; remove them from Tunnels.ink and d2_0800.ink and confirm nothing breaks"
+					},
+					{
+						"id": "2GS.8",
+						"description": "Author L3–L6 idea chain for a third domain",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.7"
+						]
+					},
+					{
+						"id": "2GS.9",
+						"description": "Author combination recipe matrix (I+I→C across domains)",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.8"
+						]
+					},
+					{
+						"id": "2GS.1",
+						"description": "Author L3–L6 idea content for one domain (minimum one complete chain)",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Rule domain: rebalanced L3 to 8 orthodox / 8 radical; authored first L4–L6 chain C20→CO1→AR1→TH1 with branching fork AR1+C22→TH2"
+					},
+					{
+						"id": "2GS.3",
+						"description": "Wire writing action into Ink: player selects idea by index from writable list, commits, receives confirmation text",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Already implemented in Tunnels.ink via writable_idea_at() + write_idea() + printWriteResultForIdea()"
+					},
+					{
+						"id": "2NA.1",
+						"description": "Author one combination recipe (two inklings → one idea) in Ink and recipes.ts",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Multiple exist: I26+I27→C14, I1+I6→C14, plus ~20 observation-level combination recipes"
+					},
+					{
+						"id": "2GS.5",
+						"description": "Display thesis summary (written ideas, dominant domains, discipline name) in UI",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Unified tabbed SummaryOverlay with Thesis tab (written ideas, per-domain orthodoxy bars, discipline subtitle); opens via T shortcut or StatusBar ⁋ button"
+					},
+					{
+						"id": "2GS.2",
+						"description": "Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy)",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "SummaryOverlay Ideas tab (writable L3+ ideas); opens via I/T shortcuts or StatusBar ☉/⁋ buttons; tab-switching from either shortcut without closing"
+					},
+					{
+						"id": "2UI.1",
+						"description": "Idea inventory panel — see held ideas, their level, and whether writable",
+						"status": "done",
+						"dependsOn": [],
+						"notes": "Added Held tab to SummaryOverlay showing L1 observations and L2 inklings grouped by level with per-domain orthodoxy bars; opens via H shortcut or StatusBar ◧ button; arrow keys cycle Held · Ideas · Thesis"
+					}
+				]
+			},
+			{
+				"id": "M3",
+				"name": "Full Night",
+				"goal": "All hours authored (d1_2100–d2_0700). Sensory events, bodily states, and hidden/nested objects have trigger mechanisms. Storylet system proves out with at least one working dynamic passage. The full night is playable start to finish.",
+				"tasks": [
+					{
+						"id": "3NA.1",
+						"description": "Author d1_2100 (hour 3)",
+						"status": "blocked",
+						"dependsOn": [
+							"M2"
+						],
+						"notes": "d1_2000 loop already handles time; this is about adding hour-specific narrative flavour"
+					},
+					{
+						"id": "3NA.2",
+						"description": "Author d1_2200 (hour 4)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.1"
+						]
+					},
+					{
+						"id": "3NA.3",
+						"description": "Author d1_2300 (hour 5)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.2"
+						]
+					},
+					{
+						"id": "3NA.4",
+						"description": "Author d2_0000 (midnight, hour 6)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.3"
+						]
+					},
+					{
+						"id": "3NA.5",
+						"description": "Author d2_0100 (hour 7)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.4"
+						]
+					},
+					{
+						"id": "3NA.6",
+						"description": "Author d2_0200 (hour 8)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.5"
+						]
+					},
+					{
+						"id": "3NA.7",
+						"description": "Author d2_0300 (hour 9)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.6"
+						]
+					},
+					{
+						"id": "3NA.8",
+						"description": "Author d2_0400 (hour 10)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.7"
+						]
+					},
+					{
+						"id": "3NA.9",
+						"description": "Author d2_0500 (hour 11)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.8"
+						]
+					},
+					{
+						"id": "3NA.10",
+						"description": "Author d2_0600 (hour 12)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.9"
+						]
+					},
+					{
+						"id": "3NA.11",
+						"description": "Author d2_0700 (hour 13, final night hour)",
+						"status": "blocked",
+						"dependsOn": [
+							"3NA.10"
+						]
+					},
+					{
+						"id": "3GS.1",
+						"description": "Implement sensory event trigger mechanism in Ink (tag-based or external function)",
+						"status": "todo",
+						"dependsOn": [
+							"1EN.3"
+						]
+					},
+					{
+						"id": "3GS.2",
+						"description": "Implement bodily state triggers (fatigue, hunger, dread thresholds)",
+						"status": "todo",
+						"dependsOn": [
+							"1EN.3"
+						]
+					},
+					{
+						"id": "3GS.3",
+						"description": "Implement hidden/nested object reveal mechanism",
+						"status": "todo",
+						"dependsOn": [
+							"1EN.3"
+						]
+					},
+					{
+						"id": "3GS.4",
+						"description": "Wire dread accumulation to bodily state triggers",
+						"status": "blocked",
+						"dependsOn": [
+							"3GS.2",
+							"1GS.9"
+						]
+					},
+					{
+						"id": "3EN.1",
+						"description": "Implement storylet system (port get_storylet external function from calico-patches.md)",
+						"status": "todo",
+						"dependsOn": [
+							"1EN.3"
+						]
+					},
+					{
+						"id": "3EN.2",
+						"description": "Author storylets.ink with at least one proof-of-concept dynamic passage",
+						"status": "blocked",
+						"dependsOn": [
+							"3EN.1"
+						]
+					},
+					{
+						"id": "3NA.12",
+						"description": "Integrate at least one storylet into a mid-night hour",
+						"status": "blocked",
+						"dependsOn": [
+							"3EN.2",
+							"3NA.4"
+						]
+					},
+					{
+						"id": "3NA.13",
+						"description": "Extend observations to sensory/bodily/hidden prompt locations",
+						"status": "blocked",
+						"dependsOn": [
+							"3GS.1",
+							"3GS.2",
+							"3GS.3"
+						]
+					},
+					{
+						"id": "3UI.1",
+						"description": "Add bodily/dread state indicators to UI (StatusBar or equivalent)",
+						"status": "blocked",
+						"dependsOn": [
+							"3GS.2"
+						]
+					}
+				]
+			},
+			{
+				"id": "M4",
+				"name": "Defence & Endings",
+				"goal": "The thesis defence (d2_0800) is fully authored. Committee membership and chair emerge from the dominant discipline. Orthodoxy scores drive committee hostility or approval. Multiple distinct endings are reachable.",
+				"tasks": [
+					{
+						"id": "4NA.1",
+						"description": "Author committee introduction scene (committee composition announced, chair identified)",
+						"status": "blocked",
+						"dependsOn": [
+							"M3"
+						]
+					},
+					{
+						"id": "4NA.2",
+						"description": "Author defence questioning logic (committee challenges based on thesis orthodoxy)",
+						"status": "blocked",
+						"dependsOn": [
+							"4NA.1"
+						]
+					},
+					{
+						"id": "4NA.3",
+						"description": "Author at least 3 distinct ending scenes (pass orthodox, pass radical, fail)",
+						"status": "blocked",
+						"dependsOn": [
+							"4NA.2",
+							"4GS.3"
+						]
+					},
+					{
+						"id": "4NA.4",
+						"description": "Author committee chair intro dialogue for all 21 disciplines (3 member types × discipline spin)",
+						"status": "blocked",
+						"dependsOn": [
+							"4NA.1"
+						]
+					},
+					{
+						"id": "4GS.1",
+						"description": "Implement discipline lookup (domain pair → discipline name → committee chair)",
+						"status": "todo",
+						"dependsOn": [
+							"1GS.4"
+						]
+					},
+					{
+						"id": "4GS.2",
+						"description": "Implement committee hostility scoring from written orthodoxy profile",
+						"status": "blocked",
+						"dependsOn": [
+							"4GS.1"
+						]
+					},
+					{
+						"id": "4GS.3",
+						"description": "Implement ending selection logic based on thesis profile + dread levels",
+						"status": "blocked",
+						"dependsOn": [
+							"4GS.2"
+						]
+					},
+					{
+						"id": "4UI.1",
+						"description": "Add final thesis summary screen before defence begins",
+						"status": "blocked",
+						"dependsOn": [
+							"2UI.2"
+						]
+					},
+					{
+						"id": "4NA.5",
+						"description": "Author special committee dynamic scenes (co-chairs, resentful rival, peripheral voice, absent authority, gatekeeper)",
+						"status": "blocked",
+						"dependsOn": [
+							"4NA.4"
+						]
+					}
+				]
+			},
+			{
+				"id": "M5",
+				"name": "Polish",
+				"goal": "The game feels complete. Save/load with history replay, autosave on passage, keyboard shortcuts, smooth scroll after choice, audio system, and typography are all in place. Ready to ship.",
+				"tasks": [
+					{
+						"id": "5PL.1",
+						"description": "Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte",
+						"status": "todo",
+						"dependsOn": []
+					},
+					{
+						"id": "5PL.2",
+						"description": "Implement smooth scroll-after-choice (scrollIntoView or Svelte action)",
+						"status": "todo",
+						"dependsOn": []
+					},
+					{
+						"id": "5PL.3",
+						"description": "Apply text-wrap: pretty for orphan prevention",
+						"status": "todo",
+						"dependsOn": []
+					},
+					{
+						"id": "5EN.1",
+						"description": "Implement history replay for save/load (record choice indices, restore seed, replay silently)",
+						"status": "todo",
+						"dependsOn": [
+							"1EN.1"
+						]
+					},
+					{
+						"id": "5EN.2",
+						"description": "Wire autosave to fire on story.continue() with history-aware state",
+						"status": "blocked",
+						"dependsOn": [
+							"5EN.1"
+						]
+					},
+					{
+						"id": "5UI.1",
+						"description": "Save/load UI (save slot, load from slot, delete save)",
+						"status": "blocked",
+						"dependsOn": [
+							"5EN.1"
+						],
+						"notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task"
+					},
+					{
+						"id": "5UI.2",
+						"description": "Autosave resume prompt on page load (\"Continue where you left off?\")",
+						"status": "blocked",
+						"dependsOn": [
+							"5EN.2"
+						]
+					},
+					{
+						"id": "5PL.4",
+						"description": "Implement audio system (Howler.js-based, port from calico-patches.md)",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.2"
+						]
+					},
+					{
+						"id": "5PL.5",
+						"description": "Wire #play, #pause, #stop, #volume Ink tags to audio system",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.4"
+						]
+					},
+					{
+						"id": "5NA.1",
+						"description": "Add audio cues to key narrative moments",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.5"
+						]
+					},
+					{
+						"id": "5PL.6",
+						"description": "Asset preloading (scan compiled Ink JSON for audio/image refs, show progress)",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.4"
+						]
+					},
+					{
+						"id": "5PL.7",
+						"description": "Markdown-to-HTML for **bold** / *italic* in Ink text",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.3"
+						]
+					}
+				]
+			}
+		]
+	}
+]
