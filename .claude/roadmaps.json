@@ -164,34 +164,98 @@
 					{
 						"id": "2GS.4",
 						"description": "Author per-idea writing scenes for each L3+ idea in the authored chain",
-						"status": "todo",
+						"status": "blocked",
 						"dependsOn": [
-							"2GS.1"
+							"2GS.1",
+							"2EN.1",
+							"2EN.2",
+							"2EN.3",
+							"2EN.4",
+							"2EN.5",
+							"2EN.6"
 						]
 					},
 					{
 						"id": "2GS.7",
 						"description": "Author L3–L6 idea chain for a second domain",
-						"status": "todo",
+						"status": "blocked",
 						"dependsOn": [
-							"2GS.1"
+							"2GS.1",
+							"2EN.1",
+							"2EN.2",
+							"2EN.3",
+							"2EN.4",
+							"2EN.5",
+							"2EN.6"
 						]
 					},
 					{
 						"id": "2NA.2",
 						"description": "Author development paths for all 40 existing inklings to at least L3",
-						"status": "todo",
+						"status": "blocked",
 						"dependsOn": [
-							"2GS.1"
+							"2GS.1",
+							"2EN.1",
+							"2EN.2",
+							"2EN.3",
+							"2EN.4",
+							"2EN.5",
+							"2EN.6"
 						]
 					},
 					{
 						"id": "2UI.2",
 						"description": "Thesis panel — see written ideas and current orthodoxy per domain",
-						"status": "todo",
+						"status": "blocked",
 						"dependsOn": [
-							"2GS.5"
+							"2GS.5",
+							"2EN.1",
+							"2EN.2",
+							"2EN.3",
+							"2EN.4",
+							"2EN.5",
+							"2EN.6"
 						]
+					},
+					{
+						"id": "2EN.1",
+						"description": "Wire choice tags through Nib and replace CATEGORY_MOODS text-matching",
+						"status": "todo",
+						"dependsOn": []
+					},
+					{
+						"id": "2EN.2",
+						"description": "Replace story.tick bump-and-rederive pattern with ObserveVariable-backed reactivity",
+						"status": "blocked",
+						"dependsOn": [
+							"2EN.1"
+						]
+					},
+					{
+						"id": "2EN.3",
+						"description": "Move get_storylet stub out of story.svelte.ts into game code",
+						"status": "todo",
+						"dependsOn": [],
+						"notes": "Restores Nib's zero-game-imports rule; unblocks 3EN.1 to implement real storylet behaviour on a clean base"
+					},
+					{
+						"id": "2EN.4",
+						"description": "Surface Ink errors/warnings to DevBar instead of console-only",
+						"status": "todo",
+						"dependsOn": []
+					},
+					{
+						"id": "2EN.5",
+						"description": "Add regression check: external functions still fire after loadState() restores a save",
+						"status": "todo",
+						"dependsOn": [],
+						"notes": "Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call"
+					},
+					{
+						"id": "2EN.6",
+						"description": "Wire #class: tag through continue() to Passage.svelte (or cut README claim)",
+						"status": "todo",
+						"dependsOn": []
 					},
 					{
 						"id": "2GS.6",
@@ -226,6 +290,82 @@
 						"dependsOn": [
 							"2GS.8"
 						]
+					},
+					{
+						"id": "2GS.11",
+						"description": "Author L3–L6 idea chain for a fourth domain",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.8"
+						],
+						"softMilestone": true
+					},
+					{
+						"id": "2GS.12",
+						"description": "Author L3–L6 idea chain for a fifth domain",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.11"
+						],
+						"softMilestone": true
+					},
+					{
+						"id": "2GS.13",
+						"description": "Extend combination recipe matrix to four domains",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.9",
+							"2GS.11"
+						],
+						"softMilestone": true
+					},
+					{
+						"id": "2GS.14",
+						"description": "Extend combination recipe matrix to five domains",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.13",
+							"2GS.12"
+						],
+						"softMilestone": true
+					},
+					{
+						"id": "2GS.15",
+						"description": "Author L3–L6 idea chain for a sixth domain",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.12"
+						],
+						"softMilestone": true
+					},
+					{
+						"id": "2GS.16",
+						"description": "Extend combination recipe matrix to six domains",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.14",
+							"2GS.15"
+						],
+						"softMilestone": true
+					},
+					{
+						"id": "2GS.17",
+						"description": "Author L3–L6 idea chain for a seventh domain",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.15"
+						],
+						"softMilestone": true
+					},
+					{
+						"id": "2GS.18",
+						"description": "Extend combination recipe matrix to all seven domains",
+						"status": "blocked",
+						"dependsOn": [
+							"2GS.16",
+							"2GS.17"
+						],
+						"softMilestone": true
 					},
 					{
 						"id": "2GS.1",
@@ -401,9 +541,10 @@
 					{
 						"id": "3EN.1",
 						"description": "Implement storylet system (port get_storylet external function from calico-patches.md)",
-						"status": "todo",
+						"status": "blocked",
 						"dependsOn": [
-							"1EN.3"
+							"1EN.3",
+							"2EN.3"
 						]
 					},
 					{
@@ -431,7 +572,8 @@
 							"3GS.1",
 							"3GS.2",
 							"3GS.3"
-						]
+						],
+						"notes": "Covers the full 67-observation target: 48 of 67 objects already authored; this task carries the remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67)"
 					},
 					{
 						"id": "3UI.1",
@@ -478,7 +620,8 @@
 						"description": "Author committee chair intro dialogue for all 21 disciplines (3 member types × discipline spin)",
 						"status": "blocked",
 						"dependsOn": [
-							"4NA.1"
+							"4NA.1",
+							"2GS.18"
 						]
 					},
 					{
@@ -618,6 +761,70 @@
 						"dependsOn": [
 							"5PL.3"
 						]
+					},
+					{
+						"id": "5PL.8",
+						"description": "Implement #frame: tag handler and layered parallax component",
+						"status": "blocked",
+						"dependsOn": [
+							"2EN.6"
+						]
+					},
+					{
+						"id": "5PL.9",
+						"description": "Add parallax frames to key atmospheric scenes",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.8"
+						]
+					},
+					{
+						"id": "5PL.10",
+						"description": "Implement drag-to-scroll (desktop click-and-drag)",
+						"status": "todo",
+						"dependsOn": []
+					},
+					{
+						"id": "5EN.3",
+						"description": "Stamp save version (git tag) into SaveData and check on load",
+						"status": "todo",
+						"dependsOn": [],
+						"notes": "A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting"
+					},
+					{
+						"id": "5EN.4",
+						"description": "Implement story.stepBack() (rewind to previous passage)",
+						"status": "blocked",
+						"dependsOn": [
+							"5EN.1",
+							"5EN.3"
+						]
+					},
+					{
+						"id": "5EN.5",
+						"description": "Add step-back control/shortcut to the UI",
+						"status": "blocked",
+						"dependsOn": [
+							"5EN.4"
+						]
+					},
+					{
+						"id": "5EN.6",
+						"description": "Save export/import",
+						"status": "blocked",
+						"dependsOn": [
+							"5UI.1",
+							"5EN.3"
+						]
+					},
+					{
+						"id": "5EN.7",
+						"description": "Save-fixture regression test across tagged versions",
+						"status": "blocked",
+						"dependsOn": [
+							"5EN.3"
+						],
+						"notes": "tests/fixtures/saves/<version>.json captured per tag; a Vitest test loads each fixture and asserts the version-mismatch policy holds"
 					}
 				]
 			}

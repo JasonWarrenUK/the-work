@@ -51,16 +51,32 @@ End-to-end skeleton through full night, defence, and polish.
 
 **Goal:** Per-idea selective writing is fully playable — the player can see which ideas they hold, choose which to include in the thesis, and the thesis tracks orthodoxy and discipline correctly. Ink content exists for at least one domain's full idea chain (L1–L6).
 
-- [ ] **2GS.4**: Author per-idea writing scenes for each L3+ idea in the authored chain _(depends on 2GS.1)_
-- [ ] **2GS.7**: Author L3–L6 idea chain for a second domain _(depends on 2GS.1)_
-- [ ] **2NA.2**: Author development paths for all 40 existing inklings to at least L3 _(depends on 2GS.1)_
-- [ ] **2UI.2**: Thesis panel — see written ideas and current orthodoxy per domain _(depends on 2GS.5)_
+- [ ] **2GS.4**: Author per-idea writing scenes for each L3+ idea in the authored chain _(blocked: depends on 2GS.1, 2EN.1, 2EN.2, 2EN.3, 2EN.4, 2EN.5, 2EN.6)_
+- [ ] **2GS.7**: Author L3–L6 idea chain for a second domain _(blocked: depends on 2GS.1, 2EN.1, 2EN.2, 2EN.3, 2EN.4, 2EN.5, 2EN.6)_
+- [ ] **2NA.2**: Author development paths for all 40 existing inklings to at least L3 _(blocked: depends on 2GS.1, 2EN.1, 2EN.2, 2EN.3, 2EN.4, 2EN.5, 2EN.6)_
+- [ ] **2UI.2**: Thesis panel — see written ideas and current orthodoxy per domain _(blocked: depends on 2GS.5, 2EN.1, 2EN.2, 2EN.3, 2EN.4, 2EN.5, 2EN.6)_
+- [ ] **2EN.1**: Wire choice tags through Nib and replace CATEGORY_MOODS text-matching
+- [ ] **2EN.2**: Replace story.tick bump-and-rederive pattern with ObserveVariable-backed reactivity _(blocked: depends on 2EN.1)_
+- [ ] **2EN.3**: Move get_storylet stub out of story.svelte.ts into game code
+  - Note: Restores Nib's zero-game-imports rule; unblocks 3EN.1 to implement real storylet behaviour on a clean base
+- [ ] **2EN.4**: Surface Ink errors/warnings to DevBar instead of console-only
+- [ ] **2EN.5**: Add regression check: external functions still fire after loadState() restores a save
+  - Note: Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call
+- [ ] **2EN.6**: Wire #class: tag through continue() to Passage.svelte (or cut README claim)
 - [ ] **2GS.6**: Implement per-idea writing action for every authored L3+ idea _(blocked: depends on 2NA.2)_
   - Note: The current Tunnels.ink writing scene calls get_written_level to query domain-level progress rather than selecting a specific idea; once all inklings are developed to L3+ (2NA.2), each idea needs its own writing path wired through write_idea()
 - [ ] **2GS.10**: Refactor Ink to remove legacy get_written_level / get_domain_level calls _(blocked: depends on 2GS.6)_
   - Note: Once 2GS.6 is complete, the old domain-level write queries become dead code; remove them from Tunnels.ink and d2_0800.ink and confirm nothing breaks
 - [ ] **2GS.8**: Author L3–L6 idea chain for a third domain _(blocked: depends on 2GS.7)_
 - [ ] **2GS.9**: Author combination recipe matrix (I+I→C across domains) _(blocked: depends on 2GS.8)_
+- [ ] **2GS.11**: Author L3–L6 idea chain for a fourth domain _(blocked: depends on 2GS.8)_
+- [ ] **2GS.12**: Author L3–L6 idea chain for a fifth domain _(blocked: depends on 2GS.11)_
+- [ ] **2GS.13**: Extend combination recipe matrix to four domains _(blocked: depends on 2GS.9, 2GS.11)_
+- [ ] **2GS.14**: Extend combination recipe matrix to five domains _(blocked: depends on 2GS.13, 2GS.12)_
+- [ ] **2GS.15**: Author L3–L6 idea chain for a sixth domain _(blocked: depends on 2GS.12)_
+- [ ] **2GS.16**: Extend combination recipe matrix to six domains _(blocked: depends on 2GS.14, 2GS.15)_
+- [ ] **2GS.17**: Author L3–L6 idea chain for a seventh domain _(blocked: depends on 2GS.15)_
+- [ ] **2GS.18**: Extend combination recipe matrix to all seven domains _(blocked: depends on 2GS.16, 2GS.17)_
 - [x] **2GS.1**: Author L3–L6 idea content for one domain (minimum one complete chain)
   - Note: Rule domain: rebalanced L3 to 8 orthodox / 8 radical; authored first L4–L6 chain C20→CO1→AR1→TH1 with branching fork AR1+C22→TH2
 - [x] **2GS.3**: Wire writing action into Ink: player selects idea by index from writable list, commits, receives confirmation text
@@ -96,10 +112,11 @@ End-to-end skeleton through full night, defence, and polish.
 - [ ] **3GS.2**: Implement bodily state triggers (fatigue, hunger, dread thresholds) _(depends on 1EN.3)_
 - [ ] **3GS.3**: Implement hidden/nested object reveal mechanism _(depends on 1EN.3)_
 - [ ] **3GS.4**: Wire dread accumulation to bodily state triggers _(blocked: depends on 3GS.2, 1GS.9)_
-- [ ] **3EN.1**: Implement storylet system (port get_storylet external function from calico-patches.md) _(depends on 1EN.3)_
+- [ ] **3EN.1**: Implement storylet system (port get_storylet external function from calico-patches.md) _(blocked: depends on 1EN.3, 2EN.3)_
 - [ ] **3EN.2**: Author storylets.ink with at least one proof-of-concept dynamic passage _(blocked: depends on 3EN.1)_
 - [ ] **3NA.12**: Integrate at least one storylet into a mid-night hour _(blocked: depends on 3EN.2, 3NA.4)_
 - [ ] **3NA.13**: Extend observations to sensory/bodily/hidden prompt locations _(blocked: depends on 3GS.1, 3GS.2, 3GS.3)_
+  - Note: Covers the full 67-observation target: 48 of 67 objects already authored; this task carries the remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67)
 - [ ] **3UI.1**: Add bodily/dread state indicators to UI (StatusBar or equivalent) _(blocked: depends on 3GS.2)_
 
 ---
@@ -111,7 +128,7 @@ End-to-end skeleton through full night, defence, and polish.
 - [ ] **4NA.1**: Author committee introduction scene (committee composition announced, chair identified) _(blocked: depends on M3)_
 - [ ] **4NA.2**: Author defence questioning logic (committee challenges based on thesis orthodoxy) _(blocked: depends on 4NA.1)_
 - [ ] **4NA.3**: Author at least 3 distinct ending scenes (pass orthodox, pass radical, fail) _(blocked: depends on 4NA.2, 4GS.3)_
-- [ ] **4NA.4**: Author committee chair intro dialogue for all 21 disciplines (3 member types × discipline spin) _(blocked: depends on 4NA.1)_
+- [ ] **4NA.4**: Author committee chair intro dialogue for all 21 disciplines (3 member types × discipline spin) _(blocked: depends on 4NA.1, 2GS.18)_
 - [ ] **4GS.1**: Implement discipline lookup (domain pair → discipline name → committee chair) _(depends on 1GS.4)_
 - [ ] **4GS.2**: Implement committee hostility scoring from written orthodoxy profile _(blocked: depends on 4GS.1)_
 - [ ] **4GS.3**: Implement ending selection logic based on thesis profile + dread levels _(blocked: depends on 4GS.2)_
@@ -137,6 +154,16 @@ End-to-end skeleton through full night, defence, and polish.
 - [ ] **5NA.1**: Add audio cues to key narrative moments _(blocked: depends on 5PL.5)_
 - [ ] **5PL.6**: Asset preloading (scan compiled Ink JSON for audio/image refs, show progress) _(blocked: depends on 5PL.4)_
 - [ ] **5PL.7**: Markdown-to-HTML for **bold** / *italic* in Ink text _(blocked: depends on 5PL.3)_
+- [ ] **5PL.8**: Implement #frame: tag handler and layered parallax component _(blocked: depends on 2EN.6)_
+- [ ] **5PL.9**: Add parallax frames to key atmospheric scenes _(blocked: depends on 5PL.8)_
+- [ ] **5PL.10**: Implement drag-to-scroll (desktop click-and-drag)
+- [ ] **5EN.3**: Stamp save version (git tag) into SaveData and check on load
+  - Note: A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting
+- [ ] **5EN.4**: Implement story.stepBack() (rewind to previous passage) _(blocked: depends on 5EN.1, 5EN.3)_
+- [ ] **5EN.5**: Add step-back control/shortcut to the UI _(blocked: depends on 5EN.4)_
+- [ ] **5EN.6**: Save export/import _(blocked: depends on 5UI.1, 5EN.3)_
+- [ ] **5EN.7**: Save-fixture regression test across tagged versions _(blocked: depends on 5EN.3)_
+  - Note: tests/fixtures/saves/<version>.json captured per tag; a Vitest test loads each fixture and asserts the version-mismatch policy holds
 
 ---
 
@@ -145,6 +172,7 @@ End-to-end skeleton through full night, defence, and polish.
 ```mermaid
 graph LR
 	classDef todo fill:#f6f6f6,stroke:#6f6f6f,color:#6f6f6f
+	classDef inProgress fill:#e8f2ff,stroke:#0071af,color:#0071af
 	classDef blocked fill:#fff8f6,stroke:#e0002b,color:#e0002b,stroke-width:2px
 	classDef paused fill:#fdf4ff,stroke:#b01fe3,color:#b01fe3,stroke-dasharray:4 3
 	classDef deferred fill:#fff8f3,stroke:#ac5c00,color:#ac5c00,stroke-dasharray:2 4,font-style:italic
@@ -175,6 +203,12 @@ graph LR
 	1UI.1["1UI.1: Add ConvictionDesc Ink variable output t…"]
 	1GS.4["1GS.4: Implement discipline detection (dominant…"]
 	M1["M1: Skeleton Slice"]:::mile
+	2EN.1["2EN.1: Wire choice tags through Nib and replace…"]
+	2EN.2["2EN.2: Replace story.tick bump-and-rederive pat…"]
+	2EN.3["2EN.3: Move get_storylet stub out of story.svel…"]
+	2EN.4["2EN.4: Surface Ink errors/warnings to DevBar in…"]
+	2EN.5["2EN.5: Add regression check: external functions…"]
+	2EN.6["2EN.6: Wire #class: tag through continue() to P…"]
 	2GS.1["2GS.1: Author L3–L6 idea content for one domain…"]
 	2GS.4["2GS.4: Author per-idea writing scenes for each…"]
 	2GS.7["2GS.7: Author L3–L6 idea chain for a second dom…"]
@@ -183,6 +217,14 @@ graph LR
 	2GS.10["2GS.10: Refactor Ink to remove legacy get_writt…"]
 	2GS.8["2GS.8: Author L3–L6 idea chain for a third doma…"]
 	2GS.9["2GS.9: Author combination recipe matrix (I+I→C…"]
+	2GS.11["2GS.11: Author L3–L6 idea chain for a fourth do…"]
+	2GS.12["2GS.12: Author L3–L6 idea chain for a fifth dom…"]
+	2GS.13["2GS.13: Extend combination recipe matrix to fou…"]
+	2GS.14["2GS.14: Extend combination recipe matrix to fiv…"]
+	2GS.15["2GS.15: Author L3–L6 idea chain for a sixth dom…"]
+	2GS.16["2GS.16: Extend combination recipe matrix to six…"]
+	2GS.17["2GS.17: Author L3–L6 idea chain for a seventh d…"]
+	2GS.18["2GS.18: Extend combination recipe matrix to all…"]
 	2GS.3["2GS.3: Wire writing action into Ink: player sel…"]
 	2NA.1["2NA.1: Author one combination recipe (two inkli…"]
 	2GS.5["2GS.5: Display thesis summary (written ideas, d…"]
@@ -233,6 +275,14 @@ graph LR
 	5NA.1["5NA.1: Add audio cues to key narrative moments"]
 	5PL.6["5PL.6: Asset preloading (scan compiled Ink JSON…"]
 	5PL.7["5PL.7: Markdown-to-HTML for **bold** / *italic*…"]
+	5PL.8["5PL.8: Implement #frame: tag handler and layere…"]
+	5PL.9["5PL.9: Add parallax frames to key atmospheric s…"]
+	5PL.10["5PL.10: Implement drag-to-scroll (desktop click…"]
+	5EN.3["5EN.3: Stamp save version (git tag) into SaveDa…"]
+	5EN.4["5EN.4: Implement story.stepBack() (rewind to pr…"]
+	5EN.5["5EN.5: Add step-back control/shortcut to the UI"]
+	5EN.6["5EN.6: Save export/import"]
+	5EN.7["5EN.7: Save-fixture regression test across tagg…"]
 	M5["M5: Polish"]:::mile
 	1EN.1 --> M1
 	1EN.1 --> 5EN.1
@@ -263,6 +313,33 @@ graph LR
 	1UI.1 --> M1
 	1GS.4 --> M1
 	1GS.4 --> 4GS.1
+	2EN.1 --> 2EN.2
+	2EN.1 --> 2GS.4
+	2EN.1 --> 2GS.7
+	2EN.1 --> 2NA.2
+	2EN.1 --> 2UI.2
+	2EN.2 --> 2GS.4
+	2EN.2 --> 2GS.7
+	2EN.2 --> 2NA.2
+	2EN.2 --> 2UI.2
+	2EN.3 --> 2GS.4
+	2EN.3 --> 2GS.7
+	2EN.3 --> 2NA.2
+	2EN.3 --> 2UI.2
+	2EN.3 --> 3EN.1
+	2EN.4 --> 2GS.4
+	2EN.4 --> 2GS.7
+	2EN.4 --> 2NA.2
+	2EN.4 --> 2UI.2
+	2EN.5 --> 2GS.4
+	2EN.5 --> 2GS.7
+	2EN.5 --> 2NA.2
+	2EN.5 --> 2UI.2
+	2EN.6 --> 2GS.4
+	2EN.6 --> 2GS.7
+	2EN.6 --> 2NA.2
+	2EN.6 --> 2UI.2
+	2EN.6 --> 5PL.8
 	2GS.1 --> 2GS.4
 	2GS.1 --> 2GS.7
 	2GS.1 --> 2NA.2
@@ -272,7 +349,20 @@ graph LR
 	2GS.6 --> 2GS.10
 	2GS.10 --> M2
 	2GS.8 --> 2GS.9
-	2GS.9 --> M2
+	2GS.8 --> 2GS.11
+	2GS.9 --> 2GS.13
+	2GS.11 --> 2GS.12
+	2GS.11 --> 2GS.13
+	2GS.12 --> 2GS.14
+	2GS.12 --> 2GS.15
+	2GS.13 --> 2GS.14
+	2GS.14 --> 2GS.16
+	2GS.15 --> 2GS.16
+	2GS.15 --> 2GS.17
+	2GS.16 --> 2GS.18
+	2GS.17 --> 2GS.18
+	2GS.18 -.-> M2
+	2GS.18 --> 4NA.4
 	2GS.3 --> M2
 	2NA.1 --> M2
 	2GS.5 --> 2UI.2
@@ -320,8 +410,9 @@ graph LR
 	5PL.3 --> 5PL.7
 	5EN.1 --> 5EN.2
 	5EN.1 --> 5UI.1
+	5EN.1 --> 5EN.4
 	5EN.2 --> 5UI.2
-	5UI.1 --> M5
+	5UI.1 --> 5EN.6
 	5UI.2 --> M5
 	5PL.4 --> 5PL.5
 	5PL.4 --> 5PL.6
@@ -329,25 +420,18 @@ graph LR
 	5NA.1 --> M5
 	5PL.6 --> M5
 	5PL.7 --> M5
-	class 2GS.4,2GS.7,2NA.2,2UI.2,3EN.1,3GS.1,3GS.2,3GS.3,4GS.1,5EN.1,5PL.1,5PL.2,5PL.3 todo
-	class 2GS.10,2GS.6,2GS.8,2GS.9,3EN.2,3GS.4,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,3UI.1,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5NA.1,5PL.4,5PL.5,5PL.6,5PL.7,5UI.1,5UI.2 blocked
+	5PL.8 --> 5PL.9
+	5PL.9 --> M5
+	5PL.10 --> M5
+	5EN.3 --> 5EN.4
+	5EN.3 --> 5EN.6
+	5EN.3 --> 5EN.7
+	5EN.4 --> 5EN.5
+	5EN.5 --> M5
+	5EN.6 --> M5
+	5EN.7 --> M5
+	class 2EN.1,2EN.3,2EN.4,2EN.5,2EN.6,3GS.1,3GS.2,3GS.3,4GS.1,5EN.1,5EN.3,5PL.1,5PL.10,5PL.2,5PL.3 todo
+	class 2EN.2,2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.4,2GS.6,2GS.7,2GS.8,2GS.9,2NA.2,2UI.2,3EN.1,3EN.2,3GS.4,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,3UI.1,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.4,5PL.5,5PL.6,5PL.7,5PL.8,5PL.9,5UI.1,5UI.2 blocked
 	class 1EN.1,1EN.2,1EN.3,1GS.1,1GS.2,1GS.3,1GS.4,1GS.5,1GS.6,1GS.7,1GS.8,1GS.9,1NA.1,1NA.2,1NA.3,1NA.4,1NA.5,1NA.6,1NA.7,1UI.1,1UI.2,1UI.3,2GS.1,2GS.2,2GS.3,2GS.5,2NA.1,2UI.1 done
 ```
 
----
-
-## Beyond MVP
-
-Features explicitly deferred from MVP scope:
-
-- **Parallax frames** (`#frame:` tag, layered images with mouse tracking) — only relevant for atmospheric scenes
-- **Drag-to-scroll** — atmospheric nice-to-have, may conflict with text selection
-- **Multi-format save storage** (cookies, session, local) — localStorage sufficient for MVP
-- **Rewind / step-back** — full choice replay system; desirable but not required for first release
-- **Choice tags** (peek-ahead into choice target paths for `#class:` application) — partial coverage already in tags.ts
-- **Asset preloading progress bar** — only relevant once audio is dense enough to need it
-- **Full 67-observation Ink coverage** — 48 of 67 objects authored; remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67) need different trigger mechanisms
-- **Author L3–L6 idea chain for a fourth domain** — depends on 2GS.8
-- **Author L3–L6 idea chain for a fifth domain** — depends on previous
-- **Author L3–L6 idea chain for a sixth domain** — depends on previous
-- **Author L3–L6 idea chain for a seventh domain** — depends on previous; completes full domain coverage

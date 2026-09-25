@@ -21,156 +21,168 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Roadmap — MVP</title>
-<link rel="stylesheet" href="https://unpkg.com/reasonable-colors@0.4.0/reasonable-colors.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-	/* Milestone — sky (structural, steel-blue half of the terminal gradient) */
-	--color-milestone:       var(--color-sky-4);
-	--color-milestone-bg:    var(--color-sky-1);
-	--color-milestone-text:  var(--color-sky-6);
+	/* Palette: the roadmap system's own fixed status table (see roadmap.py
+	   STATUS_STYLE); literal hexes so the artefact is self-contained.
+	   Milestone — sky (structural, steel-blue half of the terminal gradient) */
+	--color-milestone:       #007590;
+	--color-milestone-bg:    #e3f7ff;
+	--color-milestone-text:  #001f28;
 	/* Primary accent — pink (warm half of the gradient; never a status) */
-	--color-primary:         var(--color-pink-4);
-	--color-primary-bg:      var(--color-pink-1);
-	--color-primary-text:    var(--color-pink-6);
+	--color-primary:         #d2008f;
+	--color-primary-bg:      #fff7fb;
+	--color-primary-text:    #4b0030;
 	/* Status semantics: green finished, gray blank, red stop, purple parked,
 	   cinnamon shelved, faded gray struck, yellow external */
-	--color-done:            var(--color-green-4);
-	--color-done-bg:         var(--color-green-1);
-	--color-todo:            var(--color-gray-4);
-	--color-todo-bg:         var(--color-gray-1);
-	--color-blocked:         var(--color-red-4);
-	--color-blocked-bg:      var(--color-red-1);
-	--color-paused:          var(--color-purple-4);
-	--color-paused-bg:       var(--color-purple-1);
-	--color-deferred:        var(--color-cinnamon-4);
-	--color-deferred-bg:     var(--color-cinnamon-1);
-	--color-out-of-scope:    var(--color-gray-3);
-	--color-out-of-scope-bg: var(--color-gray-1);
-	--color-gate:            var(--color-yellow-4);
-	--color-gate-bg:         var(--color-yellow-1);
-	/* Milestone-level derived state (see roadmap-conventions.md): azure is
-	   unclaimed by task status and distinct from sky (structural), so a
-	   part-done milestone reads as "live" rather than the same gray as
-	   untouched work. */
-	--color-in-progress:     var(--color-azure-4);
-	--color-in-progress-bg:  var(--color-azure-1);
+	--color-done:            #008217;
+	--color-done-bg:         #e0ffd9;
+	--color-todo:            #6f6f6f;
+	--color-todo-bg:         #f6f6f6;
+	--color-blocked:         #e0002b;
+	--color-blocked-bg:      #fff8f6;
+	--color-paused:          #b01fe3;
+	--color-paused-bg:       #fdf4ff;
+	--color-deferred:        #ac5c00;
+	--color-deferred-bg:     #fff8f3;
+	--color-out-of-scope:    #8b8b8b;
+	--color-out-of-scope-bg: #f6f6f6;
+	--color-gate:            #7d6f00;
+	--color-gate-bg:         #fff9e5;
+	/* In progress (see roadmap-conventions.md): azure marks a claimed task
+	   still in play and the milestone state it drives, the way milestone
+	   states share their task-status hues. Distinct from sky (structural),
+	   though close enough that diagram labels also carry a marker. */
+	--color-in-progress:     #0071af;
+	--color-in-progress-bg:  #e8f2ff;
 	/* Dev-chip palette: assignee is free-text with no roster (never
 	   inferred), so chips are coloured by a stable hash, never a hardcoded
 	   name map. Disjoint from every status/milestone/gate hue above. */
-	--color-dev-teal:        var(--color-teal-4);
-	--color-dev-teal-bg:     var(--color-teal-1);
-	--color-dev-lime:        var(--color-lime-4);
-	--color-dev-lime-bg:     var(--color-lime-1);
-	--color-dev-magenta:     var(--color-magenta-4);
-	--color-dev-magenta-bg:  var(--color-magenta-1);
-	--color-dev-indigo:      var(--color-indigo-4);
-	--color-dev-indigo-bg:   var(--color-indigo-1);
-	--color-dev-amber:       var(--color-amber-4);
-	--color-dev-amber-bg:    var(--color-amber-1);
-	--color-dev-rose:        var(--color-rose-4);
-	--color-dev-rose-bg:     var(--color-rose-1);
+	--color-dev-teal:        #007c6e;
+	--color-dev-teal-bg:     #d7fff7;
+	--color-dev-lime:        #677600;
+	--color-dev-lime-bg:     #f7ffac;
+	--color-dev-magenta:     #ca00b6;
+	--color-dev-magenta-bg:  #fff3fc;
+	--color-dev-indigo:      #0061fc;
+	--color-dev-indigo-bg:   #f3f3ff;
+	--color-dev-amber:       #926700;
+	--color-dev-amber-bg:    #fff8ef;
+	--color-dev-rose:        #db0072;
+	--color-dev-rose-bg:     #fff7f9;
 
-	--bg: var(--color-gray-1);
+	--bg: #f6f6f6;
 	--surface: #ffffff;
-	--text: var(--color-gray-6);
-	--muted: var(--color-gray-4);
-	--line: var(--color-gray-2);
+	--text: #222222;
+	--muted: #6f6f6f;
+	--line: #e2e2e2;
 	--grid-line: rgba(0, 117, 144, 0.06);
+	/* Mermaid chrome (edge stroke, arrowhead, edge-label backing) that the
+	   diagram's own classDefs don't cover — see the render script below for
+	   why this can't just be mermaid's base-theme default. */
+	--diagram-line: #6f6f6f;
+	--diagram-edge-label-bg: #ffffff;
+	--diagram-text: var(--text);
 }
 @media (prefers-color-scheme: dark) {
 	:root:not([data-theme="light"]) {
-		--color-milestone:       var(--color-sky-2);
-		--color-milestone-bg:    var(--color-sky-6);
-		--color-milestone-text:  var(--color-sky-1);
-		--color-primary:         var(--color-pink-2);
-		--color-primary-bg:      var(--color-pink-6);
-		--color-primary-text:    var(--color-pink-1);
-		--color-done:            var(--color-green-2);
-		--color-done-bg:         var(--color-green-6);
-		--color-todo:            var(--color-gray-3);
-		--color-todo-bg:         var(--color-gray-6);
-		--color-blocked:         var(--color-red-2);
-		--color-blocked-bg:      var(--color-red-6);
-		--color-paused:          var(--color-purple-2);
-		--color-paused-bg:       var(--color-purple-6);
-		--color-deferred:        var(--color-cinnamon-2);
-		--color-deferred-bg:     var(--color-cinnamon-6);
-		--color-out-of-scope:    var(--color-gray-5);
-		--color-out-of-scope-bg: var(--color-gray-6);
-		--color-gate:            var(--color-yellow-2);
-		--color-gate-bg:         var(--color-yellow-6);
-		--color-in-progress:     var(--color-azure-2);
-		--color-in-progress-bg:  var(--color-azure-6);
-		--color-dev-teal:        var(--color-teal-2);
-		--color-dev-teal-bg:     var(--color-teal-6);
-		--color-dev-lime:        var(--color-lime-2);
-		--color-dev-lime-bg:     var(--color-lime-6);
-		--color-dev-magenta:     var(--color-magenta-2);
-		--color-dev-magenta-bg:  var(--color-magenta-6);
-		--color-dev-indigo:      var(--color-indigo-2);
-		--color-dev-indigo-bg:   var(--color-indigo-6);
-		--color-dev-amber:       var(--color-amber-2);
-		--color-dev-amber-bg:    var(--color-amber-6);
-		--color-dev-rose:        var(--color-rose-2);
-		--color-dev-rose-bg:     var(--color-rose-6);
+		--color-milestone:       #aee9ff;
+		--color-milestone-bg:    #001f28;
+		--color-milestone-text:  #e3f7ff;
+		--color-primary:         #ffdcec;
+		--color-primary-bg:      #4b0030;
+		--color-primary-text:    #fff7fb;
+		--color-done:            #72ff6c;
+		--color-done-bg:         #062800;
+		--color-todo:            #8b8b8b;
+		--color-todo-bg:         #222222;
+		--color-blocked:         #ffddd8;
+		--color-blocked-bg:      #530003;
+		--color-paused:          #f7d9ff;
+		--color-paused-bg:       #3a004f;
+		--color-deferred:        #ffdfc6;
+		--color-deferred-bg:     #371d00;
+		--color-out-of-scope:    #3e3e3e;
+		--color-out-of-scope-bg: #222222;
+		--color-gate:            #ffe53e;
+		--color-gate-bg:         #292300;
+		--color-in-progress:     #c6e0ff;
+		--color-in-progress-bg:  #001c30;
+		--color-dev-teal:        #00ffe4;
+		--color-dev-teal-bg:     #002722;
+		--color-dev-lime:        #d5f200;
+		--color-dev-lime-bg:     #222600;
+		--color-dev-magenta:     #ffd7f6;
+		--color-dev-magenta-bg:  #44003c;
+		--color-dev-indigo:      #deddff;
+		--color-dev-indigo-bg:   #001649;
+		--color-dev-amber:       #ffe0b2;
+		--color-dev-amber-bg:    #302100;
+		--color-dev-rose:        #ffdce5;
+		--color-dev-rose-bg:     #4c0023;
 
 		--bg: #121216;
 		--surface: #1b1b21;
-		--text: var(--color-gray-1);
-		--muted: var(--color-gray-3);
-		--line: var(--color-gray-5);
+		--text: #f6f6f6;
+		--muted: #8b8b8b;
+		--line: #3e3e3e;
 		--grid-line: rgba(174, 233, 255, 0.05);
+		--diagram-line: #8b8b8b;
+		--diagram-edge-label-bg: var(--surface);
+		--diagram-text: var(--text);
 	}
 }
 /* Third theming state: an explicit toggle wins in both directions, even
-   against a light OS preference. No toggle UI ships today, but the contract
-   is the same three-state shape every other artefact uses (see
-   library/references/artefact-conventions.md), so a future toggle just
-   works. */
+   against a light OS preference. The masthead ships the light/system/dark
+   control from library/references/artefact-conventions.md; this block is
+   what it writes to when a reader picks light or dark explicitly. */
 :root[data-theme="dark"] {
-	--color-milestone:       var(--color-sky-2);
-	--color-milestone-bg:    var(--color-sky-6);
-	--color-milestone-text:  var(--color-sky-1);
-	--color-primary:         var(--color-pink-2);
-	--color-primary-bg:      var(--color-pink-6);
-	--color-primary-text:    var(--color-pink-1);
-	--color-done:            var(--color-green-2);
-	--color-done-bg:         var(--color-green-6);
-	--color-todo:            var(--color-gray-3);
-	--color-todo-bg:         var(--color-gray-6);
-	--color-blocked:         var(--color-red-2);
-	--color-blocked-bg:      var(--color-red-6);
-	--color-paused:          var(--color-purple-2);
-	--color-paused-bg:       var(--color-purple-6);
-	--color-deferred:        var(--color-cinnamon-2);
-	--color-deferred-bg:     var(--color-cinnamon-6);
-	--color-out-of-scope:    var(--color-gray-5);
-	--color-out-of-scope-bg: var(--color-gray-6);
-	--color-gate:            var(--color-yellow-2);
-	--color-gate-bg:         var(--color-yellow-6);
-	--color-in-progress:     var(--color-azure-2);
-	--color-in-progress-bg:  var(--color-azure-6);
-	--color-dev-teal:        var(--color-teal-2);
-	--color-dev-teal-bg:     var(--color-teal-6);
-	--color-dev-lime:        var(--color-lime-2);
-	--color-dev-lime-bg:     var(--color-lime-6);
-	--color-dev-magenta:     var(--color-magenta-2);
-	--color-dev-magenta-bg:  var(--color-magenta-6);
-	--color-dev-indigo:      var(--color-indigo-2);
-	--color-dev-indigo-bg:   var(--color-indigo-6);
-	--color-dev-amber:       var(--color-amber-2);
-	--color-dev-amber-bg:    var(--color-amber-6);
-	--color-dev-rose:        var(--color-rose-2);
-	--color-dev-rose-bg:     var(--color-rose-6);
+	--color-milestone:       #aee9ff;
+	--color-milestone-bg:    #001f28;
+	--color-milestone-text:  #e3f7ff;
+	--color-primary:         #ffdcec;
+	--color-primary-bg:      #4b0030;
+	--color-primary-text:    #fff7fb;
+	--color-done:            #72ff6c;
+	--color-done-bg:         #062800;
+	--color-todo:            #8b8b8b;
+	--color-todo-bg:         #222222;
+	--color-blocked:         #ffddd8;
+	--color-blocked-bg:      #530003;
+	--color-paused:          #f7d9ff;
+	--color-paused-bg:       #3a004f;
+	--color-deferred:        #ffdfc6;
+	--color-deferred-bg:     #371d00;
+	--color-out-of-scope:    #3e3e3e;
+	--color-out-of-scope-bg: #222222;
+	--color-gate:            #ffe53e;
+	--color-gate-bg:         #292300;
+	--color-in-progress:     #c6e0ff;
+	--color-in-progress-bg:  #001c30;
+	--color-dev-teal:        #00ffe4;
+	--color-dev-teal-bg:     #002722;
+	--color-dev-lime:        #d5f200;
+	--color-dev-lime-bg:     #222600;
+	--color-dev-magenta:     #ffd7f6;
+	--color-dev-magenta-bg:  #44003c;
+	--color-dev-indigo:      #deddff;
+	--color-dev-indigo-bg:   #001649;
+	--color-dev-amber:       #ffe0b2;
+	--color-dev-amber-bg:    #302100;
+	--color-dev-rose:        #ffdce5;
+	--color-dev-rose-bg:     #4c0023;
 
 	--bg: #121216;
 	--surface: #1b1b21;
-	--text: var(--color-gray-1);
-	--muted: var(--color-gray-3);
-	--line: var(--color-gray-5);
+	--text: #f6f6f6;
+	--muted: #8b8b8b;
+	--line: #3e3e3e;
 	--grid-line: rgba(174, 233, 255, 0.05);
+	--diagram-line: #8b8b8b;
+	--diagram-edge-label-bg: var(--surface);
+	--diagram-text: var(--text);
 }
 
 * { box-sizing: border-box; }
@@ -195,8 +207,20 @@ nav a { display: block; padding: 0.35rem 0.6rem; color: var(--muted); text-decor
 nav a:hover, nav a.active { color: var(--color-milestone); border-left-color: var(--color-milestone); }
 main { flex: 1; min-width: 0; padding: 2rem 0 4rem; }
 
+header.page { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 header.page h1 { font-size: 1.6rem; font-weight: 600; margin: 0 0 0.2rem; }
 header.page .meta { font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; color: var(--muted); }
+
+.theme-toggle { display: flex; gap: 0.15rem; margin-left: auto; flex: none; }
+.theme-toggle button {
+	font: 600 0.8rem "IBM Plex Mono", monospace; line-height: 1;
+	color: var(--muted); background: var(--surface); border: 1px solid var(--line);
+	border-radius: 3px; padding: 0.3rem 0.55rem; cursor: pointer;
+}
+.theme-toggle button:hover { color: var(--text); border-color: var(--color-milestone); }
+.theme-toggle button:focus-visible { outline: 2px solid var(--color-milestone); outline-offset: 2px; }
+.theme-toggle button[aria-pressed="true"] { color: var(--color-milestone-text); background: var(--color-milestone-bg); border-color: var(--color-milestone); }
+@media print { .theme-toggle { display: none; } }
 
 section { margin-top: 2.5rem; }
 h2 {
@@ -284,8 +308,10 @@ li.oos { text-decoration: line-through; color: var(--muted); }
 .legend .keynote { flex-basis: 100%; }
 
 .nextup li:not(.nextup-devgroup) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem; padding: 0.3rem 0; }
-.nextup-devgroup { display: block; padding: 0; margin-top: 1rem; }
-.nextup-devgroup:first-child { margin-top: 0; }
+/* li.nextup-devgroup, not .nextup-devgroup: .group li (display:flex) would
+   otherwise outrank it and lay a heading out beside its own list */
+.nextup li.nextup-devgroup { display: block; padding: 0; margin-top: 1rem; }
+.nextup li.nextup-devgroup:first-child { margin-top: 0; }
 .nextup-devgroup h4 { margin: 0 0 0.4rem; font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
 .signal { color: var(--muted); font-size: 0.78rem; font-family: "IBM Plex Mono", monospace; margin-left: auto; }
 
@@ -301,6 +327,37 @@ li.oos { text-decoration: line-through; color: var(--muted); }
 </style>
 </head>
 <body>
+<script>
+(function () {
+	var KEY = 'theme';
+	var root = document.documentElement;
+	function read() {
+		try { return localStorage.getItem(KEY) || 'system'; }
+		catch (e) { return 'system'; }
+	}
+	function write(mode) {
+		try { localStorage.setItem(KEY, mode); }
+		catch (e) { /* private window, blocked storage, preview capture: ignore */ }
+	}
+	function apply(mode) {
+		if (mode === 'system') root.removeAttribute('data-theme');
+		else root.setAttribute('data-theme', mode);
+		document.querySelectorAll('[data-set-theme]').forEach(function (b) {
+			b.setAttribute('aria-pressed', String(b.dataset.setTheme === mode));
+		});
+	}
+	apply(read());
+	document.addEventListener('DOMContentLoaded', function () {
+		apply(read());
+		document.querySelectorAll('[data-set-theme]').forEach(function (b) {
+			b.addEventListener('click', function () {
+				write(b.dataset.setTheme);
+				apply(b.dataset.setTheme);
+			});
+		});
+	});
+})();
+</script>
 <div class="layout">
 	<nav>
 		<a href="#overview">Overview</a>
@@ -310,8 +367,15 @@ li.oos { text-decoration: line-through; color: var(--muted); }
 	</nav>
 	<main>
 		<header class="page">
-			<h1 id="pageTitle">MVP</h1>
-			<div class="meta" id="meta"></div>
+			<div>
+				<h1 id="pageTitle">MVP</h1>
+				<div class="meta" id="meta"></div>
+			</div>
+			<div class="theme-toggle" role="group" aria-label="Colour theme">
+				<button type="button" data-set-theme="light"  aria-pressed="false">☀</button>
+				<button type="button" data-set-theme="system" aria-pressed="true">◐</button>
+				<button type="button" data-set-theme="dark"   aria-pressed="false">☾</button>
+			</div>
 		</header>
 		<div id="validation"></div>
 
@@ -339,6 +403,7 @@ li.oos { text-decoration: line-through; color: var(--muted); }
 			</div>
 			<div class="legend">
 				<span class="key"><i class="sw" style="background:var(--color-todo-bg);border-color:var(--color-todo)"></i>todo</span>
+				<span class="key"><i class="sw" style="background:var(--color-in-progress-bg);border-color:var(--color-in-progress)"></i>in progress ▸</span>
 				<span class="key"><i class="sw" style="background:var(--color-blocked-bg);border-color:var(--color-blocked);border-width:2px"></i>blocked</span>
 				<span class="key"><i class="sw" style="background:var(--color-paused-bg);border-color:var(--color-paused);border-style:dashed"></i>paused</span>
 				<span class="key"><i class="sw" style="background:var(--color-deferred-bg);border-color:var(--color-deferred);border-style:dashed"></i>deferred</span>
@@ -356,7 +421,7 @@ li.oos { text-decoration: line-through; color: var(--muted); }
 	</main>
 </div>
 
-<script id="roadmap-data" type="application/json">{"project": "the-work", "phase": "MVP", "generated": "2026-08-25T18:15:37", "stats": {"phase": "MVP", "total": 77, "byStatus": {"done": 28, "todo": 13, "blocked": 36, "paused": 0, "deferred": 0, "out_of_scope": 0}, "invalid": [], "donePct": 36, "milestonesTotal": 5, "milestonesDone": 1, "milestones": [{"id": "M1", "name": "Skeleton Slice", "total": 22, "done": 22, "byStatus": {"done": 22, "todo": 0, "blocked": 0, "paused": 0, "deferred": 0, "out_of_scope": 0}, "donePct": 100, "state": "done"}, {"id": "M2", "name": "Writing Engine", "total": 14, "done": 6, "byStatus": {"done": 6, "todo": 4, "blocked": 4, "paused": 0, "deferred": 0, "out_of_scope": 0}, "donePct": 43, "state": "blocked"}, {"id": "M3", "name": "Full Night", "total": 20, "done": 0, "byStatus": {"done": 0, "todo": 4, "blocked": 16, "paused": 0, "deferred": 0, "out_of_scope": 0}, "donePct": 0, "state": "blocked"}, {"id": "M4", "name": "Defence & Endings", "total": 9, "done": 0, "byStatus": {"done": 0, "todo": 1, "blocked": 8, "paused": 0, "deferred": 0, "out_of_scope": 0}, "donePct": 0, "state": "blocked"}, {"id": "M5", "name": "Polish", "total": 12, "done": 0, "byStatus": {"done": 0, "todo": 4, "blocked": 8, "paused": 0, "deferred": 0, "out_of_scope": 0}, "donePct": 0, "state": "blocked"}]}, "tasks": [{"id": "1EN.1", "description": "Confirm Nib saveState / loadState round-trips correctly with idea inventory", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "Inventory persisted via toJSON()/fromJSON() in autosave and manual save; SaveData.inventoryState optional field with graceful degradation", "assignee": ""}, {"id": "1UI.2", "description": "Surface save/load UI (trigger save, restore from save)", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "Escape key opens pause overlay (Save, Load Save, Quit to Menu, Resume); Ctrl+S / Cmd+S shortcut; \"Saved\" toast confirmation; Load Save on menu page", "assignee": ""}, {"id": "1EN.3", "description": "Nib engine stable (story.svelte.ts, tags.ts)", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1GS.5", "description": "Idea data model (IdeaDef, PromptDef, inventory) implemented", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1GS.6", "description": "All external functions bound in idea-bridge.ts", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1GS.7", "description": "67 observations and 40 inklings registered in idea-catalog.ts", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1GS.8", "description": "Recipes engine (develop + combine) implemented", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1GS.9", "description": "Orthodoxy scoring implemented", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1UI.3", "description": "StatusBar, ChoiceList, Passage, DevBar, Grain components built", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1NA.7", "description": "Hours d1_1830, d1_1900, d1_2000 authored and playable", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1NA.1", "description": "Author one complete object examination in Ink (observation → choice of reading)", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "48 objects authored across 6 locations (144 readings)", "assignee": ""}, {"id": "1NA.2", "description": "Author development path from one observation to one inkling (L2)", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "Dozens of O→I recipes across all 7 domains", "assignee": ""}, {"id": "1NA.3", "description": "Author development path from inkling to one L3 idea", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "23 I→C recipes registered", "assignee": ""}, {"id": "1NA.4", "description": "Author minimal per-idea writing scene in Ink (select L3 idea, commit to thesis)", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "Per-idea selective writing implemented in Tunnels.ink", "assignee": ""}, {"id": "1NA.5", "description": "Stub all unwritten hours", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "Superseded: d1_2000 loop design handles all hours via TimeNumber, no stubs needed", "assignee": ""}, {"id": "1NA.6", "description": "Wire hour stubs into main story so full narrative compiles and reaches d2_0800", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "d1_2000 loop reaches d2_0800 via TimeNumber \u003e= 20 check", "assignee": ""}, {"id": "1GS.1", "description": "Confirm acquire_idea, develop_idea, combine_ideas work end-to-end with authored Ink", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1GS.2", "description": "Confirm write_idea correctly gates on level \u003e= 3 and marks idea as written", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": ""}, {"id": "1GS.3", "description": "Wire write_idea / writable_idea_at / writable_idea_count external functions into Ink writing scene", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "All declared in IdeaSystem.ink, bound in idea-bridge.ts, called from Tunnels.ink", "assignee": ""}, {"id": "1EN.2", "description": "Wire save-load.ts autosave to fire on each story.continue() call", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "Fires in continueStory() in +page.svelte", "assignee": ""}, {"id": "1UI.1", "description": "Add ConvictionDesc Ink variable output to StatusBar", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "Reads from Ink variable, displays in StatusBar.svelte", "assignee": ""}, {"id": "1GS.4", "description": "Implement discipline detection (dominant domain pair from written ideas)", "status": "done", "dependsOn": [], "milestone": "M1", "notes": "getDominantPair() + disciplines.ts lookup table + get_discipline() Ink external + StatusBar display", "assignee": ""}, {"id": "2GS.4", "description": "Author per-idea writing scenes for each L3+ idea in the authored chain", "status": "todo", "dependsOn": ["2GS.1"], "milestone": "M2", "notes": "", "assignee": ""}, {"id": "2GS.7", "description": "Author L3–L6 idea chain for a second domain", "status": "todo", "dependsOn": ["2GS.1"], "milestone": "M2", "notes": "", "assignee": ""}, {"id": "2NA.2", "description": "Author development paths for all 40 existing inklings to at least L3", "status": "todo", "dependsOn": ["2GS.1"], "milestone": "M2", "notes": "", "assignee": ""}, {"id": "2UI.2", "description": "Thesis panel — see written ideas and current orthodoxy per domain", "status": "todo", "dependsOn": ["2GS.5"], "milestone": "M2", "notes": "", "assignee": ""}, {"id": "2GS.6", "description": "Implement per-idea writing action for every authored L3+ idea", "status": "blocked", "dependsOn": ["2NA.2"], "milestone": "M2", "notes": "The current Tunnels.ink writing scene calls get_written_level to query domain-level progress rather than selecting a specific idea; once all inklings are developed to L3+ (2NA.2), each idea needs its own writing path wired through write_idea()", "assignee": ""}, {"id": "2GS.10", "description": "Refactor Ink to remove legacy get_written_level / get_domain_level calls", "status": "blocked", "dependsOn": ["2GS.6"], "milestone": "M2", "notes": "Once 2GS.6 is complete, the old domain-level write queries become dead code; remove them from Tunnels.ink and d2_0800.ink and confirm nothing breaks", "assignee": ""}, {"id": "2GS.8", "description": "Author L3–L6 idea chain for a third domain", "status": "blocked", "dependsOn": ["2GS.7"], "milestone": "M2", "notes": "", "assignee": ""}, {"id": "2GS.9", "description": "Author combination recipe matrix (I+I→C across domains)", "status": "blocked", "dependsOn": ["2GS.8"], "milestone": "M2", "notes": "", "assignee": ""}, {"id": "2GS.1", "description": "Author L3–L6 idea content for one domain (minimum one complete chain)", "status": "done", "dependsOn": [], "milestone": "M2", "notes": "Rule domain: rebalanced L3 to 8 orthodox / 8 radical; authored first L4–L6 chain C20→CO1→AR1→TH1 with branching fork AR1+C22→TH2", "assignee": ""}, {"id": "2GS.3", "description": "Wire writing action into Ink: player selects idea by index from writable list, commits, receives confirmation text", "status": "done", "dependsOn": [], "milestone": "M2", "notes": "Already implemented in Tunnels.ink via writable_idea_at() + write_idea() + printWriteResultForIdea()", "assignee": ""}, {"id": "2NA.1", "description": "Author one combination recipe (two inklings → one idea) in Ink and recipes.ts", "status": "done", "dependsOn": [], "milestone": "M2", "notes": "Multiple exist: I26+I27→C14, I1+I6→C14, plus ~20 observation-level combination recipes", "assignee": ""}, {"id": "2GS.5", "description": "Display thesis summary (written ideas, dominant domains, discipline name) in UI", "status": "done", "dependsOn": [], "milestone": "M2", "notes": "Unified tabbed SummaryOverlay with Thesis tab (written ideas, per-domain orthodoxy bars, discipline subtitle); opens via T shortcut or StatusBar ⁋ button", "assignee": ""}, {"id": "2GS.2", "description": "Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy)", "status": "done", "dependsOn": [], "milestone": "M2", "notes": "SummaryOverlay Ideas tab (writable L3+ ideas); opens via I/T shortcuts or StatusBar ☉/⁋ buttons; tab-switching from either shortcut without closing", "assignee": ""}, {"id": "2UI.1", "description": "Idea inventory panel — see held ideas, their level, and whether writable", "status": "done", "dependsOn": [], "milestone": "M2", "notes": "Added Held tab to SummaryOverlay showing L1 observations and L2 inklings grouped by level with per-domain orthodoxy bars; opens via H shortcut or StatusBar ◧ button; arrow keys cycle Held · Ideas · Thesis", "assignee": ""}, {"id": "3NA.1", "description": "Author d1_2100 (hour 3)", "status": "blocked", "dependsOn": ["M2"], "milestone": "M3", "notes": "d1_2000 loop already handles time; this is about adding hour-specific narrative flavour", "assignee": ""}, {"id": "3NA.2", "description": "Author d1_2200 (hour 4)", "status": "blocked", "dependsOn": ["3NA.1"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.3", "description": "Author d1_2300 (hour 5)", "status": "blocked", "dependsOn": ["3NA.2"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.4", "description": "Author d2_0000 (midnight, hour 6)", "status": "blocked", "dependsOn": ["3NA.3"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.5", "description": "Author d2_0100 (hour 7)", "status": "blocked", "dependsOn": ["3NA.4"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.6", "description": "Author d2_0200 (hour 8)", "status": "blocked", "dependsOn": ["3NA.5"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.7", "description": "Author d2_0300 (hour 9)", "status": "blocked", "dependsOn": ["3NA.6"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.8", "description": "Author d2_0400 (hour 10)", "status": "blocked", "dependsOn": ["3NA.7"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.9", "description": "Author d2_0500 (hour 11)", "status": "blocked", "dependsOn": ["3NA.8"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.10", "description": "Author d2_0600 (hour 12)", "status": "blocked", "dependsOn": ["3NA.9"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.11", "description": "Author d2_0700 (hour 13, final night hour)", "status": "blocked", "dependsOn": ["3NA.10"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3GS.1", "description": "Implement sensory event trigger mechanism in Ink (tag-based or external function)", "status": "todo", "dependsOn": ["1EN.3"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3GS.2", "description": "Implement bodily state triggers (fatigue, hunger, dread thresholds)", "status": "todo", "dependsOn": ["1EN.3"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3GS.3", "description": "Implement hidden/nested object reveal mechanism", "status": "todo", "dependsOn": ["1EN.3"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3GS.4", "description": "Wire dread accumulation to bodily state triggers", "status": "blocked", "dependsOn": ["3GS.2", "1GS.9"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3EN.1", "description": "Implement storylet system (port get_storylet external function from calico-patches.md)", "status": "todo", "dependsOn": ["1EN.3"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3EN.2", "description": "Author storylets.ink with at least one proof-of-concept dynamic passage", "status": "blocked", "dependsOn": ["3EN.1"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.12", "description": "Integrate at least one storylet into a mid-night hour", "status": "blocked", "dependsOn": ["3EN.2", "3NA.4"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3NA.13", "description": "Extend observations to sensory/bodily/hidden prompt locations", "status": "blocked", "dependsOn": ["3GS.1", "3GS.2", "3GS.3"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "3UI.1", "description": "Add bodily/dread state indicators to UI (StatusBar or equivalent)", "status": "blocked", "dependsOn": ["3GS.2"], "milestone": "M3", "notes": "", "assignee": ""}, {"id": "4NA.1", "description": "Author committee introduction scene (committee composition announced, chair identified)", "status": "blocked", "dependsOn": ["M3"], "milestone": "M4", "notes": "", "assignee": ""}, {"id": "4NA.2", "description": "Author defence questioning logic (committee challenges based on thesis orthodoxy)", "status": "blocked", "dependsOn": ["4NA.1"], "milestone": "M4", "notes": "", "assignee": ""}, {"id": "4NA.3", "description": "Author at least 3 distinct ending scenes (pass orthodox, pass radical, fail)", "status": "blocked", "dependsOn": ["4NA.2", "4GS.3"], "milestone": "M4", "notes": "", "assignee": ""}, {"id": "4NA.4", "description": "Author committee chair intro dialogue for all 21 disciplines (3 member types × discipline spin)", "status": "blocked", "dependsOn": ["4NA.1"], "milestone": "M4", "notes": "", "assignee": ""}, {"id": "4GS.1", "description": "Implement discipline lookup (domain pair → discipline name → committee chair)", "status": "todo", "dependsOn": ["1GS.4"], "milestone": "M4", "notes": "", "assignee": ""}, {"id": "4GS.2", "description": "Implement committee hostility scoring from written orthodoxy profile", "status": "blocked", "dependsOn": ["4GS.1"], "milestone": "M4", "notes": "", "assignee": ""}, {"id": "4GS.3", "description": "Implement ending selection logic based on thesis profile + dread levels", "status": "blocked", "dependsOn": ["4GS.2"], "milestone": "M4", "notes": "", "assignee": ""}, {"id": "4UI.1", "description": "Add final thesis summary screen before defence begins", "status": "blocked", "dependsOn": ["2UI.2"], "milestone": "M4", "notes": "", "assignee": ""}, {"id": "4NA.5", "description": "Author special committee dynamic scenes (co-chairs, resentful rival, peripheral voice, absent authority, gatekeeper)", "status": "blocked", "dependsOn": ["4NA.4"], "milestone": "M4", "notes": "", "assignee": ""}, {"id": "5PL.1", "description": "Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte", "status": "todo", "dependsOn": [], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5PL.2", "description": "Implement smooth scroll-after-choice (scrollIntoView or Svelte action)", "status": "todo", "dependsOn": [], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5PL.3", "description": "Apply text-wrap: pretty for orphan prevention", "status": "todo", "dependsOn": [], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5EN.1", "description": "Implement history replay for save/load (record choice indices, restore seed, replay silently)", "status": "todo", "dependsOn": ["1EN.1"], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5EN.2", "description": "Wire autosave to fire on story.continue() with history-aware state", "status": "blocked", "dependsOn": ["5EN.1"], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5UI.1", "description": "Save/load UI (save slot, load from slot, delete save)", "status": "blocked", "dependsOn": ["5EN.1"], "milestone": "M5", "notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task", "assignee": ""}, {"id": "5UI.2", "description": "Autosave resume prompt on page load (\"Continue where you left off?\")", "status": "blocked", "dependsOn": ["5EN.2"], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5PL.4", "description": "Implement audio system (Howler.js-based, port from calico-patches.md)", "status": "blocked", "dependsOn": ["5PL.2"], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5PL.5", "description": "Wire #play, #pause, #stop, #volume Ink tags to audio system", "status": "blocked", "dependsOn": ["5PL.4"], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5NA.1", "description": "Add audio cues to key narrative moments", "status": "blocked", "dependsOn": ["5PL.5"], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5PL.6", "description": "Asset preloading (scan compiled Ink JSON for audio/image refs, show progress)", "status": "blocked", "dependsOn": ["5PL.4"], "milestone": "M5", "notes": "", "assignee": ""}, {"id": "5PL.7", "description": "Markdown-to-HTML for **bold** / *italic* in Ink text", "status": "blocked", "dependsOn": ["5PL.3"], "milestone": "M5", "notes": "", "assignee": ""}], "ready": {"phase": "MVP", "candidates": [{"id": "2GS.7", "description": "Author L3–L6 idea chain for a second domain", "milestone": "M2", "milestoneName": "Writing Engine", "milestoneDonePct": 43, "directDependents": 2, "transitiveUnblocks": 19, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "2NA.2", "description": "Author development paths for all 40 existing inklings to at least L3", "milestone": "M2", "milestoneName": "Writing Engine", "milestoneDonePct": 43, "directDependents": 2, "transitiveUnblocks": 19, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "2UI.2", "description": "Thesis panel — see written ideas and current orthodoxy per domain", "milestone": "M2", "milestoneName": "Writing Engine", "milestoneDonePct": 43, "directDependents": 2, "transitiveUnblocks": 18, "isMilestoneSink": true, "notes": "", "assignee": ""}, {"id": "2GS.4", "description": "Author per-idea writing scenes for each L3+ idea in the authored chain", "milestone": "M2", "milestoneName": "Writing Engine", "milestoneDonePct": 43, "directDependents": 1, "transitiveUnblocks": 17, "isMilestoneSink": true, "notes": "", "assignee": ""}, {"id": "3GS.2", "description": "Implement bodily state triggers (fatigue, hunger, dread thresholds)", "milestone": "M3", "milestoneName": "Full Night", "milestoneDonePct": 0, "directDependents": 4, "transitiveUnblocks": 8, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "3EN.1", "description": "Implement storylet system (port get_storylet external function from calico-patches.md)", "milestone": "M3", "milestoneName": "Full Night", "milestoneDonePct": 0, "directDependents": 2, "transitiveUnblocks": 7, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "3GS.1", "description": "Implement sensory event trigger mechanism in Ink (tag-based or external function)", "milestone": "M3", "milestoneName": "Full Night", "milestoneDonePct": 0, "directDependents": 2, "transitiveUnblocks": 6, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "3GS.3", "description": "Implement hidden/nested object reveal mechanism", "milestone": "M3", "milestoneName": "Full Night", "milestoneDonePct": 0, "directDependents": 2, "transitiveUnblocks": 6, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "5PL.2", "description": "Implement smooth scroll-after-choice (scrollIntoView or Svelte action)", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 1, "transitiveUnblocks": 4, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "4GS.1", "description": "Implement discipline lookup (domain pair → discipline name → committee chair)", "milestone": "M4", "milestoneName": "Defence & Endings", "milestoneDonePct": 0, "directDependents": 1, "transitiveUnblocks": 3, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "5EN.1", "description": "Implement history replay for save/load (record choice indices, restore seed, replay silently)", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 2, "transitiveUnblocks": 3, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "5PL.3", "description": "Apply text-wrap: pretty for orphan prevention", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 1, "transitiveUnblocks": 1, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "5PL.1", "description": "Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 0, "transitiveUnblocks": 0, "isMilestoneSink": true, "notes": "", "assignee": ""}]}, "mermaid": "graph TD\n\tclassDef todo fill:var(--color-todo-bg),stroke:var(--color-todo),color:var(--color-todo)\n\tclassDef blocked fill:var(--color-blocked-bg),stroke:var(--color-blocked),color:var(--color-blocked),stroke-width:2px\n\tclassDef paused fill:var(--color-paused-bg),stroke:var(--color-paused),color:var(--color-paused),stroke-dasharray:4 3\n\tclassDef deferred fill:var(--color-deferred-bg),stroke:var(--color-deferred),color:var(--color-deferred),stroke-dasharray:2 4,font-style:italic\n\tclassDef done fill:var(--color-done-bg),stroke:var(--color-done),color:var(--color-done)\n\tclassDef outOfScope fill:var(--color-out-of-scope-bg),stroke:var(--color-out-of-scope),color:var(--color-out-of-scope),stroke-dasharray:2 2\n\tclassDef mile fill:var(--color-milestone-bg),stroke:var(--color-milestone),color:var(--color-milestone),font-weight:bold\n\tclassDef external fill:var(--color-gate-bg),stroke:var(--color-gate),color:var(--color-gate),stroke-dasharray:4 3,font-style:italic\n\t2GS.4[\"2GS.4: Author per-idea writing scenes for each…\"]\n\t2GS.7[\"2GS.7: Author L3–L6 idea chain for a second dom…\"]\n\t2NA.2[\"2NA.2: Author development paths for all 40 exis…\"]\n\t2UI.2[\"2UI.2: Thesis panel — see written ideas and cur…\"]\n\t2GS.6[\"2GS.6: Implement per-idea writing action for ev…\"]\n\t2GS.10[\"2GS.10: Refactor Ink to remove legacy get_writt…\"]\n\t2GS.8[\"2GS.8: Author L3–L6 idea chain for a third doma…\"]\n\t2GS.9[\"2GS.9: Author combination recipe matrix (I+I→C…\"]\n\tM2[\"M2: Writing Engine\"]:::mile\n\t3NA.1[\"3NA.1: Author d1_2100 (hour 3)\"]\n\t3NA.2[\"3NA.2: Author d1_2200 (hour 4)\"]\n\t3NA.3[\"3NA.3: Author d1_2300 (hour 5)\"]\n\t3NA.4[\"3NA.4: Author d2_0000 (midnight, hour 6)\"]\n\t3NA.5[\"3NA.5: Author d2_0100 (hour 7)\"]\n\t3NA.6[\"3NA.6: Author d2_0200 (hour 8)\"]\n\t3NA.7[\"3NA.7: Author d2_0300 (hour 9)\"]\n\t3NA.8[\"3NA.8: Author d2_0400 (hour 10)\"]\n\t3NA.9[\"3NA.9: Author d2_0500 (hour 11)\"]\n\t3NA.10[\"3NA.10: Author d2_0600 (hour 12)\"]\n\t3NA.11[\"3NA.11: Author d2_0700 (hour 13, final night ho…\"]\n\t3GS.1[\"3GS.1: Implement sensory event trigger mechanis…\"]\n\t3GS.2[\"3GS.2: Implement bodily state triggers (fatigue…\"]\n\t3GS.3[\"3GS.3: Implement hidden/nested object reveal me…\"]\n\t3GS.4[\"3GS.4: Wire dread accumulation to bodily state…\"]\n\t3EN.1[\"3EN.1: Implement storylet system (port get_stor…\"]\n\t3EN.2[\"3EN.2: Author storylets.ink with at least one p…\"]\n\t3NA.12[\"3NA.12: Integrate at least one storylet into a…\"]\n\t3NA.13[\"3NA.13: Extend observations to sensory/bodily/h…\"]\n\t3UI.1[\"3UI.1: Add bodily/dread state indicators to UI…\"]\n\tM3[\"M3: Full Night\"]:::mile\n\t4NA.1[\"4NA.1: Author committee introduction scene (com…\"]\n\t4NA.2[\"4NA.2: Author defence questioning logic (commit…\"]\n\t4NA.4[\"4NA.4: Author committee chair intro dialogue fo…\"]\n\t4GS.1[\"4GS.1: Implement discipline lookup (domain pair…\"]\n\t4GS.2[\"4GS.2: Implement committee hostility scoring fr…\"]\n\t4GS.3[\"4GS.3: Implement ending selection logic based o…\"]\n\t4NA.3[\"4NA.3: Author at least 3 distinct ending scenes…\"]\n\t4UI.1[\"4UI.1: Add final thesis summary screen before d…\"]\n\t4NA.5[\"4NA.5: Author special committee dynamic scenes…\"]\n\tM4[\"M4: Defence & Endings\"]:::mile\n\t5PL.1[\"5PL.1: Implement keyboard shortcuts for choices…\"]\n\t5PL.2[\"5PL.2: Implement smooth scroll-after-choice (sc…\"]\n\t5PL.3[\"5PL.3: Apply text-wrap: pretty for orphan preve…\"]\n\t5EN.1[\"5EN.1: Implement history replay for save/load (…\"]\n\t5EN.2[\"5EN.2: Wire autosave to fire on story.continue(…\"]\n\t5UI.1[\"5UI.1: Save/load UI (save slot, load from slot,…\"]\n\t5UI.2[\"5UI.2: Autosave resume prompt on page load (#quot;Co…\"]\n\t5PL.4[\"5PL.4: Implement audio system (Howler.js-based,…\"]\n\t5PL.5[\"5PL.5: Wire #play, #pause, #stop, #volume Ink t…\"]\n\t5NA.1[\"5NA.1: Add audio cues to key narrative moments\"]\n\t5PL.6[\"5PL.6: Asset preloading (scan compiled Ink JSON…\"]\n\t5PL.7[\"5PL.7: Markdown-to-HTML for **bold** / *italic*…\"]\n\tM5[\"M5: Polish\"]:::mile\n\t2GS.4 --\u003e M2\n\t2GS.7 --\u003e 2GS.8\n\t2NA.2 --\u003e 2GS.6\n\t2UI.2 --\u003e M2\n\t2UI.2 --\u003e 4UI.1\n\t2GS.6 --\u003e 2GS.10\n\t2GS.10 --\u003e M2\n\t2GS.8 --\u003e 2GS.9\n\t2GS.9 --\u003e M2\n\tM2 --\u003e 3NA.1\n\t3NA.1 --\u003e 3NA.2\n\t3NA.2 --\u003e 3NA.3\n\t3NA.3 --\u003e 3NA.4\n\t3NA.4 --\u003e 3NA.5\n\t3NA.4 --\u003e 3NA.12\n\t3NA.5 --\u003e 3NA.6\n\t3NA.6 --\u003e 3NA.7\n\t3NA.7 --\u003e 3NA.8\n\t3NA.8 --\u003e 3NA.9\n\t3NA.9 --\u003e 3NA.10\n\t3NA.10 --\u003e 3NA.11\n\t3NA.11 --\u003e M3\n\t3GS.1 --\u003e 3NA.13\n\t3GS.2 --\u003e 3GS.4\n\t3GS.2 --\u003e 3NA.13\n\t3GS.2 --\u003e 3UI.1\n\t3GS.3 --\u003e 3NA.13\n\t3GS.4 --\u003e M3\n\t3EN.1 --\u003e 3EN.2\n\t3EN.2 --\u003e 3NA.12\n\t3NA.12 --\u003e M3\n\t3NA.13 --\u003e M3\n\t3UI.1 --\u003e M3\n\tM3 --\u003e 4NA.1\n\t4NA.1 --\u003e 4NA.2\n\t4NA.1 --\u003e 4NA.4\n\t4NA.2 --\u003e 4NA.3\n\t4NA.4 --\u003e 4NA.5\n\t4GS.1 --\u003e 4GS.2\n\t4GS.2 --\u003e 4GS.3\n\t4GS.3 --\u003e 4NA.3\n\t4NA.3 --\u003e M4\n\t4UI.1 --\u003e M4\n\t4NA.5 --\u003e M4\n\t5PL.1 --\u003e M5\n\t5PL.2 --\u003e 5PL.4\n\t5PL.3 --\u003e 5PL.7\n\t5EN.1 --\u003e 5EN.2\n\t5EN.1 --\u003e 5UI.1\n\t5EN.2 --\u003e 5UI.2\n\t5UI.1 --\u003e M5\n\t5UI.2 --\u003e M5\n\t5PL.4 --\u003e 5PL.5\n\t5PL.4 --\u003e 5PL.6\n\t5PL.5 --\u003e 5NA.1\n\t5NA.1 --\u003e M5\n\t5PL.6 --\u003e M5\n\t5PL.7 --\u003e M5\n\tclass 2GS.4,2GS.7,2NA.2,2UI.2,3EN.1,3GS.1,3GS.2,3GS.3,4GS.1,5EN.1,5PL.1,5PL.2,5PL.3 todo\n\tclass 2GS.10,2GS.6,2GS.8,2GS.9,3EN.2,3GS.4,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,3UI.1,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5NA.1,5PL.4,5PL.5,5PL.6,5PL.7,5UI.1,5UI.2 blocked", "validation": [], "devColours": {}, "depKinds": {"1EN.1": {"kind": "task", "status": "done"}, "1UI.2": {"kind": "task", "status": "done"}, "1EN.3": {"kind": "task", "status": "done"}, "1GS.5": {"kind": "task", "status": "done"}, "1GS.6": {"kind": "task", "status": "done"}, "1GS.7": {"kind": "task", "status": "done"}, "1GS.8": {"kind": "task", "status": "done"}, "1GS.9": {"kind": "task", "status": "done"}, "1UI.3": {"kind": "task", "status": "done"}, "1NA.7": {"kind": "task", "status": "done"}, "1NA.1": {"kind": "task", "status": "done"}, "1NA.2": {"kind": "task", "status": "done"}, "1NA.3": {"kind": "task", "status": "done"}, "1NA.4": {"kind": "task", "status": "done"}, "1NA.5": {"kind": "task", "status": "done"}, "1NA.6": {"kind": "task", "status": "done"}, "1GS.1": {"kind": "task", "status": "done"}, "1GS.2": {"kind": "task", "status": "done"}, "1GS.3": {"kind": "task", "status": "done"}, "1EN.2": {"kind": "task", "status": "done"}, "1UI.1": {"kind": "task", "status": "done"}, "1GS.4": {"kind": "task", "status": "done"}, "2GS.4": {"kind": "task", "status": "todo"}, "2GS.7": {"kind": "task", "status": "todo"}, "2NA.2": {"kind": "task", "status": "todo"}, "2UI.2": {"kind": "task", "status": "todo"}, "2GS.6": {"kind": "task", "status": "blocked"}, "2GS.10": {"kind": "task", "status": "blocked"}, "2GS.8": {"kind": "task", "status": "blocked"}, "2GS.9": {"kind": "task", "status": "blocked"}, "2GS.1": {"kind": "task", "status": "done"}, "2GS.3": {"kind": "task", "status": "done"}, "2NA.1": {"kind": "task", "status": "done"}, "2GS.5": {"kind": "task", "status": "done"}, "2GS.2": {"kind": "task", "status": "done"}, "2UI.1": {"kind": "task", "status": "done"}, "3NA.1": {"kind": "task", "status": "blocked"}, "3NA.2": {"kind": "task", "status": "blocked"}, "3NA.3": {"kind": "task", "status": "blocked"}, "3NA.4": {"kind": "task", "status": "blocked"}, "3NA.5": {"kind": "task", "status": "blocked"}, "3NA.6": {"kind": "task", "status": "blocked"}, "3NA.7": {"kind": "task", "status": "blocked"}, "3NA.8": {"kind": "task", "status": "blocked"}, "3NA.9": {"kind": "task", "status": "blocked"}, "3NA.10": {"kind": "task", "status": "blocked"}, "3NA.11": {"kind": "task", "status": "blocked"}, "3GS.1": {"kind": "task", "status": "todo"}, "3GS.2": {"kind": "task", "status": "todo"}, "3GS.3": {"kind": "task", "status": "todo"}, "3GS.4": {"kind": "task", "status": "blocked"}, "3EN.1": {"kind": "task", "status": "todo"}, "3EN.2": {"kind": "task", "status": "blocked"}, "3NA.12": {"kind": "task", "status": "blocked"}, "3NA.13": {"kind": "task", "status": "blocked"}, "3UI.1": {"kind": "task", "status": "blocked"}, "4NA.1": {"kind": "task", "status": "blocked"}, "4NA.2": {"kind": "task", "status": "blocked"}, "4NA.3": {"kind": "task", "status": "blocked"}, "4NA.4": {"kind": "task", "status": "blocked"}, "4GS.1": {"kind": "task", "status": "todo"}, "4GS.2": {"kind": "task", "status": "blocked"}, "4GS.3": {"kind": "task", "status": "blocked"}, "4UI.1": {"kind": "task", "status": "blocked"}, "4NA.5": {"kind": "task", "status": "blocked"}, "5PL.1": {"kind": "task", "status": "todo"}, "5PL.2": {"kind": "task", "status": "todo"}, "5PL.3": {"kind": "task", "status": "todo"}, "5EN.1": {"kind": "task", "status": "todo"}, "5EN.2": {"kind": "task", "status": "blocked"}, "5UI.1": {"kind": "task", "status": "blocked"}, "5UI.2": {"kind": "task", "status": "blocked"}, "5PL.4": {"kind": "task", "status": "blocked"}, "5PL.5": {"kind": "task", "status": "blocked"}, "5NA.1": {"kind": "task", "status": "blocked"}, "5PL.6": {"kind": "task", "status": "blocked"}, "5PL.7": {"kind": "task", "status": "blocked"}, "M1": {"kind": "milestone"}, "M2": {"kind": "milestone"}, "M3": {"kind": "milestone"}, "M4": {"kind": "milestone"}, "M5": {"kind": "milestone"}}}</script>
+<script id="roadmap-data" type="application/json">{"project": "the-work", "phase": "MVP", "generated": "2026-09-25T20:13:06", "stats": {"phase": "MVP", "total": 99, "byStatus": {"done": 28, "todo": 15, "blocked": 56, "paused": 0, "deferred": 0, "out_of_scope": 0}, "inProgress": 0, "invalid": [], "donePct": 28, "milestonesTotal": 5, "milestonesDone": 1, "milestones": [{"id": "M1", "name": "Skeleton Slice", "total": 22, "done": 22, "byStatus": {"done": 22, "todo": 0, "blocked": 0, "paused": 0, "deferred": 0, "out_of_scope": 0}, "inProgress": 0, "donePct": 100, "state": "done"}, {"id": "M2", "name": "Writing Engine", "total": 28, "done": 6, "byStatus": {"done": 6, "todo": 5, "blocked": 17, "paused": 0, "deferred": 0, "out_of_scope": 0}, "inProgress": 0, "donePct": 21, "state": "blocked"}, {"id": "M3", "name": "Full Night", "total": 20, "done": 0, "byStatus": {"done": 0, "todo": 3, "blocked": 17, "paused": 0, "deferred": 0, "out_of_scope": 0}, "inProgress": 0, "donePct": 0, "state": "blocked"}, {"id": "M4", "name": "Defence & Endings", "total": 9, "done": 0, "byStatus": {"done": 0, "todo": 1, "blocked": 8, "paused": 0, "deferred": 0, "out_of_scope": 0}, "inProgress": 0, "donePct": 0, "state": "blocked"}, {"id": "M5", "name": "Polish", "total": 20, "done": 0, "byStatus": {"done": 0, "todo": 6, "blocked": 14, "paused": 0, "deferred": 0, "out_of_scope": 0}, "inProgress": 0, "donePct": 0, "state": "blocked"}]}, "tasks": [{"id": "1EN.1", "description": "Confirm Nib saveState / loadState round-trips correctly with idea inventory", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "Inventory persisted via toJSON()/fromJSON() in autosave and manual save; SaveData.inventoryState optional field with graceful degradation", "assignee": "", "started": ""}, {"id": "1UI.2", "description": "Surface save/load UI (trigger save, restore from save)", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "Escape key opens pause overlay (Save, Load Save, Quit to Menu, Resume); Ctrl+S / Cmd+S shortcut; \"Saved\" toast confirmation; Load Save on menu page", "assignee": "", "started": ""}, {"id": "1EN.3", "description": "Nib engine stable (story.svelte.ts, tags.ts)", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1GS.5", "description": "Idea data model (IdeaDef, PromptDef, inventory) implemented", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1GS.6", "description": "All external functions bound in idea-bridge.ts", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1GS.7", "description": "67 observations and 40 inklings registered in idea-catalog.ts", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1GS.8", "description": "Recipes engine (develop + combine) implemented", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1GS.9", "description": "Orthodoxy scoring implemented", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1UI.3", "description": "StatusBar, ChoiceList, Passage, DevBar, Grain components built", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1NA.7", "description": "Hours d1_1830, d1_1900, d1_2000 authored and playable", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1NA.1", "description": "Author one complete object examination in Ink (observation → choice of reading)", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "48 objects authored across 6 locations (144 readings)", "assignee": "", "started": ""}, {"id": "1NA.2", "description": "Author development path from one observation to one inkling (L2)", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "Dozens of O→I recipes across all 7 domains", "assignee": "", "started": ""}, {"id": "1NA.3", "description": "Author development path from inkling to one L3 idea", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "23 I→C recipes registered", "assignee": "", "started": ""}, {"id": "1NA.4", "description": "Author minimal per-idea writing scene in Ink (select L3 idea, commit to thesis)", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "Per-idea selective writing implemented in Tunnels.ink", "assignee": "", "started": ""}, {"id": "1NA.5", "description": "Stub all unwritten hours", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "Superseded: d1_2000 loop design handles all hours via TimeNumber, no stubs needed", "assignee": "", "started": ""}, {"id": "1NA.6", "description": "Wire hour stubs into main story so full narrative compiles and reaches d2_0800", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "d1_2000 loop reaches d2_0800 via TimeNumber \u003e= 20 check", "assignee": "", "started": ""}, {"id": "1GS.1", "description": "Confirm acquire_idea, develop_idea, combine_ideas work end-to-end with authored Ink", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1GS.2", "description": "Confirm write_idea correctly gates on level \u003e= 3 and marks idea as written", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "", "assignee": "", "started": ""}, {"id": "1GS.3", "description": "Wire write_idea / writable_idea_at / writable_idea_count external functions into Ink writing scene", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "All declared in IdeaSystem.ink, bound in idea-bridge.ts, called from Tunnels.ink", "assignee": "", "started": ""}, {"id": "1EN.2", "description": "Wire save-load.ts autosave to fire on each story.continue() call", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "Fires in continueStory() in +page.svelte", "assignee": "", "started": ""}, {"id": "1UI.1", "description": "Add ConvictionDesc Ink variable output to StatusBar", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "Reads from Ink variable, displays in StatusBar.svelte", "assignee": "", "started": ""}, {"id": "1GS.4", "description": "Implement discipline detection (dominant domain pair from written ideas)", "status": "done", "display": "done", "dependsOn": [], "milestone": "M1", "notes": "getDominantPair() + disciplines.ts lookup table + get_discipline() Ink external + StatusBar display", "assignee": "", "started": ""}, {"id": "2GS.4", "description": "Author per-idea writing scenes for each L3+ idea in the authored chain", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.1", "2EN.1", "2EN.2", "2EN.3", "2EN.4", "2EN.5", "2EN.6"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.7", "description": "Author L3–L6 idea chain for a second domain", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.1", "2EN.1", "2EN.2", "2EN.3", "2EN.4", "2EN.5", "2EN.6"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2NA.2", "description": "Author development paths for all 40 existing inklings to at least L3", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.1", "2EN.1", "2EN.2", "2EN.3", "2EN.4", "2EN.5", "2EN.6"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2UI.2", "description": "Thesis panel — see written ideas and current orthodoxy per domain", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.5", "2EN.1", "2EN.2", "2EN.3", "2EN.4", "2EN.5", "2EN.6"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2EN.1", "description": "Wire choice tags through Nib and replace CATEGORY_MOODS text-matching", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2EN.2", "description": "Replace story.tick bump-and-rederive pattern with ObserveVariable-backed reactivity", "status": "blocked", "display": "blocked", "dependsOn": ["2EN.1"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2EN.3", "description": "Move get_storylet stub out of story.svelte.ts into game code", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M2", "notes": "Restores Nib's zero-game-imports rule; unblocks 3EN.1 to implement real storylet behaviour on a clean base", "assignee": "", "started": ""}, {"id": "2EN.4", "description": "Surface Ink errors/warnings to DevBar instead of console-only", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2EN.5", "description": "Add regression check: external functions still fire after loadState() restores a save", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M2", "notes": "Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call", "assignee": "", "started": ""}, {"id": "2EN.6", "description": "Wire #class: tag through continue() to Passage.svelte (or cut README claim)", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.6", "description": "Implement per-idea writing action for every authored L3+ idea", "status": "blocked", "display": "blocked", "dependsOn": ["2NA.2"], "milestone": "M2", "notes": "The current Tunnels.ink writing scene calls get_written_level to query domain-level progress rather than selecting a specific idea; once all inklings are developed to L3+ (2NA.2), each idea needs its own writing path wired through write_idea()", "assignee": "", "started": ""}, {"id": "2GS.10", "description": "Refactor Ink to remove legacy get_written_level / get_domain_level calls", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.6"], "milestone": "M2", "notes": "Once 2GS.6 is complete, the old domain-level write queries become dead code; remove them from Tunnels.ink and d2_0800.ink and confirm nothing breaks", "assignee": "", "started": ""}, {"id": "2GS.8", "description": "Author L3–L6 idea chain for a third domain", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.7"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.9", "description": "Author combination recipe matrix (I+I→C across domains)", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.8"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.11", "description": "Author L3–L6 idea chain for a fourth domain", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.8"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.12", "description": "Author L3–L6 idea chain for a fifth domain", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.11"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.13", "description": "Extend combination recipe matrix to four domains", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.9", "2GS.11"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.14", "description": "Extend combination recipe matrix to five domains", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.13", "2GS.12"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.15", "description": "Author L3–L6 idea chain for a sixth domain", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.12"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.16", "description": "Extend combination recipe matrix to six domains", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.14", "2GS.15"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.17", "description": "Author L3–L6 idea chain for a seventh domain", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.15"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.18", "description": "Extend combination recipe matrix to all seven domains", "status": "blocked", "display": "blocked", "dependsOn": ["2GS.16", "2GS.17"], "milestone": "M2", "notes": "", "assignee": "", "started": ""}, {"id": "2GS.1", "description": "Author L3–L6 idea content for one domain (minimum one complete chain)", "status": "done", "display": "done", "dependsOn": [], "milestone": "M2", "notes": "Rule domain: rebalanced L3 to 8 orthodox / 8 radical; authored first L4–L6 chain C20→CO1→AR1→TH1 with branching fork AR1+C22→TH2", "assignee": "", "started": ""}, {"id": "2GS.3", "description": "Wire writing action into Ink: player selects idea by index from writable list, commits, receives confirmation text", "status": "done", "display": "done", "dependsOn": [], "milestone": "M2", "notes": "Already implemented in Tunnels.ink via writable_idea_at() + write_idea() + printWriteResultForIdea()", "assignee": "", "started": ""}, {"id": "2NA.1", "description": "Author one combination recipe (two inklings → one idea) in Ink and recipes.ts", "status": "done", "display": "done", "dependsOn": [], "milestone": "M2", "notes": "Multiple exist: I26+I27→C14, I1+I6→C14, plus ~20 observation-level combination recipes", "assignee": "", "started": ""}, {"id": "2GS.5", "description": "Display thesis summary (written ideas, dominant domains, discipline name) in UI", "status": "done", "display": "done", "dependsOn": [], "milestone": "M2", "notes": "Unified tabbed SummaryOverlay with Thesis tab (written ideas, per-domain orthodoxy bars, discipline subtitle); opens via T shortcut or StatusBar ⁋ button", "assignee": "", "started": ""}, {"id": "2GS.2", "description": "Implement writable-ideas UI panel (display held ideas, highlight writable, show level/orthodoxy)", "status": "done", "display": "done", "dependsOn": [], "milestone": "M2", "notes": "SummaryOverlay Ideas tab (writable L3+ ideas); opens via I/T shortcuts or StatusBar ☉/⁋ buttons; tab-switching from either shortcut without closing", "assignee": "", "started": ""}, {"id": "2UI.1", "description": "Idea inventory panel — see held ideas, their level, and whether writable", "status": "done", "display": "done", "dependsOn": [], "milestone": "M2", "notes": "Added Held tab to SummaryOverlay showing L1 observations and L2 inklings grouped by level with per-domain orthodoxy bars; opens via H shortcut or StatusBar ◧ button; arrow keys cycle Held · Ideas · Thesis", "assignee": "", "started": ""}, {"id": "3NA.1", "description": "Author d1_2100 (hour 3)", "status": "blocked", "display": "blocked", "dependsOn": ["M2"], "milestone": "M3", "notes": "d1_2000 loop already handles time; this is about adding hour-specific narrative flavour", "assignee": "", "started": ""}, {"id": "3NA.2", "description": "Author d1_2200 (hour 4)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.1"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.3", "description": "Author d1_2300 (hour 5)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.2"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.4", "description": "Author d2_0000 (midnight, hour 6)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.3"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.5", "description": "Author d2_0100 (hour 7)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.4"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.6", "description": "Author d2_0200 (hour 8)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.5"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.7", "description": "Author d2_0300 (hour 9)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.6"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.8", "description": "Author d2_0400 (hour 10)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.7"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.9", "description": "Author d2_0500 (hour 11)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.8"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.10", "description": "Author d2_0600 (hour 12)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.9"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.11", "description": "Author d2_0700 (hour 13, final night hour)", "status": "blocked", "display": "blocked", "dependsOn": ["3NA.10"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3GS.1", "description": "Implement sensory event trigger mechanism in Ink (tag-based or external function)", "status": "todo", "display": "todo", "dependsOn": ["1EN.3"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3GS.2", "description": "Implement bodily state triggers (fatigue, hunger, dread thresholds)", "status": "todo", "display": "todo", "dependsOn": ["1EN.3"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3GS.3", "description": "Implement hidden/nested object reveal mechanism", "status": "todo", "display": "todo", "dependsOn": ["1EN.3"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3GS.4", "description": "Wire dread accumulation to bodily state triggers", "status": "blocked", "display": "blocked", "dependsOn": ["3GS.2", "1GS.9"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3EN.1", "description": "Implement storylet system (port get_storylet external function from calico-patches.md)", "status": "blocked", "display": "blocked", "dependsOn": ["1EN.3", "2EN.3"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3EN.2", "description": "Author storylets.ink with at least one proof-of-concept dynamic passage", "status": "blocked", "display": "blocked", "dependsOn": ["3EN.1"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.12", "description": "Integrate at least one storylet into a mid-night hour", "status": "blocked", "display": "blocked", "dependsOn": ["3EN.2", "3NA.4"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "3NA.13", "description": "Extend observations to sensory/bodily/hidden prompt locations", "status": "blocked", "display": "blocked", "dependsOn": ["3GS.1", "3GS.2", "3GS.3"], "milestone": "M3", "notes": "Covers the full 67-observation target: 48 of 67 objects already authored; this task carries the remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67)", "assignee": "", "started": ""}, {"id": "3UI.1", "description": "Add bodily/dread state indicators to UI (StatusBar or equivalent)", "status": "blocked", "display": "blocked", "dependsOn": ["3GS.2"], "milestone": "M3", "notes": "", "assignee": "", "started": ""}, {"id": "4NA.1", "description": "Author committee introduction scene (committee composition announced, chair identified)", "status": "blocked", "display": "blocked", "dependsOn": ["M3"], "milestone": "M4", "notes": "", "assignee": "", "started": ""}, {"id": "4NA.2", "description": "Author defence questioning logic (committee challenges based on thesis orthodoxy)", "status": "blocked", "display": "blocked", "dependsOn": ["4NA.1"], "milestone": "M4", "notes": "", "assignee": "", "started": ""}, {"id": "4NA.3", "description": "Author at least 3 distinct ending scenes (pass orthodox, pass radical, fail)", "status": "blocked", "display": "blocked", "dependsOn": ["4NA.2", "4GS.3"], "milestone": "M4", "notes": "", "assignee": "", "started": ""}, {"id": "4NA.4", "description": "Author committee chair intro dialogue for all 21 disciplines (3 member types × discipline spin)", "status": "blocked", "display": "blocked", "dependsOn": ["4NA.1", "2GS.18"], "milestone": "M4", "notes": "", "assignee": "", "started": ""}, {"id": "4GS.1", "description": "Implement discipline lookup (domain pair → discipline name → committee chair)", "status": "todo", "display": "todo", "dependsOn": ["1GS.4"], "milestone": "M4", "notes": "", "assignee": "", "started": ""}, {"id": "4GS.2", "description": "Implement committee hostility scoring from written orthodoxy profile", "status": "blocked", "display": "blocked", "dependsOn": ["4GS.1"], "milestone": "M4", "notes": "", "assignee": "", "started": ""}, {"id": "4GS.3", "description": "Implement ending selection logic based on thesis profile + dread levels", "status": "blocked", "display": "blocked", "dependsOn": ["4GS.2"], "milestone": "M4", "notes": "", "assignee": "", "started": ""}, {"id": "4UI.1", "description": "Add final thesis summary screen before defence begins", "status": "blocked", "display": "blocked", "dependsOn": ["2UI.2"], "milestone": "M4", "notes": "", "assignee": "", "started": ""}, {"id": "4NA.5", "description": "Author special committee dynamic scenes (co-chairs, resentful rival, peripheral voice, absent authority, gatekeeper)", "status": "blocked", "display": "blocked", "dependsOn": ["4NA.4"], "milestone": "M4", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.1", "description": "Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.2", "description": "Implement smooth scroll-after-choice (scrollIntoView or Svelte action)", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.3", "description": "Apply text-wrap: pretty for orphan prevention", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5EN.1", "description": "Implement history replay for save/load (record choice indices, restore seed, replay silently)", "status": "todo", "display": "todo", "dependsOn": ["1EN.1"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5EN.2", "description": "Wire autosave to fire on story.continue() with history-aware state", "status": "blocked", "display": "blocked", "dependsOn": ["5EN.1"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5UI.1", "description": "Save/load UI (save slot, load from slot, delete save)", "status": "blocked", "display": "blocked", "dependsOn": ["5EN.1"], "milestone": "M5", "notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task", "assignee": "", "started": ""}, {"id": "5UI.2", "description": "Autosave resume prompt on page load (\"Continue where you left off?\")", "status": "blocked", "display": "blocked", "dependsOn": ["5EN.2"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.4", "description": "Implement audio system (Howler.js-based, port from calico-patches.md)", "status": "blocked", "display": "blocked", "dependsOn": ["5PL.2"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.5", "description": "Wire #play, #pause, #stop, #volume Ink tags to audio system", "status": "blocked", "display": "blocked", "dependsOn": ["5PL.4"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5NA.1", "description": "Add audio cues to key narrative moments", "status": "blocked", "display": "blocked", "dependsOn": ["5PL.5"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.6", "description": "Asset preloading (scan compiled Ink JSON for audio/image refs, show progress)", "status": "blocked", "display": "blocked", "dependsOn": ["5PL.4"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.7", "description": "Markdown-to-HTML for **bold** / *italic* in Ink text", "status": "blocked", "display": "blocked", "dependsOn": ["5PL.3"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.8", "description": "Implement #frame: tag handler and layered parallax component", "status": "blocked", "display": "blocked", "dependsOn": ["2EN.6"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.9", "description": "Add parallax frames to key atmospheric scenes", "status": "blocked", "display": "blocked", "dependsOn": ["5PL.8"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5PL.10", "description": "Implement drag-to-scroll (desktop click-and-drag)", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5EN.3", "description": "Stamp save version (git tag) into SaveData and check on load", "status": "todo", "display": "todo", "dependsOn": [], "milestone": "M5", "notes": "A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting", "assignee": "", "started": ""}, {"id": "5EN.4", "description": "Implement story.stepBack() (rewind to previous passage)", "status": "blocked", "display": "blocked", "dependsOn": ["5EN.1", "5EN.3"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5EN.5", "description": "Add step-back control/shortcut to the UI", "status": "blocked", "display": "blocked", "dependsOn": ["5EN.4"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5EN.6", "description": "Save export/import", "status": "blocked", "display": "blocked", "dependsOn": ["5UI.1", "5EN.3"], "milestone": "M5", "notes": "", "assignee": "", "started": ""}, {"id": "5EN.7", "description": "Save-fixture regression test across tagged versions", "status": "blocked", "display": "blocked", "dependsOn": ["5EN.3"], "milestone": "M5", "notes": "tests/fixtures/saves/\u003cversion\u003e.json captured per tag; a Vitest test loads each fixture and asserts the version-mismatch policy holds", "assignee": "", "started": ""}], "ready": {"phase": "MVP", "candidates": [{"id": "2EN.3", "description": "Move get_storylet stub out of story.svelte.ts into game code", "milestone": "M2", "milestoneName": "Writing Engine", "milestoneDonePct": 21, "directDependents": 6, "transitiveUnblocks": 36, "isMilestoneSink": false, "notes": "Restores Nib's zero-game-imports rule; unblocks 3EN.1 to implement real storylet behaviour on a clean base", "assignee": ""}, {"id": "2EN.6", "description": "Wire #class: tag through continue() to Passage.svelte (or cut README claim)", "milestone": "M2", "milestoneName": "Writing Engine", "milestoneDonePct": 21, "directDependents": 6, "transitiveUnblocks": 36, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "2EN.1", "description": "Wire choice tags through Nib and replace CATEGORY_MOODS text-matching", "milestone": "M2", "milestoneName": "Writing Engine", "milestoneDonePct": 21, "directDependents": 6, "transitiveUnblocks": 35, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "2EN.4", "description": "Surface Ink errors/warnings to DevBar instead of console-only", "milestone": "M2", "milestoneName": "Writing Engine", "milestoneDonePct": 21, "directDependents": 5, "transitiveUnblocks": 34, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "2EN.5", "description": "Add regression check: external functions still fire after loadState() restores a save", "milestone": "M2", "milestoneName": "Writing Engine", "milestoneDonePct": 21, "directDependents": 5, "transitiveUnblocks": 34, "isMilestoneSink": false, "notes": "Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call", "assignee": ""}, {"id": "3GS.2", "description": "Implement bodily state triggers (fatigue, hunger, dread thresholds)", "milestone": "M3", "milestoneName": "Full Night", "milestoneDonePct": 0, "directDependents": 4, "transitiveUnblocks": 8, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "3GS.1", "description": "Implement sensory event trigger mechanism in Ink (tag-based or external function)", "milestone": "M3", "milestoneName": "Full Night", "milestoneDonePct": 0, "directDependents": 2, "transitiveUnblocks": 6, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "3GS.3", "description": "Implement hidden/nested object reveal mechanism", "milestone": "M3", "milestoneName": "Full Night", "milestoneDonePct": 0, "directDependents": 2, "transitiveUnblocks": 6, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "5EN.1", "description": "Implement history replay for save/load (record choice indices, restore seed, replay silently)", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 3, "transitiveUnblocks": 6, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "5EN.3", "description": "Stamp save version (git tag) into SaveData and check on load", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 3, "transitiveUnblocks": 4, "isMilestoneSink": false, "notes": "A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting", "assignee": ""}, {"id": "5PL.2", "description": "Implement smooth scroll-after-choice (scrollIntoView or Svelte action)", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 1, "transitiveUnblocks": 4, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "4GS.1", "description": "Implement discipline lookup (domain pair → discipline name → committee chair)", "milestone": "M4", "milestoneName": "Defence & Endings", "milestoneDonePct": 0, "directDependents": 1, "transitiveUnblocks": 3, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "5PL.3", "description": "Apply text-wrap: pretty for orphan prevention", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 1, "transitiveUnblocks": 1, "isMilestoneSink": false, "notes": "", "assignee": ""}, {"id": "5PL.1", "description": "Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 0, "transitiveUnblocks": 0, "isMilestoneSink": true, "notes": "", "assignee": ""}, {"id": "5PL.10", "description": "Implement drag-to-scroll (desktop click-and-drag)", "milestone": "M5", "milestoneName": "Polish", "milestoneDonePct": 0, "directDependents": 0, "transitiveUnblocks": 0, "isMilestoneSink": true, "notes": "", "assignee": ""}], "claimed": []}, "mermaid": "graph TD\n\tclassDef todo fill:var(--color-todo-bg),stroke:var(--color-todo),color:var(--color-todo)\n\tclassDef inProgress fill:var(--color-in-progress-bg),stroke:var(--color-in-progress),color:var(--color-in-progress)\n\tclassDef blocked fill:var(--color-blocked-bg),stroke:var(--color-blocked),color:var(--color-blocked),stroke-width:2px\n\tclassDef paused fill:var(--color-paused-bg),stroke:var(--color-paused),color:var(--color-paused),stroke-dasharray:4 3\n\tclassDef deferred fill:var(--color-deferred-bg),stroke:var(--color-deferred),color:var(--color-deferred),stroke-dasharray:2 4,font-style:italic\n\tclassDef done fill:var(--color-done-bg),stroke:var(--color-done),color:var(--color-done)\n\tclassDef outOfScope fill:var(--color-out-of-scope-bg),stroke:var(--color-out-of-scope),color:var(--color-out-of-scope),stroke-dasharray:2 2\n\tclassDef mile fill:var(--color-milestone-bg),stroke:var(--color-milestone),color:var(--color-milestone),font-weight:bold\n\tclassDef external fill:var(--color-gate-bg),stroke:var(--color-gate),color:var(--color-gate),stroke-dasharray:4 3,font-style:italic\n\t2EN.1[\"2EN.1: Wire choice tags through Nib and replace…\"]\n\t2EN.2[\"2EN.2: Replace story.tick bump-and-rederive pat…\"]\n\t2EN.3[\"2EN.3: Move get_storylet stub out of story.svel…\"]\n\t2EN.4[\"2EN.4: Surface Ink errors/warnings to DevBar in…\"]\n\t2EN.5[\"2EN.5: Add regression check: external functions…\"]\n\t2EN.6[\"2EN.6: Wire #class: tag through continue() to P…\"]\n\t2GS.4[\"2GS.4: Author per-idea writing scenes for each…\"]\n\t2GS.7[\"2GS.7: Author L3–L6 idea chain for a second dom…\"]\n\t2NA.2[\"2NA.2: Author development paths for all 40 exis…\"]\n\t2UI.2[\"2UI.2: Thesis panel — see written ideas and cur…\"]\n\t2GS.6[\"2GS.6: Implement per-idea writing action for ev…\"]\n\t2GS.10[\"2GS.10: Refactor Ink to remove legacy get_writt…\"]\n\t2GS.8[\"2GS.8: Author L3–L6 idea chain for a third doma…\"]\n\t2GS.9[\"2GS.9: Author combination recipe matrix (I+I→C…\"]\n\t2GS.11[\"2GS.11: Author L3–L6 idea chain for a fourth do…\"]\n\t2GS.12[\"2GS.12: Author L3–L6 idea chain for a fifth dom…\"]\n\t2GS.13[\"2GS.13: Extend combination recipe matrix to fou…\"]\n\t2GS.14[\"2GS.14: Extend combination recipe matrix to fiv…\"]\n\t2GS.15[\"2GS.15: Author L3–L6 idea chain for a sixth dom…\"]\n\t2GS.16[\"2GS.16: Extend combination recipe matrix to six…\"]\n\t2GS.17[\"2GS.17: Author L3–L6 idea chain for a seventh d…\"]\n\t2GS.18[\"2GS.18: Extend combination recipe matrix to all…\"]\n\tM2[\"M2: Writing Engine\"]:::mile\n\t3NA.1[\"3NA.1: Author d1_2100 (hour 3)\"]\n\t3NA.2[\"3NA.2: Author d1_2200 (hour 4)\"]\n\t3NA.3[\"3NA.3: Author d1_2300 (hour 5)\"]\n\t3NA.4[\"3NA.4: Author d2_0000 (midnight, hour 6)\"]\n\t3NA.5[\"3NA.5: Author d2_0100 (hour 7)\"]\n\t3NA.6[\"3NA.6: Author d2_0200 (hour 8)\"]\n\t3NA.7[\"3NA.7: Author d2_0300 (hour 9)\"]\n\t3NA.8[\"3NA.8: Author d2_0400 (hour 10)\"]\n\t3NA.9[\"3NA.9: Author d2_0500 (hour 11)\"]\n\t3NA.10[\"3NA.10: Author d2_0600 (hour 12)\"]\n\t3NA.11[\"3NA.11: Author d2_0700 (hour 13, final night ho…\"]\n\t3GS.1[\"3GS.1: Implement sensory event trigger mechanis…\"]\n\t3GS.2[\"3GS.2: Implement bodily state triggers (fatigue…\"]\n\t3GS.3[\"3GS.3: Implement hidden/nested object reveal me…\"]\n\t3GS.4[\"3GS.4: Wire dread accumulation to bodily state…\"]\n\t3EN.1[\"3EN.1: Implement storylet system (port get_stor…\"]\n\t3EN.2[\"3EN.2: Author storylets.ink with at least one p…\"]\n\t3NA.12[\"3NA.12: Integrate at least one storylet into a…\"]\n\t3NA.13[\"3NA.13: Extend observations to sensory/bodily/h…\"]\n\t3UI.1[\"3UI.1: Add bodily/dread state indicators to UI…\"]\n\tM3[\"M3: Full Night\"]:::mile\n\t4NA.1[\"4NA.1: Author committee introduction scene (com…\"]\n\t4NA.2[\"4NA.2: Author defence questioning logic (commit…\"]\n\t4NA.4[\"4NA.4: Author committee chair intro dialogue fo…\"]\n\t4GS.1[\"4GS.1: Implement discipline lookup (domain pair…\"]\n\t4GS.2[\"4GS.2: Implement committee hostility scoring fr…\"]\n\t4GS.3[\"4GS.3: Implement ending selection logic based o…\"]\n\t4NA.3[\"4NA.3: Author at least 3 distinct ending scenes…\"]\n\t4UI.1[\"4UI.1: Add final thesis summary screen before d…\"]\n\t4NA.5[\"4NA.5: Author special committee dynamic scenes…\"]\n\tM4[\"M4: Defence & Endings\"]:::mile\n\t5PL.1[\"5PL.1: Implement keyboard shortcuts for choices…\"]\n\t5PL.2[\"5PL.2: Implement smooth scroll-after-choice (sc…\"]\n\t5PL.3[\"5PL.3: Apply text-wrap: pretty for orphan preve…\"]\n\t5EN.1[\"5EN.1: Implement history replay for save/load (…\"]\n\t5EN.2[\"5EN.2: Wire autosave to fire on story.continue(…\"]\n\t5UI.1[\"5UI.1: Save/load UI (save slot, load from slot,…\"]\n\t5UI.2[\"5UI.2: Autosave resume prompt on page load (#quot;Co…\"]\n\t5PL.4[\"5PL.4: Implement audio system (Howler.js-based,…\"]\n\t5PL.5[\"5PL.5: Wire #play, #pause, #stop, #volume Ink t…\"]\n\t5NA.1[\"5NA.1: Add audio cues to key narrative moments\"]\n\t5PL.6[\"5PL.6: Asset preloading (scan compiled Ink JSON…\"]\n\t5PL.7[\"5PL.7: Markdown-to-HTML for **bold** / *italic*…\"]\n\t5PL.8[\"5PL.8: Implement #frame: tag handler and layere…\"]\n\t5PL.9[\"5PL.9: Add parallax frames to key atmospheric s…\"]\n\t5PL.10[\"5PL.10: Implement drag-to-scroll (desktop click…\"]\n\t5EN.3[\"5EN.3: Stamp save version (git tag) into SaveDa…\"]\n\t5EN.4[\"5EN.4: Implement story.stepBack() (rewind to pr…\"]\n\t5EN.5[\"5EN.5: Add step-back control/shortcut to the UI\"]\n\t5EN.6[\"5EN.6: Save export/import\"]\n\t5EN.7[\"5EN.7: Save-fixture regression test across tagg…\"]\n\tM5[\"M5: Polish\"]:::mile\n\t2EN.1 --\u003e 2EN.2\n\t2EN.1 --\u003e 2GS.4\n\t2EN.1 --\u003e 2GS.7\n\t2EN.1 --\u003e 2NA.2\n\t2EN.1 --\u003e 2UI.2\n\t2EN.2 --\u003e 2GS.4\n\t2EN.2 --\u003e 2GS.7\n\t2EN.2 --\u003e 2NA.2\n\t2EN.2 --\u003e 2UI.2\n\t2EN.3 --\u003e 2GS.4\n\t2EN.3 --\u003e 2GS.7\n\t2EN.3 --\u003e 2NA.2\n\t2EN.3 --\u003e 2UI.2\n\t2EN.3 --\u003e 3EN.1\n\t2EN.4 --\u003e 2GS.4\n\t2EN.4 --\u003e 2GS.7\n\t2EN.4 --\u003e 2NA.2\n\t2EN.4 --\u003e 2UI.2\n\t2EN.5 --\u003e 2GS.4\n\t2EN.5 --\u003e 2GS.7\n\t2EN.5 --\u003e 2NA.2\n\t2EN.5 --\u003e 2UI.2\n\t2EN.6 --\u003e 2GS.4\n\t2EN.6 --\u003e 2GS.7\n\t2EN.6 --\u003e 2NA.2\n\t2EN.6 --\u003e 2UI.2\n\t2EN.6 --\u003e 5PL.8\n\t2GS.4 --\u003e M2\n\t2GS.7 --\u003e 2GS.8\n\t2NA.2 --\u003e 2GS.6\n\t2UI.2 --\u003e M2\n\t2UI.2 --\u003e 4UI.1\n\t2GS.6 --\u003e 2GS.10\n\t2GS.10 --\u003e M2\n\t2GS.8 --\u003e 2GS.9\n\t2GS.8 --\u003e 2GS.11\n\t2GS.9 --\u003e 2GS.13\n\t2GS.11 --\u003e 2GS.12\n\t2GS.11 --\u003e 2GS.13\n\t2GS.12 --\u003e 2GS.14\n\t2GS.12 --\u003e 2GS.15\n\t2GS.13 --\u003e 2GS.14\n\t2GS.14 --\u003e 2GS.16\n\t2GS.15 --\u003e 2GS.16\n\t2GS.15 --\u003e 2GS.17\n\t2GS.16 --\u003e 2GS.18\n\t2GS.17 --\u003e 2GS.18\n\t2GS.18 -.-\u003e M2\n\t2GS.18 --\u003e 4NA.4\n\tM2 --\u003e 3NA.1\n\t3NA.1 --\u003e 3NA.2\n\t3NA.2 --\u003e 3NA.3\n\t3NA.3 --\u003e 3NA.4\n\t3NA.4 --\u003e 3NA.5\n\t3NA.4 --\u003e 3NA.12\n\t3NA.5 --\u003e 3NA.6\n\t3NA.6 --\u003e 3NA.7\n\t3NA.7 --\u003e 3NA.8\n\t3NA.8 --\u003e 3NA.9\n\t3NA.9 --\u003e 3NA.10\n\t3NA.10 --\u003e 3NA.11\n\t3NA.11 --\u003e M3\n\t3GS.1 --\u003e 3NA.13\n\t3GS.2 --\u003e 3GS.4\n\t3GS.2 --\u003e 3NA.13\n\t3GS.2 --\u003e 3UI.1\n\t3GS.3 --\u003e 3NA.13\n\t3GS.4 --\u003e M3\n\t3EN.1 --\u003e 3EN.2\n\t3EN.2 --\u003e 3NA.12\n\t3NA.12 --\u003e M3\n\t3NA.13 --\u003e M3\n\t3UI.1 --\u003e M3\n\tM3 --\u003e 4NA.1\n\t4NA.1 --\u003e 4NA.2\n\t4NA.1 --\u003e 4NA.4\n\t4NA.2 --\u003e 4NA.3\n\t4NA.4 --\u003e 4NA.5\n\t4GS.1 --\u003e 4GS.2\n\t4GS.2 --\u003e 4GS.3\n\t4GS.3 --\u003e 4NA.3\n\t4NA.3 --\u003e M4\n\t4UI.1 --\u003e M4\n\t4NA.5 --\u003e M4\n\t5PL.1 --\u003e M5\n\t5PL.2 --\u003e 5PL.4\n\t5PL.3 --\u003e 5PL.7\n\t5EN.1 --\u003e 5EN.2\n\t5EN.1 --\u003e 5UI.1\n\t5EN.1 --\u003e 5EN.4\n\t5EN.2 --\u003e 5UI.2\n\t5UI.1 --\u003e 5EN.6\n\t5UI.2 --\u003e M5\n\t5PL.4 --\u003e 5PL.5\n\t5PL.4 --\u003e 5PL.6\n\t5PL.5 --\u003e 5NA.1\n\t5NA.1 --\u003e M5\n\t5PL.6 --\u003e M5\n\t5PL.7 --\u003e M5\n\t5PL.8 --\u003e 5PL.9\n\t5PL.9 --\u003e M5\n\t5PL.10 --\u003e M5\n\t5EN.3 --\u003e 5EN.4\n\t5EN.3 --\u003e 5EN.6\n\t5EN.3 --\u003e 5EN.7\n\t5EN.4 --\u003e 5EN.5\n\t5EN.5 --\u003e M5\n\t5EN.6 --\u003e M5\n\t5EN.7 --\u003e M5\n\tclass 2EN.1,2EN.3,2EN.4,2EN.5,2EN.6,3GS.1,3GS.2,3GS.3,4GS.1,5EN.1,5EN.3,5PL.1,5PL.10,5PL.2,5PL.3 todo\n\tclass 2EN.2,2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.4,2GS.6,2GS.7,2GS.8,2GS.9,2NA.2,2UI.2,3EN.1,3EN.2,3GS.4,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,3UI.1,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.4,5PL.5,5PL.6,5PL.7,5PL.8,5PL.9,5UI.1,5UI.2 blocked", "validation": [], "devColours": {}, "depKinds": {"1EN.1": {"kind": "task", "status": "done", "display": "done"}, "1UI.2": {"kind": "task", "status": "done", "display": "done"}, "1EN.3": {"kind": "task", "status": "done", "display": "done"}, "1GS.5": {"kind": "task", "status": "done", "display": "done"}, "1GS.6": {"kind": "task", "status": "done", "display": "done"}, "1GS.7": {"kind": "task", "status": "done", "display": "done"}, "1GS.8": {"kind": "task", "status": "done", "display": "done"}, "1GS.9": {"kind": "task", "status": "done", "display": "done"}, "1UI.3": {"kind": "task", "status": "done", "display": "done"}, "1NA.7": {"kind": "task", "status": "done", "display": "done"}, "1NA.1": {"kind": "task", "status": "done", "display": "done"}, "1NA.2": {"kind": "task", "status": "done", "display": "done"}, "1NA.3": {"kind": "task", "status": "done", "display": "done"}, "1NA.4": {"kind": "task", "status": "done", "display": "done"}, "1NA.5": {"kind": "task", "status": "done", "display": "done"}, "1NA.6": {"kind": "task", "status": "done", "display": "done"}, "1GS.1": {"kind": "task", "status": "done", "display": "done"}, "1GS.2": {"kind": "task", "status": "done", "display": "done"}, "1GS.3": {"kind": "task", "status": "done", "display": "done"}, "1EN.2": {"kind": "task", "status": "done", "display": "done"}, "1UI.1": {"kind": "task", "status": "done", "display": "done"}, "1GS.4": {"kind": "task", "status": "done", "display": "done"}, "2GS.4": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.7": {"kind": "task", "status": "blocked", "display": "blocked"}, "2NA.2": {"kind": "task", "status": "blocked", "display": "blocked"}, "2UI.2": {"kind": "task", "status": "blocked", "display": "blocked"}, "2EN.1": {"kind": "task", "status": "todo", "display": "todo"}, "2EN.2": {"kind": "task", "status": "blocked", "display": "blocked"}, "2EN.3": {"kind": "task", "status": "todo", "display": "todo"}, "2EN.4": {"kind": "task", "status": "todo", "display": "todo"}, "2EN.5": {"kind": "task", "status": "todo", "display": "todo"}, "2EN.6": {"kind": "task", "status": "todo", "display": "todo"}, "2GS.6": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.10": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.8": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.9": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.11": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.12": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.13": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.14": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.15": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.16": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.17": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.18": {"kind": "task", "status": "blocked", "display": "blocked"}, "2GS.1": {"kind": "task", "status": "done", "display": "done"}, "2GS.3": {"kind": "task", "status": "done", "display": "done"}, "2NA.1": {"kind": "task", "status": "done", "display": "done"}, "2GS.5": {"kind": "task", "status": "done", "display": "done"}, "2GS.2": {"kind": "task", "status": "done", "display": "done"}, "2UI.1": {"kind": "task", "status": "done", "display": "done"}, "3NA.1": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.2": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.3": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.4": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.5": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.6": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.7": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.8": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.9": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.10": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.11": {"kind": "task", "status": "blocked", "display": "blocked"}, "3GS.1": {"kind": "task", "status": "todo", "display": "todo"}, "3GS.2": {"kind": "task", "status": "todo", "display": "todo"}, "3GS.3": {"kind": "task", "status": "todo", "display": "todo"}, "3GS.4": {"kind": "task", "status": "blocked", "display": "blocked"}, "3EN.1": {"kind": "task", "status": "blocked", "display": "blocked"}, "3EN.2": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.12": {"kind": "task", "status": "blocked", "display": "blocked"}, "3NA.13": {"kind": "task", "status": "blocked", "display": "blocked"}, "3UI.1": {"kind": "task", "status": "blocked", "display": "blocked"}, "4NA.1": {"kind": "task", "status": "blocked", "display": "blocked"}, "4NA.2": {"kind": "task", "status": "blocked", "display": "blocked"}, "4NA.3": {"kind": "task", "status": "blocked", "display": "blocked"}, "4NA.4": {"kind": "task", "status": "blocked", "display": "blocked"}, "4GS.1": {"kind": "task", "status": "todo", "display": "todo"}, "4GS.2": {"kind": "task", "status": "blocked", "display": "blocked"}, "4GS.3": {"kind": "task", "status": "blocked", "display": "blocked"}, "4UI.1": {"kind": "task", "status": "blocked", "display": "blocked"}, "4NA.5": {"kind": "task", "status": "blocked", "display": "blocked"}, "5PL.1": {"kind": "task", "status": "todo", "display": "todo"}, "5PL.2": {"kind": "task", "status": "todo", "display": "todo"}, "5PL.3": {"kind": "task", "status": "todo", "display": "todo"}, "5EN.1": {"kind": "task", "status": "todo", "display": "todo"}, "5EN.2": {"kind": "task", "status": "blocked", "display": "blocked"}, "5UI.1": {"kind": "task", "status": "blocked", "display": "blocked"}, "5UI.2": {"kind": "task", "status": "blocked", "display": "blocked"}, "5PL.4": {"kind": "task", "status": "blocked", "display": "blocked"}, "5PL.5": {"kind": "task", "status": "blocked", "display": "blocked"}, "5NA.1": {"kind": "task", "status": "blocked", "display": "blocked"}, "5PL.6": {"kind": "task", "status": "blocked", "display": "blocked"}, "5PL.7": {"kind": "task", "status": "blocked", "display": "blocked"}, "5PL.8": {"kind": "task", "status": "blocked", "display": "blocked"}, "5PL.9": {"kind": "task", "status": "blocked", "display": "blocked"}, "5PL.10": {"kind": "task", "status": "todo", "display": "todo"}, "5EN.3": {"kind": "task", "status": "todo", "display": "todo"}, "5EN.4": {"kind": "task", "status": "blocked", "display": "blocked"}, "5EN.5": {"kind": "task", "status": "blocked", "display": "blocked"}, "5EN.6": {"kind": "task", "status": "blocked", "display": "blocked"}, "5EN.7": {"kind": "task", "status": "blocked", "display": "blocked"}, "M1": {"kind": "milestone"}, "M2": {"kind": "milestone"}, "M3": {"kind": "milestone"}, "M4": {"kind": "milestone"}, "M5": {"kind": "milestone"}}}</script>
 <script type="module">
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 
@@ -380,10 +445,13 @@ if (DATA.validation && DATA.validation.length) {
 /* Milestone-level state (distinct from task status): computed server-side by
    roadmap.py's milestone_state() and carried as m.state, so the artefact
    never re-derives it and cannot disagree with the CLI's own stats/render
-   paths. States: deferred, done, inProgress, todo, blocked, paused. */
+   paths. States: deferred, done, inProgress, todo, blocked, paused. The
+   same map colours dependency chips by a task's display status, which adds
+   in_progress (a claimed task) and out_of_scope. */
 const STATE_VAR = {
 	deferred: "deferred", done: "done", inProgress: "in-progress",
 	todo: "todo", blocked: "blocked", paused: "paused",
+	in_progress: "in-progress", out_of_scope: "out-of-scope",
 };
 const STATE_RANK = { inProgress: 0, todo: 1, done: 2, blocked: 3, paused: 4, deferred: 5 };
 /* Overview cards and Milestones details share this one ordering, computed
@@ -406,7 +474,7 @@ const devChip = assignee => {
 const depChip = id => {
 	const k = DATA.depKinds?.[id];
 	if (!k) return `<span class="chip">${esc(id)}</span>`;
-	const varName = k.kind === "task" ? STATE_VAR[k.status] ?? "todo"
+	const varName = k.kind === "task" ? STATE_VAR[k.display ?? k.status] ?? "todo"
 		: k.kind === "milestone" ? "milestone" : "gate";
 	return `<span class="chip" style="--chip-fg:var(--color-${varName});--chip-bg:var(--color-${varName}-bg)">${esc(id)}</span>`;
 };
@@ -430,6 +498,7 @@ document.getElementById("milestone-cards").innerHTML = sortedMilestones.map(m =>
    reader scanning top-to-bottom sees the same priority twice, not two
    different orderings of the same data. */
 const GROUPS = [
+	["in_progress", "▸ In Progress",  "in-progress"],
 	["todo",        "○ To Do",        "todo"],
 	["blocked",     "✗ Blocked",      "blocked"],
 	["paused",      "⏸ Paused",       "paused"],
@@ -444,7 +513,7 @@ for (const t of DATA.tasks) (tasksByMilestone[t.milestone] ??= []).push(t);
 document.getElementById("milestone-details").innerHTML = sortedMilestones.map(m => {
 	const tasks = tasksByMilestone[m.id] || [];
 	const groups = GROUPS.map(([status, label, varName]) => {
-		const members = tasks.filter(t => t.status === status);
+		const members = tasks.filter(t => (t.display ?? t.status) === status);
 		if (!members.length) return "";
 		const items = members.map(t => {
 			const deps = (t.dependsOn && t.dependsOn.length)
@@ -473,20 +542,23 @@ try {
 	mermaid.registerLayoutLoaders(elkLayouts);
 	layout = "elk";
 } catch { /* CDN unreachable — fall back */ }
-mermaid.initialize({
-	startOnLoad: false,
-	theme: "base",
-	layout,
-	themeVariables: {
-		fontSize: "16px",
-		fontFamily: '"IBM Plex Mono", monospace',
-	},
-});
 /* Mermaid 11's classDef parser rejects var(--x), so the semantic variables
    are resolved to concrete colours before rendering, and the graph re-renders
    when the colour scheme flips so it keeps tracking the page theme. A render
    failure is contained to the diagram shell — the sections after it must
-   still populate. */
+   still populate.
+
+   Node fills/strokes come entirely from the classDefs above (resolved via
+   the var() replace below), but mermaid's "base" theme still supplies its
+   own defaults for everything a classDef doesn't touch — edge stroke,
+   arrowhead fill, edge-label background. Those defaults assume a white
+   canvas, so left alone they render near-black on the dark surface. Fixing
+   that means passing --diagram-line/--diagram-edge-label-bg/--diagram-text
+   through as themeVariables — and critically, mermaid.initialize() must be
+   called again on every render (not once at module load) reading the
+   *currently resolved* values, or a colour-scheme flip silently keeps the
+   load-time edge colours and the explicit data-theme toggle below never
+   takes effect at all (matchMedia doesn't fire for it). */
 const wrap = document.getElementById("wrap");
 const shell = document.getElementById("shell");
 const diagram = document.getElementById("diagram");
@@ -495,8 +567,21 @@ let scale = 1, tx = 0, ty = 0;
 const apply = () => { if (svgEl) svgEl.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`; };
 const renderGraph = async () => {
 	const rootStyle = getComputedStyle(document.documentElement);
-	const src = DATA.mermaid.replace(/var\((--[\w-]+)\)/g,
-		(_, name) => rootStyle.getPropertyValue(name).trim() || "#888888");
+	const cssVar = name => rootStyle.getPropertyValue(name).trim() || "#888888";
+	mermaid.initialize({
+		startOnLoad: false,
+		theme: "base",
+		layout,
+		themeVariables: {
+			fontSize: "16px",
+			fontFamily: '"IBM Plex Mono", monospace',
+			background: cssVar("--surface"),
+			lineColor: cssVar("--diagram-line"),
+			edgeLabelBackground: cssVar("--diagram-edge-label-bg"),
+			textColor: cssVar("--diagram-text"),
+		},
+	});
+	const src = DATA.mermaid.replace(/var\((--[\w-]+)\)/g, (_, name) => cssVar(name));
 	try {
 		const { svg } = await mermaid.render("roadmap-graph", src);
 		diagram.innerHTML = svg;
@@ -511,6 +596,12 @@ const renderGraph = async () => {
 };
 await renderGraph();
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", renderGraph);
+/* Covers the explicit data-theme toggle (no UI ships today, but the
+   three-state contract says a future one must just work — see the CSS
+   comment above :root[data-theme="dark"]). matchMedia only fires for the OS
+   preference, so the attribute needs its own watcher. */
+new MutationObserver(renderGraph).observe(document.documentElement,
+	{ attributes: true, attributeFilter: ["data-theme"] });
 
 /* Zoom/pan: buttons, ctrl+wheel, drag; expand toggles a fixed overlay */
 const zoom = f => { scale = Math.min(4, Math.max(0.25, scale * f)); apply(); };
@@ -545,7 +636,7 @@ const candidateLi = c => `
 		<span class="signal">unblocks ${c.transitiveUnblocks}${c.isMilestoneSink ? " · completes milestone" : ""}</span>
 	</li>`;
 const readyAssignees = new Set(DATA.ready.candidates.map(c => c.assignee).filter(Boolean));
-document.getElementById("ready").innerHTML = !DATA.ready.candidates.length
+const readyHtml = !DATA.ready.candidates.length
 	? "<li>No unblocked tasks: clear a blocker or a gate.</li>"
 	: readyAssignees.size > 1
 	? [...readyAssignees].sort().map(dev => `
@@ -557,6 +648,22 @@ document.getElementById("ready").innerHTML = !DATA.ready.candidates.length
 				<ul style="list-style:none;margin:0;padding:0">${DATA.ready.candidates.filter(c => !c.assignee).map(candidateLi).join("")}</ul>
 			</li>` : "")
 	: DATA.ready.candidates.map(candidateLi).join("");
+/* Claims in play lead, since someone is already on them; the ready set then
+   gets its own heading so the two lists never read as one. A parked claim
+   (paused/deferred wins over a claim) stays in its Milestones group. */
+const claimLi = c => `
+	<li>
+		<span class="tid">${esc(c.id)}</span>${devChip(c.assignee)}
+		<span class="tasktext">${esc(c.description)}</span>
+		<span class="signal">since ${esc(c.started)}${c.status === "todo" ? "" : ` · ${esc(c.status)}`}</span>
+	</li>`;
+const claimed = (DATA.ready.claimed ?? []).filter(c => c.display === "in_progress");
+document.getElementById("ready").innerHTML = claimed.length
+	? `<li class="nextup-devgroup"><h4 style="color:var(--color-in-progress)">▸ In progress</h4>
+		<ul style="list-style:none;margin:0;padding:0">${claimed.map(claimLi).join("")}</ul></li>
+		<li class="nextup-devgroup"><h4>Ready</h4>
+		<ul style="list-style:none;margin:0;padding:0">${readyHtml}</ul></li>`
+	: readyHtml;
 
 /* Nav highlight */
 const links = [...document.querySelectorAll("nav a")];

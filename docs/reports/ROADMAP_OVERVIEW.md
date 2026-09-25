@@ -1,6 +1,6 @@
 # The Work MVP: Roadmap Overview
 
-**77 tasks across 5 milestones.** Files: `.claude/roadmaps.json` (machine-readable), `docs/roadmaps/mvp.md` (full task list with Mermaid dependency diagram).
+**99 tasks across 5 milestones.** Files: `.claude/roadmaps.json` (machine-readable), `docs/roadmaps/mvp.md` (full task list with Mermaid dependency diagram).
 
 > This roadmap was migrated from the old simple-format single-file version by `roadmap-migrate`. The narrative sections below are a stub synthesised from milestone goals only — they need fleshing out with the actual reasoning behind the phase structure.
 
