@@ -3,6 +3,7 @@
 	import { save, deleteAutosave, deleteSave } from '$lib/game/save-load';
 	import { story } from '$lib/engine/story.svelte';
 	import { inventory } from '$lib/game/ideas.svelte';
+	import { body } from '$lib/game/body.svelte';
 
 	let saved = $state(false);
 	let saveTimer: ReturnType<typeof setTimeout> | null = null;
@@ -12,7 +13,7 @@
 
 	function manualSave() {
 		try {
-			save({ storyState: story.saveState(), inventoryState: inventory.toJSON() });
+			save({ storyState: story.saveState(), inventoryState: inventory.toJSON(), bodyState: body.toJSON() });
 			saved = true;
 			if (saveTimer) clearTimeout(saveTimer);
 			saveTimer = setTimeout(() => {

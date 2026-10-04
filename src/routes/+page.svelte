@@ -5,6 +5,7 @@
 	import { story, loadStory } from '$lib/engine/story.svelte';
 	import { initGameSystems } from '$lib/game/init';
 	import { inventory } from '$lib/game/ideas.svelte';
+	import { body } from '$lib/game/body.svelte';
 	import { type SaveData, load, save, autosave, loadAutosave, hasAutosave } from '$lib/game/save-load';
 	import Passage from '$lib/components/Passage.svelte';
 	import ChoiceList from '$lib/components/ChoiceList.svelte';
@@ -32,7 +33,7 @@
 	function manualSave() {
 		if (!story.ink) return;
 		try {
-			save({ storyState: story.saveState(), inventoryState: inventory.toJSON() });
+			save({ storyState: story.saveState(), inventoryState: inventory.toJSON(), bodyState: body.toJSON() });
 			toast.flash();
 		} catch {
 			// Silently fail
@@ -92,6 +93,8 @@
 		if (saveData.inventoryState) {
 			inventory.fromJSON(saveData.inventoryState);
 		}
+		// Saves from before bodily states keep the fresh body from reset()
+		if (saveData.bodyState) body.fromJSON(saveData.bodyState);
 	}
 
 	onMount(async () => {
@@ -100,6 +103,7 @@
 		// Ensure a clean inventory before any restore (guards against stale state
 		// from client-side navigation without a full page reload)
 		inventory.reset();
+		body.reset();
 
 		const skip = page.url.searchParams.get('skip') === '1';
 		const loadManualSave = page.url.searchParams.get('loadSave') === '1';
@@ -123,6 +127,7 @@
 				} catch {
 					// Corrupted save — start fresh
 					inventory.reset();
+					body.reset();
 				}
 			}
 		} else if (hasAutosave()) {
@@ -134,6 +139,7 @@
 				} catch {
 					// Corrupted save — start fresh
 					inventory.reset();
+					body.reset();
 				}
 			}
 		}
@@ -157,7 +163,7 @@
 
 		// Autosave after each passage (includes inventory state)
 		try {
-			autosave(story.saveState(), inventory.toJSON());
+			autosave(story.saveState(), inventory.toJSON(), body.toJSON());
 		} catch {
 			// Silently fail — don't break gameplay
 		}

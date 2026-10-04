@@ -5,17 +5,21 @@ export interface SaveData {
 	storyState: string;
 	/** Serialised inventory state from `inventory.toJSON()`. Absent in saves created before inventory persistence was added. */
 	inventoryState?: string;
+	/** Serialised body state from `body.toJSON()`. Absent in saves created before bodily states; those restore with a fresh body. */
+	bodyState?: string;
 	timestamp: number;
 }
 
 export function save(opts: {
 	storyState: string;
 	inventoryState?: string;
+	bodyState?: string;
 	key?: string;
 }): void {
 	const data: SaveData = {
 		storyState: opts.storyState,
 		inventoryState: opts.inventoryState,
+		bodyState: opts.bodyState,
 		timestamp: Date.now()
 	};
 	localStorage.setItem(opts.key ?? SAVE_KEY, JSON.stringify(data));
@@ -39,8 +43,8 @@ export function deleteSave(key = SAVE_KEY): void {
 	localStorage.removeItem(key);
 }
 
-export function autosave(storyStateJson: string, inventoryStateJson?: string): void {
-	save({ storyState: storyStateJson, inventoryState: inventoryStateJson, key: AUTOSAVE_KEY });
+export function autosave(storyStateJson: string, inventoryStateJson?: string, bodyStateJson?: string): void {
+	save({ storyState: storyStateJson, inventoryState: inventoryStateJson, bodyState: bodyStateJson, key: AUTOSAVE_KEY });
 }
 
 export function loadAutosave(): SaveData | null {
