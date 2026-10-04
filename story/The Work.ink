@@ -11,6 +11,7 @@
     //Game Flow
         INCLUDE Tunnels.ink
         INCLUDE Observations.ink
+        INCLUDE Body.ink
         
     //Chapters
         INCLUDE Hours/d1_1830.ink

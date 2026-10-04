@@ -9,8 +9,10 @@
  */
 
 import type { Story } from 'inkjs';
-import { inventory, getIdeaDef, DOMAINS, type Domain } from '$lib/game/ideas.svelte';
+import { inventory, getIdeaDef, getPromptDef, DOMAINS, type Domain } from '$lib/game/ideas.svelte';
 import { getDisciplineOfficial, getDisciplinePrivate } from '$lib/game/disciplines';
+import { body } from '$lib/game/body.svelte';
+import { PROMPT_FOR, isBodyAction, isBodyState, isInterruptSubject } from '$lib/game/body';
 import {
 	developIdea,
 	combineIdeas,
@@ -160,6 +162,62 @@ export function bindIdeaFunctions(ink: Story): void {
 				const [idA, idB] = findCombinablePair(s(args[0]), s(args[1]));
 				if (!idA || !idB) return '';
 				return combineIdeas(idA, idB);
+			}
+		},
+		// Bodily states (body.svelte.ts). Unknown names from Ink are ignored.
+		{
+			name: 'body_tick',
+			fn: (...args: unknown[]): number => {
+				const action = s(args[0]);
+				body.tick({
+					action: isBodyAction(action) ? action : 'idle',
+					hour: Number(args[1]),
+					totalDread: inventory.getTotalDread()
+				});
+				return 0;
+			}
+		},
+		{
+			name: 'body_level',
+			fn: (...args: unknown[]): number => {
+				const name = s(args[0]);
+				return isBodyState(name) ? body.level(name) : 0;
+			}
+		},
+		{
+			name: 'body_extreme',
+			fn: (): string => body.extreme()
+		},
+		{
+			name: 'body_interrupt',
+			fn: (...args: unknown[]): string => body.interrupts()[Number(args[0])] ?? ''
+		},
+		{
+			name: 'body_resolve',
+			fn: (...args: unknown[]): number => {
+				const subject = s(args[0]);
+				if (isInterruptSubject(subject)) body.resolve(subject);
+				return 0;
+			}
+		},
+		{
+			name: 'body_attend',
+			fn: (...args: unknown[]): number => {
+				// Returns the tick cost; Ink advances time that many times
+				const name = s(args[0]);
+				return isBodyState(name) ? body.attend(name).ticks : 0;
+			}
+		},
+		{
+			name: 'body_reading',
+			fn: (...args: unknown[]): string => {
+				// A subject's P54–P58 readings, offered until the player holds one of them
+				const subject = s(args[0]);
+				if (!isInterruptSubject(subject)) return '';
+				const prompt = getPromptDef(PROMPT_FOR[subject]);
+				if (!prompt || prompt.readings.some((id) => inventory.has(id))) return '';
+				const index = Number(args[1]);
+				return index >= 0 && index < prompt.readings.length ? prompt.readings[index] : '';
 			}
 		}
 	];
