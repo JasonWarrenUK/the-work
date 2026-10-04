@@ -87,11 +87,11 @@
     ~ temp t1 = get_idea_text(r1)
     ~ temp t2 = get_idea_text(r2)
     [PLACEHOLDER you dwell on {subject}]
-    + [{t0}]
+    + {r0 != ""} [{t0}]
         {acquire_idea(r0)}
-    + [{t1}]
+    + {r1 != ""} [{t1}]
         {acquire_idea(r1)}
-    + [{t2}]
+    + {r2 != ""} [{t2}]
         {acquire_idea(r2)}
     -
     ~ advanceTime("observe")
