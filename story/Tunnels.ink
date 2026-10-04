@@ -20,39 +20,46 @@
         ~ temp w3 = writable_idea_at(3)
         ~ temp w4 = writable_idea_at(4)
 
-        ++ {w0 != ""} [{get_idea_text(w0)}]
+        // Externals cannot run inside choice text, so the idea text is fetched into temps first
+        ~ temp t0 = get_idea_text(w0)
+        ~ temp t1 = get_idea_text(w1)
+        ~ temp t2 = get_idea_text(w2)
+        ~ temp t3 = get_idea_text(w3)
+        ~ temp t4 = get_idea_text(w4)
+
+        ++ {w0 != ""} [{t0}]
             ~ write_idea(w0)
-            -- You set pen to paper.
+            You set pen to paper.
             {printWriteResultForIdea(w0)}
             {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
-        ++ {w1 != ""} [{get_idea_text(w1)}]
+        ++ {w1 != ""} [{t1}]
             ~ write_idea(w1)
-            -- You set pen to paper.
+            You set pen to paper.
             {printWriteResultForIdea(w1)}
             {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
-        ++ {w2 != ""} [{get_idea_text(w2)}]
+        ++ {w2 != ""} [{t2}]
             ~ write_idea(w2)
-            -- You set pen to paper.
+            You set pen to paper.
             {printWriteResultForIdea(w2)}
             {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
-        ++ {w3 != ""} [{get_idea_text(w3)}]
+        ++ {w3 != ""} [{t3}]
             ~ write_idea(w3)
-            -- You set pen to paper.
+            You set pen to paper.
             {printWriteResultForIdea(w3)}
             {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
-        ++ {w4 != ""} [{get_idea_text(w4)}]
+        ++ {w4 != ""} [{t4}]
             ~ write_idea(w4)
-            -- You set pen to paper.
+            You set pen to paper.
             {printWriteResultForIdea(w4)}
             {get_discipline() != "": Your work begins to take shape. The committee would call this {get_discipline()}.}
             {advanceTime()}
 
         ++ {CHOICE_COUNT() == 0} [Set pen to paper]
-            -- Your thoughts are too unformed to commit to the page. You need to develop them further.
+            Your thoughts are too unformed to commit to the page. You need to develop them further.
             {advanceTime()}
 
     // --- CONSIDER YOUR CIRCUMSTANCES (Observation) ---
