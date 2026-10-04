@@ -104,6 +104,17 @@ describe('the night with a neglected body', () => {
 		expect(reflect(session)).toContain('the cold takes you');
 		expect(texts(session)).toEqual([]);
 	});
+
+	it('falls asleep when tending inside the beat carries fatigue to the extreme', () => {
+		const session = startAt(12);
+		setBody({ hunger: 95, fatigue: 115 }, { hunger: 2, fatigue: 3 });
+		run(session);
+		reflect(session);
+		pick(session, 'attend to hunger');
+		run(session);
+		expect(session.story.variablesState.$('fellAsleep')).toBe(true);
+		expect(session.errors).toEqual([]);
+	});
 });
 
 describe('tending and time', () => {

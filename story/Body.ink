@@ -18,6 +18,11 @@
     ~ temp second = body_interrupt(1)
     {first != "":
         -> body_interrupt_beat(first, second) ->
+        // Tending or dwelling inside the beat spends time, so the extremes can be crossed there
+        {body_extreme():
+            - "fatigue": -> body_asleep
+            - "cold": -> body_cold_ending
+        }
     }
     ->->
 
