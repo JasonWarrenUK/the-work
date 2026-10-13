@@ -146,17 +146,11 @@ End-to-end skeleton through full night, defence, and polish.
 
 ## Milestone 5: Polish
 
-**Goal:** The game feels complete. Save/load with history replay, autosave on passage, keyboard shortcuts, smooth scroll after choice, audio system, and typography are all in place. Ready to ship.
+**Goal:** The game feels complete. Smooth scroll after choice, drag-to-scroll, orphan-free typography, an audio system with cues and layered parallax frames are all in place. Ready to ship.
 
 - [x] **5PL.1**: Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte
 - [ ] **5PL.2**: Implement smooth scroll-after-choice (scrollIntoView or Svelte action)
 - [ ] **5PL.3**: Apply text-wrap: pretty for orphan prevention
-- [ ] **5EN.1**: Implement history replay for save/load (record choice indices, restore seed, replay silently) _(depends on 1EN.1)_
-- [ ] **5EN.2**: Wire autosave to fire on story.continue() with history-aware state _(blocked: depends on 5EN.1)_
-- [ ] **5UI.1**: Save/load UI (save slot, load from slot, delete save) _(blocked: depends on 5EN.1)_
-  - Note: 1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task. Kept dependency on 5EN.1: the slot UI waits for the replay-shaped save so it is not built twice
-- [ ] **5UI.2**: Autosave resume prompt on page load ("Continue where you left off?") _(blocked: depends on 5EN.2)_
-  - Note: Kept dependency on 5EN.2: loadState restores Ink state only and does not rebuild the visible transcript, so a resume prompt needs the history replay and history-aware autosave to keep its promise
 - [ ] **5PL.4**: Implement audio system (Howler.js-based, port from calico-patches.md)
 - [ ] **5PL.5**: Wire #play, #pause, #stop, #volume Ink tags to audio system _(blocked: depends on 5PL.4)_
 - [ ] **5NA.1**: Add audio cues to key narrative moments _(blocked: depends on 5PL.5, 3NA.11, 4NA.3)_
@@ -167,6 +161,19 @@ End-to-end skeleton through full night, defence, and polish.
 - [ ] **5PL.9**: Add parallax frames to key atmospheric scenes _(blocked: depends on 5PL.8, 3NA.11)_
   - Note: Frames are placed once the hours exist to place them in
 - [ ] **5PL.10**: Implement drag-to-scroll (desktop click-and-drag)
+
+---
+
+## Milestone 6: Save & Rewind
+
+**Goal:** Saves survive the game changing underneath them. History replay rebuilds the transcript on load, autosave and the resume prompt are history-aware, saves carry a version stamp and can be exported, imported and stepped back through, and fixtures guard every tagged version.
+
+- [ ] **5EN.1**: Implement history replay for save/load (record choice indices, restore seed, replay silently) _(depends on 1EN.1)_
+- [ ] **5EN.2**: Wire autosave to fire on story.continue() with history-aware state _(blocked: depends on 5EN.1)_
+- [ ] **5UI.1**: Save/load UI (save slot, load from slot, delete save) _(blocked: depends on 5EN.1)_
+  - Note: 1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task. Kept dependency on 5EN.1: the slot UI waits for the replay-shaped save so it is not built twice
+- [ ] **5UI.2**: Autosave resume prompt on page load ("Continue where you left off?") _(blocked: depends on 5EN.2)_
+  - Note: Kept dependency on 5EN.2: loadState restores Ink state only and does not rebuild the visible transcript, so a resume prompt needs the history replay and history-aware autosave to keep its promise
 - [ ] **5EN.3**: Stamp save version (git tag) into SaveData and check on load
   - Note: A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting
 - [ ] **5EN.4**: Implement story.stepBack() (rewind to previous passage) _(blocked: depends on 5EN.1)_
@@ -280,10 +287,6 @@ graph LR
 	5PL.1["5PL.1: Implement keyboard shortcuts for choices…"]
 	5PL.2["5PL.2: Implement smooth scroll-after-choice (sc…"]
 	5PL.3["5PL.3: Apply text-wrap: pretty for orphan preve…"]
-	5EN.1["5EN.1: Implement history replay for save/load (…"]
-	5EN.2["5EN.2: Wire autosave to fire on story.continue(…"]
-	5UI.1["5UI.1: Save/load UI (save slot, load from slot,…"]
-	5UI.2["5UI.2: Autosave resume prompt on page load (#quot;Co…"]
 	5PL.4["5PL.4: Implement audio system (Howler.js-based,…"]
 	5PL.5["5PL.5: Wire #play, #pause, #stop, #volume Ink t…"]
 	5NA.1["5NA.1: Add audio cues to key narrative moments"]
@@ -291,12 +294,17 @@ graph LR
 	5PL.8["5PL.8: Implement #frame: tag handler and layere…"]
 	5PL.9["5PL.9: Add parallax frames to key atmospheric s…"]
 	5PL.10["5PL.10: Implement drag-to-scroll (desktop click…"]
+	M5["M5: Polish"]:::mile
+	5EN.1["5EN.1: Implement history replay for save/load (…"]
+	5EN.2["5EN.2: Wire autosave to fire on story.continue(…"]
+	5UI.1["5UI.1: Save/load UI (save slot, load from slot,…"]
+	5UI.2["5UI.2: Autosave resume prompt on page load (#quot;Co…"]
 	5EN.3["5EN.3: Stamp save version (git tag) into SaveDa…"]
 	5EN.4["5EN.4: Implement story.stepBack() (rewind to pr…"]
 	5EN.5["5EN.5: Add step-back control/shortcut to the UI"]
 	5EN.6["5EN.6: Save export/import"]
 	5EN.7["5EN.7: Save-fixture regression test across tagg…"]
-	M5["M5: Polish"]:::mile
+	M6["M6: Save & Rewind"]:::mile
 	1EN.1 --> M1
 	1EN.1 --> 5EN.1
 	1UI.2 --> M1
@@ -429,12 +437,6 @@ graph LR
 	5PL.1 --> M5
 	5PL.2 --> M5
 	5PL.3 --> M5
-	5EN.1 --> 5EN.2
-	5EN.1 --> 5UI.1
-	5EN.1 --> 5EN.4
-	5EN.2 --> 5UI.2
-	5UI.1 --> 5EN.6
-	5UI.2 --> M5
 	5PL.4 --> 5PL.5
 	5PL.4 --> 5PL.6
 	5PL.5 --> 5NA.1
@@ -443,12 +445,18 @@ graph LR
 	5PL.8 --> 5PL.9
 	5PL.9 --> M5
 	5PL.10 --> M5
+	5EN.1 --> 5EN.2
+	5EN.1 --> 5UI.1
+	5EN.1 --> 5EN.4
+	5EN.2 --> 5UI.2
+	5UI.1 --> 5EN.6
+	5UI.2 --> M6
 	5EN.3 --> 5EN.6
 	5EN.3 --> 5EN.7
 	5EN.4 --> 5EN.5
-	5EN.5 --> M5
-	5EN.6 --> M5
-	5EN.7 --> M5
+	5EN.5 --> M6
+	5EN.6 --> M6
+	5EN.7 --> M6
 	class 2EN.3,2EN.4,2EN.5,2EN.6,3GS.1,3GS.3,3GS.4,3GS.5,3UI.1,4GS.1,5EN.1,5EN.3,5PL.10,5PL.2,5PL.3,5PL.4,5PL.7 todo
 	class 2EN.1 inProgress
 	class 2EN.2,2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.4,2GS.6,2GS.7,2GS.8,2GS.9,2NA.2,2UI.2,3EN.1,3EN.2,3GS.6,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.14,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.5,5PL.6,5PL.8,5PL.9,5UI.1,5UI.2 blocked

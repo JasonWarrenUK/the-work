@@ -1,6 +1,6 @@
 # The Work MVP: Roadmap Overview
 
-**102 tasks across 5 milestones.** Files: `.claude/roadmaps.json` (machine-readable), `docs/roadmaps/mvp.md` (full task list with Mermaid dependency diagram).
+**102 tasks across 6 milestones.** Files: `.claude/roadmaps.json` (machine-readable), `docs/roadmaps/mvp.md` (full task list with Mermaid dependency diagram).
 
 > This roadmap was migrated from the old simple-format single-file version by `roadmap-migrate`. The narrative sections below are a stub synthesised from milestone goals only — they need fleshing out with the actual reasoning behind the phase structure.
 
@@ -10,7 +10,7 @@
 
 _(Stub — expand with the actual reasoning.)_ The Work is a narrative game where a Writer composes a thesis overnight, gathering ideas from examined objects, developing them through a level chain (observation → inkling → idea → concept → argument → thesis), and defending the finished work before a committee whose composition depends on which ideas were written.
 
-The MVP roadmap sequences this build as five milestones: a narrow end-to-end vertical slice first (M1), then the writing engine that makes idea selection and thesis composition fully playable (M2), then content breadth across the full night (M3), the defence and multiple endings (M4), and finally polish (M5).
+The MVP roadmap sequences this build as six milestones: a narrow end-to-end vertical slice first (M1), then the writing engine that makes idea selection and thesis composition fully playable (M2), then content breadth across the full night (M3), the defence and multiple endings (M4), polish (M5), and finally the save stack (M6).
 
 ## Milestone sequence and the reasoning behind it
 
@@ -24,7 +24,9 @@ _(Stub — expand with the actual reasoning.)_
 
 **Milestone 4: Defence & Endings** — the thesis defence itself: committee composition from dominant discipline, hostility scoring from written orthodoxy, and multiple distinct endings.
 
-**Milestone 5: Polish** — save/load with history replay, keyboard shortcuts, audio, and typography; the pass that makes the game feel finished.
+**Milestone 5: Polish** — smooth scroll, drag-to-scroll, typography, audio and parallax; the pass that makes the game feel finished. Audio cues and parallax frames wait for the hours and endings they decorate.
+
+**Milestone 6: Save & Rewind** — history replay, version-stamped saves, export and import, step-back and save fixtures. Split out of Polish because it reshapes `SaveData`, which keeps moving while game systems land, so it settles last.
 
 ## Decisions that shaped the structure
 

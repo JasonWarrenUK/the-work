@@ -816,7 +816,7 @@
 			{
 				"id": "M5",
 				"name": "Polish",
-				"goal": "The game feels complete. Save/load with history replay, autosave on passage, keyboard shortcuts, smooth scroll after choice, audio system, and typography are all in place. Ready to ship.",
+				"goal": "The game feels complete. Smooth scroll after choice, drag-to-scroll, orphan-free typography, an audio system with cues and layered parallax frames are all in place. Ready to ship.",
 				"tasks": [
 					{
 						"id": "5PL.1",
@@ -838,44 +838,6 @@
 						"description": "Apply text-wrap: pretty for orphan prevention",
 						"status": "todo",
 						"dependsOn": [],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5EN.1",
-						"description": "Implement history replay for save/load (record choice indices, restore seed, replay silently)",
-						"status": "todo",
-						"dependsOn": [
-							"1EN.1"
-						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5EN.2",
-						"description": "Wire autosave to fire on story.continue() with history-aware state",
-						"status": "blocked",
-						"dependsOn": [
-							"5EN.1"
-						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5UI.1",
-						"description": "Save/load UI (save slot, load from slot, delete save)",
-						"status": "blocked",
-						"dependsOn": [
-							"5EN.1"
-						],
-						"notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task. Kept dependency on 5EN.1: the slot UI waits for the replay-shaped save so it is not built twice",
-						"assignee": "Jason"
-					},
-					{
-						"id": "5UI.2",
-						"description": "Autosave resume prompt on page load (\"Continue where you left off?\")",
-						"status": "blocked",
-						"dependsOn": [
-							"5EN.2"
-						],
-						"notes": "Kept dependency on 5EN.2: loadState restores Ink state only and does not rebuild the visible transcript, so a resume prompt needs the history replay and history-aware autosave to keep its promise",
 						"assignee": "Jason"
 					},
 					{
@@ -941,6 +903,51 @@
 						"description": "Implement drag-to-scroll (desktop click-and-drag)",
 						"status": "todo",
 						"dependsOn": [],
+						"assignee": "Jason"
+					}
+				]
+			},
+			{
+				"id": "M6",
+				"name": "Save & Rewind",
+				"goal": "Saves survive the game changing underneath them. History replay rebuilds the transcript on load, autosave and the resume prompt are history-aware, saves carry a version stamp and can be exported, imported and stepped back through, and fixtures guard every tagged version.",
+				"tasks": [
+					{
+						"id": "5EN.1",
+						"description": "Implement history replay for save/load (record choice indices, restore seed, replay silently)",
+						"status": "todo",
+						"dependsOn": [
+							"1EN.1"
+						],
+						"assignee": "Jason"
+					},
+					{
+						"id": "5EN.2",
+						"description": "Wire autosave to fire on story.continue() with history-aware state",
+						"status": "blocked",
+						"dependsOn": [
+							"5EN.1"
+						],
+						"assignee": "Jason"
+					},
+					{
+						"id": "5UI.1",
+						"description": "Save/load UI (save slot, load from slot, delete save)",
+						"status": "blocked",
+						"dependsOn": [
+							"5EN.1"
+						],
+						"notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task. Kept dependency on 5EN.1: the slot UI waits for the replay-shaped save so it is not built twice",
+						"assignee": "Jason"
+					},
+					{
+						"id": "5UI.2",
+						"description": "Autosave resume prompt on page load (\"Continue where you left off?\")",
+						"status": "blocked",
+						"dependsOn": [
+							"5EN.2"
+						],
+						"notes": "Kept dependency on 5EN.2: loadState restores Ink state only and does not rebuild the visible transcript, so a resume prompt needs the history replay and history-aware autosave to keep its promise",
 						"assignee": "Jason"
 					},
 					{
