@@ -62,7 +62,7 @@ End-to-end skeleton through full night, defence, and polish.
 - [ ] **2EN.4**: Surface Ink errors/warnings to DevBar instead of console-only
 - [ ] **2EN.5**: Add regression check: external functions still fire after loadState() restores a save
   - Note: Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call
-- [ ] **2EN.6**: Wire #class: tag through continue() to Passage.svelte (or cut README claim)
+- [x] **2EN.6**: Wire #class: tag through continue() to Passage.svelte (or cut README claim)
 - [ ] **2GS.6**: Implement per-idea writing action for every authored L3+ idea _(blocked: depends on 2NA.2)_
   - Note: The current Tunnels.ink writing scene calls get_written_level to query domain-level progress rather than selecting a specific idea; once all inklings are developed to L3+ (2NA.2), each idea needs its own writing path wired through write_idea()
 - [ ] **2GS.10**: Refactor Ink to remove legacy get_written_level / get_domain_level calls _(blocked: depends on 2GS.6)_
@@ -156,7 +156,7 @@ End-to-end skeleton through full night, defence, and polish.
 - [ ] **5NA.1**: Add audio cues to key narrative moments _(blocked: depends on 5PL.5, 3NA.11, 4NA.3)_
   - Note: Cues are placed once the hours and the endings exist to place them in
 - [ ] **5PL.6**: Asset preloading (scan compiled Ink JSON for audio/image refs, show progress) _(blocked: depends on 5PL.4)_
-- [ ] **5PL.8**: Implement #frame: tag handler and layered parallax component _(blocked: depends on 2EN.6)_
+- [ ] **5PL.8**: Implement #frame: tag handler and layered parallax component _(depends on 2EN.6)_
   - Note: Kept dependency on 2EN.6: both extend the same tag pipeline through continue() to the components
 - [ ] **5PL.9**: Add parallax frames to key atmospheric scenes _(blocked: depends on 5PL.8, 3NA.11)_
   - Note: Frames are placed once the hours exist to place them in
@@ -457,8 +457,8 @@ graph LR
 	5EN.5 --> M6
 	5EN.6 --> M6
 	5EN.7 --> M6
-	class 2EN.2,2EN.4,2EN.5,2EN.6,3EN.1,3GS.1,3GS.3,3GS.4,3GS.5,3UI.1,4GS.1,5EN.1,5EN.3,5PL.10,5PL.2,5PL.3,5PL.4,5PL.7 todo
-	class 2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.4,2GS.6,2GS.7,2GS.8,2GS.9,2NA.2,2UI.2,3EN.2,3GS.6,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.14,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.5,5PL.6,5PL.8,5PL.9,5UI.1,5UI.2 blocked
-	class 1EN.1,1EN.2,1EN.3,1GS.1,1GS.2,1GS.3,1GS.4,1GS.5,1GS.6,1GS.7,1GS.8,1GS.9,1NA.1,1NA.2,1NA.3,1NA.4,1NA.5,1NA.6,1NA.7,1UI.1,1UI.2,1UI.3,2EN.1,2EN.3,2GS.1,2GS.2,2GS.3,2GS.5,2NA.1,2UI.1,3GS.2,5PL.1 done
+	class 2EN.2,2EN.4,2EN.5,3EN.1,3GS.1,3GS.3,3GS.4,3GS.5,3UI.1,4GS.1,5EN.1,5EN.3,5PL.10,5PL.2,5PL.3,5PL.4,5PL.7,5PL.8 todo
+	class 2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.4,2GS.6,2GS.7,2GS.8,2GS.9,2NA.2,2UI.2,3EN.2,3GS.6,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.14,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.5,5PL.6,5PL.9,5UI.1,5UI.2 blocked
+	class 1EN.1,1EN.2,1EN.3,1GS.1,1GS.2,1GS.3,1GS.4,1GS.5,1GS.6,1GS.7,1GS.8,1GS.9,1NA.1,1NA.2,1NA.3,1NA.4,1NA.5,1NA.6,1NA.7,1UI.1,1UI.2,1UI.3,2EN.1,2EN.3,2EN.6,2GS.1,2GS.2,2GS.3,2GS.5,2NA.1,2UI.1,3GS.2,5PL.1 done
 ```
 

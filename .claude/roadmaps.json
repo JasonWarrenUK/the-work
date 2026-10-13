@@ -311,10 +311,11 @@
 					{
 						"id": "2EN.6",
 						"description": "Wire #class: tag through continue() to Passage.svelte (or cut README claim)",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
 						"assignee": "Jason",
-						"started": "2026-10-13"
+						"started": "2026-10-13",
+						"ended": "2026-10-13"
 					},
 					{
 						"id": "2GS.6",
@@ -884,7 +885,7 @@
 					{
 						"id": "5PL.8",
 						"description": "Implement #frame: tag handler and layered parallax component",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"2EN.6"
 						],
