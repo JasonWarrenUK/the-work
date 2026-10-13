@@ -276,7 +276,7 @@ Found inside, behind, or underneath other objects. Require examining the parent 
 
 - The bedsit is a single room. The player's "area" choices (work area, shelves, kitchenette, bed, bathroom, room) are navigational, not separate locations.
 - Sensory events interrupt — they appear between actions, not as choices. The player can choose to attend to them or ignore them.
-- Bodily states escalate and may impose mechanical effects (fatigue reducing idea quality, hunger distracting from combination, cold reducing conviction). Design TBD.
+- Bodily states escalate and impose mechanical effects. Implemented for hunger, thirst, cold, fatigue and the cramped hand (plus the unbidden memory), with eye strain folded into fatigue (P55) and the headache, stretch and urge to sleep folded into other states' top levels. Costs, timings and the tending rules are in [bodily-states-spike.md](../docs/plans/bodily-states-spike.md).
 - Hidden objects reward thorough examination. They should contain some of the most interesting observation-provoking material.
 - Some objects may provoke different observations depending on what ideas the player already holds (future feature, not for first pass).
 - Total: 54 physical items + 39 timed event variants (13 slots × 3) + 9 random events + 10 bodily states + 11 hidden objects = 123 distinct pieces of content.

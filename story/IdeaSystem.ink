@@ -24,3 +24,13 @@ EXTERNAL writable_idea_at(index)
 EXTERNAL writable_idea_count()
 EXTERNAL get_discipline()
 EXTERNAL get_discipline_private()
+
+
+// Bodily states (src/lib/game/body.svelte.ts)
+EXTERNAL body_tick(action, hour)
+EXTERNAL body_level(state)
+EXTERNAL body_extreme()
+EXTERNAL body_interrupt(index)
+EXTERNAL body_resolve(subject)
+EXTERNAL body_attend(state)
+EXTERNAL body_reading(subject, index)

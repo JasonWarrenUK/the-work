@@ -9,6 +9,9 @@ node node_modules/inkjs/bin/inkjs-compiler.js -o static/"The Work.json" story/"T
 # TypeScript checking
 npx svelte-check --tsconfig ./tsconfig.json
 
+# Tests (Vitest; the story tests read the compiled static/"The Work.json", so compile first)
+bun run test
+
 # Dev server
 npm run dev
 
@@ -67,6 +70,7 @@ npm run build
 - **Inline function calls**: use `{functionName(args)}` to call and print result inline. Use `~ functionName(args)` to call without printing.
 - **CHOICE_COUNT()**: used to show fallback options when no gated choices are available.
 - **Sticky choices**: `+` is one-time, `*` is... wait, reversed: `*` is one-time (consumed), `+` is sticky (repeatable).
+- **No externals in choice text**: inkjs raises a runtime error when a non-lookahead-safe external runs inside choice text (`[{get_idea_text(x)}]`), even when the choice's condition is false. Fetch the value into a `~ temp` before the choices and use `[{t}]`. Externals bound in `idea-bridge.ts` are not lookahead-safe.
 
 ## TypeScript Patterns
 
@@ -77,7 +81,9 @@ npm run build
 ## Current State & Known Gaps
 
 - Writing action in Tunnels.ink still uses domain-level write rather than true per-idea selective writing (see TODO comment in code)
-- Sensory events (P49-P53), bodily states (P54-P58), and hidden/nested objects (P59-P67) are cataloged but NOT in Observations.ink — they need different trigger mechanisms
+- Sensory events (P49-P53) and hidden/nested objects (P59-P67) are cataloged but NOT in Observations.ink — they need different trigger mechanisms
+- Bodily states (3GS.2) live in `src/lib/game/body.ts` (pure logic, all tunable constants; tested by `body.test.ts`, run with `bun run test`) with a `$state` wrapper in `body.svelte.ts`. Ink ticks the body through `advanceTime(action)` and runs `body_check` after every action (`story/Body.ink`); P54-P58 readings are offered from the interrupt beat, so they are not in Observations.ink. Prose is placeholder. Provisions, reading pools and UI indicators are 3GS.5, 3GS.6 and 3UI.1. Design record: `docs/plans/bodily-states-spike.md`.
+- **Ink weave gotcha**: a `--` gather inside a choice's body splits sibling `++` choices into separate choice sets, so a set whose choices are all unavailable ends the story ("ran out of content"). Keep one `++` set and let the bodies fall through to the single closing gather.
 - Level 3+ ideas need authoring for writable content in playtesting
 - Hours d1_2100 through d2_0700 are minimal loop stubs — each owns one hour of the night, guards on its own TimeNumber threshold, and chains to the next file when time advances. Per-hour narrative content goes here.
 

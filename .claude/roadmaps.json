@@ -573,7 +573,7 @@
 							"3GS.2",
 							"3GS.3"
 						],
-						"notes": "Covers the full 67-observation target: 48 of 67 objects already authored; this task carries the remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67)"
+						"notes": "Covers the full 67-observation target: 48 of 67 objects already authored; this task carries the remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67). 3GS.2 already offers the bodily P54–P58 readings from the body interrupt beat, so the bodily share is covered unless they should also appear as examinable objects"
 					},
 					{
 						"id": "3UI.1",
@@ -582,6 +582,35 @@
 						"dependsOn": [
 							"3GS.2"
 						]
+					},
+					{
+						"id": "3GS.5",
+						"description": "Implement provision trade-offs (drink, food, light) per the two-effect rule",
+						"status": "blocked",
+						"dependsOn": [
+							"3GS.2"
+						],
+						"notes": "Spec in docs/plans/bodily-states-spike.md. Includes authoring the food choices in d1_1840, filling the TBD effects (fasting/candle positive, gas negative, gas leaning, whiskey drawback), making the three lights qualitatively different rather than levels of brightness and fixing arcane light not setting myLightLevel",
+						"assignee": "Jason"
+					},
+					{
+						"id": "3GS.6",
+						"description": "Implement reading pools with leaning-weighted offering (3 of 4–6 readings per object)",
+						"status": "blocked",
+						"dependsOn": [
+							"3GS.5"
+						],
+						"notes": "Leanings (domain/orthodoxy) weight which readings are offered, never lock one out. Needs an authoring plan before content work",
+						"assignee": "Jason"
+					},
+					{
+						"id": "3NA.14",
+						"description": "Author reading pools for all 48 existing objects",
+						"status": "blocked",
+						"dependsOn": [
+							"3GS.6"
+						],
+						"assignee": "Jason"
 					}
 				]
 			},

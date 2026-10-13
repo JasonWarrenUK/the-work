@@ -18,6 +18,7 @@ The game is in **early development**. Core systems are in place but most content
 - 67 observations (with 201 domain readings) and 40 inklings are cataloged and wired into Ink
 - Orthodoxy scoring tracks how conventional or radical each idea is
 - Development and combination recipes can transform ideas through authored paths
+- The Writer's body escalates through the night (hunger, thirst, cold, fatigue, a cramped hand and an unbidden memory). It interrupts between actions, can be tended, stalls some actions when neglected and ends the night at the extremes (falling asleep or freezing). Design: [bodily-states-spike.md](docs/plans/bodily-states-spike.md)
 - An idea inventory panel (press `i`) shows the ideas you hold, their level and per-domain orthodoxy, and highlights which are ready to write into the thesis
 - The **Nib** engine (generic Ink/Svelte runtime) is stable and reusable independently
 
@@ -25,7 +26,8 @@ The game is in **early development**. Core systems are in place but most content
 - Hours d1_2100 through d2_0700 are empty stubs — the bulk of the night is unwritten
 - The thesis defence (d2_0800) has structure but needs the committee dynamics that emerge from what the player writes
 - Writing action still operates at the domain level, not true per-idea selective writing
-- Sensory events, bodily states, and hidden/nested objects are designed but have no trigger mechanisms in Ink yet
+- Sensory events and hidden/nested objects are designed but have no trigger mechanisms in Ink yet
+- Bodily state prose is placeholder text, provisions (drink, food, light) do not yet affect the body, and the UI shows no body indicators
 - Level 3+ ideas need authored content for the writing interface
 - No save/load UI yet (the engine supports it, the game doesn't surface it)
 

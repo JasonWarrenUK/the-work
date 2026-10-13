@@ -5,6 +5,8 @@
     //ENDING EVALUATION (set in d2_0800)
         VAR endingWrittenDomains = 0
         VAR endingThesesWritten = 0
+        //Set when fatigue goes extreme and the night is cut short (Body.ink)
+        VAR fellAsleep = false
 
     //PROGRESS OF THE THREAT
         //Pressure Data

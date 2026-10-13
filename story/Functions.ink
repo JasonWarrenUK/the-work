@@ -292,7 +292,16 @@
 
 //TIME
 
-=== function advanceTime()
+// action: write | observe | dwell | combine | reflect | attend | idle
+// Cold at level 3 slows every action except tending itself by an extra tick
+=== function advanceTime(action)
+    ~ advanceOneTick(action)
+    {action != "attend" && body_level("cold") >= 3:
+        ~ advanceOneTick("idle")
+    }
+
+=== function advanceOneTick(action)
+    ~ body_tick(action, TimeNumber)
     ~ TimeScore -= 1
     {TimeScore mod 10 == 0:
         ~ TimeNumber += 1
@@ -342,15 +351,15 @@ TODO === function Inspect(object)
         - 13:
             ~ TimeName = "1:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = "The room feels smaller now. The walls lean in. The cold is settling into the floorboards."
+            ~ TimeDesc = "The room feels smaller now. The walls lean in."
         - 14:
             ~ TimeName = "2:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = "Your eyes ache. The words on the page swim, rearrange themselves, refuse to hold still."
+            ~ TimeDesc = ""
         - 15:
             ~ TimeName = "3:00am"
             ~ TimeFolk = ""
-            ~ TimeDesc = "The body pushes back. Your hand cramps around the pen. The bed is right there."
+            ~ TimeDesc = ""
         - 16:
             ~ TimeName = "4:00am"
             ~ TimeFolk = ""
@@ -396,7 +405,8 @@ TODO === function Inspect(object)
     It is {TimeName}.
 
 === function printTimeDesc()
-    {TimeDesc}
+    // The 1am to 3am lines describe the body, so each shows only while that state is real
+    {TimeDesc}{TimeNumber == 13 && body_level("cold") >= 1: The cold is settling into the floorboards.}{TimeNumber == 14 && body_level("fatigue") >= 1:Your eyes ache. The words on the page swim, rearrange themselves, refuse to hold still.}{TimeNumber == 15 && body_level("cramp") + body_level("fatigue") >= 1:The body pushes back.}{TimeNumber == 15 && body_level("cramp") >= 1: Your hand cramps around the pen.}{TimeNumber == 15 && body_level("fatigue") >= 2: The bed is right there.}
     {TimeNumber == 12 && get_dread("Existential") >= 2:
         The bells count out the nothing. Each stroke a question you can't answer.
     }
