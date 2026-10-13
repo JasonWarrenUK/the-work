@@ -97,10 +97,10 @@ export async function loadStory(jsonPath: string, onInit?: (ink: Story) => void)
 	// Let the game wire up its own external functions and data
 	onInit?.(ink);
 
-	// Observers belong to the old Story instance; the next variable() read re-registers them
+	state.inkStory = ink;
+	// Observers belonged to the old Story instance; the next variable() read re-registers on this one
 	observedNames.clear();
 	state.variables = {};
-	state.inkStory = ink;
 }
 
 /**
