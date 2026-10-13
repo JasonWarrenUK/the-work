@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { onMount, onDestroy } from 'svelte';
+	import Emphasis from './Emphasis.svelte';
 
 	let {
 		choices,
@@ -58,7 +59,7 @@
 				aria-keyshortcuts={i < 9 ? String(i + 1) : undefined}
 			>
 				<span class="shortcut" aria-hidden="true">{i < 9 ? i + 1 : ''}</span>
-				{choice.text}
+				<span><Emphasis text={choice.text} /></span>
 			</button>
 		{/each}
 	</nav>
