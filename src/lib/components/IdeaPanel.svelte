@@ -23,15 +23,8 @@
 
 	let dialog: HTMLDivElement | null = $state(null);
 
-	// Reading story.tick inside $derived ensures these re-evaluate after each continue()
-	let held = $derived((() => {
-		story.tick;
-		return inventory.heldIdeas();
-	})());
-	let writableIds = $derived((() => {
-		story.tick;
-		return new Set(inventory.writableIdeas().map((d) => d.id));
-	})());
+	let held = $derived(inventory.heldIdeas());
+	let writableIds = $derived(new Set(inventory.writableIdeas().map((d) => d.id)));
 
 	$effect(() => {
 		if (open && dialog) {
