@@ -26,8 +26,18 @@ import { processTags } from './tags';
 /** Re-export Story type so consumers can type their onInit callbacks. */
 export type { Story };
 
-// inkjs ErrorType values (not reliably exported from ESM bundle)
-const INK_ERROR = 0;
+// inkjs ErrorType values (not reliably exported from the ESM bundle).
+// Verified against node_modules/inkjs/engine/Error.d.ts: Author = 0, Warning = 1, Error = 2.
+const INK_WARNING = 1;
+
+/** Most recent issues kept; older ones drop off (the console still has them all). */
+const MAX_ISSUES = 200;
+
+/** A problem the Ink runtime reported while the story ran. */
+export interface StoryIssue {
+	level: 'error' | 'warning';
+	message: string;
+}
 
 /** A choice offered by the story, with the Ink tags attached to it. */
 export interface StoryChoice {
@@ -56,12 +66,14 @@ interface StoryState {
 	history: string[];
 	/** Latest value of every Ink variable a consumer has read through {@link story.variable}. */
 	variables: Record<string, unknown>;
+	issues: StoryIssue[];
 }
 
 let state: StoryState = $state({
 	inkStory: null,
 	history: [],
-	variables: {}
+	variables: {},
+	issues: []
 });
 
 /** Names with an inkjs observer registered on the current story (or known undeclared). */
@@ -86,13 +98,20 @@ export async function loadStory(jsonPath: string, onInit?: (ink: Story) => void)
 	if (json.charCodeAt(0) === 0xfeff) json = json.slice(1);
 	const ink = new Story(json);
 
+	// Author errors and runtime errors both count as errors; only Warning is a warning.
 	ink.onError = (message: string, type: number) => {
-		if (type === INK_ERROR) {
+		const level = type === INK_WARNING ? 'warning' : 'error';
+		state.issues.push({ level, message });
+		if (state.issues.length > MAX_ISSUES) {
+			state.issues.splice(0, state.issues.length - MAX_ISSUES);
+		}
+		if (level === 'error') {
 			console.error(`Ink error: ${message}`);
 		} else {
 			console.warn(`Ink warning: ${message}`);
 		}
 	};
+	state.issues = [];
 
 	// Let the game wire up its own external functions and data
 	onInit?.(ink);
@@ -200,6 +219,19 @@ export const story = {
 			}
 		}
 		return state.variables[name];
+	},
+
+	/**
+	 * Errors and warnings the Ink runtime has reported since the story loaded
+	 * (or since {@link clearIssues}). Reactive: read it inside `$derived()`.
+	 */
+	get issues(): readonly StoryIssue[] {
+		return state.issues;
+	},
+
+	/** Forget every reported issue. */
+	clearIssues() {
+		state.issues = [];
 	},
 
 	/** Read an Ink variable once, without reactivity. */
