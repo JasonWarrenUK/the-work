@@ -35,4 +35,18 @@
 		margin-bottom: var(--space-md);
 		color: var(--text);
 	}
+
+	/* Paragraph classes set from Ink with #class:<name> */
+	p.aside {
+		color: var(--text-dim);
+		font-style: italic;
+	}
+
+	p.emphasis {
+		color: var(--accent);
+	}
+
+	p.urgent {
+		color: var(--danger);
+	}
 </style>
