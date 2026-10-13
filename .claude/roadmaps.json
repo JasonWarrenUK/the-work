@@ -286,11 +286,12 @@
 					{
 						"id": "2EN.3",
 						"description": "Move get_storylet stub out of story.svelte.ts into game code",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
 						"notes": "Restores Nib's zero-game-imports rule; unblocks 3EN.1 to implement real storylet behaviour on a clean base",
 						"assignee": "Jason",
-						"started": "2026-10-13"
+						"started": "2026-10-13",
+						"ended": "2026-10-13"
 					},
 					{
 						"id": "2EN.4",
@@ -639,7 +640,7 @@
 					{
 						"id": "3EN.1",
 						"description": "Implement storylet system (port get_storylet external function from calico-patches.md)",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"1EN.3",
 							"2EN.3"
