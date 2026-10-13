@@ -24,11 +24,11 @@
 		}
 	});
 
-	let written = $derived((() => { story.tick; return inventory.writtenIdeas(); })());
-	let writable = $derived((() => { story.tick; return inventory.writableIdeas(); })());
-	let held = $derived((() => { story.tick; return inventory.heldIdeas().filter((d) => d.level <= 2); })());
-	let profile = $derived((() => { story.tick; return inventory.getThesisProfile(); })());
-	let discipline = $derived((() => { story.tick; return getDiscipline(); })());
+	let written = $derived(inventory.writtenIdeas());
+	let writable = $derived(inventory.writableIdeas());
+	let held = $derived(inventory.heldIdeas().filter((d) => d.level <= 2));
+	let profile = $derived(inventory.getThesisProfile());
+	let discipline = $derived(getDiscipline());
 
 	const LEVEL_NAMES: Record<number, string> = {
 		1: 'Observation',
