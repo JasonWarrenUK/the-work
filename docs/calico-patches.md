@@ -37,28 +37,30 @@ Howler.js-based audio system with ink tag integration.
 
 Storylet system inspired by Twine/Harlowe. Dynamically includes ink passages tagged `#storylet` based on runtime conditions.
 
-**External function:** `get_storylet(index)`
+**External functions:** `get_storylet(index)` and `storylet_count()`
 
 **How it works:**
 1. Tag storylet passages with `#storylet`
 2. Include a guard condition at the top: `{savings < 2.70: -> DONE}`
-3. The external function iterates `mainContentContainer.namedContent`, finding passages tagged `storylet`
-4. Returns an `inkjs.Path` to the matching passage
-5. Uses `CHOICE_COUNT()` to detect whether the storylet added any choices
+3. `get_storylet` iterates `mainContentContainer.namedContent`, finding knots tagged `storylet` via `TagsForContentAtPath`
+4. Returns the knot container's own `Path`, which inkjs turns into a divert target
+5. `storylet_count()` lets the loop stop once every knot has been tried; Calico's loop had no end past the last one
+6. Uses `CHOICE_COUNT()` to detect whether the storylet added any choices
 
 **Ink usage:**
 ```ink
 === storylets(index)
-{index < 0: -> DONE}
+{index < 0 || index >= storylet_count(): -> DONE}
 ~ temp cc = CHOICE_COUNT()
 ~ temp storylet = get_storylet(index)
 <- storylet
 {CHOICE_COUNT() == cc: <- storylets(index+1)}
 
 EXTERNAL get_storylet(index)
+EXTERNAL storylet_count()
 ```
 
-**Current status:** Stubbed in SvelteKit — logs a warning. The stub lives in `src/lib/game/storylets.ts`, bound from `initGameSystems()`. The ink-side code exists in `story/patches/storylets.ink`.
+**Current status:** Implemented in `src/lib/game/storylets.ts`, bound from `initGameSystems()` and tested against `story/patches/storylets.ink`. That patch is not yet INCLUDEd by the main story; 3EN.2 authors the first real storylet.
 
 ---
 
