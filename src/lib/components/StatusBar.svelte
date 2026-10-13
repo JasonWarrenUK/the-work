@@ -38,14 +38,16 @@
 		{#if chips.length > 0 || dread.tier !== 'none'}
 			<ul class="body" aria-label="The Writer's condition">
 				{#each chips as chip (chip.state)}
-					<li class="chip" class:extreme={chip.level >= 3} aria-label={chip.label}>
-						<span class="chip-name">{chip.state}</span>
+					<li class="chip" class:extreme={chip.level >= 3}>
+						<span class="sr-only">{chip.label}</span>
+						<span class="chip-name" aria-hidden="true">{chip.state}</span>
 						<span class="chip-dots" aria-hidden="true">{chip.dots}</span>
 					</li>
 				{/each}
 				{#if dread.tier !== 'none'}
-					<li class="chip dread {dread.tier}" aria-label={dread.label}>
-						<span class="chip-name">dread</span>
+					<li class="chip dread {dread.tier}">
+						<span class="sr-only">{dread.label}</span>
+						<span class="chip-name" aria-hidden="true">dread</span>
 						<span class="chip-dots" aria-hidden="true">{dread.total}</span>
 					</li>
 				{/if}
@@ -168,6 +170,16 @@
 
 	.chip-name {
 		font-variant: small-caps;
+	}
+
+	/* Read by screen readers, never seen: the chip's full sentence */
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
 	}
 
 	.chip-dots {
