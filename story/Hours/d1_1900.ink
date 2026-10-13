@@ -27,7 +27,7 @@
         +   [You sigh.]
 
         -   Of course not. #class:emphasis
-            There is only one option.
+            There is only *one* option.
 
         +   [You lift the pen.]
 
