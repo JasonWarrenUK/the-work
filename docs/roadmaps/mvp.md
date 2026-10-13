@@ -109,16 +109,16 @@ End-to-end skeleton through full night, defence, and polish.
 - [ ] **3NA.10**: Author d2_0600 (hour 12) _(blocked: depends on 3NA.9)_
 - [ ] **3NA.11**: Author d2_0700 (hour 13, final night hour) _(blocked: depends on 3NA.10)_
 - [ ] **3GS.1**: Implement sensory event trigger mechanism in Ink (tag-based or external function) _(depends on 1EN.3)_
-- [ ] **3GS.2**: Implement bodily state triggers (fatigue, hunger, dread thresholds) _(depends on 1EN.3)_
+- [x] **3GS.2**: Implement bodily state triggers (fatigue, hunger, dread thresholds)
 - [ ] **3GS.3**: Implement hidden/nested object reveal mechanism _(depends on 1EN.3)_
-- [ ] **3GS.4**: Wire dread accumulation to bodily state triggers _(blocked: depends on 3GS.2, 1GS.9)_
+- [ ] **3GS.4**: Wire dread accumulation to bodily state triggers _(depends on 3GS.2, 1GS.9)_
 - [ ] **3EN.1**: Implement storylet system (port get_storylet external function from calico-patches.md) _(blocked: depends on 1EN.3, 2EN.3)_
 - [ ] **3EN.2**: Author storylets.ink with at least one proof-of-concept dynamic passage _(blocked: depends on 3EN.1)_
 - [ ] **3NA.12**: Integrate at least one storylet into a mid-night hour _(blocked: depends on 3EN.2, 3NA.4)_
 - [ ] **3NA.13**: Extend observations to sensory/bodily/hidden prompt locations _(blocked: depends on 3GS.1, 3GS.2, 3GS.3)_
   - Note: Covers the full 67-observation target: 48 of 67 objects already authored; this task carries the remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67). 3GS.2 already offers the bodily P54–P58 readings from the body interrupt beat, so the bodily share is covered unless they should also appear as examinable objects
-- [ ] **3UI.1**: Add bodily/dread state indicators to UI (StatusBar or equivalent) _(blocked: depends on 3GS.2)_
-- [ ] **3GS.5**: Implement provision trade-offs (drink, food, light) per the two-effect rule _(blocked: depends on 3GS.2)_
+- [ ] **3UI.1**: Add bodily/dread state indicators to UI (StatusBar or equivalent) _(depends on 3GS.2)_
+- [ ] **3GS.5**: Implement provision trade-offs (drink, food, light) per the two-effect rule _(depends on 3GS.2)_
   - Note: Spec in docs/plans/bodily-states-spike.md. Includes authoring the food choices in d1_1840, filling the TBD effects (fasting/candle positive, gas negative, gas leaning, whiskey drawback), making the three lights qualitatively different rather than levels of brightness and fixing arcane light not setting myLightLevel
 - [ ] **3GS.6**: Implement reading pools with leaning-weighted offering (3 of 4–6 readings per object) _(blocked: depends on 3GS.5)_
   - Note: Leanings (domain/orthodoxy) weight which readings are offered, never lock one out. Needs an authoring plan before content work
@@ -442,8 +442,8 @@ graph LR
 	5EN.5 --> M5
 	5EN.6 --> M5
 	5EN.7 --> M5
-	class 2EN.1,2EN.3,2EN.4,2EN.5,2EN.6,3GS.1,3GS.2,3GS.3,4GS.1,5EN.1,5EN.3,5PL.1,5PL.10,5PL.2,5PL.3 todo
-	class 2EN.2,2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.4,2GS.6,2GS.7,2GS.8,2GS.9,2NA.2,2UI.2,3EN.1,3EN.2,3GS.4,3GS.5,3GS.6,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.14,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,3UI.1,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.4,5PL.5,5PL.6,5PL.7,5PL.8,5PL.9,5UI.1,5UI.2 blocked
-	class 1EN.1,1EN.2,1EN.3,1GS.1,1GS.2,1GS.3,1GS.4,1GS.5,1GS.6,1GS.7,1GS.8,1GS.9,1NA.1,1NA.2,1NA.3,1NA.4,1NA.5,1NA.6,1NA.7,1UI.1,1UI.2,1UI.3,2GS.1,2GS.2,2GS.3,2GS.5,2NA.1,2UI.1 done
+	class 2EN.1,2EN.3,2EN.4,2EN.5,2EN.6,3GS.1,3GS.3,3GS.4,3GS.5,3UI.1,4GS.1,5EN.1,5EN.3,5PL.1,5PL.10,5PL.2,5PL.3 todo
+	class 2EN.2,2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.4,2GS.6,2GS.7,2GS.8,2GS.9,2NA.2,2UI.2,3EN.1,3EN.2,3GS.6,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.14,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.4,5PL.5,5PL.6,5PL.7,5PL.8,5PL.9,5UI.1,5UI.2 blocked
+	class 1EN.1,1EN.2,1EN.3,1GS.1,1GS.2,1GS.3,1GS.4,1GS.5,1GS.6,1GS.7,1GS.8,1GS.9,1NA.1,1NA.2,1NA.3,1NA.4,1NA.5,1NA.6,1NA.7,1UI.1,1UI.2,1UI.3,2GS.1,2GS.2,2GS.3,2GS.5,2NA.1,2UI.1,3GS.2 done
 ```
 
