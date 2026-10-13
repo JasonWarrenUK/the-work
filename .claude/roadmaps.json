@@ -303,10 +303,12 @@
 					{
 						"id": "2EN.5",
 						"description": "Add regression check: external functions still fire after loadState() restores a save",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
 						"notes": "Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call",
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-13",
+						"pr": 34
 					},
 					{
 						"id": "2EN.6",
@@ -316,6 +318,16 @@
 						"assignee": "Jason",
 						"started": "2026-10-13",
 						"ended": "2026-10-13"
+					},
+					{
+						"id": "2EN.7",
+						"description": "Extract the duplicated story-session test helpers (story load, session setup, pick) from body-story.test.ts, choice-tags.test.ts and load-state-externals.test.ts into a shared tests/story-session.ts",
+						"status": "todo",
+						"dependsOn": [
+							"2EN.5"
+						],
+						"notes": "Three copies exist after 2EN.5; deferred from the review of #34",
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.6",
