@@ -911,7 +911,8 @@
 						],
 						"notes": "Kept dependency on 2EN.6: both extend the same tag pipeline through continue() to the components",
 						"assignee": "Jason",
-						"ended": "2026-10-13"
+						"ended": "2026-10-13",
+						"pr": 38
 					},
 					{
 						"id": "5PL.9",
