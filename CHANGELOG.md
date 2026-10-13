@@ -7,6 +7,17 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-13
+
+### Added
+
+- Choices in the story can carry tags, and the engine passes them to the page. A `#mood:` tag on a choice sets the page's mood when that choice is chosen.
+- Pull requests also run a type check, so type errors surface before merge.
+
+### Changed
+
+- The three main actions (Attend to The Work, Consider your circumstances, Exercise the mind) declare their own mood in the story. The page no longer matches on their wording, so rewording a choice cannot switch its mood off.
+
 ## [0.3.1] - 2026-10-13
 
 ### Added
@@ -36,6 +47,7 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 - Extremes are rechecked after an interruption.
 - The observe beat no longer ends the story when there are no readings to offer.
 
-[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/JasonWarrenUK/the-work/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/JasonWarrenUK/the-work/releases/tag/v0.3.0
