@@ -7,7 +7,7 @@
 node node_modules/inkjs/bin/inkjs-compiler.js -o static/"The Work.json" story/"The Work.ink"
 
 # TypeScript checking
-npx svelte-check --tsconfig ./tsconfig.json
+bun run check
 
 # Tests (Vitest; the story tests read the compiled static/"The Work.json", so compile first)
 bun run test
