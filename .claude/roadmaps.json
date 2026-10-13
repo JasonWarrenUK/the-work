@@ -303,10 +303,11 @@
 					{
 						"id": "2EN.5",
 						"description": "Add regression check: external functions still fire after loadState() restores a save",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
 						"notes": "Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call",
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-13"
 					},
 					{
 						"id": "2EN.6",
