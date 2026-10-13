@@ -6,12 +6,12 @@
         +   Time has passed more quickly than anticipated.
             #CLEAR
         
-        -   The committee has already deferred twice.
+        -   The committee has already deferred twice. #class:urgent
             
         +   And have made it clear that they shall not do so again.
             #CLEAR
         
-        -   You are inclined to agree.
+        -   You are inclined to agree. #class:aside
             If the outbreak of war hasn't impeded tomorrow's defence proceedings, then...
 
         +   [maybe...]
@@ -26,7 +26,7 @@
 
         +   [You sigh.]
 
-        -   Of course not.
+        -   Of course not. #class:emphasis
             There is only one option.
 
         +   [You lift the pen.]

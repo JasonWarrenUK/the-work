@@ -313,7 +313,8 @@
 						"description": "Wire #class: tag through continue() to Passage.svelte (or cut README claim)",
 						"status": "todo",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-13"
 					},
 					{
 						"id": "2GS.6",

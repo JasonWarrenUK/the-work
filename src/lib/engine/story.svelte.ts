@@ -37,6 +37,13 @@ export interface StoryChoice {
 	tags: string[];
 }
 
+/** A paragraph of story text with the CSS classes its Ink tags asked for. */
+export interface StoryParagraph {
+	text: string;
+	/** From `#class:<name>` and bare tags on the line; empty when untagged. */
+	classes: string[];
+}
+
 /** Apply an atmospheric mood to the document root for mood-driven CSS. */
 function applyMood(mood: string | null): void {
 	if (mood && typeof document !== 'undefined') {
@@ -99,13 +106,14 @@ export const story = {
 	/**
 	 * Continue the story until we hit choices or the end.
 	 * Processes Ink tags (CLEAR, mood, class) on each line.
-	 * Returns accumulated paragraphs and available choices, each with its tags.
+	 * Returns accumulated paragraphs (text plus CSS classes) and available
+	 * choices, each with its tags.
 	 */
-	continue(): { paragraphs: string[]; choices: StoryChoice[] } {
+	continue(): { paragraphs: StoryParagraph[]; choices: StoryChoice[] } {
 		const ink = state.inkStory;
 		if (!ink) throw new Error('Story not loaded');
 
-		const paragraphs: string[] = [];
+		const paragraphs: StoryParagraph[] = [];
 
 		while (ink.canContinue) {
 			const text = ink.Continue();
@@ -116,7 +124,7 @@ export const story = {
 
 			// Process tags for this line
 			const tags = ink.currentTags ?? [];
-			const { clear, mood } = processTags(tags);
+			const { clear, mood, classes } = processTags(tags);
 
 			// Apply mood to html element for atmospheric CSS
 			applyMood(mood);
@@ -127,11 +135,11 @@ export const story = {
 				state.history = [];
 			}
 
-			paragraphs.push(trimmed);
+			paragraphs.push({ text: trimmed, classes });
 		}
 
 		// Track history
-		state.history.push(...paragraphs);
+		state.history.push(...paragraphs.map((p) => p.text));
 
 		const choices = ink.currentChoices.map((c) => ({
 			index: c.index,
