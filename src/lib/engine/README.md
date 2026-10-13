@@ -49,6 +49,8 @@ Fetches compiled Ink JSON and creates the story instance.
 | `canContinue` | Whether the story has more content to continue. |
 | `currentTags` | Tags on the most recently continued line. |
 | `tick` | Reactive counter incremented after each `continue()`. Use inside `$derived()` to re-evaluate Ink variable reads. |
+| `issues` | Reactive list of `StoryIssue` (`{ level: 'error' \| 'warning', message }`) the Ink runtime has reported since load. Author and runtime errors are `error`; only inkjs `Warning` is `warning`. Still echoed to the console. |
+| `clearIssues()` | Empties `issues`. A fresh `loadStory()` also empties it. |
 | `getVariable(name)` | Read an Ink variable. |
 | `setVariable(name, value)` | Write an Ink variable. |
 | `saveState()` | Serialise the full Ink state to a JSON string. |
