@@ -21,7 +21,7 @@
  */
 
 import { Story } from 'inkjs';
-import { processTags } from './tags';
+import { processTags, type FrameSpec } from './tags';
 
 /** Re-export Story type so consumers can type their onInit callbacks. */
 export type { Story };
@@ -47,11 +47,13 @@ export interface StoryChoice {
 	tags: string[];
 }
 
-/** A paragraph of story text with the CSS classes its Ink tags asked for. */
+/** A paragraph of story text with what its Ink tags asked for. */
 export interface StoryParagraph {
 	text: string;
 	/** From `#class:<name>` and bare tags on the line; empty when untagged. */
 	classes: string[];
+	/** From a `#frame:` tag on the line; null when there is none. */
+	frame: FrameSpec | null;
 }
 
 /** Apply an atmospheric mood to the document root for mood-driven CSS. */
@@ -132,7 +134,7 @@ export async function loadStory(jsonPath: string, onInit?: (ink: Story) => void)
 export const story = {
 	/**
 	 * Continue the story until we hit choices or the end.
-	 * Processes Ink tags (CLEAR, mood, class) on each line.
+	 * Processes Ink tags (CLEAR, mood, class, frame) on each line.
 	 * Returns accumulated paragraphs (text plus CSS classes) and available
 	 * choices, each with its tags.
 	 */
@@ -151,7 +153,7 @@ export const story = {
 
 			// Process tags for this line
 			const tags = ink.currentTags ?? [];
-			const { clear, mood, classes } = processTags(tags);
+			const { clear, mood, classes, frame } = processTags(tags);
 
 			// Apply mood to html element for atmospheric CSS
 			applyMood(mood);
@@ -162,7 +164,7 @@ export const story = {
 				state.history = [];
 			}
 
-			paragraphs.push({ text: trimmed, classes });
+			paragraphs.push({ text: trimmed, classes, frame });
 		}
 
 		// Track history
