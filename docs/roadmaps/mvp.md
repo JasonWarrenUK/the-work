@@ -96,7 +96,7 @@ End-to-end skeleton through full night, defence, and polish.
 
 **Goal:** All hours authored (d1_2100–d2_0700). Sensory events, bodily states, and hidden/nested objects have trigger mechanisms. Storylet system proves out with at least one working dynamic passage. The full night is playable start to finish.
 
-- [ ] **3NA.1**: Author d1_2100 (hour 3) _(blocked: depends on M2)_
+- [ ] **3NA.1**: Author d1_2100 (hour 3) _(blocked: depends on M2, 5PL.7)_
   - Note: d1_2000 loop already handles time; this is about adding hour-specific narrative flavour
 - [ ] **3NA.2**: Author d1_2200 (hour 4) _(blocked: depends on 3NA.1)_
 - [ ] **3NA.3**: Author d1_2300 (hour 5) _(blocked: depends on 3NA.2)_
@@ -123,6 +123,8 @@ End-to-end skeleton through full night, defence, and polish.
 - [ ] **3GS.6**: Implement reading pools with leaning-weighted offering (3 of 4–6 readings per object) _(blocked: depends on 3GS.5)_
   - Note: Leanings (domain/orthodoxy) weight which readings are offered, never lock one out. Needs an authoring plan before content work
 - [ ] **3NA.14**: Author reading pools for all 48 existing objects _(blocked: depends on 3GS.6)_
+- [ ] **5PL.7**: Markdown-to-HTML for **bold** / *italic* in Ink text
+  - Note: Moved from Polish: the hour files and the defence are authored with emphasis available, so they are not retrofitted later
 
 ---
 
@@ -157,12 +159,13 @@ End-to-end skeleton through full night, defence, and polish.
   - Note: Kept dependency on 5EN.2: loadState restores Ink state only and does not rebuild the visible transcript, so a resume prompt needs the history replay and history-aware autosave to keep its promise
 - [ ] **5PL.4**: Implement audio system (Howler.js-based, port from calico-patches.md)
 - [ ] **5PL.5**: Wire #play, #pause, #stop, #volume Ink tags to audio system _(blocked: depends on 5PL.4)_
-- [ ] **5NA.1**: Add audio cues to key narrative moments _(blocked: depends on 5PL.5)_
+- [ ] **5NA.1**: Add audio cues to key narrative moments _(blocked: depends on 5PL.5, 3NA.11, 4NA.3)_
+  - Note: Cues are placed once the hours and the endings exist to place them in
 - [ ] **5PL.6**: Asset preloading (scan compiled Ink JSON for audio/image refs, show progress) _(blocked: depends on 5PL.4)_
-- [ ] **5PL.7**: Markdown-to-HTML for **bold** / *italic* in Ink text
 - [ ] **5PL.8**: Implement #frame: tag handler and layered parallax component _(blocked: depends on 2EN.6)_
   - Note: Kept dependency on 2EN.6: both extend the same tag pipeline through continue() to the components
-- [ ] **5PL.9**: Add parallax frames to key atmospheric scenes _(blocked: depends on 5PL.8)_
+- [ ] **5PL.9**: Add parallax frames to key atmospheric scenes _(blocked: depends on 5PL.8, 3NA.11)_
+  - Note: Frames are placed once the hours exist to place them in
 - [ ] **5PL.10**: Implement drag-to-scroll (desktop click-and-drag)
 - [ ] **5EN.3**: Stamp save version (git tag) into SaveData and check on load
   - Note: A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting
@@ -239,6 +242,18 @@ graph LR
 	2GS.2["2GS.2: Implement writable-ideas UI panel (displ…"]
 	2UI.1["2UI.1: Idea inventory panel — see held ideas, t…"]
 	M2["M2: Writing Engine"]:::mile
+	3GS.1["3GS.1: Implement sensory event trigger mechanis…"]
+	3GS.2["3GS.2: Implement bodily state triggers (fatigue…"]
+	3GS.3["3GS.3: Implement hidden/nested object reveal me…"]
+	3GS.4["3GS.4: Wire dread accumulation to bodily state…"]
+	3EN.1["3EN.1: Implement storylet system (port get_stor…"]
+	3EN.2["3EN.2: Author storylets.ink with at least one p…"]
+	3NA.13["3NA.13: Extend observations to sensory/bodily/h…"]
+	3UI.1["3UI.1: Add bodily/dread state indicators to UI…"]
+	3GS.5["3GS.5: Implement provision trade-offs (drink, f…"]
+	3GS.6["3GS.6: Implement reading pools with leaning-wei…"]
+	3NA.14["3NA.14: Author reading pools for all 48 existin…"]
+	5PL.7["5PL.7: Markdown-to-HTML for **bold** / *italic*…"]
 	3NA.1["3NA.1: Author d1_2100 (hour 3)"]
 	3NA.2["3NA.2: Author d1_2200 (hour 4)"]
 	3NA.3["3NA.3: Author d1_2300 (hour 5)"]
@@ -250,18 +265,7 @@ graph LR
 	3NA.9["3NA.9: Author d2_0500 (hour 11)"]
 	3NA.10["3NA.10: Author d2_0600 (hour 12)"]
 	3NA.11["3NA.11: Author d2_0700 (hour 13, final night ho…"]
-	3GS.1["3GS.1: Implement sensory event trigger mechanis…"]
-	3GS.2["3GS.2: Implement bodily state triggers (fatigue…"]
-	3GS.3["3GS.3: Implement hidden/nested object reveal me…"]
-	3GS.4["3GS.4: Wire dread accumulation to bodily state…"]
-	3EN.1["3EN.1: Implement storylet system (port get_stor…"]
-	3EN.2["3EN.2: Author storylets.ink with at least one p…"]
 	3NA.12["3NA.12: Integrate at least one storylet into a…"]
-	3NA.13["3NA.13: Extend observations to sensory/bodily/h…"]
-	3UI.1["3UI.1: Add bodily/dread state indicators to UI…"]
-	3GS.5["3GS.5: Implement provision trade-offs (drink, f…"]
-	3GS.6["3GS.6: Implement reading pools with leaning-wei…"]
-	3NA.14["3NA.14: Author reading pools for all 48 existin…"]
 	M3["M3: Full Night"]:::mile
 	4NA.1["4NA.1: Author committee introduction scene (com…"]
 	4NA.2["4NA.2: Author defence questioning logic (commit…"]
@@ -284,7 +288,6 @@ graph LR
 	5PL.5["5PL.5: Wire #play, #pause, #stop, #volume Ink t…"]
 	5NA.1["5NA.1: Add audio cues to key narrative moments"]
 	5PL.6["5PL.6: Asset preloading (scan compiled Ink JSON…"]
-	5PL.7["5PL.7: Markdown-to-HTML for **bold** / *italic*…"]
 	5PL.8["5PL.8: Implement #frame: tag handler and layere…"]
 	5PL.9["5PL.9: Add parallax frames to key atmospheric s…"]
 	5PL.10["5PL.10: Implement drag-to-scroll (desktop click…"]
@@ -381,6 +384,21 @@ graph LR
 	2GS.2 --> M2
 	2UI.1 --> M2
 	M2 --> 3NA.1
+	3GS.1 --> 3NA.13
+	3GS.2 --> 3GS.4
+	3GS.2 --> 3NA.13
+	3GS.2 --> 3UI.1
+	3GS.2 --> 3GS.5
+	3GS.3 --> 3NA.13
+	3GS.4 --> M3
+	3EN.1 --> 3EN.2
+	3EN.2 --> 3NA.12
+	3NA.13 --> M3
+	3UI.1 --> M3
+	3GS.5 --> 3GS.6
+	3GS.6 --> 3NA.14
+	3NA.14 --> M3
+	5PL.7 --> 3NA.1
 	3NA.1 --> 3NA.2
 	3NA.2 --> 3NA.3
 	3NA.3 --> 3NA.4
@@ -393,21 +411,9 @@ graph LR
 	3NA.9 --> 3NA.10
 	3NA.10 --> 3NA.11
 	3NA.11 --> M3
-	3GS.1 --> 3NA.13
-	3GS.2 --> 3GS.4
-	3GS.2 --> 3NA.13
-	3GS.2 --> 3UI.1
-	3GS.2 --> 3GS.5
-	3GS.3 --> 3NA.13
-	3GS.4 --> M3
-	3EN.1 --> 3EN.2
-	3EN.2 --> 3NA.12
+	3NA.11 --> 5NA.1
+	3NA.11 --> 5PL.9
 	3NA.12 --> M3
-	3NA.13 --> M3
-	3UI.1 --> M3
-	3GS.5 --> 3GS.6
-	3GS.6 --> 3NA.14
-	3NA.14 --> M3
 	M3 --> 4NA.1
 	4NA.1 --> 4NA.2
 	4NA.1 --> 4NA.4
@@ -417,6 +423,7 @@ graph LR
 	4GS.2 --> 4GS.3
 	4GS.3 --> 4NA.3
 	4NA.3 --> M4
+	4NA.3 --> 5NA.1
 	4UI.1 --> M4
 	4NA.5 --> M4
 	5PL.1 --> M5
@@ -433,7 +440,6 @@ graph LR
 	5PL.5 --> 5NA.1
 	5NA.1 --> M5
 	5PL.6 --> M5
-	5PL.7 --> M5
 	5PL.8 --> 5PL.9
 	5PL.9 --> M5
 	5PL.10 --> M5

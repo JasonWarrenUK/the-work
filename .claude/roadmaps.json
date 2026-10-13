@@ -500,7 +500,8 @@
 						"description": "Author d1_2100 (hour 3)",
 						"status": "blocked",
 						"dependsOn": [
-							"M2"
+							"M2",
+							"5PL.7"
 						],
 						"notes": "d1_2000 loop already handles time; this is about adding hour-specific narrative flavour",
 						"assignee": "Jason"
@@ -711,6 +712,14 @@
 							"3GS.6"
 						],
 						"assignee": "Jason"
+					},
+					{
+						"id": "5PL.7",
+						"description": "Markdown-to-HTML for **bold** / *italic* in Ink text",
+						"status": "todo",
+						"dependsOn": [],
+						"notes": "Moved from Polish: the hour files and the defence are authored with emphasis available, so they are not retrofitted later",
+						"assignee": "Jason"
 					}
 				]
 			},
@@ -890,8 +899,11 @@
 						"description": "Add audio cues to key narrative moments",
 						"status": "blocked",
 						"dependsOn": [
-							"5PL.5"
+							"5PL.5",
+							"3NA.11",
+							"4NA.3"
 						],
+						"notes": "Cues are placed once the hours and the endings exist to place them in",
 						"assignee": "Jason"
 					},
 					{
@@ -901,13 +913,6 @@
 						"dependsOn": [
 							"5PL.4"
 						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5PL.7",
-						"description": "Markdown-to-HTML for **bold** / *italic* in Ink text",
-						"status": "todo",
-						"dependsOn": [],
 						"assignee": "Jason"
 					},
 					{
@@ -925,8 +930,10 @@
 						"description": "Add parallax frames to key atmospheric scenes",
 						"status": "blocked",
 						"dependsOn": [
-							"5PL.8"
+							"5PL.8",
+							"3NA.11"
 						],
+						"notes": "Frames are placed once the hours exist to place them in",
 						"assignee": "Jason"
 					},
 					{
