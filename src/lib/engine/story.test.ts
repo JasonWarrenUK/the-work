@@ -32,6 +32,16 @@ describe('story.continue() paragraph frames', () => {
 		expect(paragraphs[0].classes).toEqual([]);
 		expect(paragraphs[1].frame).toBeNull();
 	});
+
+	it('attaches a frame tag written on its own line to the paragraph below it', async () => {
+		await loadInk('#frame: back.png:2, fore.png\nThe framed paragraph.\nA plain line.\n-> END\n');
+
+		const { paragraphs } = story.continue();
+
+		expect(paragraphs.map((p) => p.text)).toEqual(['The framed paragraph.', 'A plain line.']);
+		expect(paragraphs[0].frame?.layers.map((l) => l.src)).toEqual(['back.png', 'fore.png']);
+		expect(paragraphs[1].frame).toBeNull();
+	});
 });
 
 describe('story.issues', () => {
