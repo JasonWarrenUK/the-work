@@ -30,6 +30,9 @@ export type { Story };
 // Verified against node_modules/inkjs/engine/Error.d.ts: Author = 0, Warning = 1, Error = 2.
 const INK_WARNING = 1;
 
+/** Most recent issues kept; older ones drop off (the console still has them all). */
+const MAX_ISSUES = 200;
+
 /** A problem the Ink runtime reported while the story ran. */
 export interface StoryIssue {
 	level: 'error' | 'warning';
@@ -95,6 +98,9 @@ export async function loadStory(jsonPath: string, onInit?: (ink: Story) => void)
 	ink.onError = (message: string, type: number) => {
 		const level = type === INK_WARNING ? 'warning' : 'error';
 		state.issues.push({ level, message });
+		if (state.issues.length > MAX_ISSUES) {
+			state.issues.splice(0, state.issues.length - MAX_ISSUES);
+		}
 		if (level === 'error') {
 			console.error(`Ink error: ${message}`);
 		} else {

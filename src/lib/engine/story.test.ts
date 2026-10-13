@@ -50,6 +50,17 @@ describe('story.issues', () => {
 		expect(warn).not.toHaveBeenCalled();
 	});
 
+	it('keeps only the most recent 200 issues', async () => {
+		await loadInk('Hello.\n-> END\n');
+		vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+		for (let i = 1; i <= 250; i += 1) story.ink?.onError?.(`warning ${i}`, 1);
+
+		expect(story.issues).toHaveLength(200);
+		expect(story.issues[0].message).toBe('warning 51');
+		expect(story.issues.at(-1)?.message).toBe('warning 250');
+	});
+
 	it('clears on clearIssues() and on a fresh load', async () => {
 		await loadInk('Hello.\n-> END\n');
 		vi.spyOn(console, 'warn').mockImplementation(() => {});
