@@ -13,10 +13,10 @@ npx svelte-check --tsconfig ./tsconfig.json
 bun run test
 
 # Dev server
-npm run dev
+bun run dev
 
 # Build
-npm run build
+bun run build
 ```
 
 ## Architecture
