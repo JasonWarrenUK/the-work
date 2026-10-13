@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import type { StoryParagraph } from '$lib/engine/story.svelte';
+	import ParallaxFrame from './ParallaxFrame.svelte';
 
 	let { paragraphs }: { paragraphs: StoryParagraph[] } = $props();
 
@@ -17,6 +18,11 @@
 
 <div class="passage">
 	{#each keyed as para, i (para.id)}
+		{#if para.frame}
+			<div in:fade={{ duration: 500, delay: i * 50 }}>
+				<ParallaxFrame frame={para.frame} />
+			</div>
+		{/if}
 		<p class={para.classes} in:fade={{ duration: 500, delay: i * 50 }}>
 			{para.text}
 		</p>

@@ -44,7 +44,7 @@ Fetches compiled Ink JSON and creates the story instance.
 
 | Member | Description |
 |--------|-------------|
-| `continue()` | Advances the story until choices or end. Returns `{ paragraphs, choices }`, where each paragraph is a `StoryParagraph` (`{ text, classes }`) and each choice is a `StoryChoice` (`{ index, text, tags }`). Processes tags on each line. |
+| `continue()` | Advances the story until choices or end. Returns `{ paragraphs, choices }`, where each paragraph is a `StoryParagraph` (`{ text, classes, frame }`) and each choice is a `StoryChoice` (`{ index, text, tags }`). Processes tags on each line. |
 | `choose(index)` | Selects a choice by index to advance the narrative. Applies a `#mood:` tag on that choice before advancing. |
 | `canContinue` | Whether the story has more content to continue. |
 | `currentTags` | Tags on the most recently continued line. |
@@ -64,6 +64,7 @@ Tags are processed by `processTags()` from `tags.ts`:
 - `#CLEAR` — wipe passage history before this line.
 - `#mood:<name>` — set `document.documentElement.dataset.mood` for atmospheric CSS.
 - `#class:<name>` — add a CSS class to the paragraph element. `continue()` returns it in the paragraph's `classes`; the renderer applies it (the game's `Passage.svelte` sets it on the `<p>`).
+- `#frame: a.png:6, b.png, c.gif:1.5; height:0.2` — a layered parallax frame for the paragraph (Calico `parallaxframes` syntax). Each comma-separated entry is a layer; `:<depth>` sets how little that layer moves (higher = less, default 1); options follow `;` (`height` is a fraction of the viewport; the game's renderer uses 0.3 when none is given). The tag may sit on its own line above the paragraph: inkjs attaches it to the next line of output. Calico wrote the separator as `|`, which the Ink compiler rejects inside a tag; the parser accepts either. `continue()` returns it parsed as the paragraph's `frame` (`FrameSpec`); the renderer draws it (the game's `ParallaxFrame.svelte` resolves names under `static/frames/` and tracks the pointer, disabled under `prefers-reduced-motion`).
 - Bare tags — treated as CSS classes (Calico convention).
 
 Tags can also sit on a choice (`+ Attend to The Work #mood:textual`). They arrive in `choices[].tags`, and `choose()` applies a choice's `#mood:` when that choice is selected. The renderer decides what a mood-tagged choice set means; Nib only applies the mood.
