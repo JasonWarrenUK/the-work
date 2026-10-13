@@ -83,18 +83,6 @@ export async function loadStory(jsonPath: string, onInit?: (ink: Story) => void)
 		}
 	};
 
-	// Bind external functions if they exist in the compiled story.
-	// get_storylet is declared in patches/storylets.ink — only bind if
-	// that patch was INCLUDEd when the story JSON was compiled.
-	try {
-		ink.BindExternalFunction('get_storylet', (index: number) => {
-			console.warn(`get_storylet(${index}) called but storylets are not yet implemented`);
-			return '';
-		});
-	} catch {
-		// Function not declared in this build of the story — safe to ignore
-	}
-
 	// Let the game wire up its own external functions and data
 	onInit?.(ink);
 

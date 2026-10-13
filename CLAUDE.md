@@ -48,7 +48,7 @@ bun run build
 **Nib** (`src/lib/engine/`) is the **generic, reusable Ink+Svelte runtime** with no knowledge of this game's mechanics. The `src/lib/game/` directory contains all game-specific logic. These rules maintain the boundary:
 
 - **Nib (`src/lib/engine/`) must have zero imports from `$lib/game/`** — if you find yourself importing game code into the engine, the logic belongs in `game/` instead.
-- **Game-specific Ink external function bindings go in `src/lib/game/idea-bridge.ts`**, not in the engine.
+- **Game-specific Ink external function bindings go in `src/lib/game/`**, never in the engine: `idea-bridge.ts` for the idea system, `storylets.ts` for storylets. Each is called from `initGameSystems()`.
 - **The `onInit` callback is the only integration point** — `loadStory(path, onInit)` passes the raw inkjs Story to game code for binding external functions and registering data.
 - **Nib files must be documented with JSDoc** — every exported function and type needs a doc comment.
 - To reuse Nib in another project, copy `src/lib/engine/` and write a new `onInit` function.
