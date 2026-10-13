@@ -14,6 +14,36 @@ afterEach(() => {
 	vi.restoreAllMocks();
 });
 
+describe('story.continue() paragraph frames', () => {
+	it('carries a #frame: tag onto the paragraph it sits on', async () => {
+		// The Ink compiler rejects `|` inside a tag, so Ink source separates options with `;`
+		await loadInk('A framed line. #frame: back.png:6, mid.png, fore.gif:1.5; height:0.2\nA plain line.\n-> END\n');
+
+		const { paragraphs } = story.continue();
+
+		expect(paragraphs[0].frame).toEqual({
+			layers: [
+				{ src: 'back.png', depth: 6 },
+				{ src: 'mid.png', depth: 1 },
+				{ src: 'fore.gif', depth: 1.5 }
+			],
+			height: 0.2
+		});
+		expect(paragraphs[0].classes).toEqual([]);
+		expect(paragraphs[1].frame).toBeNull();
+	});
+
+	it('attaches a frame tag written on its own line to the paragraph below it', async () => {
+		await loadInk('#frame: back.png:2, fore.png\nThe framed paragraph.\nA plain line.\n-> END\n');
+
+		const { paragraphs } = story.continue();
+
+		expect(paragraphs.map((p) => p.text)).toEqual(['The framed paragraph.', 'A plain line.']);
+		expect(paragraphs[0].frame?.layers.map((l) => l.src)).toEqual(['back.png', 'fore.png']);
+		expect(paragraphs[1].frame).toBeNull();
+	});
+});
+
 describe('story.issues', () => {
 	// inkjs ErrorType: Author = 0, Warning = 1, Error = 2 (engine/Error.d.ts)
 	it('records runtime errors and warnings with the right level', async () => {
@@ -145,6 +175,6 @@ describe('story.continue() paragraph classes', () => {
 
 		const { paragraphs } = story.continue();
 
-		expect(paragraphs).toEqual([{ text: 'After.', classes: ['bold'] }]);
+		expect(paragraphs).toEqual([{ text: 'After.', classes: ['bold'], frame: null }]);
 	});
 });
