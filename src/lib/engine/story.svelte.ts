@@ -26,8 +26,18 @@ import { processTags } from './tags';
 /** Re-export Story type so consumers can type their onInit callbacks. */
 export type { Story };
 
-// inkjs ErrorType values (not reliably exported from ESM bundle)
-const INK_ERROR = 0;
+// inkjs ErrorType values (not reliably exported from the ESM bundle).
+// Verified against node_modules/inkjs/engine/Error.d.ts: Author = 0, Warning = 1, Error = 2.
+const INK_WARNING = 1;
+
+/** Most recent issues kept; older ones drop off (the console still has them all). */
+const MAX_ISSUES = 200;
+
+/** A problem the Ink runtime reported while the story ran. */
+export interface StoryIssue {
+	level: 'error' | 'warning';
+	message: string;
+}
 
 /** A choice offered by the story, with the Ink tags attached to it. */
 export interface StoryChoice {
@@ -54,14 +64,20 @@ function applyMood(mood: string | null): void {
 interface StoryState {
 	inkStory: Story | null;
 	history: string[];
-	tick: number;
+	/** Latest value of every Ink variable a consumer has read through {@link story.variable}. */
+	variables: Record<string, unknown>;
+	issues: StoryIssue[];
 }
 
 let state: StoryState = $state({
 	inkStory: null,
 	history: [],
-	tick: 0
+	variables: {},
+	issues: []
 });
+
+/** Names with an inkjs observer registered on the current story (or known undeclared). */
+const observedNames = new Set<string>();
 
 /**
  * Load a compiled Ink JSON story and prepare the engine for playback.
@@ -82,25 +98,36 @@ export async function loadStory(jsonPath: string, onInit?: (ink: Story) => void)
 	if (json.charCodeAt(0) === 0xfeff) json = json.slice(1);
 	const ink = new Story(json);
 
+	// Author errors and runtime errors both count as errors; only Warning is a warning.
 	ink.onError = (message: string, type: number) => {
-		if (type === INK_ERROR) {
+		const level = type === INK_WARNING ? 'warning' : 'error';
+		state.issues.push({ level, message });
+		if (state.issues.length > MAX_ISSUES) {
+			state.issues.splice(0, state.issues.length - MAX_ISSUES);
+		}
+		if (level === 'error') {
 			console.error(`Ink error: ${message}`);
 		} else {
 			console.warn(`Ink warning: ${message}`);
 		}
 	};
+	state.issues = [];
 
 	// Let the game wire up its own external functions and data
 	onInit?.(ink);
 
 	state.inkStory = ink;
+	// Observers belonged to the old Story instance; the next variable() read re-registers on this one
+	observedNames.clear();
+	state.variables = {};
 }
 
 /**
  * Reactive story object — the primary API for interacting with the Ink narrative.
  *
- * All state is managed internally with Svelte 5 runes. UI components can read
- * `story.tick` inside `$derived()` to re-evaluate whenever the story advances.
+ * All state is managed internally with Svelte 5 runes. UI components read Ink
+ * variables through `story.variable(name)` inside `$derived()`; an inkjs
+ * variable observer keeps each read value current as the story assigns it.
  */
 export const story = {
 	/**
@@ -147,9 +174,6 @@ export const story = {
 			tags: c.tags ?? []
 		}));
 
-		// Bump tick so reactive consumers (StatusBar, etc.) re-derive
-		state.tick++;
-
 		return { paragraphs, choices };
 	},
 
@@ -175,13 +199,42 @@ export const story = {
 	},
 
 	/**
-	 * Read a reactive tick that increments after each continue().
-	 * Used by $derived consumers to re-evaluate ink variable reads.
+	 * Read an Ink variable reactively. The first read of a name registers an
+	 * inkjs variable observer, so a `$derived()` that calls this re-evaluates
+	 * whenever the story assigns that variable. A name the story never
+	 * declared reads as `undefined` and is not observed. Returns `undefined`
+	 * before the story is loaded.
 	 */
-	get tick(): number {
-		return state.tick;
+	variable(name: string): unknown {
+		const ink = state.inkStory;
+		if (ink && !observedNames.has(name)) {
+			observedNames.add(name);
+			try {
+				ink.ObserveVariable(name, (_variableName: string, value: unknown) => {
+					state.variables[name] = value;
+				});
+				state.variables[name] = ink.variablesState.$(name);
+			} catch {
+				// Not declared in this story: inkjs refuses to observe it
+			}
+		}
+		return state.variables[name];
 	},
 
+	/**
+	 * Errors and warnings the Ink runtime has reported since the story loaded
+	 * (or since {@link clearIssues}). Reactive: read it inside `$derived()`.
+	 */
+	get issues(): readonly StoryIssue[] {
+		return state.issues;
+	},
+
+	/** Forget every reported issue. */
+	clearIssues() {
+		state.issues = [];
+	},
+
+	/** Read an Ink variable once, without reactivity. */
 	getVariable(name: string): unknown {
 		return state.inkStory?.variablesState?.$(name);
 	},
@@ -189,6 +242,7 @@ export const story = {
 	setVariable(name: string, value: unknown) {
 		if (state.inkStory?.variablesState) {
 			state.inkStory.variablesState.$(name, value as string | number);
+			if (observedNames.has(name)) state.variables[name] = value;
 		}
 	},
 
@@ -199,11 +253,14 @@ export const story = {
 		return ink.state.toJson();
 	},
 
-	/** Restore ink state from saved JSON */
+	/** Restore ink state from saved JSON. Observed variables are re-read, since a load fires no observers. */
 	loadState(json: string) {
 		const ink = state.inkStory;
 		if (!ink) throw new Error('Story not loaded');
 		ink.state.LoadJson(json);
+		for (const name of observedNames) {
+			if (name in state.variables) state.variables[name] = ink.variablesState.$(name);
+		}
 	},
 
 	/** Get the full ink Story instance for advanced use */
