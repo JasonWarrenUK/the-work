@@ -296,9 +296,10 @@
 					{
 						"id": "2EN.4",
 						"description": "Surface Ink errors/warnings to DevBar instead of console-only",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-13"
 					},
 					{
 						"id": "2EN.5",
