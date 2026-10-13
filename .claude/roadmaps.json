@@ -307,7 +307,8 @@
 						"dependsOn": [],
 						"notes": "Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call",
 						"assignee": "Jason",
-						"ended": "2026-10-13"
+						"ended": "2026-10-13",
+						"pr": 34
 					},
 					{
 						"id": "2EN.6",
