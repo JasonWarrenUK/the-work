@@ -854,9 +854,11 @@
 					{
 						"id": "5PL.2",
 						"description": "Implement smooth scroll-after-choice (scrollIntoView or Svelte action)",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-13",
+						"pr": 39
 					},
 					{
 						"id": "5PL.3",
