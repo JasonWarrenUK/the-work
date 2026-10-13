@@ -81,7 +81,9 @@ describe('externals after LoadJson on the same story', () => {
 
 describe('externals on a fresh story that restores a save', () => {
 	it('fire after onInit binding then LoadJson, as a page reload does', () => {
-		const snapshot = atMenu().story.state.toJson();
+		const source = atMenu();
+		expect(source.errors).toEqual([]);
+		const snapshot = source.story.state.toJson();
 
 		const errors: string[] = [];
 		const restored = new Story(STORY_JSON);
