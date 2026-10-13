@@ -11,44 +11,18 @@
  * compile command).
  */
 
-import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Story } from 'inkjs';
 import { initGameSystems } from './init';
 import { inventory } from './ideas.svelte';
 import { body } from './body.svelte';
 import { story, loadStory } from '../engine/story.svelte';
-
-const STORY_JSON = readFileSync(process.env.STORY_JSON ?? 'static/The Work.json', 'utf8').replace(/^﻿/, '');
-
-interface Session {
-	story: Story;
-	errors: string[];
-}
-
-/** A bound story, started at the gameplay loop and run to the action menu. */
-function atMenu(): Session {
-	const errors: string[] = [];
-	const ink = new Story(STORY_JSON);
-	ink.onError = (message: string) => errors.push(message);
-	initGameSystems(ink);
-	ink.variablesState.$('TimeNumber', 1);
-	ink.variablesState.$('TimeScore', 200);
-	ink.ChoosePathString('d1_2000');
-	ink.ContinueMaximally();
-	return { story: ink, errors };
-}
-
-function pick(ink: Story, label: string): void {
-	const index = ink.currentChoices.findIndex((choice) => choice.text.includes(label));
-	if (index < 0) throw new Error(`No choice containing "${label}"`);
-	ink.ChooseChoiceIndex(index);
-}
+import { type Session, STORY_JSON, atMenu, pick, run, stubStoryFetch } from '../../../tests/story-session';
 
 /** "Attend to The Work" calls get_total_dread and body_level before offering choices. */
-function attend(ink: Story): string {
-	pick(ink, 'Attend to The Work');
-	return ink.ContinueMaximally();
+function attend(session: Session): string {
+	pick(session, 'Attend to The Work');
+	return run(session);
 }
 
 beforeEach(() => {
@@ -70,7 +44,7 @@ describe('externals after LoadJson on the same story', () => {
 
 		session.story.state.LoadJson(snapshot);
 		expect(() => session.story.ValidateExternalBindings()).not.toThrow();
-		attend(session.story);
+		attend(session);
 
 		expect(session.errors).toEqual([]);
 		expect(dread).toHaveBeenCalled();
@@ -86,13 +60,14 @@ describe('externals on a fresh story that restores a save', () => {
 		const snapshot = source.story.state.toJson();
 
 		const errors: string[] = [];
-		const restored = new Story(STORY_JSON);
-		restored.onError = (message: string) => errors.push(message);
-		initGameSystems(restored);
-		restored.state.LoadJson(snapshot);
+		const restoredStory = new Story(STORY_JSON);
+		restoredStory.onError = (message: string) => errors.push(message);
+		initGameSystems(restoredStory);
+		restoredStory.state.LoadJson(snapshot);
+		const restored: Session = { story: restoredStory, errors };
 		const dread = vi.spyOn(inventory, 'getTotalDread');
 
-		expect(() => restored.ValidateExternalBindings()).not.toThrow();
+		expect(() => restoredStory.ValidateExternalBindings()).not.toThrow();
 		attend(restored);
 
 		expect(errors).toEqual([]);
@@ -102,7 +77,7 @@ describe('externals on a fresh story that restores a save', () => {
 
 describe('externals through Nib after story.loadState()', () => {
 	it('keep firing and log no ink error', async () => {
-		vi.stubGlobal('fetch', async () => ({ ok: true, text: async () => STORY_JSON }));
+		stubStoryFetch();
 		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 		await loadStory('inline.json', initGameSystems);
 		story.setVariable('TimeNumber', 1);

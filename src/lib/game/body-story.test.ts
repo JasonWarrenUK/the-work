@@ -6,54 +6,11 @@
  * compile command).
  */
 
-import { readFileSync } from 'node:fs';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { Story } from 'inkjs';
-import { initGameSystems } from './init';
 import { inventory } from './ideas.svelte';
 import { body } from './body.svelte';
 import * as fixtures from '../../../tests/fixtures/body';
-
-const STORY_JSON = readFileSync(process.env.STORY_JSON ?? 'static/The Work.json', 'utf8').replace(/^﻿/, '');
-
-interface Session {
-	story: Story;
-	errors: string[];
-}
-
-/** Start the gameplay loop at an hour with a fresh inventory and body. */
-function startAt(hour: number): Session {
-	inventory.reset();
-	body.reset();
-	const errors: string[] = [];
-	const story = new Story(STORY_JSON);
-	story.onError = (message: string) => errors.push(message);
-	initGameSystems(story);
-	story.variablesState.$('TimeNumber', hour);
-	story.variablesState.$('TimeScore', 210 - 10 * hour);
-	story.ChoosePathString('d1_2000');
-	return { story, errors };
-}
-
-const texts = (session: Session): string[] => session.story.currentChoices.map((choice) => choice.text);
-
-function pick(session: Session, label: string): void {
-	const index = texts(session).findIndex((text) => text.includes(label));
-	if (index < 0) throw new Error(`No choice containing "${label}" in [${texts(session).join(' | ')}]`);
-	session.story.ChooseChoiceIndex(index);
-}
-
-const run = (session: Session): string => session.story.ContinueMaximally();
-
-/** Run, then push through any interrupt beats until the action menu is showing. */
-function settle(session: Session): string {
-	let output = run(session);
-	while (texts(session).some((text) => text.includes('push through'))) {
-		pick(session, 'push through');
-		output += run(session);
-	}
-	return output;
-}
+import { type Session, startAt, texts, pick, run, settle } from '../../../tests/story-session';
 
 const timeScore = (session: Session): number => session.story.variablesState.$('TimeScore') as number;
 
