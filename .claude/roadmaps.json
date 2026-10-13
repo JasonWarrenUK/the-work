@@ -270,7 +270,8 @@
 						"description": "Wire choice tags through Nib and replace CATEGORY_MOODS text-matching",
 						"status": "todo",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-13"
 					},
 					{
 						"id": "2EN.2",
