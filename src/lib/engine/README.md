@@ -7,7 +7,8 @@ A small runtime for playing [Ink](https://www.inklestudios.com/ink/) narratives 
 | File | Purpose |
 |------|---------|
 | `story.svelte.ts` | Core runtime — loads compiled Ink JSON, manages reactive state, exposes the `story` API |
-| `tags.ts` | Parses Ink tags (`#CLEAR`, `#mood:x`, `#class:x`) into structured data for the renderer |
+| `tags.ts` | Parses Ink tags (`#CLEAR`, `#mood:x`, `#class:x`, `#frame:`) into structured data for the renderer |
+| `emphasis.ts` | Splits story text with `*emphasis*` and `**strong**` into styled segments, so a renderer builds real elements instead of injecting HTML (the game's `Emphasis.svelte` does this for paragraphs and choices) |
 
 ## Quick Start
 
