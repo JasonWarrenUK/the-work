@@ -10,6 +10,7 @@ node node_modules/inkjs/bin/inkjs-compiler.js -o static/"The Work.json" story/"T
 bun run check
 
 # Tests (Vitest; the story tests read the compiled static/"The Work.json", so compile first)
+# Story-level tests share the harness in tests/story-session.ts (startAt, atMenu, pick, run, settle)
 bun run test
 
 # Dev server
