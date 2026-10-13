@@ -29,6 +29,21 @@ export type { Story };
 // inkjs ErrorType values (not reliably exported from ESM bundle)
 const INK_ERROR = 0;
 
+/** A choice offered by the story, with the Ink tags attached to it. */
+export interface StoryChoice {
+	index: number;
+	text: string;
+	/** Raw Ink tags on the choice (e.g. `mood:textual`); empty when untagged. */
+	tags: string[];
+}
+
+/** Apply an atmospheric mood to the document root for mood-driven CSS. */
+function applyMood(mood: string | null): void {
+	if (mood && typeof document !== 'undefined') {
+		document.documentElement.dataset.mood = mood;
+	}
+}
+
 interface StoryState {
 	inkStory: Story | null;
 	history: string[];
@@ -96,9 +111,9 @@ export const story = {
 	/**
 	 * Continue the story until we hit choices or the end.
 	 * Processes Ink tags (CLEAR, mood, class) on each line.
-	 * Returns accumulated paragraphs and available choices.
+	 * Returns accumulated paragraphs and available choices, each with its tags.
 	 */
-	continue(): { paragraphs: string[]; choices: Array<{ index: number; text: string }> } {
+	continue(): { paragraphs: string[]; choices: StoryChoice[] } {
 		const ink = state.inkStory;
 		if (!ink) throw new Error('Story not loaded');
 
@@ -116,9 +131,7 @@ export const story = {
 			const { clear, mood } = processTags(tags);
 
 			// Apply mood to html element for atmospheric CSS
-			if (mood && typeof document !== 'undefined') {
-				document.documentElement.dataset.mood = mood;
-			}
+			applyMood(mood);
 
 			if (clear) {
 				// #CLEAR means wipe everything before this line
@@ -134,7 +147,8 @@ export const story = {
 
 		const choices = ink.currentChoices.map((c) => ({
 			index: c.index,
-			text: c.text
+			text: c.text,
+			tags: c.tags ?? []
 		}));
 
 		// Bump tick so reactive consumers (StatusBar, etc.) re-derive
@@ -143,10 +157,16 @@ export const story = {
 		return { paragraphs, choices };
 	},
 
-	/** Select a choice by its index to advance the narrative. */
+	/**
+	 * Select a choice by its index to advance the narrative.
+	 * A `#mood:<name>` tag on the choice is applied to the document root
+	 * before the story advances.
+	 */
 	choose(index: number) {
 		const ink = state.inkStory;
 		if (!ink) throw new Error('Story not loaded');
+		const chosen = ink.currentChoices.find((c) => c.index === index);
+		applyMood(processTags(chosen?.tags ?? []).mood);
 		ink.ChooseChoiceIndex(index);
 	},
 

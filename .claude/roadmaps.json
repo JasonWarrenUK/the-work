@@ -270,7 +270,8 @@
 						"description": "Wire choice tags through Nib and replace CATEGORY_MOODS text-matching",
 						"status": "todo",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-13"
 					},
 					{
 						"id": "2EN.2",
@@ -499,7 +500,8 @@
 						"description": "Author d1_2100 (hour 3)",
 						"status": "blocked",
 						"dependsOn": [
-							"M2"
+							"M2",
+							"5PL.7"
 						],
 						"notes": "d1_2000 loop already handles time; this is about adding hour-specific narrative flavour",
 						"assignee": "Jason"
@@ -710,6 +712,14 @@
 							"3GS.6"
 						],
 						"assignee": "Jason"
+					},
+					{
+						"id": "5PL.7",
+						"description": "Markdown-to-HTML for **bold** / *italic* in Ink text",
+						"status": "todo",
+						"dependsOn": [],
+						"notes": "Moved from Polish: the hour files and the defence are authored with emphasis available, so they are not retrofitted later",
+						"assignee": "Jason"
 					}
 				]
 			},
@@ -806,14 +816,15 @@
 			{
 				"id": "M5",
 				"name": "Polish",
-				"goal": "The game feels complete. Save/load with history replay, autosave on passage, keyboard shortcuts, smooth scroll after choice, audio system, and typography are all in place. Ready to ship.",
+				"goal": "The game feels complete. Smooth scroll after choice, drag-to-scroll, orphan-free typography, an audio system with cues and layered parallax frames are all in place. Ready to ship.",
 				"tasks": [
 					{
 						"id": "5PL.1",
 						"description": "Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-03-05"
 					},
 					{
 						"id": "5PL.2",
@@ -829,6 +840,78 @@
 						"dependsOn": [],
 						"assignee": "Jason"
 					},
+					{
+						"id": "5PL.4",
+						"description": "Implement audio system (Howler.js-based, port from calico-patches.md)",
+						"status": "todo",
+						"dependsOn": [],
+						"assignee": "Jason"
+					},
+					{
+						"id": "5PL.5",
+						"description": "Wire #play, #pause, #stop, #volume Ink tags to audio system",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.4"
+						],
+						"assignee": "Jason"
+					},
+					{
+						"id": "5NA.1",
+						"description": "Add audio cues to key narrative moments",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.5",
+							"3NA.11",
+							"4NA.3"
+						],
+						"notes": "Cues are placed once the hours and the endings exist to place them in",
+						"assignee": "Jason"
+					},
+					{
+						"id": "5PL.6",
+						"description": "Asset preloading (scan compiled Ink JSON for audio/image refs, show progress)",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.4"
+						],
+						"assignee": "Jason"
+					},
+					{
+						"id": "5PL.8",
+						"description": "Implement #frame: tag handler and layered parallax component",
+						"status": "blocked",
+						"dependsOn": [
+							"2EN.6"
+						],
+						"notes": "Kept dependency on 2EN.6: both extend the same tag pipeline through continue() to the components",
+						"assignee": "Jason"
+					},
+					{
+						"id": "5PL.9",
+						"description": "Add parallax frames to key atmospheric scenes",
+						"status": "blocked",
+						"dependsOn": [
+							"5PL.8",
+							"3NA.11"
+						],
+						"notes": "Frames are placed once the hours exist to place them in",
+						"assignee": "Jason"
+					},
+					{
+						"id": "5PL.10",
+						"description": "Implement drag-to-scroll (desktop click-and-drag)",
+						"status": "todo",
+						"dependsOn": [],
+						"assignee": "Jason"
+					}
+				]
+			},
+			{
+				"id": "M6",
+				"name": "Save & Rewind",
+				"goal": "Saves survive the game changing underneath them. History replay rebuilds the transcript on load, autosave and the resume prompt are history-aware, saves carry a version stamp and can be exported, imported and stepped back through, and fixtures guard every tagged version.",
+				"tasks": [
 					{
 						"id": "5EN.1",
 						"description": "Implement history replay for save/load (record choice indices, restore seed, replay silently)",
@@ -854,7 +937,7 @@
 						"dependsOn": [
 							"5EN.1"
 						],
-						"notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task",
+						"notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task. Kept dependency on 5EN.1: the slot UI waits for the replay-shaped save so it is not built twice",
 						"assignee": "Jason"
 					},
 					{
@@ -864,76 +947,7 @@
 						"dependsOn": [
 							"5EN.2"
 						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5PL.4",
-						"description": "Implement audio system (Howler.js-based, port from calico-patches.md)",
-						"status": "blocked",
-						"dependsOn": [
-							"5PL.2"
-						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5PL.5",
-						"description": "Wire #play, #pause, #stop, #volume Ink tags to audio system",
-						"status": "blocked",
-						"dependsOn": [
-							"5PL.4"
-						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5NA.1",
-						"description": "Add audio cues to key narrative moments",
-						"status": "blocked",
-						"dependsOn": [
-							"5PL.5"
-						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5PL.6",
-						"description": "Asset preloading (scan compiled Ink JSON for audio/image refs, show progress)",
-						"status": "blocked",
-						"dependsOn": [
-							"5PL.4"
-						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5PL.7",
-						"description": "Markdown-to-HTML for **bold** / *italic* in Ink text",
-						"status": "blocked",
-						"dependsOn": [
-							"5PL.3"
-						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5PL.8",
-						"description": "Implement #frame: tag handler and layered parallax component",
-						"status": "blocked",
-						"dependsOn": [
-							"2EN.6"
-						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5PL.9",
-						"description": "Add parallax frames to key atmospheric scenes",
-						"status": "blocked",
-						"dependsOn": [
-							"5PL.8"
-						],
-						"assignee": "Jason"
-					},
-					{
-						"id": "5PL.10",
-						"description": "Implement drag-to-scroll (desktop click-and-drag)",
-						"status": "todo",
-						"dependsOn": [],
+						"notes": "Kept dependency on 5EN.2: loadState restores Ink state only and does not rebuild the visible transcript, so a resume prompt needs the history replay and history-aware autosave to keep its promise",
 						"assignee": "Jason"
 					},
 					{
@@ -949,8 +963,7 @@
 						"description": "Implement story.stepBack() (rewind to previous passage)",
 						"status": "blocked",
 						"dependsOn": [
-							"5EN.1",
-							"5EN.3"
+							"5EN.1"
 						],
 						"assignee": "Jason"
 					},

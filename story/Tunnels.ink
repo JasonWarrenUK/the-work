@@ -4,7 +4,7 @@
 === Action(-> go) ===
 
     // --- ATTEND TO THE WORK (Writing) ---
-    + (Action_Textual) Attend to The Work
+    + (Action_Textual) Attend to The Work #mood:textual
         {get_total_dread() >= 6:
             Your hand trembles as you reach for the pen.
         - else:
@@ -70,14 +70,14 @@
             {advanceTime("idle")}
 
     // --- CONSIDER YOUR CIRCUMSTANCES (Observation) ---
-    + (Action_Physical) Consider your circumstances
+    + (Action_Physical) Consider your circumstances #mood:physical
 
         -> observe ->
 
         {advanceTime("observe")}
 
     // --- EXERCISE THE MIND (Development & Combination) ---
-    + (Action_Mental) Exercise the mind
+    + (Action_Mental) Exercise the mind #mood:mental
 
         ++ (Action_Mental_Deepen) {can_develop_domain("Rule") || can_develop_domain("Faith") || can_develop_domain("Truth") || can_develop_domain("Class") || can_develop_domain("Art") || can_develop_domain("Nature") || can_develop_domain("Morality")} [Dwell on a thread]
 

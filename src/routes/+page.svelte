@@ -2,7 +2,8 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { base } from '$app/paths';
-	import { story, loadStory } from '$lib/engine/story.svelte';
+	import { story, loadStory, type StoryChoice } from '$lib/engine/story.svelte';
+	import { processTags } from '$lib/engine/tags';
 	import { initGameSystems } from '$lib/game/init';
 	import { inventory } from '$lib/game/ideas.svelte';
 	import { body } from '$lib/game/body.svelte';
@@ -14,15 +15,8 @@
 	import SummaryOverlay from '$lib/components/SummaryOverlay.svelte';
 	import SaveToast from '$lib/components/SaveToast.svelte';
 
-	const CATEGORY_MOODS: Record<string, string> = {
-		'Attend to The Work': 'textual',
-		'Consider your circumstances': 'physical',
-		'Exercise the mind': 'mental'
-	};
-	const CATEGORY_NAMES = Object.keys(CATEGORY_MOODS);
-
 	let paragraphs: string[] = $state([]);
-	let choices: Array<{ index: number; text: string }> = $state([]);
+	let choices: StoryChoice[] = $state([]);
 	let loading = $state(true);
 	let ended = $state(false);
 	let paused = $state(false);
@@ -154,9 +148,8 @@
 		choices = result.choices;
 		ended = !story.canContinue && choices.length === 0;
 
-		// Clear mood when back at the core action menu
-		const choiceTexts = choices.map((c) => c.text);
-		const atCoreMenu = CATEGORY_NAMES.every((name) => choiceTexts.includes(name));
+		// A choice set that offers moods is the core action menu: no mood is active there
+		const atCoreMenu = choices.some((c) => processTags(c.tags).mood);
 		if (atCoreMenu && typeof document !== 'undefined') {
 			delete document.documentElement.dataset.mood;
 		}
@@ -170,12 +163,6 @@
 	}
 
 	function selectChoice(index: number) {
-		// Check if this choice is an action category and set mood
-		const selected = choices.find((c) => c.index === index);
-		if (selected && selected.text in CATEGORY_MOODS && typeof document !== 'undefined') {
-			document.documentElement.dataset.mood = CATEGORY_MOODS[selected.text];
-		}
-
 		story.choose(index);
 		continueStory();
 	}
