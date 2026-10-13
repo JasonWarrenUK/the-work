@@ -24,10 +24,6 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 - A line in the story can ask for a layered parallax frame above its paragraph with `#frame: back.png:6, front.png; height:0.2`. Each comma-separated name is an image layer, `:<depth>` sets how little it moves (higher means less) and `height` is a fraction of the screen. Images live in `static/frames/`, and the layers drift against the mouse or a touch unless reduced motion is requested. The Ink compiler rejects Calico's `|` inside a tag, so options follow `;`.
 - Paragraphs returned by `story.continue()` gain a `frame` field, `null` when the line has no frame tag.
 
-### Fixed
-
-- The thesis panel task is recorded as done: the Thesis tab from an earlier release already shows written ideas and per-domain orthodoxy.
-
 ## [0.7.0] - 2026-10-13
 
 ### Breaking
