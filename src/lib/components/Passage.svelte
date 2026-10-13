@@ -2,6 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import type { StoryParagraph } from '$lib/engine/story.svelte';
 	import ParallaxFrame from './ParallaxFrame.svelte';
+	import Emphasis from './Emphasis.svelte';
 
 	let { paragraphs }: { paragraphs: StoryParagraph[] } = $props();
 
@@ -24,7 +25,7 @@
 			</div>
 		{/if}
 		<p class={para.classes} in:fade={{ duration: 500, delay: i * 50 }}>
-			{para.text}
+			<Emphasis text={para.text} />
 		</p>
 	{/each}
 </div>

@@ -28,10 +28,12 @@ You're late to work, so you...
 === work
 
 	Yeah, you should've stayed in bed.
+	-> END
 
 === storylets(index)
 
-	{index < 0: -> DONE}
+	// Stop once every storylet knot has been tried; Calico's loop had no end past the last one
+	{index < 0 || index >= storylet_count(): -> DONE}
 	~ temp cc = CHOICE_COUNT()
 	~ temp storylet = get_storylet(index)
 	<- storylet
@@ -39,3 +41,4 @@ You're late to work, so you...
 	{CHOICE_COUNT() == cc: <- storylets(index+1)}
 
 EXTERNAL get_storylet(index)
+EXTERNAL storylet_count()

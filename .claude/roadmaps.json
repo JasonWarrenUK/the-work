@@ -662,17 +662,19 @@
 					{
 						"id": "3EN.1",
 						"description": "Implement storylet system (port get_storylet external function from calico-patches.md)",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"1EN.3",
 							"2EN.3"
 						],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-13",
+						"pr": 42
 					},
 					{
 						"id": "3EN.2",
 						"description": "Author storylets.ink with at least one proof-of-concept dynamic passage",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"3EN.1"
 						],
@@ -743,10 +745,12 @@
 					{
 						"id": "5PL.7",
 						"description": "Markdown-to-HTML for **bold** / *italic* in Ink text",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
 						"notes": "Moved from Polish: the hour files and the defence are authored with emphasis available, so they are not retrofitted later",
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-13",
+						"pr": 41
 					}
 				]
 			},
