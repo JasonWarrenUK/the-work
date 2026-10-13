@@ -705,11 +705,13 @@
 					{
 						"id": "3UI.1",
 						"description": "Add bodily/dread state indicators to UI (StatusBar or equivalent)",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"3GS.2"
 						],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-14",
+						"pr": 43
 					},
 					{
 						"id": "3GS.5",

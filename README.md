@@ -27,7 +27,7 @@ The game is in **early development**. Core systems are in place but most content
 - The thesis defence (d2_0800) has structure but needs the committee dynamics that emerge from what the player writes
 - Writing action still operates at the domain level, not true per-idea selective writing
 - Sensory events and hidden/nested objects are designed but have no trigger mechanisms in Ink yet
-- Bodily state prose is placeholder text, provisions (drink, food, light) do not yet affect the body, and the UI shows no body indicators
+- Bodily state prose is placeholder text and provisions (drink, food, light) do not yet affect the body; the status bar shows each state's level and the dread total once they register
 - Level 3+ ideas need authored content for the writing interface
 - No save/load UI yet (the engine supports it, the game doesn't surface it)
 

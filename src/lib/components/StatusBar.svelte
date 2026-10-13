@@ -3,6 +3,9 @@
 	import { story } from '$lib/engine/story.svelte';
 	import { getDisciplineOfficial } from '$lib/game/disciplines';
 	import { inventory } from '$lib/game/ideas.svelte';
+	import { body } from '$lib/game/body.svelte';
+	import { BODY_STATES, type BodyStateName } from '$lib/game/body';
+	import { bodyChips, dreadChip } from '$lib/game/body-indicators';
 
 	let { onOpenThesis, onOpenIdeas, onOpenHeld }: { onOpenThesis: () => void; onOpenIdeas: () => void; onOpenHeld: () => void } = $props();
 
@@ -13,9 +16,15 @@
 	let writtenCount = $derived(inventory.writtenIds().length);
 	let writableCount = $derived(inventory.writableIdeas().length);
 	let heldCount = $derived(inventory.heldIdeas().filter((d) => d.level <= 2).length);
+
+	// body is $state too: a chip appears for each state at level 1 or above, and dread once it is non-zero
+	let chips = $derived(
+		bodyChips(Object.fromEntries(BODY_STATES.map((state) => [state, body.level(state)])) as Record<BodyStateName, number>)
+	);
+	let dread = $derived(dreadChip(inventory.getTotalDread()));
 </script>
 
-{#if timeName || discipline || convictionDesc}
+{#if timeName || discipline || convictionDesc || chips.length > 0 || dread.tier !== 'none'}
 	<aside class="status-bar" transition:fade={{ duration: 300 }} aria-label="Game status">
 		{#if timeName}
 			<span class="time">{timeName}</span>
@@ -25,6 +34,24 @@
 		{/if}
 		{#if convictionDesc}
 			<span class="conviction">{convictionDesc}</span>
+		{/if}
+		{#if chips.length > 0 || dread.tier !== 'none'}
+			<ul class="body" aria-label="The Writer's condition">
+				{#each chips as chip (chip.state)}
+					<li class="chip" class:extreme={chip.level >= 3}>
+						<span class="sr-only">{chip.label}</span>
+						<span class="chip-name" aria-hidden="true">{chip.state}</span>
+						<span class="chip-dots" aria-hidden="true">{chip.dots}</span>
+					</li>
+				{/each}
+				{#if dread.tier !== 'none'}
+					<li class="chip dread {dread.tier}">
+						<span class="sr-only">{dread.label}</span>
+						<span class="chip-name" aria-hidden="true">dread</span>
+						<span class="chip-dots" aria-hidden="true">{dread.total}</span>
+					</li>
+				{/if}
+			</ul>
 		{/if}
 		<div class="btn-group">
 			<button class="summary-btn" onclick={onOpenHeld} aria-label="View held ideas">
@@ -121,5 +148,51 @@
 	.summary-glyph {
 		font-size: 1rem;
 		line-height: 1;
+	}
+
+	/* Bodily states and dread, shown only once they register */
+	.body {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.chip {
+		display: flex;
+		align-items: baseline;
+		gap: 0.35em;
+		color: var(--text-dim);
+		letter-spacing: 0.05em;
+	}
+
+	.chip-name {
+		font-variant: small-caps;
+	}
+
+	/* Read by screen readers, never seen: the chip's full sentence */
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+	}
+
+	.chip-dots {
+		font-variant-numeric: tabular-nums;
+		letter-spacing: 0.1em;
+	}
+
+	.chip.extreme,
+	.chip.dread.severe {
+		color: var(--danger);
+	}
+
+	.chip.dread.uneasy {
+		color: var(--accent);
 	}
 </style>
