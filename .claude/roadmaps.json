@@ -812,9 +812,10 @@
 					{
 						"id": "5PL.1",
 						"description": "Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-03-05"
 					},
 					{
 						"id": "5PL.2",
@@ -855,7 +856,7 @@
 						"dependsOn": [
 							"5EN.1"
 						],
-						"notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task",
+						"notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task. Kept dependency on 5EN.1: the slot UI waits for the replay-shaped save so it is not built twice",
 						"assignee": "Jason"
 					},
 					{
@@ -865,15 +866,14 @@
 						"dependsOn": [
 							"5EN.2"
 						],
+						"notes": "Kept dependency on 5EN.2: loadState restores Ink state only and does not rebuild the visible transcript, so a resume prompt needs the history replay and history-aware autosave to keep its promise",
 						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.4",
 						"description": "Implement audio system (Howler.js-based, port from calico-patches.md)",
-						"status": "blocked",
-						"dependsOn": [
-							"5PL.2"
-						],
+						"status": "todo",
+						"dependsOn": [],
 						"assignee": "Jason"
 					},
 					{
@@ -906,10 +906,8 @@
 					{
 						"id": "5PL.7",
 						"description": "Markdown-to-HTML for **bold** / *italic* in Ink text",
-						"status": "blocked",
-						"dependsOn": [
-							"5PL.3"
-						],
+						"status": "todo",
+						"dependsOn": [],
 						"assignee": "Jason"
 					},
 					{
@@ -919,6 +917,7 @@
 						"dependsOn": [
 							"2EN.6"
 						],
+						"notes": "Kept dependency on 2EN.6: both extend the same tag pipeline through continue() to the components",
 						"assignee": "Jason"
 					},
 					{
@@ -950,8 +949,7 @@
 						"description": "Implement story.stepBack() (rewind to previous passage)",
 						"status": "blocked",
 						"dependsOn": [
-							"5EN.1",
-							"5EN.3"
+							"5EN.1"
 						],
 						"assignee": "Jason"
 					},

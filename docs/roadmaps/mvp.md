@@ -146,25 +146,27 @@ End-to-end skeleton through full night, defence, and polish.
 
 **Goal:** The game feels complete. Save/load with history replay, autosave on passage, keyboard shortcuts, smooth scroll after choice, audio system, and typography are all in place. Ready to ship.
 
-- [ ] **5PL.1**: Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte
+- [x] **5PL.1**: Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte
 - [ ] **5PL.2**: Implement smooth scroll-after-choice (scrollIntoView or Svelte action)
 - [ ] **5PL.3**: Apply text-wrap: pretty for orphan prevention
 - [ ] **5EN.1**: Implement history replay for save/load (record choice indices, restore seed, replay silently) _(depends on 1EN.1)_
 - [ ] **5EN.2**: Wire autosave to fire on story.continue() with history-aware state _(blocked: depends on 5EN.1)_
 - [ ] **5UI.1**: Save/load UI (save slot, load from slot, delete save) _(blocked: depends on 5EN.1)_
-  - Note: 1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task
+  - Note: 1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task. Kept dependency on 5EN.1: the slot UI waits for the replay-shaped save so it is not built twice
 - [ ] **5UI.2**: Autosave resume prompt on page load ("Continue where you left off?") _(blocked: depends on 5EN.2)_
-- [ ] **5PL.4**: Implement audio system (Howler.js-based, port from calico-patches.md) _(blocked: depends on 5PL.2)_
+  - Note: Kept dependency on 5EN.2: loadState restores Ink state only and does not rebuild the visible transcript, so a resume prompt needs the history replay and history-aware autosave to keep its promise
+- [ ] **5PL.4**: Implement audio system (Howler.js-based, port from calico-patches.md)
 - [ ] **5PL.5**: Wire #play, #pause, #stop, #volume Ink tags to audio system _(blocked: depends on 5PL.4)_
 - [ ] **5NA.1**: Add audio cues to key narrative moments _(blocked: depends on 5PL.5)_
 - [ ] **5PL.6**: Asset preloading (scan compiled Ink JSON for audio/image refs, show progress) _(blocked: depends on 5PL.4)_
-- [ ] **5PL.7**: Markdown-to-HTML for **bold** / *italic* in Ink text _(blocked: depends on 5PL.3)_
+- [ ] **5PL.7**: Markdown-to-HTML for **bold** / *italic* in Ink text
 - [ ] **5PL.8**: Implement #frame: tag handler and layered parallax component _(blocked: depends on 2EN.6)_
+  - Note: Kept dependency on 2EN.6: both extend the same tag pipeline through continue() to the components
 - [ ] **5PL.9**: Add parallax frames to key atmospheric scenes _(blocked: depends on 5PL.8)_
 - [ ] **5PL.10**: Implement drag-to-scroll (desktop click-and-drag)
 - [ ] **5EN.3**: Stamp save version (git tag) into SaveData and check on load
   - Note: A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting
-- [ ] **5EN.4**: Implement story.stepBack() (rewind to previous passage) _(blocked: depends on 5EN.1, 5EN.3)_
+- [ ] **5EN.4**: Implement story.stepBack() (rewind to previous passage) _(blocked: depends on 5EN.1)_
 - [ ] **5EN.5**: Add step-back control/shortcut to the UI _(blocked: depends on 5EN.4)_
 - [ ] **5EN.6**: Save export/import _(blocked: depends on 5UI.1, 5EN.3)_
 - [ ] **5EN.7**: Save-fixture regression test across tagged versions _(blocked: depends on 5EN.3)_
@@ -208,7 +210,7 @@ graph LR
 	1UI.1["1UI.1: Add ConvictionDesc Ink variable output t…"]
 	1GS.4["1GS.4: Implement discipline detection (dominant…"]
 	M1["M1: Skeleton Slice"]:::mile
-	2EN.1["2EN.1: Wire choice tags through Nib and replace…"]
+	2EN.1["2EN.1: Wire choice tags through Nib and repla… ▸"]
 	2EN.2["2EN.2: Replace story.tick bump-and-rederive pat…"]
 	2EN.3["2EN.3: Move get_storylet stub out of story.svel…"]
 	2EN.4["2EN.4: Surface Ink errors/warnings to DevBar in…"]
@@ -418,8 +420,8 @@ graph LR
 	4UI.1 --> M4
 	4NA.5 --> M4
 	5PL.1 --> M5
-	5PL.2 --> 5PL.4
-	5PL.3 --> 5PL.7
+	5PL.2 --> M5
+	5PL.3 --> M5
 	5EN.1 --> 5EN.2
 	5EN.1 --> 5UI.1
 	5EN.1 --> 5EN.4
@@ -435,15 +437,15 @@ graph LR
 	5PL.8 --> 5PL.9
 	5PL.9 --> M5
 	5PL.10 --> M5
-	5EN.3 --> 5EN.4
 	5EN.3 --> 5EN.6
 	5EN.3 --> 5EN.7
 	5EN.4 --> 5EN.5
 	5EN.5 --> M5
 	5EN.6 --> M5
 	5EN.7 --> M5
-	class 2EN.1,2EN.3,2EN.4,2EN.5,2EN.6,3GS.1,3GS.3,3GS.4,3GS.5,3UI.1,4GS.1,5EN.1,5EN.3,5PL.1,5PL.10,5PL.2,5PL.3 todo
-	class 2EN.2,2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.4,2GS.6,2GS.7,2GS.8,2GS.9,2NA.2,2UI.2,3EN.1,3EN.2,3GS.6,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.14,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.4,5PL.5,5PL.6,5PL.7,5PL.8,5PL.9,5UI.1,5UI.2 blocked
-	class 1EN.1,1EN.2,1EN.3,1GS.1,1GS.2,1GS.3,1GS.4,1GS.5,1GS.6,1GS.7,1GS.8,1GS.9,1NA.1,1NA.2,1NA.3,1NA.4,1NA.5,1NA.6,1NA.7,1UI.1,1UI.2,1UI.3,2GS.1,2GS.2,2GS.3,2GS.5,2NA.1,2UI.1,3GS.2 done
+	class 2EN.3,2EN.4,2EN.5,2EN.6,3GS.1,3GS.3,3GS.4,3GS.5,3UI.1,4GS.1,5EN.1,5EN.3,5PL.10,5PL.2,5PL.3,5PL.4,5PL.7 todo
+	class 2EN.1 inProgress
+	class 2EN.2,2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.4,2GS.6,2GS.7,2GS.8,2GS.9,2NA.2,2UI.2,3EN.1,3EN.2,3GS.6,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.14,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,4UI.1,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.5,5PL.6,5PL.8,5PL.9,5UI.1,5UI.2 blocked
+	class 1EN.1,1EN.2,1EN.3,1GS.1,1GS.2,1GS.3,1GS.4,1GS.5,1GS.6,1GS.7,1GS.8,1GS.9,1NA.1,1NA.2,1NA.3,1NA.4,1NA.5,1NA.6,1NA.7,1UI.1,1UI.2,1UI.3,2GS.1,2GS.2,2GS.3,2GS.5,2NA.1,2UI.1,3GS.2,5PL.1 done
 ```
 
