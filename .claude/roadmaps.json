@@ -289,7 +289,8 @@
 						"status": "todo",
 						"dependsOn": [],
 						"notes": "Restores Nib's zero-game-imports rule; unblocks 3EN.1 to implement real storylet behaviour on a clean base",
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-13"
 					},
 					{
 						"id": "2EN.4",
