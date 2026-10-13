@@ -1,23 +1,23 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
+	import type { StoryParagraph } from '$lib/engine/story.svelte';
 
-	let { paragraphs }: { paragraphs: string[] } = $props();
+	let { paragraphs }: { paragraphs: StoryParagraph[] } = $props();
 
 	let paragraphId = 0;
 
-	interface KeyedParagraph {
+	interface KeyedParagraph extends StoryParagraph {
 		id: number;
-		text: string;
 	}
 
 	let keyed: KeyedParagraph[] = $derived(
-		paragraphs.map((text) => ({ id: paragraphId++, text }))
+		paragraphs.map((paragraph) => ({ ...paragraph, id: paragraphId++ }))
 	);
 </script>
 
 <div class="passage">
 	{#each keyed as para, i (para.id)}
-		<p in:fade={{ duration: 500, delay: i * 50 }}>
+		<p class={para.classes} in:fade={{ duration: 500, delay: i * 50 }}>
 			{para.text}
 		</p>
 	{/each}

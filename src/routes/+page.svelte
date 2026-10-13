@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { base } from '$app/paths';
-	import { story, loadStory, type StoryChoice } from '$lib/engine/story.svelte';
+	import { story, loadStory, type StoryChoice, type StoryParagraph } from '$lib/engine/story.svelte';
 	import { processTags } from '$lib/engine/tags';
 	import { initGameSystems } from '$lib/game/init';
 	import { inventory } from '$lib/game/ideas.svelte';
@@ -15,7 +15,7 @@
 	import SummaryOverlay from '$lib/components/SummaryOverlay.svelte';
 	import SaveToast from '$lib/components/SaveToast.svelte';
 
-	let paragraphs: string[] = $state([]);
+	let paragraphs: StoryParagraph[] = $state([]);
 	let choices: StoryChoice[] = $state([]);
 	let loading = $state(true);
 	let ended = $state(false);
