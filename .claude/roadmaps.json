@@ -16,6 +16,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Inventory persisted via toJSON()/fromJSON() in autosave and manual save; SaveData.inventoryState optional field with graceful degradation",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -24,6 +25,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Escape key opens pause overlay (Save, Load Save, Quit to Menu, Resume); Ctrl+S / Cmd+S shortcut; \"Saved\" toast confirmation; Load Save on menu page",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -31,6 +33,7 @@
 						"description": "Nib engine stable (story.svelte.ts, tags.ts)",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -38,6 +41,7 @@
 						"description": "Idea data model (IdeaDef, PromptDef, inventory) implemented",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -45,6 +49,7 @@
 						"description": "All external functions bound in idea-bridge.ts",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -52,6 +57,7 @@
 						"description": "67 observations and 40 inklings registered in idea-catalog.ts",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -59,6 +65,7 @@
 						"description": "Recipes engine (develop + combine) implemented",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -66,6 +73,7 @@
 						"description": "Orthodoxy scoring implemented",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -73,6 +81,7 @@
 						"description": "StatusBar, ChoiceList, Passage, DevBar, Grain components built",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -80,6 +89,7 @@
 						"description": "Hours d1_1830, d1_1900, d1_2000 authored and playable",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -88,6 +98,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "48 objects authored across 6 locations (144 readings)",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -96,6 +107,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Dozens of O→I recipes across all 7 domains",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -104,6 +116,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "23 I→C recipes registered",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -112,6 +125,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Per-idea selective writing implemented in Tunnels.ink",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -120,6 +134,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Superseded: d1_2000 loop design handles all hours via TimeNumber, no stubs needed",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -128,6 +143,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "d1_2000 loop reaches d2_0800 via TimeNumber >= 20 check",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -135,6 +151,7 @@
 						"description": "Confirm acquire_idea, develop_idea, combine_ideas work end-to-end with authored Ink",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -142,6 +159,7 @@
 						"description": "Confirm write_idea correctly gates on level >= 3 and marks idea as written",
 						"status": "done",
 						"dependsOn": [],
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -150,6 +168,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "All declared in IdeaSystem.ink, bound in idea-bridge.ts, called from Tunnels.ink",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -158,6 +177,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Fires in continueStory() in +page.svelte",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -166,6 +186,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Reads from Ink variable, displays in StatusBar.svelte",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -174,6 +195,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "getDominantPair() + disciplines.ts lookup table + get_discipline() Ink external + StatusBar display",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					}
 				]
@@ -195,7 +217,8 @@
 							"2EN.4",
 							"2EN.5",
 							"2EN.6"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.7",
@@ -209,7 +232,8 @@
 							"2EN.4",
 							"2EN.5",
 							"2EN.6"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2NA.2",
@@ -223,7 +247,8 @@
 							"2EN.4",
 							"2EN.5",
 							"2EN.6"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2UI.2",
@@ -237,13 +262,15 @@
 							"2EN.4",
 							"2EN.5",
 							"2EN.6"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2EN.1",
 						"description": "Wire choice tags through Nib and replace CATEGORY_MOODS text-matching",
 						"status": "todo",
-						"dependsOn": []
+						"dependsOn": [],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2EN.2",
@@ -251,33 +278,38 @@
 						"status": "blocked",
 						"dependsOn": [
 							"2EN.1"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2EN.3",
 						"description": "Move get_storylet stub out of story.svelte.ts into game code",
 						"status": "todo",
 						"dependsOn": [],
-						"notes": "Restores Nib's zero-game-imports rule; unblocks 3EN.1 to implement real storylet behaviour on a clean base"
+						"notes": "Restores Nib's zero-game-imports rule; unblocks 3EN.1 to implement real storylet behaviour on a clean base",
+						"assignee": "Jason"
 					},
 					{
 						"id": "2EN.4",
 						"description": "Surface Ink errors/warnings to DevBar instead of console-only",
 						"status": "todo",
-						"dependsOn": []
+						"dependsOn": [],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2EN.5",
 						"description": "Add regression check: external functions still fire after loadState() restores a save",
 						"status": "todo",
 						"dependsOn": [],
-						"notes": "Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call"
+						"notes": "Motivated by unreproduced upstream inkjs issue #1082 (externals possibly breaking after JSON load); this project binds externals once in onInit before any loadState() call",
+						"assignee": "Jason"
 					},
 					{
 						"id": "2EN.6",
 						"description": "Wire #class: tag through continue() to Passage.svelte (or cut README claim)",
 						"status": "todo",
-						"dependsOn": []
+						"dependsOn": [],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.6",
@@ -286,7 +318,8 @@
 						"dependsOn": [
 							"2NA.2"
 						],
-						"notes": "The current Tunnels.ink writing scene calls get_written_level to query domain-level progress rather than selecting a specific idea; once all inklings are developed to L3+ (2NA.2), each idea needs its own writing path wired through write_idea()"
+						"notes": "The current Tunnels.ink writing scene calls get_written_level to query domain-level progress rather than selecting a specific idea; once all inklings are developed to L3+ (2NA.2), each idea needs its own writing path wired through write_idea()",
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.10",
@@ -295,7 +328,8 @@
 						"dependsOn": [
 							"2GS.6"
 						],
-						"notes": "Once 2GS.6 is complete, the old domain-level write queries become dead code; remove them from Tunnels.ink and d2_0800.ink and confirm nothing breaks"
+						"notes": "Once 2GS.6 is complete, the old domain-level write queries become dead code; remove them from Tunnels.ink and d2_0800.ink and confirm nothing breaks",
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.8",
@@ -303,7 +337,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"2GS.7"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.9",
@@ -311,7 +346,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"2GS.8"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.11",
@@ -320,7 +356,8 @@
 						"dependsOn": [
 							"2GS.8"
 						],
-						"softMilestone": true
+						"softMilestone": true,
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.12",
@@ -329,7 +366,8 @@
 						"dependsOn": [
 							"2GS.11"
 						],
-						"softMilestone": true
+						"softMilestone": true,
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.13",
@@ -339,7 +377,8 @@
 							"2GS.9",
 							"2GS.11"
 						],
-						"softMilestone": true
+						"softMilestone": true,
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.14",
@@ -349,7 +388,8 @@
 							"2GS.13",
 							"2GS.12"
 						],
-						"softMilestone": true
+						"softMilestone": true,
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.15",
@@ -358,7 +398,8 @@
 						"dependsOn": [
 							"2GS.12"
 						],
-						"softMilestone": true
+						"softMilestone": true,
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.16",
@@ -368,7 +409,8 @@
 							"2GS.14",
 							"2GS.15"
 						],
-						"softMilestone": true
+						"softMilestone": true,
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.17",
@@ -377,7 +419,8 @@
 						"dependsOn": [
 							"2GS.15"
 						],
-						"softMilestone": true
+						"softMilestone": true,
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.18",
@@ -387,7 +430,8 @@
 							"2GS.16",
 							"2GS.17"
 						],
-						"softMilestone": true
+						"softMilestone": true,
+						"assignee": "Jason"
 					},
 					{
 						"id": "2GS.1",
@@ -395,6 +439,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Rule domain: rebalanced L3 to 8 orthodox / 8 radical; authored first L4–L6 chain C20→CO1→AR1→TH1 with branching fork AR1+C22→TH2",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -403,6 +448,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Already implemented in Tunnels.ink via writable_idea_at() + write_idea() + printWriteResultForIdea()",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -411,6 +457,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Multiple exist: I26+I27→C14, I1+I6→C14, plus ~20 observation-level combination recipes",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -419,6 +466,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Unified tabbed SummaryOverlay with Thesis tab (written ideas, per-domain orthodoxy bars, discipline subtitle); opens via T shortcut or StatusBar ⁋ button",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -427,6 +475,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "SummaryOverlay Ideas tab (writable L3+ ideas); opens via I/T shortcuts or StatusBar ☉/⁋ buttons; tab-switching from either shortcut without closing",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					},
 					{
@@ -435,6 +484,7 @@
 						"status": "done",
 						"dependsOn": [],
 						"notes": "Added Held tab to SummaryOverlay showing L1 observations and L2 inklings grouped by level with per-domain orthodoxy bars; opens via H shortcut or StatusBar ◧ button; arrow keys cycle Held · Ideas · Thesis",
+						"assignee": "Jason",
 						"ended": "2026-08-25"
 					}
 				]
@@ -451,7 +501,8 @@
 						"dependsOn": [
 							"M2"
 						],
-						"notes": "d1_2000 loop already handles time; this is about adding hour-specific narrative flavour"
+						"notes": "d1_2000 loop already handles time; this is about adding hour-specific narrative flavour",
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.2",
@@ -459,7 +510,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.1"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.3",
@@ -467,7 +519,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.2"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.4",
@@ -475,7 +528,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.3"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.5",
@@ -483,7 +537,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.4"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.6",
@@ -491,7 +546,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.5"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.7",
@@ -499,7 +555,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.6"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.8",
@@ -507,7 +564,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.7"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.9",
@@ -515,7 +573,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.8"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.10",
@@ -523,7 +582,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.9"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.11",
@@ -531,7 +591,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3NA.10"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3GS.1",
@@ -539,7 +600,8 @@
 						"status": "todo",
 						"dependsOn": [
 							"1EN.3"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3GS.2",
@@ -548,6 +610,7 @@
 						"dependsOn": [
 							"1EN.3"
 						],
+						"assignee": "Jason",
 						"ended": "2026-10-13"
 					},
 					{
@@ -556,7 +619,8 @@
 						"status": "todo",
 						"dependsOn": [
 							"1EN.3"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3GS.4",
@@ -565,7 +629,8 @@
 						"dependsOn": [
 							"3GS.2",
 							"1GS.9"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3EN.1",
@@ -574,7 +639,8 @@
 						"dependsOn": [
 							"1EN.3",
 							"2EN.3"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3EN.2",
@@ -582,7 +648,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"3EN.1"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.12",
@@ -591,7 +658,8 @@
 						"dependsOn": [
 							"3EN.2",
 							"3NA.4"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3NA.13",
@@ -602,7 +670,8 @@
 							"3GS.2",
 							"3GS.3"
 						],
-						"notes": "Covers the full 67-observation target: 48 of 67 objects already authored; this task carries the remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67). 3GS.2 already offers the bodily P54–P58 readings from the body interrupt beat, so the bodily share is covered unless they should also appear as examinable objects"
+						"notes": "Covers the full 67-observation target: 48 of 67 objects already authored; this task carries the remaining 19 (sensory P49–P53, bodily P54–P58, hidden/nested P59–P67). 3GS.2 already offers the bodily P54–P58 readings from the body interrupt beat, so the bodily share is covered unless they should also appear as examinable objects",
+						"assignee": "Jason"
 					},
 					{
 						"id": "3UI.1",
@@ -610,7 +679,8 @@
 						"status": "todo",
 						"dependsOn": [
 							"3GS.2"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "3GS.5",
@@ -654,7 +724,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"M3"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "4NA.2",
@@ -662,7 +733,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"4NA.1"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "4NA.3",
@@ -671,7 +743,8 @@
 						"dependsOn": [
 							"4NA.2",
 							"4GS.3"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "4NA.4",
@@ -680,7 +753,8 @@
 						"dependsOn": [
 							"4NA.1",
 							"2GS.18"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "4GS.1",
@@ -688,7 +762,8 @@
 						"status": "todo",
 						"dependsOn": [
 							"1GS.4"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "4GS.2",
@@ -696,7 +771,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"4GS.1"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "4GS.3",
@@ -704,7 +780,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"4GS.2"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "4UI.1",
@@ -712,7 +789,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"2UI.2"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "4NA.5",
@@ -720,7 +798,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"4NA.4"
-						]
+						],
+						"assignee": "Jason"
 					}
 				]
 			},
@@ -733,19 +812,22 @@
 						"id": "5PL.1",
 						"description": "Implement keyboard shortcuts for choices (1–9, z/x/c, Space) in ChoiceList.svelte",
 						"status": "todo",
-						"dependsOn": []
+						"dependsOn": [],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.2",
 						"description": "Implement smooth scroll-after-choice (scrollIntoView or Svelte action)",
 						"status": "todo",
-						"dependsOn": []
+						"dependsOn": [],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.3",
 						"description": "Apply text-wrap: pretty for orphan prevention",
 						"status": "todo",
-						"dependsOn": []
+						"dependsOn": [],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5EN.1",
@@ -753,7 +835,8 @@
 						"status": "todo",
 						"dependsOn": [
 							"1EN.1"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5EN.2",
@@ -761,7 +844,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"5EN.1"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5UI.1",
@@ -770,7 +854,8 @@
 						"dependsOn": [
 							"5EN.1"
 						],
-						"notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task"
+						"notes": "1UI.2 implements a minimal version of this surface — evaluate whether to extend it or replace it when starting this task",
+						"assignee": "Jason"
 					},
 					{
 						"id": "5UI.2",
@@ -778,7 +863,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"5EN.2"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.4",
@@ -786,7 +872,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"5PL.2"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.5",
@@ -794,7 +881,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"5PL.4"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5NA.1",
@@ -802,7 +890,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"5PL.5"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.6",
@@ -810,7 +899,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"5PL.4"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.7",
@@ -818,7 +908,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"5PL.3"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.8",
@@ -826,7 +917,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"2EN.6"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.9",
@@ -834,20 +926,23 @@
 						"status": "blocked",
 						"dependsOn": [
 							"5PL.8"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5PL.10",
 						"description": "Implement drag-to-scroll (desktop click-and-drag)",
 						"status": "todo",
-						"dependsOn": []
+						"dependsOn": [],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5EN.3",
 						"description": "Stamp save version (git tag) into SaveData and check on load",
 						"status": "todo",
 						"dependsOn": [],
-						"notes": "A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting"
+						"notes": "A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting",
+						"assignee": "Jason"
 					},
 					{
 						"id": "5EN.4",
@@ -856,7 +951,8 @@
 						"dependsOn": [
 							"5EN.1",
 							"5EN.3"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5EN.5",
@@ -864,7 +960,8 @@
 						"status": "blocked",
 						"dependsOn": [
 							"5EN.4"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5EN.6",
@@ -873,7 +970,8 @@
 						"dependsOn": [
 							"5UI.1",
 							"5EN.3"
-						]
+						],
+						"assignee": "Jason"
 					},
 					{
 						"id": "5EN.7",
@@ -882,7 +980,8 @@
 						"dependsOn": [
 							"5EN.3"
 						],
-						"notes": "tests/fixtures/saves/<version>.json captured per tag; a Vitest test loads each fixture and asserts the version-mismatch policy holds"
+						"notes": "tests/fixtures/saves/<version>.json captured per tag; a Vitest test loads each fixture and asserts the version-mismatch policy holds",
+						"assignee": "Jason"
 					}
 				]
 			}
