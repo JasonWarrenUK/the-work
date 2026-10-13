@@ -83,6 +83,7 @@
 		line-height: var(--line-height);
 		cursor: pointer;
 		text-align: left;
+		text-wrap: pretty;
 		padding: var(--space-xs) 0;
 		opacity: 0.6;
 		transition: opacity 0.3s ease, color 0.3s ease;

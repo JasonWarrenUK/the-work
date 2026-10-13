@@ -34,6 +34,8 @@
 		line-height: var(--line-height);
 		margin-bottom: var(--space-md);
 		color: var(--text);
+		/* Avoid a lone word on the last line; browsers without text-wrap: pretty ignore it */
+		text-wrap: pretty;
 	}
 
 	/* Paragraph classes set from Ink with #class:<name> */
