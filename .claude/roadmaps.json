@@ -320,6 +320,16 @@
 						"ended": "2026-10-13"
 					},
 					{
+						"id": "2EN.7",
+						"description": "Extract the duplicated story-session test helpers (story load, session setup, pick) from body-story.test.ts, choice-tags.test.ts and load-state-externals.test.ts into a shared tests/story-session.ts",
+						"status": "todo",
+						"dependsOn": [
+							"2EN.5"
+						],
+						"notes": "Three copies exist after 2EN.5; deferred from the review of #34",
+						"assignee": "Jason"
+					},
+					{
 						"id": "2GS.6",
 						"description": "Implement per-idea writing action for every authored L3+ idea",
 						"status": "blocked",
