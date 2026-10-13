@@ -3,10 +3,18 @@ import {
 	DEFAULT_SCROLL_OPTIONS,
 	animateScrollTo,
 	easeCubic,
+	isScrollKey,
 	scrollDuration,
 	targetScrollTop,
 	type Scroller
 } from './scroll-after-choice';
+
+describe('isScrollKey', () => {
+	it('counts only the keys that move the page', () => {
+		for (const key of ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ']) expect(isScrollKey(key)).toBe(true);
+		for (const key of ['t', 'T', 'i', 'h', '1', '9', 'z', 'Escape', 'Enter']) expect(isScrollKey(key)).toBe(false);
+	});
+});
 
 /** A scroller whose clock and frames the test drives by hand. */
 function fakeScroller(startY = 0) {

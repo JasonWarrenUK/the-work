@@ -99,6 +99,12 @@ export function animateScrollTo(
 	return cancel;
 }
 
+/** Keys that scroll the page by themselves; other keys (choice numbers, overlay shortcuts) do not count as scrolling. */
+const SCROLL_KEYS = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ']);
+
+/** Whether a `KeyboardEvent.key` is one the browser scrolls the page with. */
+export const isScrollKey = (key: string): boolean => SCROLL_KEYS.has(key);
+
 /** A {@link Scroller} over the real window. */
 function windowScroller(): Scroller {
 	return {
@@ -109,10 +115,17 @@ function windowScroller(): Scroller {
 		cancelFrame: (handle) => window.cancelAnimationFrame(handle),
 		onUserScroll: (callback) => {
 			// Our own scrollTo() fires 'scroll', so listen for the reader's input instead
-			const events = ['wheel', 'touchmove', 'keydown'] as const;
-			for (const name of events) window.addEventListener(name, callback, { passive: true });
+			const onPointer = () => callback();
+			const onKey = (event: KeyboardEvent) => {
+				if (isScrollKey(event.key)) callback();
+			};
+			window.addEventListener('wheel', onPointer, { passive: true });
+			window.addEventListener('touchmove', onPointer, { passive: true });
+			window.addEventListener('keydown', onKey);
 			return () => {
-				for (const name of events) window.removeEventListener(name, callback);
+				window.removeEventListener('wheel', onPointer);
+				window.removeEventListener('touchmove', onPointer);
+				window.removeEventListener('keydown', onKey);
 			};
 		}
 	};
