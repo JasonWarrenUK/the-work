@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { page } from '$app/state';
 	import { base } from '$app/paths';
 	import { story, loadStory, type StoryChoice, type StoryParagraph } from '$lib/engine/story.svelte';
@@ -14,6 +14,7 @@
 	import PauseOverlay from '$lib/components/PauseOverlay.svelte';
 	import SummaryOverlay from '$lib/components/SummaryOverlay.svelte';
 	import SaveToast from '$lib/components/SaveToast.svelte';
+	import { scrollAfterChoice } from '$lib/components/scroll-after-choice';
 
 	let paragraphs: StoryParagraph[] = $state([]);
 	let choices: StoryChoice[] = $state([]);
@@ -162,9 +163,17 @@
 		}
 	}
 
-	function selectChoice(index: number) {
+	let cancelScroll: () => void = () => {};
+
+	async function selectChoice(index: number) {
 		story.choose(index);
 		continueStory();
+
+		// Bring the new passage into view once it is in the DOM; a fresh choice supersedes an animation in flight
+		cancelScroll();
+		await tick();
+		const firstParagraph = document.querySelector<HTMLElement>('#story .passage > p');
+		if (firstParagraph) cancelScroll = scrollAfterChoice(firstParagraph);
 	}
 </script>
 
