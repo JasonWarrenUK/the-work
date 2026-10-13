@@ -253,7 +253,7 @@
 					{
 						"id": "2UI.2",
 						"description": "Thesis panel — see written ideas and current orthodoxy per domain",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"2GS.5",
 							"2EN.1",
@@ -263,7 +263,9 @@
 							"2EN.5",
 							"2EN.6"
 						],
-						"assignee": "Jason"
+						"notes": "Delivered by 2GS.5 in #27: the SummaryOverlay Thesis tab shows written ideas and per-domain orthodoxy bars. Reconciled as done rather than rebuilt",
+						"assignee": "Jason",
+						"ended": "2026-10-13"
 					},
 					{
 						"id": "2EN.1",
@@ -819,7 +821,7 @@
 					{
 						"id": "4UI.1",
 						"description": "Add final thesis summary screen before defence begins",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"2UI.2"
 						],
@@ -903,12 +905,13 @@
 					{
 						"id": "5PL.8",
 						"description": "Implement #frame: tag handler and layered parallax component",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"2EN.6"
 						],
 						"notes": "Kept dependency on 2EN.6: both extend the same tag pipeline through continue() to the components",
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-13"
 					},
 					{
 						"id": "5PL.9",
