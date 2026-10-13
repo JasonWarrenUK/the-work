@@ -22,6 +22,16 @@ describe('storyletKnots', () => {
 	it('lists the knots tagged # storylet, in story order', () => {
 		expect(storyletKnots(patchStory().story)).toEqual(['subway', 'cab']);
 	});
+
+	it('scans a story once and reuses the result', () => {
+		const { story } = patchStory();
+		const tags = vi.spyOn(story, 'TagsForContentAtPath');
+		storyletKnots(story);
+		const scans = tags.mock.calls.length;
+		expect(scans).toBeGreaterThan(0);
+		storyletKnots(story);
+		expect(tags.mock.calls.length).toBe(scans);
+	});
 });
 
 describe('the storylet loop', () => {

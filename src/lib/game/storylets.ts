@@ -11,17 +11,27 @@
  * - `storylet_count()` returns how many storylet knots exist, so the loop can
  *   stop; Calico's original loop had no safe end once the index ran past the
  *   last knot.
+ *
+ * Only top-level knots count: a `# storylet` tag on a stitch is not seen,
+ * because stitches are not in the story's named content (Calico had the same
+ * limit). Author storylets as knots.
  */
 
 import type { Story } from 'inkjs';
 import type { Container } from 'inkjs/engine/Container';
 
+/** The tagged knots are fixed for a compiled story, so each Story is scanned once. */
+const knotCache = new WeakMap<Story, string[]>();
+
 /** Names of every knot tagged `# storylet`, in story order. */
 export function storyletKnots(ink: Story): string[] {
+	const cached = knotCache.get(ink);
+	if (cached) return cached;
 	const names: string[] = [];
 	for (const name of ink.mainContentContainer.namedContent.keys()) {
 		if ((ink.TagsForContentAtPath(name) ?? []).includes('storylet')) names.push(name);
 	}
+	knotCache.set(ink, names);
 	return names;
 }
 
