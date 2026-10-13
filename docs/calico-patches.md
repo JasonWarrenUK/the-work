@@ -58,7 +58,7 @@ Storylet system inspired by Twine/Harlowe. Dynamically includes ink passages tag
 EXTERNAL get_storylet(index)
 ```
 
-**Current status:** Stubbed in SvelteKit — logs a warning. The ink-side code exists in `story/patches/storylets.ink`.
+**Current status:** Stubbed in SvelteKit — logs a warning. The stub lives in `src/lib/game/storylets.ts`, bound from `initGameSystems()`. The ink-side code exists in `story/patches/storylets.ink`.
 
 ---
 
