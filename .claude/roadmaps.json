@@ -859,9 +859,10 @@
 					{
 						"id": "5PL.3",
 						"description": "Apply text-wrap: pretty for orphan prevention",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-13"
 					},
 					{
 						"id": "5PL.4",
