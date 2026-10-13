@@ -277,11 +277,12 @@
 					{
 						"id": "2EN.2",
 						"description": "Replace story.tick bump-and-rederive pattern with ObserveVariable-backed reactivity",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"2EN.1"
 						],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-13"
 					},
 					{
 						"id": "2EN.3",
