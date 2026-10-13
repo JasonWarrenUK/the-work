@@ -745,7 +745,8 @@
 						"dependsOn": [],
 						"notes": "Moved from Polish: the hour files and the defence are authored with emphasis available, so they are not retrofitted later",
 						"assignee": "Jason",
-						"ended": "2026-10-13"
+						"ended": "2026-10-13",
+						"pr": 41
 					}
 				]
 			},
