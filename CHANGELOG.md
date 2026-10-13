@@ -7,6 +7,17 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-13
+
+### Breaking
+
+- `story.continue()` returns each paragraph as `{ text, classes }` instead of a plain string. Code that reads paragraphs as strings must read `paragraph.text`.
+
+### Added
+
+- Lines in the story can ask for styling with `#class:<name>` tags, and the page applies them to the paragraph. Three styles ship: `aside` (dim italic), `emphasis` (accent colour) and `urgent` (warning colour).
+- Five early lines use them as examples: three in the prologue, the first line at the hub and the "There's more to do." line shown after every action.
+
 ## [0.4.0] - 2026-10-13
 
 ### Added
@@ -47,7 +58,8 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 - Extremes are rechecked after an interruption.
 - The observe beat no longer ends the story when there are no readings to offer.
 
-[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/JasonWarrenUK/the-work/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/JasonWarrenUK/the-work/releases/tag/v0.3.0
