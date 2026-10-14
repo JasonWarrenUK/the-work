@@ -800,16 +800,17 @@
 					{
 						"id": "4GS.1",
 						"description": "Implement discipline lookup (domain pair → discipline name → committee chair)",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"1GS.4"
 						],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"ended": "2026-10-14"
 					},
 					{
 						"id": "4GS.2",
 						"description": "Implement committee hostility scoring from written orthodoxy profile",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"4GS.1"
 						],
