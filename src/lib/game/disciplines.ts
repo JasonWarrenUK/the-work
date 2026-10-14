@@ -7,6 +7,11 @@
  *
  * Each discipline has an official name (used by the committee) and a private
  * name (the Writer's internal recognition, revealed only at the ending).
+ *
+ * The dominant discipline also seats the committee chair (see
+ * `design/Disciplines.md`, Chair Assignment): each domain answers to one
+ * member, Morality defers to the other domain in the pair and the dominant
+ * domain decides when the two differ.
  */
 
 import { inventory, type Domain } from '$lib/game/ideas.svelte';
@@ -77,4 +82,46 @@ export function getDisciplineOfficial(): string {
  */
 export function getDisciplinePrivate(): string {
 	return getDiscipline()?.private ?? '';
+}
+
+/** The three committee members who can chair the defence. */
+export type Chair = 'Cleric' | 'Professor' | 'Bureaucrat';
+
+/** Which member each domain answers to; Morality is contested and has no chair of its own. */
+const CHAIR_FOR_DOMAIN: Record<Domain, Chair | null> = {
+	Faith: 'Cleric',
+	Truth: 'Professor',
+	Nature: 'Professor',
+	Art: 'Professor',
+	Rule: 'Bureaucrat',
+	Class: 'Bureaucrat',
+	Morality: null
+};
+
+/** The chair a single domain would seat, or null for Morality. */
+export function chairForDomain(domain: Domain): Chair | null {
+	return CHAIR_FOR_DOMAIN[domain];
+}
+
+/**
+ * The chair for a discipline, given its pair with the dominant domain first
+ * (the order `inventory.getDominantPair()` returns). Morality defers to the
+ * other domain; when both domains seat the same member that member chairs
+ * uncontested; otherwise the dominant domain's member takes the chair.
+ */
+export function committeeChair(pair: [Domain, Domain]): Chair {
+	const [dominant, secondary] = pair;
+	const first = chairForDomain(dominant);
+	const second = chairForDomain(secondary);
+	// Both Morality cannot happen: a pair is two distinct domains
+	return first ?? second ?? 'Professor';
+}
+
+/**
+ * The chair of the Writer's current committee, from the dominant discipline.
+ * Returns empty string until two domains have written ideas.
+ */
+export function getCommitteeChair(): Chair | '' {
+	const pair = inventory.getDominantPair();
+	return pair ? committeeChair(pair) : '';
 }

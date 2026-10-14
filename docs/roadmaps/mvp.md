@@ -139,8 +139,8 @@ End-to-end skeleton through full night, defence, and polish.
 - [ ] **4NA.2**: Author defence questioning logic (committee challenges based on thesis orthodoxy) _(blocked: depends on 4NA.1)_
 - [ ] **4NA.3**: Author at least 3 distinct ending scenes (pass orthodox, pass radical, fail) _(blocked: depends on 4NA.2, 4GS.3)_
 - [ ] **4NA.4**: Author committee chair intro dialogue for all 21 disciplines (3 member types × discipline spin) _(blocked: depends on 4NA.1, 2GS.18)_
-- [ ] **4GS.1**: Implement discipline lookup (domain pair → discipline name → committee chair) _(depends on 1GS.4)_
-- [ ] **4GS.2**: Implement committee hostility scoring from written orthodoxy profile _(blocked: depends on 4GS.1)_
+- [x] **4GS.1**: Implement discipline lookup (domain pair → discipline name → committee chair)
+- [ ] **4GS.2**: Implement committee hostility scoring from written orthodoxy profile _(depends on 4GS.1)_
 - [ ] **4GS.3**: Implement ending selection logic based on thesis profile + dread levels _(blocked: depends on 4GS.2)_
 - [ ] **4UI.1**: Add final thesis summary screen before defence begins _(depends on 2UI.2)_
 - [ ] **4NA.5**: Author special committee dynamic scenes (co-chairs, resentful rival, peripheral voice, absent authority, gatekeeper) _(blocked: depends on 4NA.4)_
@@ -463,8 +463,8 @@ graph LR
 	5EN.5 --> M6
 	5EN.6 --> M6
 	5EN.7 --> M6
-	class 2GS.4,2GS.7,2NA.2,3EN.2,3GS.1,3GS.3,3GS.4,3GS.5,4GS.1,4UI.1,5EN.1,5EN.3,5PL.10,5PL.4 todo
-	class 2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.6,2GS.8,2GS.9,3GS.6,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.14,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,4GS.2,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.5,5PL.6,5PL.9,5UI.1,5UI.2 blocked
-	class 1EN.1,1EN.2,1EN.3,1GS.1,1GS.2,1GS.3,1GS.4,1GS.5,1GS.6,1GS.7,1GS.8,1GS.9,1NA.1,1NA.2,1NA.3,1NA.4,1NA.5,1NA.6,1NA.7,1UI.1,1UI.2,1UI.3,2EN.1,2EN.2,2EN.3,2EN.4,2EN.5,2EN.6,2EN.7,2GS.1,2GS.2,2GS.3,2GS.5,2NA.1,2UI.1,2UI.2,3EN.1,3GS.2,3UI.1,5PL.1,5PL.2,5PL.3,5PL.7,5PL.8 done
+	class 2GS.4,2GS.7,2NA.2,3EN.2,3GS.1,3GS.3,3GS.4,3GS.5,4GS.2,4UI.1,5EN.1,5EN.3,5PL.10,5PL.4 todo
+	class 2GS.10,2GS.11,2GS.12,2GS.13,2GS.14,2GS.15,2GS.16,2GS.17,2GS.18,2GS.6,2GS.8,2GS.9,3GS.6,3NA.1,3NA.10,3NA.11,3NA.12,3NA.13,3NA.14,3NA.2,3NA.3,3NA.4,3NA.5,3NA.6,3NA.7,3NA.8,3NA.9,4GS.3,4NA.1,4NA.2,4NA.3,4NA.4,4NA.5,5EN.2,5EN.4,5EN.5,5EN.6,5EN.7,5NA.1,5PL.5,5PL.6,5PL.9,5UI.1,5UI.2 blocked
+	class 1EN.1,1EN.2,1EN.3,1GS.1,1GS.2,1GS.3,1GS.4,1GS.5,1GS.6,1GS.7,1GS.8,1GS.9,1NA.1,1NA.2,1NA.3,1NA.4,1NA.5,1NA.6,1NA.7,1UI.1,1UI.2,1UI.3,2EN.1,2EN.2,2EN.3,2EN.4,2EN.5,2EN.6,2EN.7,2GS.1,2GS.2,2GS.3,2GS.5,2NA.1,2UI.1,2UI.2,3EN.1,3GS.2,3UI.1,4GS.1,5PL.1,5PL.2,5PL.3,5PL.7,5PL.8 done
 ```
 
