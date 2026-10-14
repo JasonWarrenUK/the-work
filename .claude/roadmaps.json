@@ -2,6 +2,7 @@
 	{
 		"name": "MVP",
 		"path": "docs/roadmaps/mvp.md",
+		"project": "the-work",
 		"archived": false,
 		"externalGates": [],
 		"milestones": [
@@ -643,12 +644,13 @@
 					{
 						"id": "3GS.3",
 						"description": "Implement hidden/nested object reveal mechanism",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"1EN.3"
 						],
 						"assignee": "Jason",
-						"started": "2026-10-14"
+						"started": "2026-10-14",
+						"ended": "2026-10-14"
 					},
 					{
 						"id": "3GS.4",
