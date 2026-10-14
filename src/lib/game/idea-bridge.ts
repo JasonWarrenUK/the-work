@@ -168,6 +168,21 @@ export function bindIdeaFunctions(ink: Story): void {
 				return combineIdeas(idA, idB);
 			}
 		},
+		// Catalogue prompts, for Ink that offers a prompt's readings without authoring them inline
+		{
+			name: 'prompt_text',
+			fn: (...args: unknown[]): string => getPromptDef(s(args[0]))?.text ?? ''
+		},
+		{
+			name: 'prompt_reading',
+			fn: (...args: unknown[]): string => {
+				// A prompt's readings, offered until the player holds one of them
+				const prompt = getPromptDef(s(args[0]));
+				if (!prompt || prompt.readings.some((id) => inventory.has(id))) return '';
+				const index = Number(args[1]);
+				return index >= 0 && index < prompt.readings.length ? prompt.readings[index] : '';
+			}
+		},
 		// Bodily states (body.svelte.ts). Unknown names from Ink are ignored.
 		{
 			name: 'body_tick',
