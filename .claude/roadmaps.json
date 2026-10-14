@@ -2,6 +2,7 @@
 	{
 		"name": "MVP",
 		"path": "docs/roadmaps/mvp.md",
+		"project": "the-work",
 		"archived": false,
 		"externalGates": [],
 		"milestones": [
