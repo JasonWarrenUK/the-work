@@ -7,6 +7,28 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-10-14
+
+### Added
+
+- The status bar shows the Writer's condition. Each bodily state (hunger, thirst, cold, fatigue, cramp) appears once it reaches its first level, as a label with filled and empty dots and in red at the maximum. A dread counter appears once dread is above zero, turning accent at three and red at six, the points where the story itself reacts. A fresh Writer sees nothing new, and each chip has a screen-reader label.
+
+## [0.11.0] - 2026-10-14
+
+### Added
+
+- Storylets work. A knot tagged `# storylet` is offered by the storylet loop when its own guard passes, in the order the knots appear in the story. `get_storylet(index)` returns the knot's divert target and the new `storylet_count()` reports how many there are. The sample patch in `story/patches/storylets.ink` is not yet included in the game; the first real storylet is a later task. Only top-level knots count, not stitches.
+
+### Fixed
+
+- The storylet loop ran off the end once every storylet had been tried. It now stops on the knot count, and the sample patch's last knot ends properly.
+
+## [0.10.0] - 2026-10-14
+
+### Added
+
+- Story text and choices support `*emphasis*` (italic) and `**strong**` (bold), and `***both***`. A lone asterisk or one with spaces round it stays as written, and a backslash keeps an asterisk literal. The marks are drawn as real elements, never as raw HTML. One prologue line uses it.
+
 ### Changed
 
 - Story paragraphs and choices wrap with `text-wrap: pretty`, so a paragraph or a multi-line choice no longer ends on a single stranded word. Browsers without the property show no change.
@@ -99,7 +121,10 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 - Extremes are rechecked after an interruption.
 - The observe beat no longer ends the story when there are no readings to offer.
 
-[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.11.0...v0.12.0
+[0.11.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.10.0...v0.11.0
+[0.10.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.6.0...v0.7.0
