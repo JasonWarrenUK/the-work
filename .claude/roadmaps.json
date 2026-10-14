@@ -827,6 +827,16 @@
 						"assignee": "Jason"
 					},
 					{
+						"id": "4GS.4",
+						"description": "Report when the dominant discipline pair is a tie, so the co-chair dynamic can fire",
+						"status": "todo",
+						"dependsOn": [
+							"4GS.1"
+						],
+						"notes": "From the review of #44: getDominantPair() orders an exact tie (same written level and idea count) by roster position, so committeeChair() cannot tell a tie from a win. design/Disciplines.md fires the co-chair dynamic when two disciplines are nearly equal and assign different chairs",
+						"assignee": "Jason"
+					},
+					{
 						"id": "4UI.1",
 						"description": "Add final thesis summary screen before defence begins",
 						"status": "todo",
@@ -840,7 +850,8 @@
 						"description": "Author special committee dynamic scenes (co-chairs, resentful rival, peripheral voice, absent authority, gatekeeper)",
 						"status": "blocked",
 						"dependsOn": [
-							"4NA.4"
+							"4NA.4",
+							"4GS.4"
 						],
 						"assignee": "Jason"
 					}
