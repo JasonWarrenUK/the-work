@@ -42,6 +42,8 @@ describe('the night with a neglected body', () => {
 			if (texts(session).some((text) => text.includes('push through'))) {
 				beats.push(output.split('\n').filter((line) => line.startsWith('[PLACEHOLDER')).join(' + '));
 				pick(session, 'push through');
+			} else if (texts(session).some((text) => text.includes('let it pass'))) {
+				pick(session, 'let it pass');
 			} else if (texts(session).includes('Reflect on your progress')) {
 				pick(session, 'Reflect on your progress');
 			} else {
@@ -124,6 +126,8 @@ describe('persistence', () => {
 			if (texts(session).some((text) => text.includes('push through'))) {
 				pick(session, 'push through');
 				resolved += 1;
+			} else if (texts(session).some((text) => text.includes('let it pass'))) {
+				pick(session, 'let it pass');
 			} else if (texts(session).includes('Reflect on your progress')) {
 				pick(session, 'Reflect on your progress');
 			} else {
