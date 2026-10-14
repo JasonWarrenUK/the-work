@@ -7,6 +7,12 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-10-14
+
+### Added
+
+- The game can name who chairs the Writer's defence. The dominant discipline seats a committee member: Faith to the Cleric; Truth, Nature and Art to the Professor; Rule and Class to the Bureaucrat. Morality defers to the other domain in the pair, and the dominant domain decides when the two answer to different members. Ink can ask with `get_chair()`, which returns the member's name or an empty string until two domains have written ideas. Nothing in the story calls it yet.
+
 ## [0.12.0] - 2026-10-14
 
 ### Added
@@ -121,7 +127,8 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 - Extremes are rechecked after an interruption.
 - The observe beat no longer ends the story when there are no readings to offer.
 
-[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.12.0...HEAD
+[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.13.0...HEAD
+[0.13.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.9.0...v0.10.0
