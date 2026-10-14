@@ -27,6 +27,13 @@ function s(v: unknown): string {
 	return String(v);
 }
 
+/** The index-th reading of a catalogue prompt, offered until the player holds one of them; '' otherwise. */
+function promptReading(promptId: string, index: number): string {
+	const prompt = getPromptDef(promptId);
+	if (!prompt || prompt.readings.some((id) => inventory.has(id))) return '';
+	return index >= 0 && index < prompt.readings.length ? prompt.readings[index] : '';
+}
+
 /**
  * Bind all idea-system external functions to an Ink story instance.
  * Call this after the story is loaded but before continuing.
@@ -175,13 +182,7 @@ export function bindIdeaFunctions(ink: Story): void {
 		},
 		{
 			name: 'prompt_reading',
-			fn: (...args: unknown[]): string => {
-				// A prompt's readings, offered until the player holds one of them
-				const prompt = getPromptDef(s(args[0]));
-				if (!prompt || prompt.readings.some((id) => inventory.has(id))) return '';
-				const index = Number(args[1]);
-				return index >= 0 && index < prompt.readings.length ? prompt.readings[index] : '';
-			}
+			fn: (...args: unknown[]): string => promptReading(s(args[0]), Number(args[1]))
 		},
 		// Bodily states (body.svelte.ts). Unknown names from Ink are ignored.
 		{
@@ -230,13 +231,9 @@ export function bindIdeaFunctions(ink: Story): void {
 		{
 			name: 'body_reading',
 			fn: (...args: unknown[]): string => {
-				// A subject's P54–P58 readings, offered until the player holds one of them
+				// A subject's P54–P58 readings, under the same withdraw-once-held rule as any prompt
 				const subject = s(args[0]);
-				if (!isInterruptSubject(subject)) return '';
-				const prompt = getPromptDef(PROMPT_FOR[subject]);
-				if (!prompt || prompt.readings.some((id) => inventory.has(id))) return '';
-				const index = Number(args[1]);
-				return index >= 0 && index < prompt.readings.length ? prompt.readings[index] : '';
+				return isInterruptSubject(subject) ? promptReading(PROMPT_FOR[subject], Number(args[1])) : '';
 			}
 		}
 	];

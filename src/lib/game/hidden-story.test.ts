@@ -70,7 +70,7 @@ describe.each(fixtures.HIDDEN_OBJECTS)('$prompt behind $parent', ({ prompt, loca
 });
 
 describe('the Bible', () => {
-	it('reveals the note whichever passage it fell open at', () => {
+	it('reveals the note after the Bible is examined, at whichever passage the shuffle chose', () => {
 		const session = startAt(12);
 		settle(session);
 		examine(session, 'The shelves', 'The Bible');
