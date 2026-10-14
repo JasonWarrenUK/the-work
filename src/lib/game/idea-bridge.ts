@@ -10,7 +10,7 @@
 
 import type { Story } from 'inkjs';
 import { inventory, getIdeaDef, getPromptDef, DOMAINS, type Domain } from '$lib/game/ideas.svelte';
-import { getDisciplineOfficial, getDisciplinePrivate } from '$lib/game/disciplines';
+import { getCommitteeChair, getDisciplineOfficial, getDisciplinePrivate } from '$lib/game/disciplines';
 import { body } from '$lib/game/body.svelte';
 import { PROMPT_FOR, isBodyAction, isBodyState, isInterruptSubject } from '$lib/game/body';
 import {
@@ -155,6 +155,10 @@ export function bindIdeaFunctions(ink: Story): void {
 		{
 			name: 'get_discipline_private',
 			fn: (): string => getDisciplinePrivate()
+		},
+		{
+			name: 'get_chair',
+			fn: (): string => getCommitteeChair()
 		},
 		{
 			name: 'combine_domains',
