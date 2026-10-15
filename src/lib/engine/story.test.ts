@@ -178,3 +178,117 @@ describe('story.continue() paragraph classes', () => {
 		expect(paragraphs).toEqual([{ text: 'After.', classes: ['bold'], frame: null }]);
 	});
 });
+
+describe('story.choiceLog and story.seed', () => {
+	const BRANCHING = 'VAR roll = 0\nStart.\n* [left]\n\t~ roll = RANDOM(1, 1000000)\n\tLeft.\n\t* * [down]\n\t\t~ roll = roll + RANDOM(1, 1000000)\n\t\tDown.\n\t\t-> END\n\t* * [up]\n\t\tUp.\n\t\t-> END\n* [right]\n\tRight.\n\t-> END\n';
+
+	it('records the index of each choice made and nothing else', async () => {
+		await loadInk(BRANCHING);
+		expect(story.choiceLog).toEqual([]);
+
+		story.continue();
+		story.choose(0);
+		story.continue();
+		story.choose(1);
+
+		expect(story.choiceLog).toEqual([0, 1]);
+	});
+
+	it('exposes the seed the story started with and clears the log on a fresh load', async () => {
+		await loadInk(BRANCHING);
+		expect(typeof story.seed).toBe('number');
+		story.continue();
+		story.choose(0);
+
+		await loadInk(BRANCHING);
+
+		expect(story.choiceLog).toEqual([]);
+	});
+
+	it('hands out a copy, so a caller cannot rewrite the record', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+		story.choose(0);
+
+		(story.choiceLog as number[]).push(99);
+
+		expect(story.choiceLog).toEqual([0]);
+	});
+});
+
+describe('story.replay()', () => {
+	const BRANCHING = 'VAR roll = 0\nStart.\n* [left]\n\t~ roll = RANDOM(1, 1000000)\n\tLeft.\n\t* * [down]\n\t\t~ roll = roll + RANDOM(1, 1000000)\n\t\tDown.\n\t\t-> END\n\t* * [up]\n\t\tUp.\n\t\t-> END\n* [right]\n\tRight.\n\t-> END\n';
+
+	/** Play left then down, returning what a reload needs to rebuild the run. */
+	function playLeftDown(): { seed: number; log: number[]; roll: unknown; saved: string } {
+		story.continue();
+		story.choose(0);
+		story.continue();
+		story.choose(0);
+		return { seed: story.seed as number, log: [...story.choiceLog], roll: story.getVariable('roll'), saved: story.saveState() };
+	}
+
+	it('rebuilds the same state, random rolls included, from the seed and the log', async () => {
+		await loadInk(BRANCHING);
+		const run = playLeftDown();
+
+		await loadInk(BRANCHING);
+		story.replay(run.seed, run.log);
+
+		expect(story.getVariable('roll')).toBe(run.roll);
+		expect(story.saveState()).toBe(run.saved);
+		expect(story.choiceLog).toEqual(run.log);
+		expect(story.seed).toBe(run.seed);
+	});
+
+	it('rolls differently under a different seed', async () => {
+		await loadInk(BRANCHING);
+		const run = playLeftDown();
+
+		story.replay((run.seed + 1) % 100, run.log);
+
+		expect(story.getVariable('roll')).not.toBe(run.roll);
+	});
+
+	it('resumes at the passage after the last choice and starts history afresh', async () => {
+		await loadInk(BRANCHING);
+		const run = playLeftDown();
+		expect(story.canContinue).toBe(true);
+
+		story.replay(run.seed, run.log);
+		const { paragraphs, choices } = story.continue();
+
+		expect(paragraphs.map((p) => p.text)).toEqual(['Down.']);
+		expect(choices).toEqual([]);
+	});
+
+	it('replays an empty log back to the opening passage', async () => {
+		await loadInk(BRANCHING);
+		playLeftDown();
+
+		story.replay(story.seed as number, []);
+		const { paragraphs, choices } = story.continue();
+
+		expect(paragraphs.map((p) => p.text)).toEqual(['Start.']);
+		expect(choices.map((c) => c.text)).toEqual(['left', 'right']);
+	});
+
+	it('refreshes an observed variable that the replay changed', async () => {
+		await loadInk(BRANCHING);
+		const run = playLeftDown();
+		expect(story.variable('roll')).toBe(run.roll);
+
+		story.replay(run.seed, [0]);
+
+		expect(story.variable('roll')).toBe(story.getVariable('roll'));
+		expect(story.variable('roll')).not.toBe(run.roll);
+	});
+
+	it('throws when a logged choice is not on offer, leaving the log at the last good step', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+
+		expect(() => story.replay(story.seed as number, [0, 7])).toThrow(/step 1: choice 7 is not on offer/);
+		expect(story.choiceLog).toEqual([0]);
+	});
+});
