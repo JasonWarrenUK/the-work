@@ -1066,7 +1066,8 @@
 						"notes": "tests/fixtures/saves/<version>.json captured per tag; a Vitest test loads each fixture and asserts the version-mismatch policy holds",
 						"assignee": "Jason",
 						"started": "2026-10-15",
-						"ended": "2026-10-15"
+						"ended": "2026-10-15",
+						"pr": 54
 					}
 				]
 			}
