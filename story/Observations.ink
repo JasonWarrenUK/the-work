@@ -4,6 +4,8 @@
 
 // Player picks a location, then an object, then a reading.
 // Objects use ** (sticky once-only) so each can only be examined once per game.
+// Hidden objects (P59-P67) sit in the same menus but only appear once their
+// parent object's stitch has been visited; they share the observe_hidden knot.
 
 === observe ===
     Where do you look?
@@ -55,6 +57,8 @@
         -> observe_P12
     ** [The blank page]
         -> observe_P13
+    ** {observe_P10} [The back of the pocket watch]
+        -> observe_hidden("P60")
     + {CHOICE_COUNT() == 0} [Nothing else here]
         You've examined everything on the desk.
 
@@ -253,6 +257,10 @@
         -> observe_P22
     ** [The hymnbook]
         -> observe_P23
+    ** {observe_P14 || observe_P15} [A note folded inside the Bible]
+        -> observe_hidden("P59")
+    ** {observe_P17 || observe_P19} [Something pressed between the pages]
+        -> observe_hidden("P64")
     + {CHOICE_COUNT() == 0} [Nothing else on the shelves]
         You've examined every volume.
 
@@ -484,6 +492,8 @@
         -> observe_P29
     ** [The coat used as blanket]
         -> observe_P30
+    ** {observe_P29} [Under the mattress]
+        -> observe_hidden("P62")
     + {CHOICE_COUNT() == 0} [Nothing else here]
         There's nothing more to see.
 
@@ -607,6 +617,16 @@
         -> observe_P47
     ** [The stain on the ceiling]
         -> observe_P48
+    ** {observe_P34} [The back of the photograph]
+        -> observe_hidden("P61")
+    ** {observe_P41} [The windowsill]
+        -> observe_hidden("P67")
+    ** {observe_P42} [The label on the specimen jar]
+        -> observe_hidden("P66")
+    ** {observe_P45} [Under the loose floorboard]
+        -> observe_hidden("P65")
+    ** {observe_P46} [The coat pocket]
+        -> observe_hidden("P63")
     + {CHOICE_COUNT() == 0} [Nothing else]
         You've examined every corner.
 
@@ -804,5 +824,34 @@
         {acquire_idea("O48b")}
     + [Finding meaning in stains.]
         {acquire_idea("O48c")}
+
+    - ->->
+
+// ---------------------------------------------------------------------------
+// HIDDEN / NESTED OBJECTS
+// ---------------------------------------------------------------------------
+// Found inside, behind or under another object (design/Objects.md, section J).
+// The menus above gate each one on its parent's visit count; the prompt line
+// and the three readings come from the catalogue through prompt_text and
+// prompt_reading, so nothing here is authored per object.
+
+=== observe_hidden(prompt) ===
+    ~ temp r0 = prompt_reading(prompt, 0)
+    ~ temp r1 = prompt_reading(prompt, 1)
+    ~ temp r2 = prompt_reading(prompt, 2)
+    // Externals cannot run inside choice text, so the readings are fetched into temps first
+    ~ temp t0 = get_idea_text(r0)
+    ~ temp t1 = get_idea_text(r1)
+    ~ temp t2 = get_idea_text(r2)
+    {prompt_text(prompt)}
+
+    + {r0 != ""} [{t0}]
+        {acquire_idea(r0)}
+    + {r1 != ""} [{t1}]
+        {acquire_idea(r1)}
+    + {r2 != ""} [{t2}]
+        {acquire_idea(r2)}
+    + {CHOICE_COUNT() == 0} [Nothing more to it]
+        It has already given what it had.
 
     - ->->

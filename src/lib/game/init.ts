@@ -11,6 +11,7 @@ import { registerAllIdeas } from './idea-catalog';
 import { registerAuthoredRecipes } from './recipes';
 import { bindIdeaFunctions } from './idea-bridge';
 import { bindStoryletFunctions } from './storylets';
+import { bindSensoryFunctions } from './sensory';
 
 /**
  * Register all game data and bind external functions to the Ink story.
@@ -21,4 +22,5 @@ export function initGameSystems(ink: Story): void {
 	registerAuthoredRecipes();
 	bindIdeaFunctions(ink);
 	bindStoryletFunctions(ink);
+	bindSensoryFunctions(ink);
 }

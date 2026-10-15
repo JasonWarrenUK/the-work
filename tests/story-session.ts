@@ -56,14 +56,22 @@ export function pick(session: Session, label: string): void {
 /** Continue until the next choice point or the end, returning the text produced. */
 export const run = (session: Session): string => session.story.ContinueMaximally();
 
-/** Run, then push through any interrupt beats until the action menu is showing. */
+/** Run, then push through any interrupt beats and let any sensory event pass until the action menu is showing. */
 export function settle(session: Session): string {
 	let output = run(session);
-	while (texts(session).some((text) => text.includes('push through'))) {
-		pick(session, 'push through');
+	let beat = interruptChoice(session);
+	while (beat) {
+		pick(session, beat);
 		output += run(session);
+		beat = interruptChoice(session);
 	}
 	return output;
+}
+
+/** The choice that dismisses whichever between-action beat is showing, or '' at the action menu. */
+function interruptChoice(session: Session): string {
+	const labels = ['push through', 'let it pass'];
+	return labels.find((label) => texts(session).some((text) => text.includes(label))) ?? '';
 }
 
 /** Make `fetch` return the compiled story so Nib's `loadStory()` can load it. Undo with `vi.unstubAllGlobals()`. */
