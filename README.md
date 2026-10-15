@@ -26,7 +26,8 @@ The game is in **early development**. Core systems are in place but most content
 - Hours d1_2100 through d2_0700 are empty stubs — the bulk of the night is unwritten
 - The thesis defence (d2_0800) has structure but needs the committee dynamics that emerge from what the player writes
 - Writing action still operates at the domain level, not true per-idea selective writing
-- Hidden objects appear in a location's menu once their parent object has been examined (the note in the Bible, the back of the pocket watch and seven more); sensory events are designed but have no trigger mechanism in Ink yet
+- Timed sensory events fire once per slotted hour (rain at 9pm, bells at midnight, the gas lamp at 2am, artillery at 3am, dawn at 7am) between actions and offer their readings; random sensory events have no trigger mechanism yet
+- Hidden objects appear in a location's menu once their parent object has been examined (the note in the Bible, the back of the pocket watch and seven more)
 - Bodily state prose is placeholder text and provisions (drink, food, light) do not yet affect the body; the status bar shows each state's level and the dread total once they register
 - Level 3+ ideas need authored content for the writing interface
 - No save/load UI yet (the engine supports it, the game doesn't surface it)

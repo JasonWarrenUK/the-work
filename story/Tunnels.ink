@@ -245,6 +245,8 @@
             -> body_attend_beat("cramp") ->
 
     - (action_done)
-        // After every action: extremes, then at most one interrupt beat (Body.ink)
+        // After every action: extremes, then at most one interrupt beat (Body.ink),
+        // then the hour's sensory event if one is due (Sensory.ink)
         -> body_check ->
+        -> sensory_check ->
         -> go
