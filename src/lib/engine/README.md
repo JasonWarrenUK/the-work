@@ -60,6 +60,7 @@ Fetches compiled Ink JSON and creates the story instance.
 | `choiceLog` | The indices of the choices made through `choose()` since the story loaded or was last replayed (a copy). `loadState()` does not reset it, so persist either the state JSON or the seed and log, never a mix. |
 | `seed` | The random seed the current run started with; `null` before a story is loaded. |
 | `replay(seed, choices)` | Rebuild a run silently: reset the story, restore the seed and re-make each choice without producing passages. The next `continue()` returns the passage after the last choice. Throws if a logged choice is not on offer at its step. See below. |
+| `setAudio(player)` / `audio` | Attach the `AudioPlayer` that audio tags drive (null detaches). Loading, restoring or replaying a story never touches the player; detach before a silent replay. |
 | `ink` | Direct access to the raw inkjs `Story` instance. |
 
 ### Replaying a run
@@ -101,6 +102,7 @@ Tags are processed by `processTags()` from `tags.ts`:
 - `#mood:<name>` — set `document.documentElement.dataset.mood` for atmospheric CSS.
 - `#class:<name>` — add a CSS class to the paragraph element. `continue()` returns it in the paragraph's `classes`; the renderer applies it (the game's `Passage.svelte` sets it on the `<p>`).
 - `#frame: a.png:6, b.png, c.gif:1.5; height:0.2` — a layered parallax frame for the paragraph (Calico `parallaxframes` syntax). Each comma-separated entry is a layer; `:<depth>` sets how little that layer moves (higher = less, default 1); options follow `;` (`height` is a fraction of the viewport; the game's renderer uses 0.3 when none is given). The tag may sit on its own line above the paragraph: inkjs attaches it to the next line of output. Calico wrote the separator as `|`, which the Ink compiler rejects inside a tag; the parser accepts either. `continue()` returns it parsed as the paragraph's `frame` (`FrameSpec`); the renderer draws it (the game's `ParallaxFrame.svelte` resolves names under `static/frames/` and tracks the pointer, disabled under `prefers-reduced-motion`).
+- `#play: rain; fadein: 500`, `#stop: rain; fadeout: 100`, `#stop`, `#pause: rain`, `#resume: rain`, `#volume: 0.3` — audio instructions in Calico `musicplayer` syntax (options after `;`, or Calico's `|`). `continue()` and `choose()` carry them out on the player attached with `story.setAudio()`, in story order, and drop them when none is attached. A tag that names no track where one is needed, or a volume that is not a number, is ignored.
 - Bare tags — treated as CSS classes (Calico convention).
 
 Tags can also sit on a choice (`+ Attend to The Work #mood:textual`). They arrive in `choices[].tags`, and `choose()` applies a choice's `#mood:` when that choice is selected. The renderer decides what a mood-tagged choice set means; Nib only applies the mood.
