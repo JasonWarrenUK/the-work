@@ -1018,7 +1018,8 @@
 						"notes": "A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting",
 						"assignee": "Jason",
 						"started": "2026-10-15",
-						"ended": "2026-10-15"
+						"ended": "2026-10-15",
+						"pr": 51
 					},
 					{
 						"id": "5EN.4",
