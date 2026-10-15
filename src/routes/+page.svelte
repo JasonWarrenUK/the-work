@@ -7,7 +7,7 @@
 	import { initGameSystems } from '$lib/game/init';
 	import { inventory } from '$lib/game/ideas.svelte';
 	import { body } from '$lib/game/body.svelte';
-	import { type SaveData, load, save, autosave, loadAutosave, hasAutosave } from '$lib/game/save-load';
+	import { type SaveData, type LoadResult, loadChecked, save, autosave, loadAutosaveChecked, hasAutosave } from '$lib/game/save-load';
 	import Passage from '$lib/components/Passage.svelte';
 	import ChoiceList from '$lib/components/ChoiceList.svelte';
 	import StatusBar from '$lib/components/StatusBar.svelte';
@@ -92,6 +92,30 @@
 		if (saveData.bodyState) body.fromJSON(saveData.bodyState);
 	}
 
+	/**
+	 * Restore a slot's save, telling the player when its version differs from
+	 * this build (the load still goes ahead) or when it cannot be read or
+	 * restored (the night starts fresh, and they are told why rather than
+	 * finding themselves silently back at 6:30pm).
+	 */
+	function restoreChecked(result: LoadResult, slot: string): void {
+		if (!result.ok) {
+			toast.flash(`${slot} not loaded. ${result.error}`, 'warning');
+			return;
+		}
+		try {
+			restoreFromSave(result.data);
+			if (result.warning) toast.flash(result.warning, 'warning');
+		} catch (error) {
+			// A save this build cannot restore: start fresh, and say so
+			inventory.reset();
+			body.reset();
+			const detail = error instanceof Error ? error.message : String(error);
+			const version = result.data.version ?? 'an unknown version';
+			toast.flash(`${slot} from ${version} could not be restored (${detail}). Starting a new night.`, 'warning');
+		}
+	}
+
 	onMount(async () => {
 		await loadStory(`${base}/The Work.json`, initGameSystems);
 
@@ -115,28 +139,10 @@
 			}
 		} else if (loadManualSave) {
 			// Load manual save checkpoint
-			const saveData = load();
-			if (saveData) {
-				try {
-					restoreFromSave(saveData);
-				} catch {
-					// Corrupted save — start fresh
-					inventory.reset();
-					body.reset();
-				}
-			}
+			restoreChecked(loadChecked(), 'Save');
 		} else if (hasAutosave()) {
 			// Restore autosave if available
-			const saveData = loadAutosave();
-			if (saveData) {
-				try {
-					restoreFromSave(saveData);
-				} catch {
-					// Corrupted save — start fresh
-					inventory.reset();
-					body.reset();
-				}
-			}
+			restoreChecked(loadAutosaveChecked(), 'Autosave');
 		}
 
 		loading = false;

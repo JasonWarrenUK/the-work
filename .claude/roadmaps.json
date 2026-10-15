@@ -1019,10 +1019,13 @@
 					{
 						"id": "5EN.3",
 						"description": "Stamp save version (git tag) into SaveData and check on load",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
 						"notes": "A minor-version mismatch warns and still attempts the load; a failed load gives a specific error message rather than silently resetting",
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-15",
+						"ended": "2026-10-15",
+						"pr": 51
 					},
 					{
 						"id": "5EN.4",
@@ -1055,7 +1058,7 @@
 					{
 						"id": "5EN.7",
 						"description": "Save-fixture regression test across tagged versions",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"5EN.3"
 						],
