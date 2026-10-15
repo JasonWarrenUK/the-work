@@ -243,7 +243,8 @@ describe('story.choiceLog and story.seed', () => {
 		const snapshot = story.saveState();
 		const seed = story.seed as number;
 
-		await loadInk(BRANCHING);
+		// A different seed on purpose, so the assertion cannot pass by a chance match
+		story.replay((seed + 1) % 100, []);
 		story.continue();
 		story.choose(1);
 		story.loadState(snapshot);

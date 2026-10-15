@@ -147,6 +147,8 @@
 				story.setVariable('myLightLevel', 1);
 				story.setVariable('myLightColour', 'orange');
 				story.setVariable('myDrink', 'water');
+				// A path jump is not logged, so autosaves from a skipped run carry a seed and
+				// log that cannot replay; restoring still works through the state JSON
 				ink.ChoosePathString('d1_2000');
 			}
 		} else if (loadManualSave) {
