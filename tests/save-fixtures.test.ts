@@ -115,7 +115,7 @@ describe('save fixtures from tagged releases', () => {
 				expect(result.check.status).toBe('unknown');
 				expect(result.warning).toContain('no version recorded');
 			} else if (current === null) {
-				expect(result.check.status).toBe('unknown');
+				throw new Error(`APP_VERSION is "${APP_VERSION}": no tag in reach, so the fixtures cannot be checked against this build. Fetch tags (git fetch --tags) and rerun.`);
 			} else if (sameMinor) {
 				expect(result.check.status).toBe('match');
 				expect(result.warning).toBeNull();
