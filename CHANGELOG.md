@@ -7,6 +7,14 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-10-15
+
+### Added
+
+- Five hours of the night bring the outside world into the room: rain at 9pm, bells at midnight, the gas lamp dimming at 2am, distant artillery at 3am and dawn light at 7am. The event lands after the first action taken in its hour. The Writer can dwell on it, which yields one of its three readings and costs the time of an observation, or let it pass for nothing. A save made mid-hour neither repeats nor skips the event. The prose is placeholder and random sensory events are not wired yet. The 9pm rain now sits beside the hour's own opening weather line, which can contradict it (noted on 3NA.1).
+- Nine hidden objects appear in the location menus once their parent has been examined: a note in the Bible, the back of the pocket watch, the back of the photograph, under the mattress, the coat pocket, a pressed flower, under the loose floorboard, the specimen jar's label and the windowsill scratches. Each offers its three readings and is gone once taken. Ink gains `prompt_text(id)` and `prompt_reading(id, index)` to read any catalogue prompt.
+- The story engine records every choice made and the run's random seed, and can rebuild a run from those two alone with `story.replay(seed, choices)`, reproducing the story's own state, random rolls included. State held outside Ink must be reset before replaying. Nothing saves the log yet, so saves still store a state snapshot.
+
 ## [0.13.0] - 2026-10-14
 
 ### Added
@@ -127,7 +135,8 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 - Extremes are rechecked after an interruption.
 - The observe beat no longer ends the story when there are no readings to offer.
 
-[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.13.0...HEAD
+[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.10.0...v0.11.0
