@@ -7,6 +7,19 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-10-15
+
+### Added
+
+- The engine can play music. A named track loops, fades in from silence and fades out when stopped, and a second track waits for the first to finish fading, so two beds never overlap. Pausing mutes a track while it keeps running, so resuming picks up mid-phrase. The player is a port of Calico's music player on Howler.js. Nothing in the game plays yet: the page has not attached a player and there are no audio files.
+- Story text and choices can carry audio tags in Calico's syntax: `#play: rain; fadein: 500`, `#stop: rain; fadeout: 100`, a bare `#stop`, `#pause: rain`, `#resume: rain` and `#volume: 0.3`. A cue fires when its passage is produced, not when the reader reaches its line, so put one on a passage's first line or on the choice that leads to it. `#volume:` sets the volume for every track.
+- Saves record the version of the game that wrote them, taken from the nearest git tag. Loading a save from another minor version shows a warning and loads it anyway; a different major version warns more firmly and still loads. A save from before this change is reported as having no version.
+
+### Changed
+
+- A save that cannot be read or restored now says why before a fresh night starts. The reasons are no save in the slot, invalid JSON, no story state or the restore error itself. Before, it reset in silence and the player found themselves back at 6:30pm with no explanation. The notice uses the save toast, which now takes a message and a warning tone that stays up for six seconds.
+- The deploy build fetches full git history, so saves made on the live site carry a release tag (`v0.15.0`) rather than a bare commit hash.
+
 ## [0.14.0] - 2026-10-15
 
 ### Added
@@ -135,7 +148,8 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 - Extremes are rechecked after an interruption.
 - The observe beat no longer ends the story when there are no readings to offer.
 
-[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.14.0...HEAD
+[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.15.0...HEAD
+[0.15.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.11.0...v0.12.0
