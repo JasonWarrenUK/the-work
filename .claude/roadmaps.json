@@ -3,6 +3,7 @@
 		"name": "MVP",
 		"path": "docs/roadmaps/mvp.md",
 		"project": "the-work",
+		"min_plugin": "2.7.0",
 		"archived": false,
 		"externalGates": [],
 		"milestones": [
@@ -1034,7 +1035,8 @@
 						"dependsOn": [
 							"5EN.1"
 						],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-15"
 					},
 					{
 						"id": "5EN.5",
