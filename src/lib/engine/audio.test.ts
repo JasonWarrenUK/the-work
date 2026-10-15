@@ -115,6 +115,39 @@ describe('play', () => {
 		expect(player.tracks).toEqual(['bells']);
 	});
 
+	it('lets the newest request replace a queued track, so one-track mode never ends with two', async () => {
+		const { factory, made } = fakeFactory();
+		const player = createAudioPlayer({}, factory);
+		player.play('rain');
+		player.play('bells');
+
+		player.play('wind');
+		expect(made.has('wind')).toBe(false);
+		expect(made.has('bells')).toBe(false);
+
+		made.get('rain')?.finishFade();
+		await flush();
+
+		expect(made.has('bells')).toBe(false);
+		expect(made.get('wind')?.calls).toEqual(['play', 'fade:0>0.5@2000']);
+		expect(player.tracks).toEqual(['wind']);
+	});
+
+	it('waits for a track that is already fading out before starting a new one', async () => {
+		const { factory, made } = fakeFactory();
+		const player = createAudioPlayer({}, factory);
+		player.play('rain');
+		player.stop('rain');
+
+		player.play('bells');
+		expect(made.has('bells')).toBe(false);
+
+		made.get('rain')?.finishFade();
+		await flush();
+
+		expect(player.tracks).toEqual(['bells']);
+	});
+
 	it('drops a queued track if it is stopped before the old one finishes fading', async () => {
 		const { factory, made } = fakeFactory();
 		const player = createAudioPlayer({}, factory);

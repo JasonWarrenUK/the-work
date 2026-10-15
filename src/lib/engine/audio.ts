@@ -100,21 +100,27 @@ export interface AudioPlayer {
 export function createAudioPlayer(overrides: Partial<AudioOptions> = {}, factory: TrackFactory = howlFactory): AudioPlayer {
 	const options: AudioOptions = { ...DEFAULT_AUDIO_OPTIONS, ...overrides };
 	const playing = new Map<string, Playing>();
-	/** Names queued by `play()` while other tracks fade out, so a later `stop()` can cancel them. */
-	const pending = new Set<string>();
+	/** Fade-outs still running; in one-track mode a new track waits until this reaches zero. */
+	let fading = 0;
+	/** The one track waiting for the fade-outs to finish; the newest `play()` replaces an earlier wait. */
+	let queued: { name: string; fadeIn: number } | null = null;
 
-	function fadeOut(name: string, duration: number): Promise<void> {
+	function fadeOut(name: string, duration: number): void {
 		const entry = playing.get(name);
-		if (!entry) return Promise.resolve();
+		if (!entry) return;
 		playing.delete(name);
-		return new Promise((resolve) => {
-			entry.track.once('fade', () => {
-				entry.track.stop();
-				entry.track.unload();
-				resolve();
-			});
-			entry.track.fade(entry.muted ? 0 : options.volume, 0, duration);
+		fading += 1;
+		entry.track.once('fade', () => {
+			entry.track.stop();
+			entry.track.unload();
+			fading -= 1;
+			if (fading === 0 && queued) {
+				const next = queued;
+				queued = null;
+				start(next.name, next.fadeIn);
+			}
 		});
+		entry.track.fade(entry.muted ? 0 : options.volume, 0, duration);
 	}
 
 	function start(name: string, fadeIn: number): void {
@@ -132,29 +138,27 @@ export function createAudioPlayer(overrides: Partial<AudioOptions> = {}, factory
 		},
 
 		play(name, settings = {}) {
-			if (playing.has(name) || pending.has(name)) return;
+			if (playing.has(name) || queued?.name === name) return;
 			const fadeIn = settings.fadeIn ?? options.fadeIn;
-			if (options.allowMultipleTracks || playing.size === 0) {
+			if (options.allowMultipleTracks || (playing.size === 0 && fading === 0)) {
 				start(name, fadeIn);
 				return;
 			}
-			// The new track waits for the old ones to finish fading, as Calico does
-			pending.add(name);
-			const fades = [...playing.keys()].map((other) => fadeOut(other, options.fadeOut));
-			void Promise.all(fades).then(() => {
-				if (pending.delete(name)) start(name, fadeIn);
-			});
+			// The new track waits for the old ones to finish fading, as Calico does;
+			// a track already waiting gives way to this newer request
+			queued = { name, fadeIn };
+			for (const other of [...playing.keys()]) fadeOut(other, options.fadeOut);
 		},
 
 		stop(name, settings = {}) {
 			const duration = settings.fadeOut ?? options.fadeOut;
 			if (name === undefined) {
-				pending.clear();
-				for (const other of [...playing.keys()]) void fadeOut(other, duration);
+				queued = null;
+				for (const other of [...playing.keys()]) fadeOut(other, duration);
 				return;
 			}
-			pending.delete(name);
-			void fadeOut(name, duration);
+			if (queued?.name === name) queued = null;
+			fadeOut(name, duration);
 		},
 
 		pause(name) {
@@ -179,7 +183,8 @@ export function createAudioPlayer(overrides: Partial<AudioOptions> = {}, factory
 		},
 
 		dispose() {
-			pending.clear();
+			queued = null;
+			fading = 0;
 			for (const entry of playing.values()) {
 				entry.track.stop();
 				entry.track.unload();
