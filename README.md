@@ -29,7 +29,7 @@ The game is in **early development**. Core systems are in place but most content
 - Sensory events and hidden/nested objects are designed but have no trigger mechanisms in Ink yet
 - Bodily state prose is placeholder text and provisions (drink, food, light) do not yet affect the body; the status bar shows each state's level and the dread total once they register
 - Level 3+ ideas need authored content for the writing interface
-- No save/load UI yet (the engine supports it, the game doesn't surface it)
+- No save/load UI yet (the engine supports it, the game doesn't surface it); the engine can also rebuild a run from its seed and choice log, but saves do not store that yet
 
 ---
 
