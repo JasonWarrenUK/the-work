@@ -56,6 +56,13 @@ export interface StoryParagraph {
 	frame: FrameSpec | null;
 }
 
+/** Re-read every observed variable, since loading or replaying state fires no observers. */
+function refreshObservedVariables(ink: Story): void {
+	for (const name of observedNames) {
+		if (name in state.variables) state.variables[name] = ink.variablesState.$(name);
+	}
+}
+
 /** Apply an atmospheric mood to the document root for mood-driven CSS. */
 function applyMood(mood: string | null): void {
 	if (mood && typeof document !== 'undefined') {
@@ -66,6 +73,10 @@ function applyMood(mood: string | null): void {
 interface StoryState {
 	inkStory: Story | null;
 	history: string[];
+	/** Indices of the choices made through {@link story.choose} since the story loaded or was last replayed. */
+	choiceLog: number[];
+	/** The random seed the story started with; null before a story is loaded. */
+	seed: number | null;
 	/** Latest value of every Ink variable a consumer has read through {@link story.variable}. */
 	variables: Record<string, unknown>;
 	issues: StoryIssue[];
@@ -74,6 +85,8 @@ interface StoryState {
 let state: StoryState = $state({
 	inkStory: null,
 	history: [],
+	choiceLog: [],
+	seed: null,
 	variables: {},
 	issues: []
 });
@@ -119,6 +132,8 @@ export async function loadStory(jsonPath: string, onInit?: (ink: Story) => void)
 	onInit?.(ink);
 
 	state.inkStory = ink;
+	state.seed = ink.state.storySeed;
+	state.choiceLog = [];
 	// Observers belonged to the old Story instance; the next variable() read re-registers on this one
 	observedNames.clear();
 	state.variables = {};
@@ -190,6 +205,7 @@ export const story = {
 		const chosen = ink.currentChoices.find((c) => c.index === index);
 		applyMood(processTags(chosen?.tags ?? []).mood);
 		ink.ChooseChoiceIndex(index);
+		state.choiceLog.push(index);
 	},
 
 	get canContinue(): boolean {
@@ -260,8 +276,64 @@ export const story = {
 		const ink = state.inkStory;
 		if (!ink) throw new Error('Story not loaded');
 		ink.state.LoadJson(json);
-		for (const name of observedNames) {
-			if (name in state.variables) state.variables[name] = ink.variablesState.$(name);
+		refreshObservedVariables(ink);
+	},
+
+	/**
+	 * The choices made through {@link story.choose} since the story loaded or
+	 * was last replayed, as the indices `choose()` received. Pair it with
+	 * {@link story.seed} to rebuild the exact story state through
+	 * {@link story.replay}. `loadState()` does not reset it, so persist either
+	 * the state JSON or the seed and log, never a mix.
+	 */
+	get choiceLog(): readonly number[] {
+		return [...state.choiceLog];
+	},
+
+	/** The random seed the current run started with; null before a story is loaded. */
+	get seed(): number | null {
+		return state.seed;
+	},
+
+	/**
+	 * Rebuild a run silently: reset the story, restore the seed and re-make
+	 * each choice in order without producing any passages. The story stops
+	 * right after the last choice, so the next {@link story.continue} returns
+	 * the passage that followed it, exactly as it would have live.
+	 *
+	 * Ink variables and the story's own state come back identical. State held
+	 * outside Ink (anything a bound external function mutates) is mutated
+	 * again as the choices replay, so the caller must reset it first.
+	 *
+	 * Passage history is cleared. Choices made with `ChoosePathString` or
+	 * through the raw `ink` instance are not in the log and cannot replay.
+	 *
+	 * @param seed - The seed from {@link story.seed} when the run was recorded.
+	 * @param choices - The log from {@link story.choiceLog}.
+	 * @throws If a logged choice is not on offer at its step (the story changed
+	 *   since the log was recorded). The story is left at the last step that
+	 *   replayed, and `choiceLog` matches it.
+	 */
+	replay(seed: number, choices: readonly number[]) {
+		const ink = state.inkStory;
+		if (!ink) throw new Error('Story not loaded');
+		ink.ResetState();
+		ink.state.storySeed = seed;
+		ink.state.previousRandom = 0;
+		state.seed = seed;
+		state.choiceLog = [];
+		state.history = [];
+		try {
+			for (const [step, index] of choices.entries()) {
+				ink.ContinueMaximally();
+				if (!ink.currentChoices.some((choice) => choice.index === index)) {
+					throw new Error(`Replay diverged at step ${step}: choice ${index} is not on offer`);
+				}
+				ink.ChooseChoiceIndex(index);
+				state.choiceLog.push(index);
+			}
+		} finally {
+			refreshObservedVariables(ink);
 		}
 	},
 

@@ -56,7 +56,16 @@ Fetches compiled Ink JSON and creates the story instance.
 | `setVariable(name, value)` | Write an Ink variable. |
 | `saveState()` | Serialise the full Ink state to a JSON string. |
 | `loadState(json)` | Restore Ink state from a previously saved JSON string. |
+| `choiceLog` | The indices of the choices made through `choose()` since the story loaded or was last replayed (a copy). `loadState()` does not reset it, so persist either the state JSON or the seed and log, never a mix. |
+| `seed` | The random seed the current run started with; `null` before a story is loaded. |
+| `replay(seed, choices)` | Rebuild a run silently: reset the story, restore the seed and re-make each choice without producing passages. The next `continue()` returns the passage after the last choice. Throws if a logged choice is not on offer at its step. See below. |
 | `ink` | Direct access to the raw inkjs `Story` instance. |
+
+### Replaying a run
+
+`story.seed` and `story.choiceLog` together are enough to rebuild a run: inkjs is deterministic for a given seed and sequence of choices, so `replay()` reproduces the story's own state, `RANDOM` rolls and shuffles included. A save made of these two values stays small and survives story edits that do not change the choice structure; a state JSON does not survive edits at all.
+
+Replay re-runs every external function, so anything a bound function mutates outside Ink is mutated again. Reset that state first (the game resets its inventory and body), then replay. Choices made with `ChoosePathString` or through the raw `ink` instance are not logged and cannot replay.
 
 ### Tag conventions
 
