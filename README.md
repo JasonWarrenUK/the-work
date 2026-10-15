@@ -28,7 +28,7 @@ The game is in **early development**. Core systems are in place but most content
 - Writing action still operates at the domain level, not true per-idea selective writing
 - Timed sensory events fire once per slotted hour (rain at 9pm, bells at midnight, the gas lamp at 2am, artillery at 3am, dawn at 7am) between actions and offer their readings; random sensory events have no trigger mechanism yet
 - Hidden objects appear in a location's menu once their parent object has been examined (the note in the Bible, the back of the pocket watch and seven more)
-- Saves carry the build's version (the nearest git tag); loading one from another version says so and loads it anyway, and a save that cannot be read or restored names the reason before a fresh night starts
+- Saves carry the build's version (the nearest git tag); loading one from another version says so and loads it anyway, and a save that cannot be read or restored names the reason before a fresh night starts; saves captured from each tagged release are kept as test fixtures so a change that stops them loading fails the test suite
 - Bodily state prose is placeholder text and provisions (drink, food, light) do not yet affect the body; the status bar shows each state's level and the dread total once they register
 - Level 3+ ideas need authored content for the writing interface
 - No save/load UI yet (the engine supports it, the game doesn't surface it); the engine can also rebuild a run from its seed and choice log, but saves do not store that yet
