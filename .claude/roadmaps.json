@@ -2,6 +2,7 @@
 	{
 		"name": "MVP",
 		"path": "docs/roadmaps/mvp.md",
+		"project": "the-work",
 		"archived": false,
 		"externalGates": [],
 		"milestones": [
@@ -965,17 +966,18 @@
 					{
 						"id": "5EN.1",
 						"description": "Implement history replay for save/load (record choice indices, restore seed, replay silently)",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"1EN.1"
 						],
 						"assignee": "Jason",
-						"started": "2026-10-15"
+						"started": "2026-10-15",
+						"ended": "2026-10-15"
 					},
 					{
 						"id": "5EN.2",
 						"description": "Wire autosave to fire on story.continue() with history-aware state",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"5EN.1"
 						],
@@ -984,7 +986,7 @@
 					{
 						"id": "5UI.1",
 						"description": "Save/load UI (save slot, load from slot, delete save)",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"5EN.1"
 						],
@@ -1012,7 +1014,7 @@
 					{
 						"id": "5EN.4",
 						"description": "Implement story.stepBack() (rewind to previous passage)",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"5EN.1"
 						],
