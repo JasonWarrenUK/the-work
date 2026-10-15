@@ -7,7 +7,7 @@
 	import { initGameSystems } from '$lib/game/init';
 	import { inventory } from '$lib/game/ideas.svelte';
 	import { body } from '$lib/game/body.svelte';
-	import { type SaveData, type LoadResult, loadChecked, save, autosave, loadAutosaveChecked, hasAutosave } from '$lib/game/save-load';
+	import { type SaveData, type Snapshot, type LoadResult, loadChecked, save, autosave, loadAutosaveChecked, hasAutosave } from '$lib/game/save-load';
 	import Passage from '$lib/components/Passage.svelte';
 	import ChoiceList from '$lib/components/ChoiceList.svelte';
 	import StatusBar from '$lib/components/StatusBar.svelte';
@@ -25,10 +25,21 @@
 	let summaryTab = $state<'held' | 'ideas' | 'thesis'>('thesis');
 	let toast: SaveToast;
 
+	/** Everything a save needs: Ink state, game state and the choice history that can rebuild both. */
+	function snapshot(): Snapshot {
+		return {
+			storyState: story.saveState(),
+			inventoryState: inventory.toJSON(),
+			bodyState: body.toJSON(),
+			seed: story.seed ?? undefined,
+			choices: story.choiceLog
+		};
+	}
+
 	function manualSave() {
 		if (!story.ink) return;
 		try {
-			save({ storyState: story.saveState(), inventoryState: inventory.toJSON(), bodyState: body.toJSON() });
+			save(snapshot());
 			toast.flash();
 		} catch {
 			// Silently fail
@@ -82,9 +93,10 @@
 		}
 	}
 
-	/** Restore both Ink state and inventory from a save. Call inside a try/catch. */
+	/** Restore Ink state, inventory, body and the choice history from a save. Call inside a try/catch. */
 	function restoreFromSave(saveData: SaveData): void {
-		story.loadState(saveData.storyState);
+		// Saves from before the history was stored restore with an empty log
+		story.loadState(saveData.storyState, saveData.choices);
 		if (saveData.inventoryState) {
 			inventory.fromJSON(saveData.inventoryState);
 		}
@@ -161,9 +173,9 @@
 			delete document.documentElement.dataset.mood;
 		}
 
-		// Autosave after each passage (includes inventory state)
+		// Autosave after each passage, choice history included
 		try {
-			autosave(story.saveState(), inventory.toJSON(), body.toJSON());
+			autosave(snapshot());
 		} catch {
 			// Silently fail — don't break gameplay
 		}
