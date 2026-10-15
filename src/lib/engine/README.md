@@ -9,6 +9,7 @@ A small runtime for playing [Ink](https://www.inklestudios.com/ink/) narratives 
 | `story.svelte.ts` | Core runtime — loads compiled Ink JSON, manages reactive state, exposes the `story` API |
 | `tags.ts` | Parses Ink tags (`#CLEAR`, `#mood:x`, `#class:x`, `#frame:`) into structured data for the renderer |
 | `emphasis.ts` | Splits story text with `*emphasis*` and `**strong**` into styled segments, so a renderer builds real elements instead of injecting HTML (the game's `Emphasis.svelte` does this for paragraphs and choices) |
+| `audio.ts` | Named-track audio player on Howler.js (a port of Calico's `musicplayer.js`): looping tracks, fade-in and fade-out, pause as mute, one track at a time by default. No tag handling; that layer sits on top |
 
 ## Quick Start
 
@@ -66,6 +67,31 @@ Fetches compiled Ink JSON and creates the story instance.
 `story.seed` and `story.choiceLog` together are enough to rebuild a run: inkjs is deterministic for a given seed and sequence of choices, so `replay()` reproduces the story's own state, `RANDOM` rolls and shuffles included. A save made of these two values stays small and survives story edits that do not change the choice structure; a state JSON does not survive edits at all.
 
 Replay re-runs every external function, so anything a bound function mutates outside Ink is mutated again. Reset that state first (the game resets its inventory and body), then replay. Choices made with `ChoosePathString` or through the raw `ink` instance are not logged and cannot replay.
+
+### Audio: `createAudioPlayer(options?, factory?)`
+
+```ts
+import { createAudioPlayer } from '$lib/engine/audio';
+
+const audio = createAudioPlayer({ basePath: '/audio', volume: 0.5 });
+audio.play('rain'); // /audio/rain.ogg, then /audio/rain.mp3; loops, fades in over 2s
+audio.play('bells', { fadeIn: 500 }); // rain fades out first; bells starts when that fade ends
+audio.pause('bells'); // muted, still playing; resume() picks up mid-loop
+audio.stop(); // fade everything out and release it
+```
+
+| Member | Description |
+|--------|-------------|
+| `play(name, { fadeIn? })` | Start a named track, looping, fading in from silence. Already-started names are ignored. With `allowMultipleTracks` false (the default) every other track fades out first and the new one starts once those fades finish. |
+| `stop(name?, { fadeOut? })` | Fade a track out and unload it; with no name, every track. A track queued behind a fade is dropped. |
+| `pause(name)` / `resume(name)` | Mute a track in place and restore it, Calico's semantics: the loop keeps running underneath. |
+| `setVolume(level)` | The volume every track plays at, clamped to 0 to 1 and applied at once to anything not paused. |
+| `tracks` | Names of the started tracks, in start order. |
+| `dispose()` | Stop and unload everything immediately, no fades. |
+
+Options and their defaults: `basePath` `/audio`, `formats` `['ogg', 'mp3']`, `allowMultipleTracks` `false`, `fadeIn` `2000`, `fadeOut` `2000`, `volume` `0.5`. `trackSources(name, options)` gives the candidate files for a name, for anything that wants to preload them.
+
+Browsers refuse to start audio before a user gesture, so the first `play()` should follow a click or a choice. The `factory` parameter swaps the `Howl` constructor for a stand-in; the tests use it and nothing else should need to.
 
 ### Tag conventions
 
