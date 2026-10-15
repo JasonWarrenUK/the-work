@@ -25,6 +25,9 @@ EXTERNAL writable_idea_count()
 EXTERNAL get_discipline()
 EXTERNAL get_discipline_private()
 EXTERNAL get_chair()
+// Catalogue prompts (hidden objects read their text and readings from the catalogue)
+EXTERNAL prompt_text(id)
+EXTERNAL prompt_reading(id, index)
 
 
 // Bodily states (src/lib/game/body.svelte.ts)

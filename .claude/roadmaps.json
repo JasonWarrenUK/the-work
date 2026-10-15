@@ -647,11 +647,14 @@
 					{
 						"id": "3GS.3",
 						"description": "Implement hidden/nested object reveal mechanism",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"1EN.3"
 						],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-14",
+						"ended": "2026-10-14",
+						"pr": 46
 					},
 					{
 						"id": "3GS.4",
@@ -697,7 +700,7 @@
 					{
 						"id": "3NA.13",
 						"description": "Extend observations to sensory/bodily/hidden prompt locations",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"3GS.1",
 							"3GS.2",
