@@ -908,12 +908,13 @@
 					{
 						"id": "5PL.5",
 						"description": "Wire #play, #pause, #stop, #volume Ink tags to audio system",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"5PL.4"
 						],
 						"assignee": "Jason",
-						"started": "2026-10-15"
+						"started": "2026-10-15",
+						"ended": "2026-10-15"
 					},
 					{
 						"id": "5NA.1",
