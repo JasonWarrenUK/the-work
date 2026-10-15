@@ -898,18 +898,24 @@
 					{
 						"id": "5PL.4",
 						"description": "Implement audio system (Howler.js-based, port from calico-patches.md)",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-15",
+						"ended": "2026-10-15",
+						"pr": 48
 					},
 					{
 						"id": "5PL.5",
 						"description": "Wire #play, #pause, #stop, #volume Ink tags to audio system",
-						"status": "blocked",
+						"status": "done",
 						"dependsOn": [
 							"5PL.4"
 						],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-15",
+						"ended": "2026-10-15",
+						"pr": 49
 					},
 					{
 						"id": "5NA.1",
@@ -926,7 +932,7 @@
 					{
 						"id": "5PL.6",
 						"description": "Asset preloading (scan compiled Ink JSON for audio/image refs, show progress)",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"5PL.4"
 						],

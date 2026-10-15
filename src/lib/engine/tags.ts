@@ -11,6 +11,9 @@
  *   paragraph (Calico `parallaxframes` syntax). Each comma-separated entry is a layer;
  *   `:<depth>` after a layer sets how little it moves (higher = less). Options follow
  *   `;` (Calico wrote `|`, which the Ink compiler rejects inside a tag; both are accepted).
+ * - `#play: rain; fadein: 500`, `#stop: rain; fadeout: 100`, `#stop`, `#pause: rain`,
+ *   `#resume: rain`, `#volume: 0.3` — audio instructions (Calico `musicplayer` syntax,
+ *   options after `;` or `|`), returned as commands for the attached `AudioPlayer`.
  * - Bare tags (e.g. `#italic`) — treated as CSS classes (Calico convention).
  *
  * @module
@@ -37,6 +40,58 @@ export interface TagResult {
 	mood: string | null;
 	/** From the last `#frame:` tag on the line; null when there is none. */
 	frame: FrameSpec | null;
+	/** From `#play:`, `#stop`, `#pause:`, `#resume:` and `#volume:` tags, in the order they appear. */
+	audio: AudioCommand[];
+}
+
+/** One audio instruction from a tag, for an `AudioPlayer` to carry out. */
+export type AudioCommand =
+	| { kind: 'play'; track: string; fadeIn: number | null }
+	| { kind: 'stop'; track: string | null; fadeOut: number | null }
+	| { kind: 'pause'; track: string }
+	| { kind: 'resume'; track: string }
+	| { kind: 'volume'; level: number };
+
+// The word alone (`stop`), with a value (`play: rain`) or straight into options (`stop; fadeout: 0`)
+const AUDIO_TAG = /^(play|stop|pause|resume|volume)(?:\s*:\s*(.*)|\s*([;|].*))?$/;
+
+/**
+ * Parse one audio tag (the part after `#`, such as `play: rain; fadein: 500`)
+ * into a command. Returns null when the tag is not an audio tag, names no
+ * track where one is needed or gives a volume that is not a number. Options
+ * follow `;` (or Calico's `|`) as `name: value`; an unreadable duration is
+ * dropped and the player's default applies.
+ */
+export function parseAudioTag(tag: string): AudioCommand | null {
+	const match = AUDIO_TAG.exec(tag.trim());
+	if (!match) return null;
+	const [, kind, value, bareOptions] = match;
+	const [first = '', ...optionParts] = (value ?? bareOptions ?? '').split(/[|;]/);
+	const track = first.trim();
+	const options: Record<string, string> = {};
+	for (const part of optionParts) {
+		const [name, value] = part.split(':');
+		if (name && value !== undefined) options[name.trim().toLowerCase()] = value.trim();
+	}
+	const duration = (name: string): number | null => {
+		if (options[name] === undefined) return null;
+		const value = Number(options[name]);
+		return Number.isFinite(value) && value >= 0 ? value : null;
+	};
+
+	switch (kind) {
+		case 'play':
+			return track ? { kind, track, fadeIn: duration('fadein') } : null;
+		case 'stop':
+			return { kind, track: track || null, fadeOut: duration('fadeout') };
+		case 'pause':
+		case 'resume':
+			return track ? { kind, track } : null;
+		default: {
+			const level = Number(track);
+			return track && Number.isFinite(level) ? { kind: 'volume', level } : null;
+		}
+	}
 }
 
 /**
@@ -84,7 +139,8 @@ export function processTags(tags: string[]): TagResult {
 		clear: false,
 		classes: [],
 		mood: null,
-		frame: null
+		frame: null,
+		audio: []
 	};
 
 	for (const tag of tags) {
@@ -92,6 +148,13 @@ export function processTags(tags: string[]): TagResult {
 
 		if (trimmed === 'CLEAR') {
 			result.clear = true;
+			continue;
+		}
+
+		// #play: rain; fadein: 500 — audio instructions, carried out by the attached player
+		if (AUDIO_TAG.test(trimmed)) {
+			const command = parseAudioTag(trimmed);
+			if (command) result.audio.push(command);
 			continue;
 		}
 

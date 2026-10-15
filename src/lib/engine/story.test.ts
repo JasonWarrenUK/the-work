@@ -292,3 +292,53 @@ describe('story.replay()', () => {
 		expect(story.choiceLog).toEqual([0]);
 	});
 });
+
+describe('audio tags', () => {
+	/** A player that records what the story asked of it. */
+	function recorder() {
+		const calls: string[] = [];
+		const player = {
+			options: { basePath: '/audio', formats: ['ogg'], allowMultipleTracks: false, fadeIn: 2000, fadeOut: 2000, volume: 0.5 },
+			tracks: [] as string[],
+			play: (name: string, settings?: { fadeIn?: number }) => void calls.push(`play:${name}:${settings?.fadeIn ?? ''}`),
+			stop: (name?: string, settings?: { fadeOut?: number }) => void calls.push(`stop:${name ?? '*'}:${settings?.fadeOut ?? ''}`),
+			pause: (name: string) => void calls.push(`pause:${name}`),
+			resume: (name: string) => void calls.push(`resume:${name}`),
+			setVolume: (level: number) => void calls.push(`volume:${level}`),
+			dispose: () => void calls.push('dispose')
+		};
+		return { player, calls };
+	}
+
+	afterEach(() => story.setAudio(null));
+
+	it('drives the attached player from line tags, in story order', async () => {
+		await loadInk('Rain starts. #play: rain\nQuieter. #volume: 0.2\nSilence. #stop: rain; fadeout: 100\n-> END\n');
+		const { player, calls } = recorder();
+		story.setAudio(player);
+
+		const { paragraphs } = story.continue();
+
+		expect(paragraphs.map((p) => p.text)).toEqual(['Rain starts.', 'Quieter.', 'Silence.']);
+		expect(paragraphs.map((p) => p.classes)).toEqual([[], [], []]);
+		expect(calls).toEqual(['play:rain:', 'volume:0.2', 'stop:rain:100']);
+	});
+
+	it('drives the player from a tag on the chosen choice, before the story advances', async () => {
+		// A tag after `[...]` belongs to the content below the choice; on the choice itself it follows bare choice text
+		await loadInk('Start.\n* Open the door #play: wind; fadein: 300\n\tWind.\n\t-> END\n');
+		const { player, calls } = recorder();
+		story.setAudio(player);
+		story.continue();
+
+		story.choose(0);
+
+		expect(calls).toEqual(['play:wind:300']);
+	});
+
+	it('ignores audio tags when no player is attached', async () => {
+		await loadInk('Rain starts. #play: rain\n-> END\n');
+		expect(() => story.continue()).not.toThrow();
+		expect(story.audio).toBeNull();
+	});
+});
