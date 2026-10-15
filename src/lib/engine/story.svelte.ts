@@ -21,7 +21,8 @@
  */
 
 import { Story } from 'inkjs';
-import { processTags, type FrameSpec } from './tags';
+import { processTags, type AudioCommand, type FrameSpec } from './tags';
+import type { AudioPlayer } from './audio';
 
 /** Re-export Story type so consumers can type their onInit callbacks. */
 export type { Story };
@@ -60,6 +61,33 @@ export interface StoryParagraph {
 function refreshObservedVariables(ink: Story): void {
 	for (const name of observedNames) {
 		if (name in state.variables) state.variables[name] = ink.variablesState.$(name);
+	}
+}
+
+/** The player audio tags drive; null until {@link story.setAudio} attaches one, and audio tags are then ignored. */
+let audioPlayer: AudioPlayer | null = null;
+
+/** Carry out a line's audio commands on the attached player, in order. */
+function applyAudio(commands: AudioCommand[]): void {
+	if (!audioPlayer) return;
+	for (const command of commands) {
+		switch (command.kind) {
+			case 'play':
+				audioPlayer.play(command.track, command.fadeIn === null ? {} : { fadeIn: command.fadeIn });
+				break;
+			case 'stop':
+				audioPlayer.stop(command.track ?? undefined, command.fadeOut === null ? {} : { fadeOut: command.fadeOut });
+				break;
+			case 'pause':
+				audioPlayer.pause(command.track);
+				break;
+			case 'resume':
+				audioPlayer.resume(command.track);
+				break;
+			case 'volume':
+				audioPlayer.setVolume(command.level);
+				break;
+		}
 	}
 }
 
@@ -168,10 +196,11 @@ export const story = {
 
 			// Process tags for this line
 			const tags = ink.currentTags ?? [];
-			const { clear, mood, classes, frame } = processTags(tags);
+			const { clear, mood, classes, frame, audio } = processTags(tags);
 
 			// Apply mood to html element for atmospheric CSS
 			applyMood(mood);
+			applyAudio(audio);
 
 			if (clear) {
 				// #CLEAR means wipe everything before this line
@@ -196,14 +225,16 @@ export const story = {
 
 	/**
 	 * Select a choice by its index to advance the narrative.
-	 * A `#mood:<name>` tag on the choice is applied to the document root
-	 * before the story advances.
+	 * A `#mood:<name>` tag on the choice is applied to the document root,
+	 * and its audio tags to the attached player, before the story advances.
 	 */
 	choose(index: number) {
 		const ink = state.inkStory;
 		if (!ink) throw new Error('Story not loaded');
 		const chosen = ink.currentChoices.find((c) => c.index === index);
-		applyMood(processTags(chosen?.tags ?? []).mood);
+		const { mood, audio } = processTags(chosen?.tags ?? []);
+		applyMood(mood);
+		applyAudio(audio);
 		ink.ChooseChoiceIndex(index);
 		state.choiceLog.push(index);
 	},
@@ -335,6 +366,24 @@ export const story = {
 		} finally {
 			refreshObservedVariables(ink);
 		}
+	},
+
+	/**
+	 * Attach the player that `#play:`, `#stop`, `#pause:`, `#resume:` and
+	 * `#volume:` tags drive, or detach it with null. Tags seen while no
+	 * player is attached are dropped, not queued. Nothing here resets the
+	 * player: {@link loadStory}, {@link story.loadState} and {@link story.replay}
+	 * leave whatever is playing alone, and a replay's tags run through the
+	 * player again like any other side effect, so detach first to replay
+	 * silently.
+	 */
+	setAudio(player: AudioPlayer | null) {
+		audioPlayer = player;
+	},
+
+	/** The attached audio player, or null. */
+	get audio(): AudioPlayer | null {
+		return audioPlayer;
 	},
 
 	/** Get the full ink Story instance for advanced use */

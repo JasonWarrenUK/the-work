@@ -1,9 +1,23 @@
 import { describe, expect, it } from 'vitest';
-import { parseFrame, processTags } from './tags';
+import { parseAudioTag, parseFrame, processTags } from './tags';
 
 describe('processTags', () => {
 	it('returns an empty result for no tags', () => {
-		expect(processTags([])).toEqual({ clear: false, classes: [], mood: null, frame: null });
+		expect(processTags([])).toEqual({ clear: false, classes: [], mood: null, frame: null, audio: [] });
+	});
+
+	it('collects audio tags in order without treating them as classes', () => {
+		const result = processTags(['play: rain', 'class:dim', 'stop', 'volume: 0.2']);
+		expect(result.audio).toEqual([
+			{ kind: 'play', track: 'rain', fadeIn: null },
+			{ kind: 'stop', track: null, fadeOut: null },
+			{ kind: 'volume', level: 0.2 }
+		]);
+		expect(result.classes).toEqual(['dim']);
+	});
+
+	it('does not mistake a class that starts with an audio word for an audio tag', () => {
+		expect(processTags(['playful', 'stopwatch']).classes).toEqual(['playful', 'stopwatch']);
 	});
 
 	it('reads a frame tag without treating it as a class', () => {
@@ -77,5 +91,30 @@ describe('parseFrame', () => {
 
 	it('does not treat a mood tag as a class', () => {
 		expect(processTags(['mood:calm']).classes).toEqual([]);
+	});
+});
+
+describe('parseAudioTag', () => {
+	it('reads the Calico play forms, with either separator before options', () => {
+		expect(parseAudioTag('play: song')).toEqual({ kind: 'play', track: 'song', fadeIn: null });
+		expect(parseAudioTag('play: song | fadein: 1000')).toEqual({ kind: 'play', track: 'song', fadeIn: 1000 });
+		expect(parseAudioTag('play: song; fadein: 250')).toEqual({ kind: 'play', track: 'song', fadeIn: 250 });
+	});
+
+	it('reads stop with and without a track, pause, resume and volume', () => {
+		expect(parseAudioTag('stop: song')).toEqual({ kind: 'stop', track: 'song', fadeOut: null });
+		expect(parseAudioTag('stop')).toEqual({ kind: 'stop', track: null, fadeOut: null });
+		expect(parseAudioTag('stop; fadeout: 0')).toEqual({ kind: 'stop', track: null, fadeOut: 0 });
+		expect(parseAudioTag('pause: song')).toEqual({ kind: 'pause', track: 'song' });
+		expect(parseAudioTag('resume: song')).toEqual({ kind: 'resume', track: 'song' });
+		expect(parseAudioTag('volume: 0.8')).toEqual({ kind: 'volume', level: 0.8 });
+	});
+
+	it('rejects a malformed tag rather than guessing', () => {
+		expect(parseAudioTag('play')).toBeNull();
+		expect(parseAudioTag('pause')).toBeNull();
+		expect(parseAudioTag('volume: loud')).toBeNull();
+		expect(parseAudioTag('mood:tense')).toBeNull();
+		expect(parseAudioTag('play: song; fadein: soon')).toEqual({ kind: 'play', track: 'song', fadeIn: null });
 	});
 });
