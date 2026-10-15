@@ -1031,17 +1031,18 @@
 					{
 						"id": "5EN.4",
 						"description": "Implement story.stepBack() (rewind to previous passage)",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"5EN.1"
 						],
 						"assignee": "Jason",
-						"started": "2026-10-15"
+						"started": "2026-10-15",
+						"ended": "2026-10-15"
 					},
 					{
 						"id": "5EN.5",
 						"description": "Add step-back control/shortcut to the UI",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"5EN.4"
 						],
