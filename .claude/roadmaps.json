@@ -900,7 +900,8 @@
 						"description": "Implement audio system (Howler.js-based, port from calico-patches.md)",
 						"status": "todo",
 						"dependsOn": [],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-15"
 					},
 					{
 						"id": "5PL.5",
