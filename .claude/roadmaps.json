@@ -2,6 +2,7 @@
 	{
 		"name": "MVP",
 		"path": "docs/roadmaps/mvp.md",
+		"project": "the-work",
 		"archived": false,
 		"externalGates": [],
 		"milestones": [
@@ -528,7 +529,7 @@
 							"M2",
 							"5PL.7"
 						],
-						"notes": "d1_2000 loop already handles time; this is about adding hour-specific narrative flavour",
+						"notes": "d1_2000 loop already handles time; this is about adding hour-specific narrative flavour. Weather consistency at 9pm (TimeNumber 9): the hour opening in d1_2100.ink shuffles rain, wind or fog, then the P50 sensory event (story/Sensory.ink, slot in src/lib/game/sensory.ts) prints 'Rain against the glass.' after the first 9pm action, so a wind or fog run contradicts itself. Pick one weather source: drop the inline shuffle, or make the shuffle choose which variant fires (Objects.md section G, 55a-c) and gate P50 on rain. Later weather beats (4:30am, 63a-c) should follow the same choice.",
 						"assignee": "Jason"
 					},
 					{
@@ -624,11 +625,14 @@
 					{
 						"id": "3GS.1",
 						"description": "Implement sensory event trigger mechanism in Ink (tag-based or external function)",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"1EN.3"
 						],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-14",
+						"ended": "2026-10-14",
+						"pr": 45
 					},
 					{
 						"id": "3GS.2",

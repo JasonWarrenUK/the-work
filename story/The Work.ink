@@ -12,7 +12,8 @@
         INCLUDE Tunnels.ink
         INCLUDE Observations.ink
         INCLUDE Body.ink
-        
+        INCLUDE Sensory.ink
+
     //Chapters
         INCLUDE Hours/d1_1830.ink
         INCLUDE Hours/d1_1900.ink
