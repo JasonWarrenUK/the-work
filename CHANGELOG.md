@@ -7,6 +7,24 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 
 ## [Unreleased]
 
+## [0.16.0] - 2026-10-16
+
+### Breaking
+
+- `autosave()` now takes one object, `autosave({ storyState, inventoryState?, bodyState?, seed?, choices? })`, the same shape `save()` takes. It used to take the three state strings as separate arguments.
+- `story.loadState(json)` now empties `story.choiceLog` unless the saved log is passed as a second argument, `story.loadState(json, choices)`. It used to leave the log as it was, which mixed one run's choices with another's state.
+
+### Added
+
+- The engine can rewind one passage. `story.stepBack()` takes back the last choice and returns to the passage the player was on when they made it, with its choices on offer again, by replaying the run without that choice. It returns `false` and changes nothing when there is no choice to take back. There is no button for it yet.
+- Every save and autosave now records the run's random seed and the full list of choices made, beside the story state. Saves from earlier versions have neither and still load.
+- A regression test loads a real save from each of the v0.3.0, v0.14.0, v0.15.0 and v0.16.0 releases and checks the version policy. No save is refused; an unstamped save says it has no version; another minor warns and loads; a save from the current minor restores into the current story. Each new release adds one fixture (`tests/fixtures/saves/README.md` says how).
+
+### Changed
+
+- Loading a save keeps the engine's record of choices going from the loaded point, and `story.seed` now reads the seed back out of the loaded state. Before, the seed stayed whatever it was before the load.
+- The CI build fetches full git history, so the save-fixture test can tell which release it is running as.
+
 ## [0.15.0] - 2026-10-15
 
 ### Added
@@ -148,7 +166,8 @@ This file starts at 0.3.0. Earlier releases (0.1.0, 0.2.0) are not itemised.
 - Extremes are rechecked after an interruption.
 - The observe beat no longer ends the story when there are no readings to offer.
 
-[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.15.0...HEAD
+[Unreleased]: https://github.com/JasonWarrenUK/the-work/compare/v0.16.0...HEAD
+[0.16.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/JasonWarrenUK/the-work/compare/v0.12.0...v0.13.0
