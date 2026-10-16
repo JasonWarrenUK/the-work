@@ -56,8 +56,8 @@ Fetches compiled Ink JSON and creates the story instance.
 | `getVariable(name)` | Read an Ink variable once, without reactivity. |
 | `setVariable(name, value)` | Write an Ink variable. |
 | `saveState()` | Serialise the full Ink state to a JSON string. |
-| `loadState(json)` | Restore Ink state from a previously saved JSON string. |
-| `choiceLog` | The indices of the choices made through `choose()` since the story loaded or was last replayed (a copy). `loadState()` does not reset it, so persist either the state JSON or the seed and log, never a mix. |
+| `loadState(json, choices?)` | Restore Ink state from a previously saved JSON string. `seed` is read back out of the loaded state and `choiceLog` is replaced with `choices`, the log saved alongside the JSON; without it the log is emptied. |
+| `choiceLog` | The indices of the choices made through `choose()` since the story loaded, was last replayed or was restored with a log (a copy). Save it next to the state JSON and pass it back to `loadState()`. |
 | `seed` | The random seed the current run started with; `null` before a story is loaded. |
 | `replay(seed, choices)` | Rebuild a run silently: reset the story, restore the seed and re-make each choice without producing passages. The next `continue()` returns the passage after the last choice. Throws if a logged choice is not on offer at its step. See below. |
 | `setAudio(player)` / `audio` | Attach the `AudioPlayer` that audio tags drive (null detaches). Loading, restoring or replaying a story never touches the player; detach before a silent replay. |

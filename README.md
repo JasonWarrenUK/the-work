@@ -31,7 +31,7 @@ The game is in **early development**. Core systems are in place but most content
 - Saves carry the build's version (the nearest git tag); loading one from another version says so and loads it anyway, and a save that cannot be read or restored names the reason before a fresh night starts
 - Bodily state prose is placeholder text and provisions (drink, food, light) do not yet affect the body; the status bar shows each state's level and the dread total once they register
 - Level 3+ ideas need authored content for the writing interface
-- No save/load UI yet (the engine supports it, the game doesn't surface it); the engine can also rebuild a run from its seed and choice log, but saves do not store that yet
+- No save/load UI yet (the engine supports it, the game doesn't surface it); every save and autosave now stores the seed and choice log the engine can rebuild a run from, though loading still restores the state JSON directly
 
 ---
 

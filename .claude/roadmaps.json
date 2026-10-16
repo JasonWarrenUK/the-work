@@ -3,6 +3,7 @@
 		"name": "MVP",
 		"path": "docs/roadmaps/mvp.md",
 		"project": "the-work",
+		"min_plugin": "2.7.0",
 		"archived": false,
 		"externalGates": [],
 		"milestones": [
@@ -990,11 +991,14 @@
 					{
 						"id": "5EN.2",
 						"description": "Wire autosave to fire on story.continue() with history-aware state",
-						"status": "todo",
+						"status": "done",
 						"dependsOn": [
 							"5EN.1"
 						],
-						"assignee": "Jason"
+						"assignee": "Jason",
+						"started": "2026-10-15",
+						"ended": "2026-10-15",
+						"pr": 52
 					},
 					{
 						"id": "5UI.1",
@@ -1009,7 +1013,7 @@
 					{
 						"id": "5UI.2",
 						"description": "Autosave resume prompt on page load (\"Continue where you left off?\")",
-						"status": "blocked",
+						"status": "todo",
 						"dependsOn": [
 							"5EN.2"
 						],
