@@ -214,6 +214,44 @@ describe('story.choiceLog and story.seed', () => {
 
 		expect(story.choiceLog).toEqual([0]);
 	});
+
+	it('carries the saved log on through loadState() so the run can still replay', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+		story.choose(0);
+		const saved = { state: story.saveState(), seed: story.seed as number, log: [...story.choiceLog] };
+		story.continue();
+		story.choose(1);
+
+		story.loadState(saved.state, saved.log);
+		expect(story.choiceLog).toEqual([0]);
+		expect(story.seed).toBe(saved.seed);
+		story.continue();
+		story.choose(0);
+		const resumed = story.saveState();
+
+		story.replay(saved.seed, story.choiceLog);
+
+		expect(story.choiceLog).toEqual([0, 0]);
+		expect(story.saveState()).toBe(resumed);
+	});
+
+	it('empties the log and reads the seed from the state when loadState() gets no log', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+		story.choose(0);
+		const snapshot = story.saveState();
+		const seed = story.seed as number;
+
+		// A different seed on purpose, so the assertion cannot pass by a chance match
+		story.replay((seed + 1) % 100, []);
+		story.continue();
+		story.choose(1);
+		story.loadState(snapshot);
+
+		expect(story.choiceLog).toEqual([]);
+		expect(story.seed).toBe(seed);
+	});
 });
 
 describe('story.replay()', () => {

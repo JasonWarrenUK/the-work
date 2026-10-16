@@ -133,8 +133,29 @@ describe('save and loadChecked', () => {
 	});
 
 	it('stamps the autosave too', () => {
-		autosave('{"auto":1}');
+		autosave({ storyState: '{"auto":1}' });
 		const result = loadAutosaveChecked();
 		expect(result.ok && result.data.version).toBe(APP_VERSION);
+	});
+
+	it('stores the seed and choice log and hands back a copy of the log', () => {
+		const choices = [0, 2, 1];
+		autosave({ storyState: '{}', seed: 42, choices });
+		choices.push(7);
+
+		const result = loadAutosaveChecked();
+		expect(result.ok).toBe(true);
+		if (!result.ok) return;
+		expect(result.data.seed).toBe(42);
+		expect(result.data.choices).toEqual([0, 2, 1]);
+	});
+
+	it('leaves the seed and log absent when a save has none, rather than inventing them', () => {
+		save({ storyState: '{}' });
+		const result = loadChecked();
+		expect(result.ok).toBe(true);
+		if (!result.ok) return;
+		expect('seed' in result.data).toBe(false);
+		expect('choices' in result.data).toBe(false);
 	});
 });

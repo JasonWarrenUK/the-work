@@ -15,6 +15,10 @@ export interface SaveData {
 	inventoryState?: string;
 	/** Serialised body state from `body.toJSON()`. Absent in saves created before bodily states; those restore with a fresh body. */
 	bodyState?: string;
+	/** The run's `story.seed`. Absent in saves from before the choice history was stored. */
+	seed?: number;
+	/** The run's `story.choiceLog` at the moment of saving; with `seed`, enough to replay the run. Absent in saves from before the choice history was stored. */
+	choices?: number[];
 	/** The {@link APP_VERSION} that wrote the save. Absent in saves from before version stamping. */
 	version?: string;
 	timestamp: number;
@@ -80,10 +84,16 @@ export type LoadResult =
 	| { ok: true; data: SaveData; check: VersionCheck; warning: string | null }
 	| { ok: false; error: string };
 
-export function save(opts: {
+/** What a save captures: the story's state JSON with the game state and choice history around it. */
+export interface Snapshot {
 	storyState: string;
 	inventoryState?: string;
 	bodyState?: string;
+	seed?: number;
+	choices?: readonly number[];
+}
+
+export function save(opts: Snapshot & {
 	key?: string;
 	/** Overrides the stamped version; tests use it. */
 	version?: string;
@@ -92,6 +102,8 @@ export function save(opts: {
 		storyState: opts.storyState,
 		inventoryState: opts.inventoryState,
 		bodyState: opts.bodyState,
+		seed: opts.seed,
+		choices: opts.choices === undefined ? undefined : [...opts.choices],
 		version: opts.version ?? APP_VERSION,
 		timestamp: Date.now()
 	};
@@ -134,8 +146,9 @@ export function deleteSave(key = SAVE_KEY): void {
 	localStorage.removeItem(key);
 }
 
-export function autosave(storyStateJson: string, inventoryStateJson?: string, bodyStateJson?: string): void {
-	save({ storyState: storyStateJson, inventoryState: inventoryStateJson, bodyState: bodyStateJson, key: AUTOSAVE_KEY });
+/** Write the autosave slot. Called after every passage, so it takes the same snapshot a manual save does. */
+export function autosave(snapshot: Snapshot): void {
+	save({ ...snapshot, key: AUTOSAVE_KEY });
 }
 
 export function loadAutosave(): SaveData | null {
