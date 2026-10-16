@@ -27,4 +27,5 @@ The Ink state in such a fixture is genuine to the tag. The inventory and body st
 |---|---|---|
 | v0.3.0 | storyState, inventoryState, bodyState; no version | `unknown` (predates stamping) |
 | v0.14.0 | storyState, inventoryState, bodyState; no version | `unknown` (predates stamping) |
-| v0.15.0 | all fields, `version: v0.15.0` | `match` on a 0.15 build, `minor-mismatch` after |
+| v0.15.0 | all fields, `version: v0.15.0` | `minor-mismatch` on a 0.16 build |
+| v0.16.0 | all fields, `version: v0.16.0` | `match` on a 0.16 build (restores into the current story) |
