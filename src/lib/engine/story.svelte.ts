@@ -302,11 +302,23 @@ export const story = {
 		return ink.state.toJson();
 	},
 
-	/** Restore ink state from saved JSON. Observed variables are re-read, since a load fires no observers. */
-	loadState(json: string) {
+	/**
+	 * Restore ink state from saved JSON. Observed variables are re-read, since
+	 * a load fires no observers, and {@link story.seed} is read back out of the
+	 * loaded state.
+	 *
+	 * The choice log is replaced with `choices`: the log that was recorded
+	 * alongside the state JSON (see {@link story.choiceLog}), so the record
+	 * carries on from the restored point. Without it the log is emptied, since
+	 * the choices that led to the loaded state are unknown and a log that
+	 * started mid-run cannot {@link story.replay}.
+	 */
+	loadState(json: string, choices: readonly number[] = []) {
 		const ink = state.inkStory;
 		if (!ink) throw new Error('Story not loaded');
 		ink.state.LoadJson(json);
+		state.seed = ink.state.storySeed;
+		state.choiceLog = [...choices];
 		refreshObservedVariables(ink);
 	},
 
@@ -314,8 +326,8 @@ export const story = {
 	 * The choices made through {@link story.choose} since the story loaded or
 	 * was last replayed, as the indices `choose()` received. Pair it with
 	 * {@link story.seed} to rebuild the exact story state through
-	 * {@link story.replay}. `loadState()` does not reset it, so persist either
-	 * the state JSON or the seed and log, never a mix.
+	 * {@link story.replay}. Save it next to the state JSON and hand it back to
+	 * {@link story.loadState}, which otherwise empties the log.
 	 */
 	get choiceLog(): readonly number[] {
 		return [...state.choiceLog];
@@ -366,6 +378,24 @@ export const story = {
 		} finally {
 			refreshObservedVariables(ink);
 		}
+	},
+
+	/**
+	 * Rewind to the passage before the last choice by replaying the run
+	 * without it: the same replay as {@link story.replay}, with the same side
+	 * effects, so the caller resets state held outside Ink first. The next
+	 * {@link story.continue} returns the passage the player was on when they
+	 * made the choice, with its choices on offer again.
+	 *
+	 * @returns false, leaving the story untouched, when there is no logged
+	 *   choice to take back: the run is at its opening passage, or its
+	 *   choices were made outside the log (`ChoosePathString`, the raw `ink`).
+	 */
+	stepBack(): boolean {
+		if (!state.inkStory) throw new Error('Story not loaded');
+		if (state.choiceLog.length === 0 || state.seed === null) return false;
+		story.replay(state.seed, state.choiceLog.slice(0, -1));
+		return true;
 	},
 
 	/**

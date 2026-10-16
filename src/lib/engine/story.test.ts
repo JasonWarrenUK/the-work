@@ -214,6 +214,44 @@ describe('story.choiceLog and story.seed', () => {
 
 		expect(story.choiceLog).toEqual([0]);
 	});
+
+	it('carries the saved log on through loadState() so the run can still replay', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+		story.choose(0);
+		const saved = { state: story.saveState(), seed: story.seed as number, log: [...story.choiceLog] };
+		story.continue();
+		story.choose(1);
+
+		story.loadState(saved.state, saved.log);
+		expect(story.choiceLog).toEqual([0]);
+		expect(story.seed).toBe(saved.seed);
+		story.continue();
+		story.choose(0);
+		const resumed = story.saveState();
+
+		story.replay(saved.seed, story.choiceLog);
+
+		expect(story.choiceLog).toEqual([0, 0]);
+		expect(story.saveState()).toBe(resumed);
+	});
+
+	it('empties the log and reads the seed from the state when loadState() gets no log', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+		story.choose(0);
+		const snapshot = story.saveState();
+		const seed = story.seed as number;
+
+		// A different seed on purpose, so the assertion cannot pass by a chance match
+		story.replay((seed + 1) % 100, []);
+		story.continue();
+		story.choose(1);
+		story.loadState(snapshot);
+
+		expect(story.choiceLog).toEqual([]);
+		expect(story.seed).toBe(seed);
+	});
 });
 
 describe('story.replay()', () => {
@@ -340,5 +378,51 @@ describe('audio tags', () => {
 		await loadInk('Rain starts. #play: rain\n-> END\n');
 		expect(() => story.continue()).not.toThrow();
 		expect(story.audio).toBeNull();
+	});
+});
+
+describe('story.stepBack()', () => {
+	const BRANCHING = 'Start.\n* [left]\n\tLeft.\n\t* * [down]\n\t\tDown.\n\t\t-> END\n\t* * [up]\n\t\tUp.\n\t\t-> END\n* [right]\n\tRight.\n\t-> END\n';
+
+	it('rewinds to the passage before the last choice, with its choices on offer again', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+		story.choose(0);
+		const before = { passage: story.continue(), state: story.saveState() };
+		story.choose(0);
+		story.continue();
+
+		expect(story.stepBack()).toBe(true);
+
+		expect(story.choiceLog).toEqual([0]);
+		expect(story.continue()).toEqual(before.passage);
+		expect(story.saveState()).toBe(before.state);
+	});
+
+	it('steps back to the opening passage one choice at a time, then has nothing to take back', async () => {
+		await loadInk(BRANCHING);
+		const opening = story.continue();
+		story.choose(0);
+		story.continue();
+		story.choose(1);
+		story.continue();
+
+		expect(story.stepBack()).toBe(true);
+		expect(story.stepBack()).toBe(true);
+		expect(story.choiceLog).toEqual([]);
+		expect(story.continue()).toEqual(opening);
+
+		expect(story.stepBack()).toBe(false);
+		expect(story.choiceLog).toEqual([]);
+	});
+
+	it('returns false before any choice and leaves the story where it was', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+		const state = story.saveState();
+
+		expect(story.stepBack()).toBe(false);
+
+		expect(story.saveState()).toBe(state);
 	});
 });
