@@ -381,6 +381,24 @@ export const story = {
 	},
 
 	/**
+	 * Rewind to the passage before the last choice by replaying the run
+	 * without it: the same replay as {@link story.replay}, with the same side
+	 * effects, so the caller resets state held outside Ink first. The next
+	 * {@link story.continue} returns the passage the player was on when they
+	 * made the choice, with its choices on offer again.
+	 *
+	 * @returns false, leaving the story untouched, when there is no logged
+	 *   choice to take back: the run is at its opening passage, or its
+	 *   choices were made outside the log (`ChoosePathString`, the raw `ink`).
+	 */
+	stepBack(): boolean {
+		if (!state.inkStory) throw new Error('Story not loaded');
+		if (state.choiceLog.length === 0 || state.seed === null) return false;
+		story.replay(state.seed, state.choiceLog.slice(0, -1));
+		return true;
+	},
+
+	/**
 	 * Attach the player that `#play:`, `#stop`, `#pause:`, `#resume:` and
 	 * `#volume:` tags drive, or detach it with null. Tags seen while no
 	 * player is attached are dropped, not queued. Nothing here resets the

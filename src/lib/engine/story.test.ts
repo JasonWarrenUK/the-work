@@ -380,3 +380,49 @@ describe('audio tags', () => {
 		expect(story.audio).toBeNull();
 	});
 });
+
+describe('story.stepBack()', () => {
+	const BRANCHING = 'Start.\n* [left]\n\tLeft.\n\t* * [down]\n\t\tDown.\n\t\t-> END\n\t* * [up]\n\t\tUp.\n\t\t-> END\n* [right]\n\tRight.\n\t-> END\n';
+
+	it('rewinds to the passage before the last choice, with its choices on offer again', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+		story.choose(0);
+		const before = { passage: story.continue(), state: story.saveState() };
+		story.choose(0);
+		story.continue();
+
+		expect(story.stepBack()).toBe(true);
+
+		expect(story.choiceLog).toEqual([0]);
+		expect(story.continue()).toEqual(before.passage);
+		expect(story.saveState()).toBe(before.state);
+	});
+
+	it('steps back to the opening passage one choice at a time, then has nothing to take back', async () => {
+		await loadInk(BRANCHING);
+		const opening = story.continue();
+		story.choose(0);
+		story.continue();
+		story.choose(1);
+		story.continue();
+
+		expect(story.stepBack()).toBe(true);
+		expect(story.stepBack()).toBe(true);
+		expect(story.choiceLog).toEqual([]);
+		expect(story.continue()).toEqual(opening);
+
+		expect(story.stepBack()).toBe(false);
+		expect(story.choiceLog).toEqual([]);
+	});
+
+	it('returns false before any choice and leaves the story where it was', async () => {
+		await loadInk(BRANCHING);
+		story.continue();
+		const state = story.saveState();
+
+		expect(story.stepBack()).toBe(false);
+
+		expect(story.saveState()).toBe(state);
+	});
+});
